@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DrugFreePortal.Models
 {
-    public enum AccountType { Admin = 0, Dean = 1, Student = 2, MedicalTech = 3 }
+    public enum AccountType { Admin = 0, Dean = 1, Student = 2, Evaluator = 3 }
 
     public enum SubscriptionStatus { Active = 1, Suspended = 2, Canceled = 3 }
 
