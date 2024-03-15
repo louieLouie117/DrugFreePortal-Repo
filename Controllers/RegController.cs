@@ -4,11 +4,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DrugFreePortal.Models
 {
-    public class SignRegController : Controller
+    public class RegController : Controller
     {
 
         private MyContext _context;
-        public SignRegController(MyContext context)
+        public RegController(MyContext context)
         {
             _context = context;
         }
