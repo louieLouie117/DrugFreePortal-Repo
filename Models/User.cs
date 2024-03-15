@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DrugFreePortal.Models
 {
-    public enum AccountType { Admin = 0, Dean = 1, Student = 2, MedicalTech = 3 }
+    public enum AccountType { Admin = 0, Dean = 1, Student = 2, Evaluator = 3 }
 
     public enum SubscriptionStatus { Active = 1, Suspended = 2, Canceled = 3 }
 
@@ -45,19 +45,6 @@ namespace DrugFreePortal.Models
         [MinLength(8, ErrorMessage = "Password must be 8 characters or longer!")]
         public required string Password { get; set; }
 
-        // [Display(Name = "Building Number")]
-        // public string StreetNumber { get; set; }
-
-        // [Display(Name = "Street Name")]
-        // public string StreetName { get; set; }
-
-        // public string City { get; set; }
-
-        // public string State { get; set; }
-
-        // public int Zipcode { get; set; }
-
-        // public string County { get; set; }
 
 
         // [Display(Name = "Profile Picture")]

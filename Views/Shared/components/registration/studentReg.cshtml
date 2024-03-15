@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+
+<script>
+
+    const RegStudentHandler = (e) => {
+        e.preventDefault();
+        console.log("RegStudentHandler called")
+
+        let FirstName = document.getElementById("StudentFirstName").value;
+        let LastName = document.getElementById("StudentLastName").value;
+        let Email = document.getElementById("StudentEmail").value;
+        let Password = document.getElementById("StudentPassword").value;
+
+        let jsonData = {
+            firstName: FirstName,
+            firstName: LastName,
+            email: Email,
+            password: Password,
+        }
+
+        console.log(jsonData)
+
+        $.ajax({
+            url: '@Url.Action("RegisterStudent", "Reg")',
+            type: "POST",
+            data: jsonData,
+
+        });
+
+    }
+
+</script>
+
+<div class="signReg-container">
+
+    <h1>Student Registration Partial</h1>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis hic ducimus saepe facere. Non architecto
+        accusantium minus iste, vitae error nam quod inventore nisi cupiditate ab assumenda nihil quisquam unde.</p>
+
+    <form action="">
+        <input id="StudentFirstName" type="text" placeholder="First Name:">
+        <input id="StudentLastName" type="text" placeholder="Last Name:">
+        <input id="StudentEmail" type="text" placeholder="Email:">
+        <input id="StudentPassword" type="text" placeholder="Password:">
+        <button onclick="RegStudentHandler(event)">Register</button>
+    </form>
+</div>
+
+</html>
