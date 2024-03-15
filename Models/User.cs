@@ -45,19 +45,6 @@ namespace DrugFreePortal.Models
         [MinLength(8, ErrorMessage = "Password must be 8 characters or longer!")]
         public required string Password { get; set; }
 
-        // [Display(Name = "Building Number")]
-        // public string StreetNumber { get; set; }
-
-        // [Display(Name = "Street Name")]
-        // public string StreetName { get; set; }
-
-        // public string City { get; set; }
-
-        // public string State { get; set; }
-
-        // public int Zipcode { get; set; }
-
-        // public string County { get; set; }
 
 
         // [Display(Name = "Profile Picture")]
