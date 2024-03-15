@@ -1,4 +1,21 @@
+body{
+    background-color: #f0f0f0;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    row-gap: 50px;
+}
+
+
+
 h1{
     font: 3em sans-serif;
     color: black;
+}
+
+
+.dashboard-container{
+    background-color: white;
+    padding: 20px;
 }

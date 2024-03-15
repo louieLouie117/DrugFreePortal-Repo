@@ -18,5 +18,12 @@ namespace DrugFreePortal.Models
         {
             return View("index");
         }
+
+
+        [HttpGet("/dashboard")] // This is the route for the index page
+        public IActionResult dashboard()
+        {
+            return View("dashboard");
+        }
     }
 }
