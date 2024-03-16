@@ -31,6 +31,11 @@ namespace DrugFreePortal.Models
             // account type student
             dataFromUser.AccountType = AccountType.Student;
 
+            // hash password
+            PasswordHasher<User> Hasher = new PasswordHasher<User>();
+            dataFromUser.Password = Hasher.HashPassword(dataFromUser, dataFromUser.Password);
+
+
             // save to database
             if (_context.Users != null)
             {
