@@ -54,6 +54,7 @@ namespace DrugFreePortal.Models
             System.Console.WriteLine($"First Name: {dataFromUser.FirstName}");
             System.Console.WriteLine($"Last Name: {dataFromUser.LastName}");
             System.Console.WriteLine($"email: {dataFromUser.Email}");
+            System.Console.WriteLine($"password: {dataFromUser.Password}");
 
             // check if user already exists
             User userExists = _context.Users.FirstOrDefault(u => u.Email == dataFromUser.Email);
@@ -76,8 +77,11 @@ namespace DrugFreePortal.Models
                 _context.SaveChanges();
             }
 
+            // add user id to session
+            HttpContext.Session.SetInt32("UserId", dataFromUser.UserId);
 
-            return Json(new { Status = "Success" });
+
+            return Json(new { Status = "Registered" });
 
 
 
