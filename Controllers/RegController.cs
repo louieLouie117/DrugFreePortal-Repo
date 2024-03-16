@@ -51,10 +51,31 @@ namespace DrugFreePortal.Models
             System.Console.WriteLine("Reached backend of register student");
             System.Console.WriteLine($"Reached backend of student registration");
             System.Console.WriteLine($"Account type: {AccountType.Student}");
+            System.Console.WriteLine($"school: {dataFromUser.School}");
+            System.Console.WriteLine($"student id: {dataFromUser.StudentId}");
+
             System.Console.WriteLine($"First Name: {dataFromUser.FirstName}");
             System.Console.WriteLine($"Last Name: {dataFromUser.LastName}");
             System.Console.WriteLine($"email: {dataFromUser.Email}");
             System.Console.WriteLine($"password: {dataFromUser.Password}");
+            System.Console.WriteLine($"phone number: {dataFromUser.PhoneNumber}");
+
+            // stripe customer id none
+            dataFromUser.StripeCustomerId = "none";
+            System.Console.WriteLine($"stripe customer id: {dataFromUser.StripeCustomerId}");
+            System.Console.WriteLine($"subscription status: {dataFromUser.SubscriptionStatus}");
+
+            // set terms to true
+            dataFromUser.AcceptedTerms = true;
+
+            System.Console.WriteLine($"accepted terms: {dataFromUser.AcceptedTerms}");
+
+            // set release version to R1.0
+            dataFromUser.ReleaseVersion = "R1.0";
+            System.Console.WriteLine($"release version: {dataFromUser.ReleaseVersion}");
+
+
+
 
             // check if user already exists
             User? userExists = _context.Users?.FirstOrDefault(u => u.Email == dataFromUser.Email);
