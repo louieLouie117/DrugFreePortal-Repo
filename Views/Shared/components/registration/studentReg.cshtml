@@ -15,16 +15,16 @@
         e.preventDefault();
         console.log("RegStudentHandler called")
 
-        let FirstName = document.getElementById("StudentFirstName").value;
-        let LastName = document.getElementById("StudentLastName").value;
-        let Email = document.getElementById("StudentEmail").value;
-        let Password = document.getElementById("StudentPassword").value;
+        let StudentFirstName = document.getElementById("StudentFirstName").value;
+        let StudentLastName = document.getElementById("StudentLastName").value;
+        let StudentEmail = document.getElementById("StudentEmail").value;
+        let StudentPassword = document.getElementById("StudentPassword").value;
 
         let jsonData = {
-            firstName: FirstName,
-            lastName: LastName,
-            email: Email,
-            password: Password,
+            firstName: StudentFirstName,
+            lastName: StudentLastName,
+            email: StudentEmail,
+            password: StudentPassword,
         }
 
         console.log(jsonData)
@@ -33,9 +33,15 @@
             url: '@Url.Action("RegisterStudent", "Reg")',
             type: "POST",
             data: jsonData,
+            success: studentRegSuccess,
 
         });
 
+    }
+
+    const studentRegSuccess = (data) => {
+        console.log("studentRegSuccess called")
+        console.log(data)
     }
 
 </script>
