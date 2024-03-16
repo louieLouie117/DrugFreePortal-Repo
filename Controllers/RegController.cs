@@ -15,8 +15,8 @@ namespace DrugFreePortal.Models
         }
 
         // register a new student   
-        [HttpPost("RegisterStudent")]
-        public IActionResult RegisterStudent(User dataFromUser)
+        [HttpPost("RegisterStudentMethod")]
+        public IActionResult RegisterStudentMethod(User dataFromUser)
         {
 
             // check if any fields are empty with a list
@@ -57,7 +57,7 @@ namespace DrugFreePortal.Models
             System.Console.WriteLine($"password: {dataFromUser.Password}");
 
             // check if user already exists
-            User userExists = _context.Users.FirstOrDefault(u => u.Email == dataFromUser.Email);
+            User? userExists = _context.Users?.FirstOrDefault(u => u.Email == dataFromUser.Email);
             if (userExists != null)
             {
                 return Json(new { Status = "User already exists" });

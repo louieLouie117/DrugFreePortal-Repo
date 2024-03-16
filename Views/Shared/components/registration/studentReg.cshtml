@@ -30,7 +30,7 @@
         console.log(jsonData)
 
         $.ajax({
-            url: '@Url.Action("RegisterStudent", "Reg")',
+            url: '@Url.Action("RegisterStudentMethod", "Reg")',
             type: "POST",
             data: jsonData,
             success: studentRegSuccess,
@@ -63,6 +63,7 @@
         <button onclick="RegStudentHandler(event)">Register</button>
 
     </form>
+
 
 </div>
 
