@@ -1,0 +1,59 @@
+<head>
+    <script>
+        @* arrow function with get ajax  *@
+            $(document).ready(() => {
+                $.get("/GetUsers", (data) => {
+                    console.log("data from db", data);
+                    RenderAllUsers(data);
+                });
+            });
+
+
+
+
+
+        @* arrow function with jquery to render all user to the id usersList *@
+            const RenderAllUsers = (users) => {
+            users.forEach(user => {
+
+        @* generate if stament if if user.accountType = 0 chagne to Admin user.accountType = 1 change to Dean if user.accountType = 2 cahgne to student, if user.accountType = 3 change to Evaluator *@
+            if (user.accountType == 0) {
+                    user.accountType = "Admin";
+                } else if (user.accountType == 1) {
+                    user.accountType = "Dean";
+                } else if (user.accountType == 2) {
+                    user.accountType = "Student";
+                } else if (user.accountType == 3) {
+                    user.accountType = "Evaluator";
+                }
+
+
+                console.log("users here", user);
+                $('#usersList').append(`<tr>
+                    <td>${user.userId}</td>
+                    <td>${user.accountType}</td>
+                    <td>${user.school}</td>
+                    <td>${user.studentId}</td>
+                    <td>${user.firstName}</td>
+                    <td>${user.lastName}</td>
+                    <td>${user.email}</td>
+                    <td>${user.password}</td>
+                    </tr>`);
+            });
+        }
+
+    </script>
+</head>
+
+
+<body>
+
+
+    <div>
+        <h3>All Users</h3>
+
+    </div>
+
+    <table id="usersList"></table>
+
+</body>

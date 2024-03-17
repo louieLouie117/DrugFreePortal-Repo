@@ -25,5 +25,24 @@ namespace DrugFreePortal.Models
         {
             return View("dashboard");
         }
+
+        [HttpGet("GetUsers")]
+        public IActionResult GetUsers()
+        {
+            System.Console.WriteLine("Reached backend of get users");
+
+            // List<User> AllUsers = _context.Users.ToList();
+
+
+            // lambda expression to get all users
+            // List<User> AllUsers = _context.Users.Select(u => u).ToList();
+
+            // lambda expression to get all users with null or empty check net8.0 new feature
+            List<User> AllUsers = _context.Users?.Select(u => u).ToList() ?? new List<User>();
+
+
+
+            return Json(AllUsers);
+        }
     }
 }
