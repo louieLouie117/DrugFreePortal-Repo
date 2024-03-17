@@ -1,0 +1,43 @@
+<head>
+    <script>
+        @* arrow function with get ajax  *@
+            $(document).ready(() => {
+                $.get("/GetUsers", (data) => {
+                    console.log("data from db", data);
+                    RenderAllUsers(data);
+                });
+            });
+
+        @* arrow function with jquery to render all user to the id usersList *@
+            const RenderAllUsers = (users) => {
+            users.forEach(user => {
+                console.log("users here", user);
+                $('#usersList').append(`<tr>
+                    <td>${user.userId}</td>
+                    <td>${user.school}</td>
+                    <td>${user.studentId}</td>
+                    <td>${user.firstName}</td>
+                    <td>${user.lastName}</td>
+                    <td>${user.email}</td>
+                    </tr>`);
+            });
+        }
+
+    </script>
+</head>
+
+
+<body>
+
+
+    <div>
+        <h3>Users Partial</h3>
+        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Veniam deleniti doloribus ullam sunt consequuntur
+            aliquam repellat dolor distinctio! Aliquam asperiores dignissimos blanditiis amet magni autem aperiam quasi
+            ut
+            incidunt libero!</p>
+    </div>
+
+    <table id="usersList"></table>
+
+</body>

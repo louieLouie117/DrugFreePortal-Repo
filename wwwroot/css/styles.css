@@ -30,3 +30,19 @@ form{
     row-gap: 20px;
     max-width: 25em;
 }
+
+table{
+    width: 90%;
+    border-collapse: collapse;
+}
+/* style table row with two diffrent grays */
+tr:nth-child(odd){
+    background-color: #f0f0f0;
+}
+
+/* style table columns with border line left grays */
+th, td{
+    border-left: 1px solid #f0f0f0;
+    padding: 10px;
+}
+
