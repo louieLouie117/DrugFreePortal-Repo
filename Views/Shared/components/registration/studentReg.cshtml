@@ -51,6 +51,7 @@
 
     const studentRegSuccess = (data) => {
         console.log("studentRegSuccess called")
+        console.log("data from backend", data)
         console.log(data.status)
         if (data.status === "Registered") {
             window.location.href = '@Url.Action("Dashboard", "Home")';
