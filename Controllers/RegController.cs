@@ -21,15 +21,23 @@ namespace DrugFreePortal.Models
 
             // check if any fields are empty with a list
             List<string> emptyFields = new List<string>();
+            if (string.IsNullOrEmpty(dataFromUser.School))
+            {
+                emptyFields.Add("School");
+            }
+            if (string.IsNullOrEmpty(dataFromUser.StudentId))
+            {
+                emptyFields.Add("StudentId");
+            }
 
             if (string.IsNullOrEmpty(dataFromUser.FirstName))
             {
-                emptyFields.Add("First name");
+                emptyFields.Add("FirstName");
             }
 
             if (string.IsNullOrEmpty(dataFromUser.LastName))
             {
-                emptyFields.Add("Last name");
+                emptyFields.Add("LastName");
             }
 
             if (string.IsNullOrEmpty(dataFromUser.Email))
@@ -40,6 +48,11 @@ namespace DrugFreePortal.Models
             if (string.IsNullOrEmpty(dataFromUser.Password))
             {
                 emptyFields.Add("Password");
+            }
+
+            if (string.IsNullOrEmpty(dataFromUser.PhoneNumber))
+            {
+                emptyFields.Add("PhoneNumber");
             }
 
             if (emptyFields.Any())

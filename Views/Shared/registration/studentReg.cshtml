@@ -52,7 +52,50 @@
     const studentRegSuccess = (data) => {
         console.log("studentRegSuccess called")
         console.log("data from backend", data)
+
         console.log(data.status)
+        console.log("empty files", data.fields)
+
+    @* check to see if files in arry data.files send alter can not be empty *@
+        if (data.fields.length > 0) {
+            console.log("data.fields", data.fields)
+            data.fields.forEach((field) => {
+                if (field === "School") {
+                    document.getElementById("StudentSchoolLable").style.color = "red";
+                    document.getElementById("StudentSchoolLable").innerText = "can not be empty";
+                }
+                if (field === "StudentId") {
+                    document.getElementById("StudentIdLable").style.color = "red";
+                    document.getElementById("StudentIdLable").innerText = "can not be empty";
+                }
+                if (field === "FirstName") {
+                    document.getElementById("StudentFirstNameLabel").style.color = "red";
+                    document.getElementById("StudentFirstNameLabel").innerText = "can not be empty";
+                }
+                if (field === "LastName") {
+                    document.getElementById("StudentLastNameLabel").style.color = "red";
+                    document.getElementById("StudentLastNameLabel").innerText = "can not be empty";
+                }
+                if (field === "PhoneNumber") {
+                    document.getElementById("StudentPhoneNumber").style.color = "red";
+                    document.getElementById("StudentPhoneNumber").innerText = "can not be empty";
+                }
+                if (field === "Email") {
+                    document.getElementById("StudentEmailLabel").style.color = "red";
+                    document.getElementById("StudentEmailLabel").innerText = "can not be empty";
+                }
+                if (field === "Password") {
+                    document.getElementById("StudentPasswordLabel").style.color = "red";
+                    document.getElementById("StudentPasswordLabel").innerText = "can not be empty";
+                }
+
+
+
+
+
+            })
+        }
+
         if (data.status === "Registered") {
             window.location.href = '@Url.Action("Dashboard", "Home")';
         }
@@ -67,13 +110,27 @@
         accusantium minus iste, vitae error nam quod inventore nisi cupiditate ab assumenda nihil quisquam unde.</p>
 
     <form action="">
+        @* lable for student school id studentSchoolLable *@
+        <label id="StudentSchoolLable"></label>
         <input id="StudentSchool" type="text" placeholder="School:">
+
+
+        <label id="StudentIdLable"></label>
         <input id="StudentId" type="text" placeholder="Student Id:">
+
+        <label id="StudentFirstNameLabel"></label>
         <input id="StudentFirstName" type="text" placeholder="First Name:">
+
+        <label id="StudentLastNameLabel"></label>
         <input id="StudentLastName" type="text" placeholder="Last Name:">
+
+        <label id="StudentPhoneNumber"></label>
         <input id="StudentPhoneNumber" type="text" placeholder="Phone Number:">
 
+        <label id="StudentEmailLabel"></label>
         <input id="StudentEmail" type="text" placeholder="Email:">
+
+        <label id="StudentPasswordLabel"></label>
         <input id="StudentPassword" type="text" placeholder="Password:">
         <div>
             <input id="StudentAccpetTerms" type="checkbox" name="Accept Terms">
