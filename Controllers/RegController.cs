@@ -44,7 +44,8 @@ namespace DrugFreePortal.Models
 
             if (emptyFields.Any())
             {
-                return Json(new { Status = $"{string.Join(", ", emptyFields)} cannot be empty" });
+                return Json(new { Status = "cannot be empty", Fields = emptyFields });
+
             }
 
             // return json reach backend message
@@ -115,6 +116,33 @@ namespace DrugFreePortal.Models
         public IActionResult RegisterEvaluatorMethod(User dataFromUser)
         {
 
+            // check if any fields are empty with a list
+            List<string> emptyFields = new List<string>();
+
+            if (string.IsNullOrEmpty(dataFromUser.FirstName))
+            {
+                emptyFields.Add("First name");
+            }
+
+            if (string.IsNullOrEmpty(dataFromUser.LastName))
+            {
+                emptyFields.Add("Last name");
+            }
+
+            if (string.IsNullOrEmpty(dataFromUser.Email))
+            {
+                emptyFields.Add("Email");
+            }
+
+            if (string.IsNullOrEmpty(dataFromUser.Password))
+            {
+                emptyFields.Add("Password");
+            }
+
+            if (emptyFields.Any())
+            {
+                return Json(new { Status = "cannot be empty", Fields = emptyFields });
+            }
             // check if user already exists
             User? userExists = _context.Users?.FirstOrDefault(u => u.Email == dataFromUser.Email);
             if (userExists != null)
