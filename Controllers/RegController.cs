@@ -115,7 +115,55 @@ namespace DrugFreePortal.Models
         public IActionResult RegisterEvaluatorMethod(User dataFromUser)
         {
 
+            // check if user already exists
+            User? userExists = _context.Users?.FirstOrDefault(u => u.Email == dataFromUser.Email);
+            if (userExists != null)
+            {
+                return Json(new { Status = "User already exists" });
+            }
+
+            // account type student
+            dataFromUser.AccountType = AccountType.Evaluator;
+            dataFromUser.AcceptedTerms = true;
+            dataFromUser.ReleaseVersion = "R1.0";
+
             System.Console.WriteLine("Reached backend of register evaluator");
+
+            System.Console.WriteLine($"Account type: {dataFromUser.AccountType}");
+            System.Console.WriteLine($"First Name: {dataFromUser.FirstName}");
+            System.Console.WriteLine($"Last Name: {dataFromUser.LastName}");
+            System.Console.WriteLine($"email: {dataFromUser.Email}");
+            System.Console.WriteLine($"password: {dataFromUser.Password}");
+
+
+            System.Console.WriteLine($"school: {dataFromUser.School}");
+            System.Console.WriteLine($"student id: {dataFromUser.StudentId}");
+            System.Console.WriteLine($"phone number: {dataFromUser.PhoneNumber}");
+
+            // Not needed for evaluator
+            dataFromUser.StripeCustomerId = "Not needed for evaluator";
+            dataFromUser.SubscriptionStatus = SubscriptionStatus.Active;
+            dataFromUser.School = "Not needed for evaluator";
+            dataFromUser.StudentId = "Not needed for evaluator";
+            dataFromUser.CheckedIn = false;
+            dataFromUser.PhoneNumber = "Not needed for evaluator";
+
+
+
+            // hash password
+            PasswordHasher<User> Hasher = new PasswordHasher<User>();
+            dataFromUser.Password = Hasher.HashPassword(dataFromUser, dataFromUser.Password);
+
+            // save to database
+            if (_context.Users != null)
+            {
+                _context.Users.Add(dataFromUser);
+                _context.SaveChanges();
+            }
+
+            HttpContext.Session.SetInt32("UserId", dataFromUser.UserId);
+
+
 
             return Json(new { Status = "Evaluator Registered" });
         }
