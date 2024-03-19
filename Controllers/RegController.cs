@@ -110,6 +110,16 @@ namespace DrugFreePortal.Models
 
         }
 
+
+        [HttpPost("RegisterEvaluatorMethod")]
+        public IActionResult RegisterEvaluatorMethod(User dataFromUser)
+        {
+
+            System.Console.WriteLine("Reached backend of register evaluator");
+
+            return Json(new { Status = "Evaluator Registered" });
+        }
+
         [HttpPost("Login")]
         public IActionResult Login(LoginUser fromData)
         {
