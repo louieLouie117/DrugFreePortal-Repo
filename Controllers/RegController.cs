@@ -116,7 +116,7 @@ namespace DrugFreePortal.Models
             HttpContext.Session.SetInt32("UserId", dataFromUser.UserId);
 
 
-            return Json(new { Status = "Registered" });
+            return Json(new { Status = "Registered", Fields = emptyFields });
 
 
 
