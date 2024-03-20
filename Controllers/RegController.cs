@@ -134,12 +134,12 @@ namespace DrugFreePortal.Models
 
             if (string.IsNullOrEmpty(dataFromUser.FirstName))
             {
-                emptyFields.Add("First name");
+                emptyFields.Add("FirstName");
             }
 
             if (string.IsNullOrEmpty(dataFromUser.LastName))
             {
-                emptyFields.Add("Last name");
+                emptyFields.Add("LastName");
             }
 
             if (string.IsNullOrEmpty(dataFromUser.Email))
@@ -206,7 +206,7 @@ namespace DrugFreePortal.Models
 
 
 
-            return Json(new { Status = "Evaluator Registered" });
+            return Json(new { Status = "Evaluator Registered", Fields = emptyFields });
         }
 
         [HttpPost("Login")]

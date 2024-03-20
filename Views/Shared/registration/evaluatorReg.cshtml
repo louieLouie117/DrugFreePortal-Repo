@@ -43,10 +43,54 @@
 
     const evaluatorRegSuccess = (data) => {
         console.log("evaluatorRegSuccess called")
-        console.log("data from backend", data)
-        console.log(data.status)
+        console.log(data)
 
+
+    @* check to see if files in arry data.files send alter can not be empty *@
+        if (data.fields.length > 0) {
+            console.log("data.fields", data.fields)
+            data.fields.forEach((field) => {
+
+
+                if (field === "FirstName") {
+                    document.getElementById("EvaluatorFirstNameLabel").style.color = "red";
+                    document.getElementById("EvaluatorFirstNameLabel").innerText = "can not be empty";
+                }
+                if (field === "LastName") {
+                    document.getElementById("EvaluatorLastNameLabel").style.color = "red";
+                    document.getElementById("EvaluatorLastNameLabel").innerText = "can not be empty";
+                }
+
+                if (field === "Email") {
+                    document.getElementById("EvaluatorEmailLabel").style.color = "red";
+                    document.getElementById("EvaluatorEmailLabel").innerText = "can not be empty";
+                }
+                if (field === "Password") {
+                    document.getElementById("EvaluatorPasswordLabel").style.color = "red";
+                    document.getElementById("EvaluatorPasswordLabel").innerText = "can not be empty";
+                }
+            })
+        }
+
+        if (data.status === "Registered") {
+            window.location.href = '@Url.Action("Dashboard", "Home")';
+        }
     }
+
+    const EvaluatorInputHandler = (e) => {
+        e.preventDefault();
+        console.log("EvaluatorInputHandler called")
+        let id = e.target.id;
+        console.log("id", id)
+        let LabelId = id + "Label";
+        console.log("LabelId", LabelId)
+        document.getElementById(LabelId).innerText = "";
+    }
+
+    if (data.status === "Evaluator Registered") {
+        window.location.href = '@Url.Action("Dashboard", "Home")';
+    }
+
 
 </script>
 
@@ -57,10 +101,17 @@
         accusantium minus iste, vitae error nam quod inventore nisi cupiditate ab assumenda nihil quisquam unde.</p>
 
     <form action="">
-        <input id="EvaluatorFirstName" type="text" placeholder="First Name:">
-        <input id="EvaluatorLastName" type="text" placeholder="Last Name:">
-        <input id="EvaluatorEmail" type="text" placeholder="Email:">
-        <input id="EvaluatorPassword" type="text" placeholder="Password:">
+        <label id="EvaluatorFirstNameLabel"></label>
+        <input id="EvaluatorFirstName" type="text" placeholder="First Name:" onClick="EvaluatorInputHandler(event)">
+
+        <label id="EvaluatorLastNameLabel"></label>
+        <input id="EvaluatorLastName" type="text" placeholder="Last Name:" onClick="EvaluatorInputHandler(event)">
+
+        <label id="EvaluatorEmailLabel"></label>
+        <input id="EvaluatorEmail" type="text" placeholder="Email:" onClick="EvaluatorInputHandler(event)">
+
+        <label id="EvaluatorPasswordLabel"></label>
+        <input id="EvaluatorPassword" type="text" placeholder="Password:" onClick="EvaluatorInputHandler(event)">
 
 
         <button onclick="RegEvaluatorHandler(event)">Register</button>
