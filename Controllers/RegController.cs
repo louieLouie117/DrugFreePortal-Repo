@@ -209,6 +209,9 @@ namespace DrugFreePortal.Models
             return Json(new { Status = "Evaluator Registered", Fields = emptyFields });
         }
 
+
+
+
         [HttpPost("RegisterDeanMethod")]
         public IActionResult RegisterDeanMethod(User dataFromUser)
         {
@@ -269,6 +272,91 @@ namespace DrugFreePortal.Models
             dataFromUser.StripeCustomerId = "Not needed for Dean";
             dataFromUser.SubscriptionStatus = SubscriptionStatus.Active;
             dataFromUser.School = "school here";
+            dataFromUser.StudentId = "Not needed for Dean";
+            dataFromUser.CheckedIn = false;
+            dataFromUser.PhoneNumber = "Not needed for Dean";
+
+
+
+            // hash password
+            PasswordHasher<User> Hasher = new PasswordHasher<User>();
+            dataFromUser.Password = Hasher.HashPassword(dataFromUser, dataFromUser.Password);
+
+            // save to database
+            if (_context.Users != null)
+            {
+                _context.Users.Add(dataFromUser);
+                _context.SaveChanges();
+            }
+
+            HttpContext.Session.SetInt32("UserId", dataFromUser.UserId);
+
+
+
+            return Json(new { Status = "Dean Registered", Fields = emptyFields });
+        }
+
+
+        [HttpPost("RegisterAdminMethod")]
+        public IActionResult RegisterAdminMethod(User dataFromUser)
+        {
+
+            // check if any fields are empty with a list
+            List<string> emptyFields = new List<string>();
+
+            if (string.IsNullOrEmpty(dataFromUser.FirstName))
+            {
+                emptyFields.Add("FirstName");
+            }
+
+            if (string.IsNullOrEmpty(dataFromUser.LastName))
+            {
+                emptyFields.Add("LastName");
+            }
+
+            if (string.IsNullOrEmpty(dataFromUser.Email))
+            {
+                emptyFields.Add("Email");
+            }
+
+            if (string.IsNullOrEmpty(dataFromUser.Password))
+            {
+                emptyFields.Add("Password");
+            }
+
+            if (emptyFields.Any())
+            {
+                return Json(new { Status = "cannot be empty", Fields = emptyFields });
+            }
+            // check if user already exists
+            User? userExists = _context.Users?.FirstOrDefault(u => u.Email == dataFromUser.Email);
+            if (userExists != null)
+            {
+                return Json(new { Status = "User already exists" });
+            }
+
+            // account type student
+            dataFromUser.AccountType = AccountType.Admin;
+            dataFromUser.AcceptedTerms = true;
+            dataFromUser.ReleaseVersion = "R1.0";
+
+            System.Console.WriteLine("Reached backend of register Dean");
+
+            System.Console.WriteLine($"Account type: {dataFromUser.AccountType}");
+            System.Console.WriteLine($"First Name: {dataFromUser.FirstName}");
+            System.Console.WriteLine($"Last Name: {dataFromUser.LastName}");
+            System.Console.WriteLine($"email: {dataFromUser.Email}");
+            System.Console.WriteLine($"password: {dataFromUser.Password}");
+
+
+            System.Console.WriteLine($"school: {dataFromUser.School}");
+            System.Console.WriteLine($"student id: {dataFromUser.StudentId}");
+            System.Console.WriteLine($"phone number: {dataFromUser.PhoneNumber}");
+
+            // Not needed for Dean
+            dataFromUser.StripeCustomerId = "Not needed for Dean";
+            dataFromUser.SubscriptionStatus = SubscriptionStatus.Active;
+            dataFromUser.School = "Assign School here";
             dataFromUser.StudentId = "Not needed for Dean";
             dataFromUser.CheckedIn = false;
             dataFromUser.PhoneNumber = "Not needed for Dean";

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration</title>
+
+</head>
+
+<script>
+
+    const RegAdminHandler = (e) => {
+        e.preventDefault();
+        console.log("RegAdminHandler called")
+
+
+        let AdminFirstName = document.getElementById("AdminFirstName").value;
+        let AdminLastName = document.getElementById("AdminLastName").value;
+
+        let AdminEmail = document.getElementById("AdminEmail").value;
+        let AdminPassword = document.getElementById("AdminPassword").value;
+
+
+        let jsonData = {
+            firstName: AdminFirstName,
+            lastName: AdminLastName,
+            email: AdminEmail,
+            password: AdminPassword,
+        }
+
+        console.log(jsonData)
+
+        $.ajax({
+            url: '@Url.Action("RegisterAdminMethod", "Reg")',
+            type: "POST",
+            data: jsonData,
+            success: adminRegSuccess,
+
+        });
+
+    }
+
+    const adminRegSuccess = (data) => {
+        console.log("adminRegSuccess called")
+        console.log(data)
+
+
+    @* check to see if files in arry data.files send alter can not be empty *@
+        if (data.fields.length > 0) {
+            console.log("data.fields", data.fields)
+            data.fields.forEach((field) => {
+
+
+                if (field === "FirstName") {
+                    document.getElementById("AdminFirstNameLabel").style.color = "red";
+                    document.getElementById("AdminFirstNameLabel").innerText = "can not be empty";
+                }
+                if (field === "LastName") {
+                    document.getElementById("AdminLastNameLabel").style.color = "red";
+                    document.getElementById("AdminLastNameLabel").innerText = "can not be empty";
+                }
+
+                if (field === "Email") {
+                    document.getElementById("AdminEmailLabel").style.color = "red";
+                    document.getElementById("AdminEmailLabel").innerText = "can not be empty";
+                }
+                if (field === "Password") {
+                    document.getElementById("AdminPasswordLabel").style.color = "red";
+                    document.getElementById("AdminPasswordLabel").innerText = "can not be empty";
+                }
+            })
+        }
+
+        if (data.status === "Admin Registered") {
+            console.log("Admin Registered")
+            location.reload();
+        }
+    }
+
+    const AdminInputHandler = (e) => {
+        e.preventDefault();
+        console.log("AdminInputHandler called")
+        let id = e.target.id;
+        console.log("id", id)
+        let LabelId = id + "Label";
+        console.log("LabelId", LabelId)
+        document.getElementById(LabelId).innerText = "";
+    }
+
+
+</script>
+
+<div class="signReg-container">
+
+    <h3>Admin Registration </h3>
+
+
+    <form action="">
+        <label id="AdminFirstNameLabel"></label>
+        <input id="AdminFirstName" type="text" placeholder="First Name:" onClick="AdminInputHandler(event)">
+
+        <label id="AdminLastNameLabel"></label>
+        <input id="AdminLastName" type="text" placeholder="Last Name:" onClick="AdminInputHandler(event)">
+
+        <label id="AdminEmailLabel"></label>
+        <input id="AdminEmail" type="text" placeholder="Email:" onClick="AdminInputHandler(event)">
+
+        <label id="AdminPasswordLabel"></label>
+        <input id="AdminPassword" type="text" placeholder="Password:" onClick="AdminInputHandler(event)">
+
+
+        <button onclick="RegAdminHandler(event)">Register</button>
+
+    </form>
+
+
+</div>
+
+</html>
