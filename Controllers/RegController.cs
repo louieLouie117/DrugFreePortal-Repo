@@ -378,7 +378,7 @@ namespace DrugFreePortal.Models
 
 
 
-            return Json(new { Status = "Dean Registered", Fields = emptyFields });
+            return Json(new { Status = "Admin Registered", Fields = emptyFields });
         }
 
         [HttpPost("Login")]
