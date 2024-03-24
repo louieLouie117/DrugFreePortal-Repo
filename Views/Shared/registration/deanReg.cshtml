@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration</title>
+
+</head>
+
+<script>
+
+    const RegDeanHandler = (e) => {
+        e.preventDefault();
+        console.log("RegDeanHandler called")
+
+        let DeanSchool = document.getElementById("DeanSchool").value;
+
+        let DeanFirstName = document.getElementById("DeanFirstName").value;
+        let DeanLastName = document.getElementById("DeanLastName").value;
+
+        let DeanEmail = document.getElementById("DeanEmail").value;
+        let DeanPassword = document.getElementById("DeanPassword").value;
+
+
+        let jsonData = {
+            school: DeanSchool,
+            firstName: DeanFirstName,
+            lastName: DeanLastName,
+            email: DeanEmail,
+            password: DeanPassword,
+        }
+
+        console.log(jsonData)
+
+        $.ajax({
+            url: '@Url.Action("RegisterDeanMethod", "Reg")',
+            type: "POST",
+            data: jsonData,
+            success: deanRegSuccess,
+
+        });
+
+    }
+
+    const deanRegSuccess = (data) => {
+        console.log("deanRegSuccess called")
+        console.log(data)
+
+
+    @* check to see if files in arry data.files send alter can not be empty *@
+        if (data.fields.length > 0) {
+            console.log("data.fields", data.fields)
+            data.fields.forEach((field) => {
+
+                if (field === "School") {
+                    document.getElementById("DeanSchoolLabel").style.color = "red";
+                    document.getElementById("DeanSchoolLabel").innerText = "can not be empty";
+                }
+
+
+                if (field === "FirstName") {
+                    document.getElementById("DeanFirstNameLabel").style.color = "red";
+                    document.getElementById("DeanFirstNameLabel").innerText = "can not be empty";
+                }
+                if (field === "LastName") {
+                    document.getElementById("DeanLastNameLabel").style.color = "red";
+                    document.getElementById("DeanLastNameLabel").innerText = "can not be empty";
+                }
+
+                if (field === "Email") {
+                    document.getElementById("DeanEmailLabel").style.color = "red";
+                    document.getElementById("DeanEmailLabel").innerText = "can not be empty";
+                }
+                if (field === "Password") {
+                    document.getElementById("DeanPasswordLabel").style.color = "red";
+                    document.getElementById("DeanPasswordLabel").innerText = "can not be empty";
+                }
+            })
+        }
+
+        if (data.status === "Dean Registered") {
+            console.log("Dean Registered")
+            location.reload();
+        }
+    }
+
+    const DeanInputHandler = (e) => {
+        e.preventDefault();
+        console.log("DeanInputHandler called")
+        let id = e.target.id;
+        console.log("id", id)
+        let LabelId = id + "Label";
+        console.log("LabelId", LabelId)
+        document.getElementById(LabelId).innerText = "";
+    }
+
+
+</script>
+
+<div class="signReg-container">
+
+    <h3>Dean Registration </h3>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis hic ducimus saepe facere. Non architecto
+        accusantium minus iste, vitae error nam quod inventore nisi cupiditate ab assumenda nihil quisquam unde.</p>
+
+    <form action="">
+        <label id="DeanSchoolLabel"></label>
+        <input id="DeanSchool" type="text" placeholder="School:" onClick="DeanInputHandler(event)">
+
+        <label id="DeanFirstNameLabel"></label>
+        <input id="DeanFirstName" type="text" placeholder="First Name:" onClick="DeanInputHandler(event)">
+
+        <label id="DeanLastNameLabel"></label>
+        <input id="DeanLastName" type="text" placeholder="Last Name:" onClick="DeanInputHandler(event)">
+
+        <label id="DeanEmailLabel"></label>
+        <input id="DeanEmail" type="text" placeholder="Email:" onClick="DeanInputHandler(event)">
+
+        <label id="DeanPasswordLabel"></label>
+        <input id="DeanPassword" type="password" placeholder="Password:" onClick="DeanInputHandler(event)">
+
+
+        <button onclick="RegDeanHandler(event)">Register</button>
+
+    </form>
+
+
+</div>
+
+</html>

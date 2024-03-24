@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration</title>
+
+</head>
+
+<script>
+
+    const RegStudentHandler = (e) => {
+        e.preventDefault();
+        console.log("RegStudentHandler called")
+
+        let StudentSchool = document.getElementById("StudentSchool").value;
+        let StudentId = document.getElementById("StudentId").value;
+
+        let StudentFirstName = document.getElementById("StudentFirstName").value;
+        let StudentLastName = document.getElementById("StudentLastName").value;
+        let StudentPhoneNumber = document.getElementById("StudentPhoneNumber").value;
+
+        let StudentEmail = document.getElementById("StudentEmail").value;
+        let StudentPassword = document.getElementById("StudentPassword").value;
+        let StudentAccpetTerms = document.getElementById("StudentAccpetTerms").value;
+
+
+        let jsonData = {
+            school: StudentSchool,
+            studentId: StudentId,
+            firstName: StudentFirstName,
+            lastName: StudentLastName,
+            phoneNumber: StudentPhoneNumber,
+            email: StudentEmail,
+            password: StudentPassword,
+            acceptTerms: StudentAccpetTerms
+        }
+
+        console.log(jsonData)
+
+        $.ajax({
+            url: '@Url.Action("RegisterStudentMethod", "Reg")',
+            type: "POST",
+            data: jsonData,
+            success: studentRegSuccess,
+
+        });
+
+    }
+
+    const studentRegSuccess = (data) => {
+        console.log("studentRegSuccess called")
+        console.log("data from backend", data)
+
+        console.log(data.status)
+
+
+    @* check to see if files in arry data.files send alter can not be empty *@
+        if (data.fields.length > 0) {
+            console.log("data.fields", data.fields)
+            data.fields.forEach((field) => {
+                if (field === "School") {
+                    document.getElementById("StudentSchoolLabel").style.color = "red";
+                    document.getElementById("StudentSchoolLabel").innerText = "can not be empty";
+                }
+                if (field === "StudentId") {
+                    document.getElementById("StudentIdLabel").style.color = "red";
+                    document.getElementById("StudentIdLabel").innerText = "can not be empty";
+                }
+                if (field === "FirstName") {
+                    document.getElementById("StudentFirstNameLabel").style.color = "red";
+                    document.getElementById("StudentFirstNameLabel").innerText = "can not be empty";
+                }
+                if (field === "LastName") {
+                    document.getElementById("StudentLastNameLabel").style.color = "red";
+                    document.getElementById("StudentLastNameLabel").innerText = "can not be empty";
+                }
+                if (field === "PhoneNumber") {
+                    document.getElementById("StudentPhoneNumberLabel").style.color = "red";
+                    document.getElementById("StudentPhoneNumberLabel").innerText = "can not be empty";
+                }
+                if (field === "Email") {
+                    document.getElementById("StudentEmailLabel").style.color = "red";
+                    document.getElementById("StudentEmailLabel").innerText = "can not be empty";
+                }
+                if (field === "Password") {
+                    document.getElementById("StudentPasswordLabel").style.color = "red";
+                    document.getElementById("StudentPasswordLabel").innerText = "can not be empty";
+                }
+            })
+        }
+
+        if (data.status === "Registered") {
+            window.location.href = '@Url.Action("Dashboard", "Home")';
+        }
+    }
+
+    const StudentInputHandler = (e) => {
+        e.preventDefault();
+        console.log("StudentInputHandler called")
+        let id = e.target.id;
+        console.log("id", id)
+        let LabelId = id + "Label";
+        console.log("LabelId", LabelId)
+        document.getElementById(LabelId).innerText = "";
+    }
+
+</script>
+
+<div class="signReg-container">
+
+    <h1>Student Registration Partial</h1>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis hic ducimus saepe facere. Non architecto
+        accusantium minus iste, vitae error nam quod inventore nisi cupiditate ab assumenda nihil quisquam unde.</p>
+
+    <form action="">
+        @* lable for student school id studentSchoolLable *@
+        <label id="StudentSchoolLabel"></label>
+        <input onclick="StudentInputHandler(event)" id="StudentSchool" type="text" placeholder="School:">
+
+
+        <label id="StudentIdLabel"></label>
+        <input onclick="StudentInputHandler(event)" id="StudentId" type="text" placeholder="Student Id:">
+
+        <label id="StudentFirstNameLabel"></label>
+        <input onclick="StudentInputHandler(event)" id="StudentFirstName" type="text" placeholder="First Name:">
+
+        <label id="StudentLastNameLabel"></label>
+        <input onclick="StudentInputHandler(event)" id="StudentLastName" type="text" placeholder="Last Name:">
+
+        <label id="StudentPhoneNumberLabel"></label>
+        <input onclick="StudentInputHandler(event)" id="StudentPhoneNumber" type="text" placeholder="Phone Number:">
+
+        <label id="StudentEmailLabel"></label>
+        <input onclick="StudentInputHandler(event)" id="StudentEmail" type="text" placeholder="Email:">
+
+        <label id="StudentPasswordLabel"></label>
+        <input onclick="StudentInputHandler(event)" id="StudentPassword" type="password" placeholder="Password:">
+        <div>
+            <input id="StudentAccpetTerms" type="checkbox" name="Accept Terms">
+            <label>Accpet Terms</label>
+
+        </div>
+
+        <button onclick="RegStudentHandler(event)">Register</button>
+
+    </form>
+
+
+</div>
+
+</html>
