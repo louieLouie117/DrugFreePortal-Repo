@@ -72,8 +72,9 @@
             })
         }
 
-        if (data.status === "Registered") {
-            window.location.href = '@Url.Action("Dashboard", "Home")';
+        if (data.status === "Dean Registered") {
+            console.log("Dean Registered")
+            location.reload();
         }
     }
 
@@ -85,10 +86,6 @@
         let LabelId = id + "Label";
         console.log("LabelId", LabelId)
         document.getElementById(LabelId).innerText = "";
-    }
-
-    if (data.status === "Dean Registered") {
-        window.location.href = '@Url.Action("Dashboard", "Home")';
     }
 
 

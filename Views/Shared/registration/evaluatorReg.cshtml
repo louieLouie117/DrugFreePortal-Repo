@@ -72,8 +72,9 @@
             })
         }
 
-        if (data.status === "Registered") {
-            window.location.href = '@Url.Action("Dashboard", "Home")';
+        if (data.status === "Evaluator Registered") {
+            console.log("Evaluator Registered")
+            location.reload();
         }
     }
 
@@ -85,10 +86,6 @@
         let LabelId = id + "Label";
         console.log("LabelId", LabelId)
         document.getElementById(LabelId).innerText = "";
-    }
-
-    if (data.status === "Evaluator Registered") {
-        window.location.href = '@Url.Action("Dashboard", "Home")';
     }
 
 
