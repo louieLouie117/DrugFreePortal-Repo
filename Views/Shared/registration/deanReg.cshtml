@@ -14,6 +14,7 @@
         e.preventDefault();
         console.log("RegDeanHandler called")
 
+        let DeanSchool = document.getElementById("DeanSchool").value;
 
         let DeanFirstName = document.getElementById("DeanFirstName").value;
         let DeanLastName = document.getElementById("DeanLastName").value;
@@ -23,6 +24,7 @@
 
 
         let jsonData = {
+            school: DeanSchool,
             firstName: DeanFirstName,
             lastName: DeanLastName,
             email: DeanEmail,
@@ -50,6 +52,11 @@
         if (data.fields.length > 0) {
             console.log("data.fields", data.fields)
             data.fields.forEach((field) => {
+
+                if (field === "School") {
+                    document.getElementById("DeanSchoolLabel").style.color = "red";
+                    document.getElementById("DeanSchoolLabel").innerText = "can not be empty";
+                }
 
 
                 if (field === "FirstName") {
@@ -98,6 +105,9 @@
         accusantium minus iste, vitae error nam quod inventore nisi cupiditate ab assumenda nihil quisquam unde.</p>
 
     <form action="">
+        <label id="DeanSchoolLabel"></label>
+        <input id="DeanSchool" type="text" placeholder="School:" onClick="DeanInputHandler(event)">
+
         <label id="DeanFirstNameLabel"></label>
         <input id="DeanFirstName" type="text" placeholder="First Name:" onClick="DeanInputHandler(event)">
 

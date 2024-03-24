@@ -219,6 +219,11 @@ namespace DrugFreePortal.Models
             // check if any fields are empty with a list
             List<string> emptyFields = new List<string>();
 
+            if (string.IsNullOrEmpty(dataFromUser.School))
+            {
+                emptyFields.Add("School");
+            }
+
             if (string.IsNullOrEmpty(dataFromUser.FirstName))
             {
                 emptyFields.Add("FirstName");
@@ -271,7 +276,6 @@ namespace DrugFreePortal.Models
             // Not needed for Dean
             dataFromUser.StripeCustomerId = "Not needed for Dean";
             dataFromUser.SubscriptionStatus = SubscriptionStatus.Active;
-            dataFromUser.School = "school here";
             dataFromUser.StudentId = "Not needed for Dean";
             dataFromUser.CheckedIn = false;
             dataFromUser.PhoneNumber = "Not needed for Dean";
@@ -363,7 +367,7 @@ namespace DrugFreePortal.Models
             // Not needed for Dean
             dataFromUser.StripeCustomerId = "Not needed for Dean";
             dataFromUser.SubscriptionStatus = SubscriptionStatus.Active;
-            dataFromUser.School = "Assign School here";
+            dataFromUser.School = "Admin not assigned school";
             dataFromUser.StudentId = "Not needed for Dean";
             dataFromUser.CheckedIn = false;
             dataFromUser.PhoneNumber = "Not needed for Dean";
