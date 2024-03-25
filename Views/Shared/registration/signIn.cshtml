@@ -6,13 +6,51 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign In</title>
 </head>
+
+<script>
+
+    @* arrow fucntion for  signInHandler*@
+    const signInHandler = (e) => {
+        e.preventDefault();
+        const email = document.getElementById('signInemail').value;
+        const password = document.getElementById('signInPassword').value;
+
+        console.log('form submitted', email, password);
+
+
+        fetch('http://localhost:5043/Login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                email,
+                password
+            })
+        }).then(res => res.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    localStorage.setItem('token', data.token);
+                    window.location.href = 'http://localhost:3000/dashboard';
+                } else {
+                    alert(data.message);
+                }
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    }
+</script>
 <div class="signReg-container">
 
     <h1>Sign In</h1>
     <form action="">
-        <input type="text" name="username" placeholder="Username" required>
-        <input type="password" name="password" placeholder="Password" required>
-        <button type="submit">Sign In</button>
+        <label for=""></label>
+        <input type="text" id="signInemail" placeholder="email" required>
+
+        <label for=""></label>
+        <input type="password" id="signInPassword" placeholder="Password" required>
+        <button id="SingInUser" onclick="signInHandler(event)">Sign In</button>
     </form>
 
 </div>

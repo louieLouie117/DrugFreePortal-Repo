@@ -397,7 +397,7 @@ namespace DrugFreePortal.Models
         {
             System.Console.WriteLine("Reached backend of login");
 
-            return Json(new { Status = false });
+            return Json(new { Status = "success" });
 
 
         }
