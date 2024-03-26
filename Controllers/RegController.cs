@@ -396,11 +396,79 @@ namespace DrugFreePortal.Models
         public IActionResult Login(LoginUser fromData)
         {
             System.Console.WriteLine("Reached backend of login");
+            // writeline user email and password
+            System.Console.WriteLine($"Email: {fromData.Email}");
+            System.Console.WriteLine($"Password: {fromData.Password}");
 
-            return Json(new { Status = false });
+
+
+
+            return Json(new { Status = "Login Successfule" });
 
 
         }
+
+
+        [HttpPost("LoginFetch")]
+        public IActionResult LoginFetch([FromBody] LoginUser loginData)
+        {
+            System.Console.WriteLine("Reached backend of login fetch");
+            System.Console.WriteLine($"EmailFormData: {loginData.Email}");
+            System.Console.WriteLine($"PasswordFormData: {loginData.Password}");
+            // careatea list and check if email is null or empty if null or empty add to list
+            List<string> emptyFields = new List<string>();
+            if (string.IsNullOrEmpty(loginData.Email))
+            {
+                emptyFields.Add("Email");
+            }
+            if (string.IsNullOrEmpty(loginData.Password))
+            {
+                emptyFields.Add("Password");
+            }
+            // if any fields are empty return json cannot be empty
+            if (emptyFields.Any())
+            {
+                return Json(new { Status = "cannot be empty", Fields = emptyFields });
+            }
+
+            // check if user is in database if not return json user not found
+            if (string.IsNullOrEmpty(loginData.Password))
+            {
+                return Json(new { Status = "Password cannot be empty" });
+            }
+
+
+            User? userInDB = _context.Users?.FirstOrDefault(u => u.Email == loginData.Email);
+
+            if (userInDB == null)
+            {
+                Console.WriteLine($"email error");
+
+                ModelState.AddModelError("Email", "Invalid Email/Password");
+                return Json(new { Status = "email error no user found" });
+            }
+
+
+            var hasher = new PasswordHasher<LoginUser>();
+            var passwordResult = userInDB != null ? hasher.VerifyHashedPassword(loginData, userInDB.Password, loginData.Password) : 0;
+            if (passwordResult == 0)
+            {
+                // Still need these for debugging? Console.Writelines should be removed
+                // something else should happer here besides a WriteLine
+                return Json(new { Status = "password error" });
+            }
+
+            System.Console.WriteLine($"----------------userID from DB {userInDB?.UserId}");
+            HttpContext.Session.SetInt32("UserId", userInDB?.UserId ?? 0);
+            // get user id from session
+            int? UserId = HttpContext.Session.GetInt32("UserId");
+            System.Console.WriteLine($"----------------UserId in session Reg:LogInFetch {UserId}");
+
+
+
+            return Ok(new { Status = "Login Fetch Successfule", Fields = emptyFields });
+        }
+
 
 
 
