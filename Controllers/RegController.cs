@@ -414,6 +414,13 @@ namespace DrugFreePortal.Models
         {
             // Your logic here
             // Access loginData.Email and loginData.Password
+            // check if user in database
+            User? userExists = _context.Users?.FirstOrDefault(u => u.Email == loginData.Email);
+            // if is in database return "user in database"
+            if (userExists != null)
+            {
+                return Ok(new { Status = "User in database" });
+            }
             System.Console.WriteLine("Reached backend of login fetch");
             System.Console.WriteLine($"Email: {loginData.Email}");
             System.Console.WriteLine($"Password: {loginData.Password}");

@@ -75,11 +75,24 @@
     const signInHandlerFetch = async (e) => {
         e.preventDefault();
 
-        const url = window.location.href;
-        let development = 'http://localhost:5043';
-        let production = 'https://www.example.com';
-        const workingURL = url.includes('localhost') ? development : production;
+        const runningUrl = window.location.href;
+        console.log('runningUrl', runningUrl);
+        let localDevelopmentUrl = 'http://localhost:5043/';
+        let developemtServerUrl = 'http://13.58.200.202/';
+        let cleintSeverUrl = 'http://3.135.214.156/';
 
+        let workingURL = "";
+
+    @* if runningUrl === localDevelopmentUrl updaate workingURL *@
+        if (runningUrl === localDevelopmentUrl) {
+            workingURL = localDevelopmentUrl + "LoginFetch";
+
+        } else if (runningUrl === developemtServerUrl) {
+            workingURL = developemtServerUrl + "LoginFetch";
+
+        } else if (runningUrl === cleintSeverUrl) {
+            workingURL = cleintSeverUrl + "LoginFetch";
+        }
         console.log('workingURL', workingURL);
 
         // Get the email and password from input fields
@@ -99,7 +112,8 @@
             method: 'POST',
             body: JSON.stringify(jsonData),
             }) *@
-            fetch(`${workingURL}/LoginFetch`, {
+
+            fetch(`${workingURL}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
