@@ -413,8 +413,8 @@ namespace DrugFreePortal.Models
         public IActionResult LoginFetch([FromBody] LoginUser loginData)
         {
             System.Console.WriteLine("Reached backend of login fetch");
-            System.Console.WriteLine($"EmailData: {loginData.Email}");
-            System.Console.WriteLine($"PasswordData: {loginData.Password}");
+            System.Console.WriteLine($"EmailFormData: {loginData.Email}");
+            System.Console.WriteLine($"PasswordFormData: {loginData.Password}");
             // careatea list and check if email is null or empty if null or empty add to list
             List<string> emptyFields = new List<string>();
             if (string.IsNullOrEmpty(loginData.Email))
@@ -440,30 +440,29 @@ namespace DrugFreePortal.Models
 
             User? userInDB = _context.Users?.FirstOrDefault(u => u.Email == loginData.Email);
 
-            // User userInDb = _context.Users.FirstOrDefault(u => u.Email == userSubmission.Email);
-
             if (userInDB == null)
             {
                 Console.WriteLine($"email error");
 
                 ModelState.AddModelError("Email", "Invalid Email/Password");
                 return Json(new { Status = "email error no user found" });
-
-
             }
 
+
             var hasher = new PasswordHasher<LoginUser>();
-            var passwordResult = hasher.VerifyHashedPassword(loginData, userInDB.Password, loginData.Password);
+            var passwordResult = userInDB != null ? hasher.VerifyHashedPassword(loginData, userInDB.Password, loginData.Password) : 0;
             if (passwordResult == 0)
             {
                 // Still need these for debugging? Console.Writelines should be removed
                 // something else should happer here besides a WriteLine
                 return Json(new { Status = "password error" });
-
-
             }
 
-            System.Console.WriteLine("user exists", userInDB.Email);
+            System.Console.WriteLine($"----------------userID from DB {userInDB?.UserId}");
+            HttpContext.Session.SetInt32("UserId", userInDB?.UserId ?? 0);
+            // get user id from session
+            int? UserId = HttpContext.Session.GetInt32("UserId");
+            System.Console.WriteLine($"----------------UserId in session Reg:LogInFetch {UserId}");
 
 
 
