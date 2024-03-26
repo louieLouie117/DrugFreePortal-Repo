@@ -53,7 +53,25 @@ const signInHandlerFetch = async (e) => {
             .then(response => response.json())
             .then(data => {
                 // Handle the response data
-                console.log(data);
+                console.log("results from",data);
+                if (data.fields.length > 0) {
+                    console.log("data.fields", data.fields)
+                    data.fields.forEach((field) => {
+                        if (field === "Email") {
+                            document.getElementById("signInEmailLabel").style.color = "red";
+                            document.getElementById("signInEmailLabel").innerText = "can not be empty";
+                        }
+                        if (field === "Password") {
+                            document.getElementById("signInPasswordLabel").style.color = "red";
+                            document.getElementById("signInPasswordLabel").innerText = "can not be empty";
+                        }
+                    })
+                }
+        
+                if (data.status === "Login Fetch Successfule") {
+                    console.log("Login Fetch Successfule");
+                    window.location.href = "http://localhost:5043/dashboard";
+                }
             })
             .catch(error => {
                 console.error('Error fetching data:', error);

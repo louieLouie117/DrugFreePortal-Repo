@@ -412,20 +412,62 @@ namespace DrugFreePortal.Models
         [HttpPost("LoginFetch")]
         public IActionResult LoginFetch([FromBody] LoginUser loginData)
         {
-            // Your logic here
-            // Access loginData.Email and loginData.Password
-            // check if user in database
-            User? userExists = _context.Users?.FirstOrDefault(u => u.Email == loginData.Email);
-            // if is in database return "user in database"
-            if (userExists != null)
-            {
-                return Ok(new { Status = "User in database" });
-            }
             System.Console.WriteLine("Reached backend of login fetch");
-            System.Console.WriteLine($"Email: {loginData.Email}");
-            System.Console.WriteLine($"Password: {loginData.Password}");
+            System.Console.WriteLine($"EmailData: {loginData.Email}");
+            System.Console.WriteLine($"PasswordData: {loginData.Password}");
+            // careatea list and check if email is null or empty if null or empty add to list
+            List<string> emptyFields = new List<string>();
+            if (string.IsNullOrEmpty(loginData.Email))
+            {
+                emptyFields.Add("Email");
+            }
+            if (string.IsNullOrEmpty(loginData.Password))
+            {
+                emptyFields.Add("Password");
+            }
+            // if any fields are empty return json cannot be empty
+            if (emptyFields.Any())
+            {
+                return Json(new { Status = "cannot be empty", Fields = emptyFields });
+            }
 
-            return Ok(new { Status = "Login Fetch Successfule" });
+            // check if user is in database if not return json user not found
+            if (string.IsNullOrEmpty(loginData.Password))
+            {
+                return Json(new { Status = "Password cannot be empty" });
+            }
+
+
+            User? userExists = _context.Users?.FirstOrDefault(u => u.Email == loginData.Email);
+
+            // User userInDb = _context.Users.FirstOrDefault(u => u.Email == userSubmission.Email);
+
+            if (userExists == null)
+            {
+                Console.WriteLine($"email error");
+
+                ModelState.AddModelError("Email", "Invalid Email/Password");
+                return Json(new { Status = "email error no user found" });
+
+
+            }
+
+            var hasher = new PasswordHasher<LoginUser>();
+            var result = hasher.VerifyHashedPassword(loginData, userExists.Password, loginData.Password);
+            if (result == 0)
+            {
+                // Still need these for debugging? Console.Writelines should be removed
+                // something else should happer here besides a WriteLine
+                return Json(new { Status = "password error" });
+
+
+            }
+
+            System.Console.WriteLine("user exists", userExists.Email);
+
+
+
+            return Ok(new { Status = "Login Fetch Successfule", Fields = emptyFields });
         }
 
 

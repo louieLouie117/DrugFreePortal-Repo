@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign In</title>
-    <script src="~/js/reg.js?version=1.4" async=""></script>
 
 
 </head>
@@ -36,14 +35,14 @@
 
     <h1>Sign In</h1>
     <form action="">
-        <label for=""></label>
+        <label id="signInEmailLabel"></label>
         <input type="text" id="signInemail" placeholder="email" required>
 
-        <label for=""></label>
-        <input type="password" id="signInPassword" placeholder="Password" required>
+        <label id="signInPasswordLabel"></label>
+        <input id="signInPassword" placeholder="Password" type="password" required>
 
-        <button id="SingInUser" onclick="signInHandlerFetch(event)">Sign In Fetch</button>
-        <button id="SingInUser" onclick="signInHandlerAjax(event)">Sign In Ajax</button>
+        <button id="SingInUser" onclick="signInHandlerFetch(event)">Sign In</button>
+        @* <button id="SingInUser" onclick="signInHandlerAjax(event)">Sign In Ajax</button> *@
 
     </form>
 
