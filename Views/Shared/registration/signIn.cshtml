@@ -71,10 +71,7 @@
         });
 
         } *@
-
-    const signInHandlerFetch = async (e) => {
-        e.preventDefault();
-
+    const getWorkingURL = () => {
         const runningUrl = window.location.href;
         console.log('runningUrl', runningUrl);
         let localDevelopmentUrl = 'http://localhost:5043/';
@@ -83,18 +80,24 @@
 
         let workingURL = "";
 
-    @* if runningUrl === localDevelopmentUrl updaate workingURL *@
         if (runningUrl === localDevelopmentUrl) {
             workingURL = localDevelopmentUrl + "LoginFetch";
-
         } else if (runningUrl === developemtServerUrl) {
             workingURL = developemtServerUrl + "LoginFetch";
-
         } else if (runningUrl === cleintSeverUrl) {
             workingURL = cleintSeverUrl + "LoginFetch";
         }
-        console.log('workingURL', workingURL);
 
+        return workingURL;
+    }
+
+
+    const signInHandlerFetch = async (e) => {
+        e.preventDefault();
+
+        const workingURL = getWorkingURL();
+        // Rest of the code...
+        console.log('workingURL SignInhandlerFetch', workingURL);
         // Get the email and password from input fields
         const email = document.getElementById('signInemail').value;
         const password = document.getElementById('signInPassword').value;
