@@ -396,11 +396,31 @@ namespace DrugFreePortal.Models
         public IActionResult Login(LoginUser fromData)
         {
             System.Console.WriteLine("Reached backend of login");
+            // writeline user email and password
+            System.Console.WriteLine($"Email: {fromData.Email}");
+            System.Console.WriteLine($"Password: {fromData.Password}");
 
-            return Json(new { Status = "success" });
+
+
+
+            return Json(new { Status = "Login Successfule" });
 
 
         }
+
+
+        [HttpPost("LoginFetch")]
+        public IActionResult LoginFetch([FromBody] LoginUser loginData)
+        {
+            // Your logic here
+            // Access loginData.Email and loginData.Password
+            System.Console.WriteLine("Reached backend of login fetch");
+            System.Console.WriteLine($"Email: {loginData.Email}");
+            System.Console.WriteLine($"Password: {loginData.Password}");
+
+            return Ok(new { Status = "Login Fetch Successfule" });
+        }
+
 
 
 
