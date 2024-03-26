@@ -438,11 +438,11 @@ namespace DrugFreePortal.Models
             }
 
 
-            User? userExists = _context.Users?.FirstOrDefault(u => u.Email == loginData.Email);
+            User? userInDB = _context.Users?.FirstOrDefault(u => u.Email == loginData.Email);
 
             // User userInDb = _context.Users.FirstOrDefault(u => u.Email == userSubmission.Email);
 
-            if (userExists == null)
+            if (userInDB == null)
             {
                 Console.WriteLine($"email error");
 
@@ -453,8 +453,8 @@ namespace DrugFreePortal.Models
             }
 
             var hasher = new PasswordHasher<LoginUser>();
-            var result = hasher.VerifyHashedPassword(loginData, userExists.Password, loginData.Password);
-            if (result == 0)
+            var passwordResult = hasher.VerifyHashedPassword(loginData, userInDB.Password, loginData.Password);
+            if (passwordResult == 0)
             {
                 // Still need these for debugging? Console.Writelines should be removed
                 // something else should happer here besides a WriteLine
@@ -463,7 +463,7 @@ namespace DrugFreePortal.Models
 
             }
 
-            System.Console.WriteLine("user exists", userExists.Email);
+            System.Console.WriteLine("user exists", userInDB.Email);
 
 
 
