@@ -23,6 +23,16 @@ namespace DrugFreePortal.Models
         [HttpGet("/dashboard")] // This is the route for the index page
         public IActionResult dashboard()
         {
+
+            // get user id from session
+            int? UserId = HttpContext.Session.GetInt32("UserId");
+            System.Console.WriteLine($"----------------UserId in session Home:GetUsers => {UserId}");
+
+            string accountType = HttpContext.Session.GetString("AccountType") ?? string.Empty;
+            System.Console.WriteLine($"-------------------AccountType in session Home:Dashboard => {accountType}");
+
+
+
             return View("dashboard");
         }
 
@@ -30,9 +40,6 @@ namespace DrugFreePortal.Models
         public IActionResult GetUsers()
         {
             System.Console.WriteLine("Reached backend of get users");
-            // get user id from session
-            int? UserId = HttpContext.Session.GetInt32("UserId");
-            System.Console.WriteLine($"----------------UserId in session Home:GetUsers {UserId}");
 
             // List<User> AllUsers = _context.Users.ToList();
 

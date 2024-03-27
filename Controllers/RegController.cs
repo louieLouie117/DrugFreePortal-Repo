@@ -458,11 +458,13 @@ namespace DrugFreePortal.Models
                 return Json(new { Status = "password error" });
             }
 
-            System.Console.WriteLine($"----------------userID from DB {userInDB?.UserId}");
             HttpContext.Session.SetInt32("UserId", userInDB?.UserId ?? 0);
-            // get user id from session
             int? UserId = HttpContext.Session.GetInt32("UserId");
             System.Console.WriteLine($"----------------UserId in session Reg:LogInFetch {UserId}");
+
+            HttpContext.Session.SetString("AccountType", userInDB?.AccountType.ToString() ?? "none");
+            Console.WriteLine($"AccountType Reg:Sing-in: {HttpContext.Session.GetString("AccountType")}");
+
 
 
 
