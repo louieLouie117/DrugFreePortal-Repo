@@ -1,3 +1,6 @@
+@using DrugFreePortal.Models
+@model DashboardWrapper
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -20,10 +23,30 @@
     <h1>All Dashboard</h1>
     <p>Here we will have all the Dashboard. The correct Dashboard will be render by the account type! </p>
 
-    <partial name="dashboards/admin">
-        <partial name="dashboards/evaluator">
-            <partial name="dashboards/student">
-                <partial name="dashboards/dean">
+
+    @if (Model.User != null)
+    {
+        if (Model.User.AccountType == AccountType.Admin)
+        {
+            <partial name="dashboards/admin" />
+        }
+        else if (Model.User.AccountType == AccountType.Student)
+        {
+            <partial name="dashboards/student" />
+        }
+        else if (Model.User.AccountType == AccountType.Dean)
+        {
+            <partial name="dashboards/dean" />
+        }
+        else if (Model.User.AccountType == AccountType.Evaluator)
+        {
+            <partial name="dashboards/evaluator" />
+
+        }
+    }
+
+
+
 
 
 

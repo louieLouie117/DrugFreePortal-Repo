@@ -20,26 +20,44 @@ namespace DrugFreePortal.Models
         }
 
 
+
         [HttpGet("/dashboard")] // This is the route for the index page
         public IActionResult dashboard()
         {
 
             // get user id from session
-            int? UserId = HttpContext.Session.GetInt32("UserId");
-            System.Console.WriteLine($"----------------UserId in session Home:GetUsers => {UserId}");
+            int? UserIdInSession = HttpContext.Session.GetInt32("UserId");
+            System.Console.WriteLine($"----------------UserId in session Home:GetUsers => {UserIdInSession}");
 
             string accountType = HttpContext.Session.GetString("AccountType") ?? string.Empty;
             System.Console.WriteLine($"-------------------AccountType in session Home:Dashboard => {accountType}");
 
             // if user is not logged in 
-            if (UserId == null)
+            if (UserIdInSession == null)
             {
                 return RedirectToAction("index");
             }
 
+            User? UserIndb = _context.Users?
+                .FirstOrDefault(u => u.UserId == UserIdInSession);
 
 
-            return View("dashboard");
+
+            ViewBag.ToDisplay = UserIndb;
+            ViewBag.allUserLogs = _context.Users
+                ?.Where(ul => ul.UserId == UserIdInSession)
+                .ToList();
+
+            // List<User> ActiveUser = _context.Users
+            //                 ?.Where(ul => ul.UserId == UserIdInSession)
+            //                 .ToList() ?? new List<User>();
+
+            DashboardWrapper wMod = new DashboardWrapper();
+            wMod.User = UserIndb;
+
+
+
+            return View("dashboard", wMod);
         }
 
         [HttpGet("GetUsers")]
@@ -47,21 +65,10 @@ namespace DrugFreePortal.Models
         {
             System.Console.WriteLine("Reached backend of get users");
 
-
-            // lambda expression to get all users
-            // List<User> AllUsers = _context.Users.Select(u => u).ToList();
-
             // lambda expression to get all users with null or empty check net8.0 new feature
             List<User> AllUsers = _context.Users?.Select(u => u).ToList() ?? new List<User>();
 
-
-
-            // return Json(AllUsers);
             return Ok(new { Status = "Success", UsersList = AllUsers });
-            // return Json(new { Status = "Success", UsersList = AllUsers });
-
-
-
         }
     }
 }
