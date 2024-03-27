@@ -4,18 +4,18 @@ console.log('reg.js is loaded');
 const getWorkingURL = () => {
     const runningUrl = window.location.href;
     console.log('runningUrl', runningUrl);
-    let localDevelopmentUrl = 'http://localhost:5043/';
-    let developemtServerUrl = 'http://13.58.200.202/';
-    let cleintSeverUrl = 'http://3.135.214.156/';
+    let localDevelopmentUrl = 'http://localhost:5043';
+    let developemtServerUrl = 'http://13.58.200.202';
+    let cleintSeverUrl = 'http://3.135.214.156';
 
     let workingURL = "";
 
-    if (runningUrl === localDevelopmentUrl) {
-        workingURL = localDevelopmentUrl + "LoginFetch";
-    } else if (runningUrl === developemtServerUrl) {
-        workingURL = developemtServerUrl + "LoginFetch";
-    } else if (runningUrl === cleintSeverUrl) {
-        workingURL = cleintSeverUrl + "LoginFetch";
+    if (runningUrl === localDevelopmentUrl +"/") {
+        workingURL = localDevelopmentUrl ;
+    } else if (runningUrl === developemtServerUrl +"/") {
+        workingURL = developemtServerUrl ;
+    } else if (runningUrl === cleintSeverUrl +"/") {
+        workingURL = cleintSeverUrl;
     }
 
     return workingURL;
@@ -43,7 +43,7 @@ const signInHandlerFetch = async (e) => {
 
 
 
-        fetch(`${workingURL}`, {
+        fetch(`${workingURL}/LoginFetch`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -70,7 +70,9 @@ const signInHandlerFetch = async (e) => {
         
                 if (data.status === "Login Fetch Successfule") {
                     console.log("Login Fetch Successfule");
-                    window.location.href = "http://localhost:5043/dashboard";
+                    console.log("naviate to:", workingURL + "/dashboard");
+                    alert("naviate to dashboard");
+                    window.location.href = `${workingURL}/dashboard`;
                 }
             })
             .catch(error => {
