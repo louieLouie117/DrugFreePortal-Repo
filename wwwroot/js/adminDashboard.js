@@ -9,8 +9,21 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 });
 
+// arrow function to fetch all users from the database
+const fetchAllUsers = async () => {
+    fetch("/GetUsers")
+    .then(response => response.json())
+    .then(data => {
+        console.log("data from db", data);
+        RenderAllUsers(data);
+    });
+};
+
+
 const RenderAllUsers = (users) => {
 const table = document.getElementById('usersList'); // Assuming you have a table with id 'usersList'
+// Clear the usersList id table
+table.innerHTML = "";
 
 users.forEach(user => {
     // Map accountType values to descriptive strings
