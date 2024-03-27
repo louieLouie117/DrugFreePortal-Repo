@@ -9,8 +9,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
 
-    <link rel="stylesheet" href="~/css/styles.css?version=1.5">
-    <script src="~/js/adminDashboard.js?version=1.5"></script>
+    <link rel="stylesheet" href="~/css/styles.css?version=1.6">
+    <script src="~/js/adminDashboard.js?version=1.6"></script>
 
     @* keep until all registrations have been udpated to vanilla javascript *@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -18,11 +18,7 @@
 
 </head>
 
-<body>
-
-    <h1>All Dashboard</h1>
-    <p>Here we will have all the Dashboard. The correct Dashboard will be render by the account type! </p>
-
+<div>
 
     @if (Model.User != null)
     {
@@ -45,11 +41,6 @@
         }
     }
 
-
-
-
-
-
-</body>
+</div>
 
 </html>
