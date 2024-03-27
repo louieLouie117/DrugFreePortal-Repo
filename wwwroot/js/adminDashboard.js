@@ -10,7 +10,9 @@ const fetchAllUsers = async () => {
     .then(response => response.json())
     .then(data => {
         console.log("data from db", data);
-        RenderAllUsers(data);
+        console.log("users list", data.usersList);
+
+        RenderAllUsers(data.usersList);
     });
 };
 

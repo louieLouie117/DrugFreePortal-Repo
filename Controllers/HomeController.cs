@@ -31,6 +31,12 @@ namespace DrugFreePortal.Models
             string accountType = HttpContext.Session.GetString("AccountType") ?? string.Empty;
             System.Console.WriteLine($"-------------------AccountType in session Home:Dashboard => {accountType}");
 
+            // if user is not logged in 
+            if (UserId == null)
+            {
+                return RedirectToAction("index");
+            }
+
 
 
             return View("dashboard");
@@ -41,8 +47,6 @@ namespace DrugFreePortal.Models
         {
             System.Console.WriteLine("Reached backend of get users");
 
-            // List<User> AllUsers = _context.Users.ToList();
-
 
             // lambda expression to get all users
             // List<User> AllUsers = _context.Users.Select(u => u).ToList();
@@ -52,7 +56,12 @@ namespace DrugFreePortal.Models
 
 
 
-            return Json(AllUsers);
+            // return Json(AllUsers);
+            return Ok(new { Status = "Success", UsersList = AllUsers });
+            // return Json(new { Status = "Success", UsersList = AllUsers });
+
+
+
         }
     }
 }
