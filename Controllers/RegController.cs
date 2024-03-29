@@ -477,7 +477,8 @@ namespace DrugFreePortal.Models
         {
             System.Console.WriteLine("Reached backend of sign out");
             HttpContext.Session.Clear();
-            return RedirectToAction("Index", "HomeController");
+            // return RedirectToAction("Index", "HomeController");
+            return Ok(new { Status = "Sign Out Successfule" });
         }
 
 
