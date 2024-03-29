@@ -471,6 +471,15 @@ namespace DrugFreePortal.Models
             return Ok(new { Status = "Login Fetch Successfule", Fields = emptyFields });
         }
 
+        // Sign out
+        [HttpGet("SignOutMethod")]
+        public IActionResult SignOutMethod()
+        {
+            System.Console.WriteLine("Reached backend of sign out");
+            HttpContext.Session.Clear();
+            return RedirectToAction("Index", "HomeController");
+        }
+
 
 
 
