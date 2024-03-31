@@ -64,5 +64,9 @@ namespace DrugFreePortal.Models
         public DateTime UpdatedAt { get; set; } = DateTime.Now;
 
 
+
+        List<UploadFile>? UploadFiles { get; set; }
+
+
     }
 }

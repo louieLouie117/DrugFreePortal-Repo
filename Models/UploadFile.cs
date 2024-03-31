@@ -21,7 +21,9 @@ namespace DrugFreePortal.Models
 
         // one to many relationship key to the user
         public int UserId { get; set; }
+        // navP
         public User? User { get; set; }
+
 
     }
 }
