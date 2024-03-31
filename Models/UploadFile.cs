@@ -1,7 +1,6 @@
 
 using System.ComponentModel.DataAnnotations;
-
-
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DrugFreePortal.Models
 {
@@ -14,7 +13,7 @@ namespace DrugFreePortal.Models
         public required string FileType { get; set; }
         public long FileSize { get; set; }
 
-        // [NotMapped]
+        [NotMapped]
         public required IFormFile files { get; set; }
         public DateTime CreatedOn { get; set; }
         public DateTime UpdatedAt { get; set; } = DateTime.Now;
