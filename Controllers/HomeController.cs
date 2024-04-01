@@ -70,5 +70,20 @@ namespace DrugFreePortal.Models
 
             return Ok(new { Status = "Success", UsersList = AllUsers });
         }
+
+        // file upload
+        [HttpPost("UploadFile")]
+        public IActionResult UploadFile(UploadFile file)
+        {
+            System.Console.WriteLine("Reached backend of UploadFile");
+            System.Console.WriteLine($"-------------------File => {file.FileName}");
+
+
+
+
+
+
+            return RedirectToAction("dashboard");
+        }
     }
 }

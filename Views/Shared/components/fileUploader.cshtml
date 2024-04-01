@@ -1,19 +1,52 @@
-@using DrugFreePortal.Models
+@* @using DrugFreePortal.Models
 @model UploadFile
 
 <div>
 
+<header>
+
+<h2> UploadFile WebHost</h2>
+<form asp-action="UploadFile" asp-controller="Home" method="Post" enctype="multipart/form-data">
+
+<input asp-for="FileName" placeholder="name">
+<input asp-for="files" type="file" multiple>
+
+<input type="submit" value="Submit!">
+</form>
+
+</header>
+
+</div> *@
+
+<div>
     <header>
-
         <h2> UploadFile WebHost</h2>
-        <form asp-action="ServerFileUploader" asp-controller="Home" method="Post" enctype="multipart/form-data">
-
-            <input asp-for="FileName" placeholder="name" style="display: none;">
-            <input asp-for="files" type="file" multiple>
-
-            <input type="submit" value="Submit!">
+        <form id="uploadForm" method="post" enctype="multipart/form-data">
+            <input id="fileNameInput" name="FileName" placeholder="name">
+            <input id="fileInput" name="files" type="file" multiple>
+            <input type="submit" value="Submit!" onclick="uploadFiles(event)">
         </form>
-
     </header>
-
 </div>
+
+<script>
+    const uploadFiles = (event) => {
+        event.preventDefault();
+
+        const form = document.getElementById("uploadForm");
+        const formData = new FormData(form);
+
+        console.log(formData);
+
+        fetch("/UploadFile", {
+            method: "POST",
+            body: formData
+        })
+            .then(response => {
+                // Handle response
+            })
+            .catch(error => {
+                // Handle error
+            });
+    }
+</script>
