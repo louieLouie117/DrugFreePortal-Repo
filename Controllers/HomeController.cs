@@ -353,9 +353,9 @@ namespace DrugFreePortal.Models
         public async Task<IActionResult> UploadFileDefult(IFormFile file)
         {
             System.Console.WriteLine("Reached backend of UploadFileDefult");
-            var filePath = Path.GetTempFileName();
+            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "img", "uploads", file.FileName);
 
-            using (var stream = System.IO.File.Create(filePath))
+            using (var stream = new FileStream(filePath, FileMode.Create))
             {
                 await file.CopyToAsync(stream);
             }
