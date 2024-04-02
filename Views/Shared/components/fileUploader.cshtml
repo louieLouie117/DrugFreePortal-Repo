@@ -37,98 +37,52 @@ document.querySelector('form').addEventListener('submit', checkFilesAndSubmit);
 
 <div>
     <header>
-        <h2> UploadFileAi</h2>
+        <h2> UploadFile Singel </h2>
         <form id="uploadForm" method="post" enctype="multipart/form-data">
             <input id="fileNameInput" name="FileName" placeholder="name">
-            <input id="fileInput" name="files" type="file" multiple>
-            <input type="submit" value="Submit!" onclick="uploadFilesAppend(event)">
+            <input id="fileInput" name="file" type="file">
+            <input type="submit" value="Submit!" onclick="uploadFile(event)">
         </form>
     </header>
 </div>
 
 <script>
-    const uploadFiles = (event) => {
+    document.getElementById("uploadForm").addEventListener("submit", function (event) {
         event.preventDefault();
 
-        const form = document.getElementById("uploadForm");
-        const formData = new FormData(form);
+        var formData = new FormData();
+        var file = document.getElementById("fileInput").files[0];
 
-        const fileInput = document.getElementById("fileInput");
-        if (fileInput.files.length > 0) {
-            console.log("File selected");
+        console.log(file);
+        alert("File selected", file);
 
-            console.log(formData);
+        if (file) {
+            formData.append("file", file);
+            console.log(file);
 
-            fetch("/UploadMultiFiles", {
-                method: "POST",
+            fetch('/UploadFileDefult', {
+                method: 'POST',
                 body: formData
             })
-                .then(response => {
-                    // Handle response
-                    alert("File uploaded successfully!");
-                })
-                .catch(error => {
-                    // console log  error
-                    console.error("Error:", error);
-                    alert("An error occurred.");
-
-                });
-        } else {
-            // No file selected, show error message or take appropriate action
-            console.log("No file selected");
-            alert("No file selected");
-            return
-        }
-
-
-    }
-
-    const uploadFilesAppend = (event) => {
-        event.preventDefault();
-        console.log("FuploadFilesAppend called");
-
-        const form = document.getElementById("uploadForm");
-        const formData = new FormData();
-    @* array for form data *@
-
-
-
-        const fileInput = document.getElementById("fileInput");
-        if (fileInput.files.length > 0) {
-            for (let i = 0; i < fileInput.files.length; i++) {
-                formData.append("files", fileInput.files[i]);
-                console.log("fileInput.files[i]", fileInput.files[i]);
-            }
-            console.log("data form user", formData);
-            console.log("data form user", formData.getAll("files"));
-
-
-            fetch("/UploadMultiFiles", {
-                method: "POST",
-                body: formData
-            })
-                .then(response => {
+                .then(function (response) {
                     if (!response.ok) {
-                        throw new Error(`HTTP error! status: ${response.status}`);
+                        throw new Error('HTTP error! status: ' + response.status);
                     }
                     return response.json();
                 })
-                .then(json => {
-                    // Handle response
+                .then(function (data) {
                     alert("File uploaded successfully!");
                 })
-                .catch(error => {
-                    // console log  error
-                    console.error("Error:", error);
+                .catch(function (error) {
+                    console.error('Error:', error);
                     alert("An error occurred.");
                 });
         } else {
-            // No file selected, show error message or take appropriate action
-            console.log("No file selected");
             alert("No file selected");
-            return
         }
-    }
+    });
+
+
 </script>
 
 
@@ -170,45 +124,3 @@ document.querySelector('form').addEventListener('submit', checkFilesAndSubmit);
         }
     }
 </script>
-
-@*
-<div>
-<h2>Upload</h2>
-<input type="file" id="fileInput" multiple>
-<button id="uploadButton">Upload</button>
-<small id="status"></small>
-
-<script>
-const fileInput = document.getElementById('fileInput');
-const uploadButton = document.getElementById('uploadButton');
-const status = document.getElementById('status');
-
-uploadButton.addEventListener('click', async () => {
-const selectedFile = fileInput.files[0];
-if (!selectedFile) {
-status.textContent = 'No file selected.';
-return;
-}
-
-// Create a FormData object to send the file
-const formData = new FormData();
-formData.append('file', selectedFile);
-
-try {
-const response = await fetch('upload', {
-method: 'POST',
-body: formData,
-});
-
-if (response.ok) {
-status.textContent = 'File uploaded successfully!';
-} else {
-status.textContent = 'Error uploading file.';
-}
-} catch (error) {
-console.error('Error:', error);
-status.textContent = 'An error occurred.';
-}
-});
-</script>
-</div> *@
