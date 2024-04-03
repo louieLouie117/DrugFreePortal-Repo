@@ -7,7 +7,7 @@ namespace DrugFreePortal.Models
     public class UploadFile
     {
         [Key]
-        public int UoloadFileId { get; set; }
+        public int UploadFileId { get; set; }
         public required string FileName { get; set; }
         public required string FilePath { get; set; }
         public required string FileType { get; set; }
