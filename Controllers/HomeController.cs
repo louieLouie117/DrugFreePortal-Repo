@@ -85,12 +85,33 @@ namespace DrugFreePortal.Models
         // file upload
 
         [HttpPost("UploadSingleFile")]
-        public async Task<IActionResult> UploadSingleFileMethod(IFormFile file)
+        public async Task<IActionResult> UploadSingleFileMethod(IFormFile file, UploadFile fromUser)
         {
-            System.Console.WriteLine("Reached backend of UploadSingleFileMethod");
+            System.Console.WriteLine("Reached backend of UploadSingleFileMethod-----");
+
+            System.Console.WriteLine("Original FileName----", file.FileName);
+            string encodedFileName = System.Web.HttpUtility.UrlEncode(file.FileName);
+            System.Console.WriteLine("Encoded FileName----", encodedFileName);
+
+
+
+            int? UserIdInSession = HttpContext.Session.GetInt32("UserId");
+            System.Console.WriteLine($"----------------UserId in session Home:UloadSingleFile => {UserIdInSession}");
+
+            // Generate a timestamp
+            string timeStamp = DateTime.Now.ToString("yyyyMMddHHmmss");
+            System.Console.WriteLine("Time Stamp => ", timeStamp);
+
+            // combine the timestamp with the file name
+            string fileName = $"{timeStamp}_{file.FileName}";
+
+
 
             // Combine the current directory path with the destination path for the uploaded file
-            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "img", "uploads", file.FileName);
+            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "img", "uploads", encodedFileName);
+            // file name for databse to render on the frontend
+            var shortFilePath = Path.Combine("img", "uploads", fileName);
+
 
             // Create a new file stream and open the file in create mode
             using (var stream = new FileStream(filePath, FileMode.Create))
@@ -99,8 +120,32 @@ namespace DrugFreePortal.Models
                 await file.CopyToAsync(stream);
             }
 
+            // get and set defult file infomation
+            fromUser.UserId = UserIdInSession ?? 0;
+            fromUser.FileName = fileName;
+            fromUser.FilePath = shortFilePath;
+
+            fromUser.FileType = file.ContentType;
+            fromUser.FileSize = file.Length;
+
+            // Add the file information to the database
+            // _context.Add(fromUser);
+            // _context.SaveChanges();
+
+            // Create a JSON object with the file information
+            var fileInfo = new
+            {
+                UserId = fromUser.UserId,
+                FileName = fromUser.FileName,
+                FilePath = fromUser.FilePath,
+                FileType = fromUser.FileType,
+                FileSize = fromUser.FileSize
+            };
+
+
+
             // Return the file path as a response
-            return Ok(new { filePath });
+            return Ok(new { FileInfo = fileInfo });
         }
 
 
