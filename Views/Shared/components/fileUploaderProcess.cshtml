@@ -1,0 +1,51 @@
+<div>
+    <h2>Uploadfiles and than Process files </h2>
+    <form id="uploadFormProcess">
+        <input type="file" id="fileInputProcess" name="files" multiple />
+        <button type="submit">Upload and Process</button>
+    </form>
+</div>
+
+<script>
+    document.getElementById("uploadFormProcess").addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        var formData = new FormData();
+        var files = document.getElementById("fileInputProcess").files;
+
+        if (files.length > 0) {
+            for (var i = 0; i < files.length; i++) {
+                formData.append("files", files[i]);
+            }
+
+            fetch('/UploadFiles', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.json())
+                .then(filePaths => {
+                    return fetch('/UploadFiles', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(filePaths)
+                    });
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.Status === "Success") {
+                        alert("Files processed successfully!");
+                    } else {
+                        alert("An error occurred.");
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert("An error occurred.");
+                });
+        } else {
+            alert("No file selected");
+        }
+    });
+</script>

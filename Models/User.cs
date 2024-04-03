@@ -56,16 +56,16 @@ namespace DrugFreePortal.Models
         public SubscriptionStatus SubscriptionStatus { get; set; }
 
         // [Display(Name = "Profile Picture")]
-        // public string ProfilePic { get; set; }
-
-        // [NotMapped]
-        // public IFormFile files { get; set; }
 
         public required string ReleaseVersion { get; set; }
 
         public DateTime CreatedAt { get; set; } = DateTime.Now;
 
         public DateTime UpdatedAt { get; set; } = DateTime.Now;
+
+
+
+        List<UploadFile>? UploadFiles { get; set; }
 
 
     }

@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" href="~/css/styles.css?version=1.6">
     <script src="~/js/adminDashboard.js?version=1.6"></script>
+    <script src="~/js/scripts.js?version=1.6"></script>
 
     @* keep until all registrations have been udpated to vanilla javascript *@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -19,6 +20,7 @@
 </head>
 
 <div>
+    <partial name="components/menuDashboard" />
 
     @if (Model.User != null)
     {
