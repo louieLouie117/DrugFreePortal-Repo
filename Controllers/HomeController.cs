@@ -148,6 +148,22 @@ namespace DrugFreePortal.Models
             return Ok(new { FileInfo = fileInfo });
         }
 
+        [HttpGet("getStudentFiles")]
+        public IActionResult getStudentFilesMethod()
+        {
+            System.Console.WriteLine("Reached backend of get files");
+
+            // Get session user id
+            int? UserIdInSession = HttpContext.Session.GetInt32("UserId");
+            System.Console.WriteLine($"----------------UserId in session Home:GetUsers => {UserIdInSession}");
+
+            // lambda expression to get all files by userid from session with null or empty check net8.0 new feature
+            List<UploadFile> StudentFiles = _context.UploadFiles?
+            .Where(f => f.UserId == UserIdInSession)
+            .ToList() ?? new List<UploadFile>();
+
+            return Ok(new { Status = "Success", StudentFiles = StudentFiles });
+        }
 
 
     }
