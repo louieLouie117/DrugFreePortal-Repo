@@ -89,26 +89,23 @@ namespace DrugFreePortal.Models
         {
             System.Console.WriteLine("Reached backend of UploadSingleFileMethod-----");
 
-            System.Console.WriteLine("Original FileName----", file.FileName);
+            if (file.Length > 5 * 1024 * 1024) // 5MB
+            {
+                return BadRequest("File is too large");
+            }
+
+
             string encodedFileName = System.Web.HttpUtility.UrlEncode(file.FileName);
-            System.Console.WriteLine("Encoded FileName----", encodedFileName);
-
-
-
-            int? UserIdInSession = HttpContext.Session.GetInt32("UserId");
-            System.Console.WriteLine($"----------------UserId in session Home:UloadSingleFile => {UserIdInSession}");
 
             // Generate a timestamp
             string timeStamp = DateTime.Now.ToString("yyyyMMddHHmmss");
             System.Console.WriteLine("Time Stamp => ", timeStamp);
 
             // combine the timestamp with the file name
-            string fileName = $"{timeStamp}_{file.FileName}";
-
-
+            string fileName = $"{timeStamp}_{encodedFileName}";
 
             // Combine the current directory path with the destination path for the uploaded file
-            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "img", "uploads", encodedFileName);
+            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "img", "uploads", fileName);
             // file name for databse to render on the frontend
             var shortFilePath = Path.Combine("img", "uploads", fileName);
 
@@ -120,11 +117,14 @@ namespace DrugFreePortal.Models
                 await file.CopyToAsync(stream);
             }
 
+            int? UserIdInSession = HttpContext.Session.GetInt32("UserId");
+            System.Console.WriteLine($"----------------UserId in session Home:UloadSingleFile => {UserIdInSession}");
+
+
             // get and set defult file infomation
             fromUser.UserId = UserIdInSession ?? 0;
             fromUser.FileName = fileName;
             fromUser.FilePath = shortFilePath;
-
             fromUser.FileType = file.ContentType;
             fromUser.FileSize = file.Length;
 
