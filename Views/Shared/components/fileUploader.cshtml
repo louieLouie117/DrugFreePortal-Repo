@@ -1,0 +1,126 @@
+@* @using DrugFreePortal.Models
+@model UploadFile
+
+<header class="hidden">
+
+<h2> UploadFile WebHost</h2>
+<form asp-action="ModelUplder" asp-controller="Home" method="Post" enctype="multipart/form-data">
+
+<input asp-for="FileName" placeholder="name">
+<input asp-for="FilePath" placeholder="path">
+<input asp-for="FileType" placeholder="type">
+<input asp-for="FileSize" placeholder="size">
+<input asp-for="files" type="file" multiple>
+
+<input type="submit" value="Submit!">
+</form>
+
+</header>
+<script>
+const checkFilesAndSubmit = () => {
+const fileInput = document.querySelector('input[type="file"]');
+if (fileInput.files.length > 0) {
+console.log("File selected", fileInput.files);
+alert("File selected", fileInput.files[0]);
+// Call your submit function here
+} else {
+console.log("No file selected");
+// Show error message or take appropriate action
+}
+};
+
+document.querySelector('form').addEventListener('submit', checkFilesAndSubmit);
+
+
+</script> *@
+
+
+<div>
+    <header>
+        <h2> UploadFile Singel </h2>
+        <form id="uploadForm" method="post" enctype="multipart/form-data">
+            <input id="fileNameInput" name="FileName" placeholder="name">
+            <input id="fileInput" name="file" type="file">
+            <input type="submit" value="Submit!" onclick="uploadFile(event)">
+        </form>
+    </header>
+</div>
+
+<script>
+    document.getElementById("uploadForm").addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        var formData = new FormData();
+        var file = document.getElementById("fileInput").files[0];
+
+        console.log(file);
+        alert("File selected", file);
+
+        if (file) {
+            formData.append("file", file);
+            console.log(file);
+
+            fetch('/UploadFileDefult', {
+                method: 'POST',
+                body: formData
+            })
+                .then(function (response) {
+                    if (!response.ok) {
+                        throw new Error('HTTP error! status: ' + response.status);
+                    }
+                    return response.json();
+                })
+                .then(function (data) {
+                    alert("File uploaded successfully!");
+                })
+                .catch(function (error) {
+                    console.error('Error:', error);
+                    alert("An error occurred.");
+                });
+        } else {
+            alert("No file selected");
+        }
+    });
+
+
+</script>
+
+
+<script>
+    const uploadFilesAi = (event) => {
+        event.preventDefault();
+
+        const form = document.getElementById("uploadForm");
+        const formData = new FormData(form);
+
+        const fileInput = document.getElementById("fileInput");
+        if (fileInput.files.length > 0) {
+            console.log("File selected");
+
+            fetch("/UploadMultiFiles", {
+                method: "POST",
+                body: formData
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(json => {
+                    // Handle response
+                    alert("File uploaded successfully!");
+                })
+                .catch(error => {
+                    // console log  error
+                    console.error("Error:", error);
+                    alert("An error occurred.");
+                });
+        } else {
+            // No file selected, show error message or take appropriate action
+            console.log("No file selected");
+            alert("No file selected");
+            return
+        }
+    }
+</script>
