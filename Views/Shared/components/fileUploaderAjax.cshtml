@@ -1,7 +1,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 <div>
-    <h1>File uploader with ajax</h1>
+    <h2>File uploader</h2>
     <form id="uploadForm">
         <input type="file" id="fileInput" name="file" />
         <button type="submit">Upload</button>
@@ -28,6 +28,7 @@
                 contentType: false,
                 success: function (data) {
                     alert("File uploaded successfully!");
+                    GetUserFilesHandler();
                 },
                 error: function () {
                     alert("An error occurred.");
