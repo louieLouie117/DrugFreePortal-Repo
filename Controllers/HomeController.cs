@@ -129,8 +129,8 @@ namespace DrugFreePortal.Models
             fromUser.FileSize = file.Length;
 
             // Add the file information to the database
-            // _context.Add(fromUser);
-            // _context.SaveChanges();
+            _context.Add(fromUser);
+            _context.SaveChanges();
 
             // Create a JSON object with the file information
             var fileInfo = new
