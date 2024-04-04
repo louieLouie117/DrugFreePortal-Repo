@@ -7,5 +7,6 @@ namespace DrugFreePortal.Models
         public MyContext(DbContextOptions<MyContext> options) : base(options) { }
 
         public DbSet<User>? Users { get; set; }
+        public DbSet<UploadFile>? UploadFiles { get; set; }
     }
 }

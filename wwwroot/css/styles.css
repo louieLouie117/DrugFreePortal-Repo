@@ -46,5 +46,16 @@ th, td{
     padding: 10px;
 }
 
+/* rest ul no styles*/
+ul{
+    list-style-type: none;
+    padding: 0;
+}
+
+img{
+    height: 200px;
+    width: auto;
+}
+
 
 /* last column fix with 100px */

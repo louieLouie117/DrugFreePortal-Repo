@@ -1,0 +1,39 @@
+<div>
+    <h2>File Uploader Axios</h2>
+    <form id="uploadForm">
+        <input type="file" id="fileInput" name="files" multiple />
+        <button type="submit">Upload</button>
+    </form>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+    document.getElementById("uploadForm").addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        var formData = new FormData();
+        var files = document.getElementById("fileInput").files;
+
+        if (files.length > 0) {
+            for (var i = 0; i < files.length; i++) {
+                formData.append("files", files[i]);
+            }
+
+            console.log("-------------from data", formData); // Log the FormData object
+
+            axios.post('/UploadFiles', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            })
+                .then(function (response) {
+                    console.log(response);
+                })
+                .catch(function (error) {
+                    console.error(error);
+                });
+        } else {
+            alert("No file selected");
+        }
+    });
+</script>
