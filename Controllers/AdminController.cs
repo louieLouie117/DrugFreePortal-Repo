@@ -28,7 +28,18 @@ namespace DrugFreePortal.Models
             _context.ComplianceTypes?.Add(DataFromUser);
             _context.SaveChanges();
 
-            return Ok(new { data = DataFromUser, message = "Reached backend of adding new compliance" });
+            var complianceTypes = _context.ComplianceTypes?.ToList();
+
+            return Ok(new { data = complianceTypes, message = "Reached backend of adding new compliance" });
+        }
+
+        [HttpGet("GetComplianceTypes")]
+        public IActionResult GetComplianceTypes()
+        {
+            // Get all compliance types
+            var complianceTypes = _context.ComplianceTypes?.ToList();
+
+            return Ok(new { data = complianceTypes, message = "Reached backend of getting compliance types" });
         }
 
 

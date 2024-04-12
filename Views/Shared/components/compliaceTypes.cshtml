@@ -8,6 +8,9 @@
 </head>
 
 <script>
+    window.onload = function () {
+        GetComplianceTypes();
+    };
     const CreatComplianceHandler = (event) => {
         event.preventDefault();
 
@@ -29,16 +32,51 @@
                 if (response.ok) {
                     // Handle successful response
                     console.log('Compliance created successfully');
+                    return response.json();
                 } else {
                     // Handle error response
                     console.error('Failed to create compliance');
+                    throw new Error('Failed to create compliance');
                 }
+            })
+            .then(data => {
+                // Handle data from backend
+                console.log('Data from backend after submiting:', data);
+                // Call a function to handle the data
+                ComplianceTypeList(data);
             })
             .catch(error => {
                 // Handle network error
                 console.error('Network error:', error);
             });
     };
+
+
+    const GetComplianceTypes = () => {
+        fetch('/GetComplianceTypes')
+            .then(response => response.json())
+            .then(data => {
+                console.log("List of compliance", data.data);
+                ComplianceTypeList(data);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    };
+
+    const ComplianceTypeList = (data) => {
+        console.log("data to loop", data.data);
+        const complianceTypeList = document.getElementById("ComplianceTypeList");
+        complianceTypeList.innerHTML = "";
+        data.data.forEach(compliance => {
+            console.log("compliance", compliance);
+            const li = document.createElement("li");
+            li.textContent = compliance.name;
+            complianceTypeList.appendChild(li);
+        });
+    };
+
+
 
 </script>
 <div>
@@ -48,6 +86,7 @@
         <input type="text" id="ComplianceName" placeholder="name of compliance">
         <button onclick="CreatComplianceHandler(event)">Create</button>
     </form>
+    <ul id="ComplianceTypeList"></ul>
 
 </div>
 
