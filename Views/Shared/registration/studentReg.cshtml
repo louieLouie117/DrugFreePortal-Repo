@@ -138,12 +138,12 @@
         <label id="StudentPasswordLabel"></label>
         <input onclick="StudentInputHandler(event)" id="StudentPassword" type="password" placeholder="Password:">
         <div>
-            <input id="StudentAccpetTerms" type="checkbox" name="Accept Terms">
+            <input id="StudentAccpetTerms" onclick="TermsHandler(event)" type="checkbox" name="Accept Terms">
             <label>Accpet Terms</label>
 
         </div>
 
-        <button onclick="RegStudentHandler(event)">Register</button>
+        <button id="StudentRegBTN" onclick="RegStudentHandler(event)" disabled>Register</button>
 
     </form>
 
