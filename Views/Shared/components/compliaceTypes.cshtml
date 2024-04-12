@@ -11,14 +11,19 @@
     const CreatComplianceHandler = (event) => {
         event.preventDefault();
 
-        const complianceName = document.querySelector('input[type="text"]').value;
+        const complianceName = document.getElementById("ComplianceName").value;
+
+        const data = {
+            name: complianceName
+        };
+        console.log(data);
 
         fetch('/AddCompliance', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ name: complianceName })
+            body: JSON.stringify(data)
         })
             .then(response => {
                 if (response.ok) {
@@ -40,7 +45,7 @@
     <h3>Complice Types</h3>
     <p>Allow admin to create, update, delete, and edit Complice types</p>
     <form action="">
-        <input type="text" placeholder="name of compliance">
+        <input type="text" id="ComplianceName" placeholder="name of compliance">
         <button onclick="CreatComplianceHandler(event)">Create</button>
     </form>
 

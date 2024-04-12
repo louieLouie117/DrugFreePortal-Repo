@@ -19,9 +19,14 @@ namespace DrugFreePortal.Models
         }
 
         [HttpPost("AddCompliance")]
-        public IActionResult ComplianceMethod()
+        public IActionResult ComplianceMethod([FromBody] ComplianceType DataFromUser)
         {
-            return Ok(new { message = "Reached backend of adding new compliance" });
+            // Access the JSON DataFromUser from the request
+            System.Console.WriteLine(DataFromUser.Name);
+
+            // Perform necessary operations with the data
+
+            return Ok(new { data = DataFromUser, message = "Reached backend of adding new compliance" });
         }
 
 
