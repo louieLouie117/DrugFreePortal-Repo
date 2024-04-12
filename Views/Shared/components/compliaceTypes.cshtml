@@ -6,12 +6,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Complicae Types</title>
 </head>
+
+<script>
+    const CreatComplianceHandler = (event) => {
+        event.preventDefault();
+
+        const complianceName = document.querySelector('input[type="text"]').value;
+
+        fetch('/AddCompliance', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ name: complianceName })
+        })
+            .then(response => {
+                if (response.ok) {
+                    // Handle successful response
+                    console.log('Compliance created successfully');
+                } else {
+                    // Handle error response
+                    console.error('Failed to create compliance');
+                }
+            })
+            .catch(error => {
+                // Handle network error
+                console.error('Network error:', error);
+            });
+    };
+
+</script>
 <div>
     <h3>Complice Types</h3>
     <p>Allow admin to create, update, delete, and edit Complice types</p>
     <form action="">
-        <input type="text">
-        <button>Create</button>
+        <input type="text" placeholder="name of compliance">
+        <button onclick="CreatComplianceHandler(event)">Create</button>
     </form>
 
 </div>

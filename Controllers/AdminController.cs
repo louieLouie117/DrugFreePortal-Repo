@@ -18,6 +18,12 @@ namespace DrugFreePortal.Models
             _webHostEnvironment = webHostEnvironment;
         }
 
+        [HttpPost("AddCompliance")]
+        public IActionResult ComplianceMethod()
+        {
+            return Ok(new { message = "Reached backend of adding new compliance" });
+        }
+
 
     }
 }
