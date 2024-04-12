@@ -24,7 +24,9 @@ namespace DrugFreePortal.Models
             // Access the JSON DataFromUser from the request
             System.Console.WriteLine(DataFromUser.Name);
 
-            // Perform necessary operations with the data
+            // add to database
+            _context.ComplianceTypes?.Add(DataFromUser);
+            _context.SaveChanges();
 
             return Ok(new { data = DataFromUser, message = "Reached backend of adding new compliance" });
         }
