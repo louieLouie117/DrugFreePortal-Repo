@@ -88,6 +88,7 @@ namespace DrugFreePortal.Models
             dataFromUser.ReleaseVersion = "R1.0";
             System.Console.WriteLine($"release version: {dataFromUser.ReleaseVersion}");
 
+            dataFromUser.SubscriptionStatus = SubscriptionStatus.Active;
 
 
 
