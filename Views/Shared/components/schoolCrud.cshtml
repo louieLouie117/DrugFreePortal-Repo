@@ -39,6 +39,42 @@
             }
         });
     }
+
+    window.onload = function () {
+        getShools();
+    };
+
+
+    function getShools() {
+        $.ajax({
+            url: '/GetAllSchools',
+            type: 'GET',
+            success: function (response) {
+                // Handle success response
+                console.log("scholls--------", response.schoolData);
+                RenderSchools(response.schoolData);
+
+            },
+            error: function (error) {
+                // Handle error response
+                console.log(error);
+            }
+        });
+    }
+
+    function RenderSchools(schools) {
+        const allSchools = document.getElementById('AllSchools');
+        allSchools.innerHTML = '';
+
+        schools.forEach(school => {
+            console.log("school item", school);
+            const li = document.createElement('li');
+            li.textContent = school.name;
+            allSchools.appendChild(li);
+        });
+    }
+
+
 </script>
 
 
@@ -60,6 +96,8 @@
 
 
     </form>
+
+    <ul id="AllSchools"></ul>
 
 
 </div>

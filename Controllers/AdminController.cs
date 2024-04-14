@@ -66,6 +66,16 @@ namespace DrugFreePortal.Models
             return Ok(new { schoolData = schools, message = "Reached backend of adding new school" });
         }
 
+        [HttpGet("/GetAllSchools")]
+        public IActionResult GetAllSchoolsMethod()
+        {
+            System.Console.WriteLine("Reached backend of getting schools");
+            // Get all schools
+            var schools = _context.NewSchools?.ToList();
+
+            return Ok(new { schoolData = schools, message = "Reached backend of getting schools" });
+        }
+
 
     }
 }
