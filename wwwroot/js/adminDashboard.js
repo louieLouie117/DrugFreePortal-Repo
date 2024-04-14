@@ -166,3 +166,61 @@ const ComplianceTypeList = (data) => {
     });
 };
 
+window.onload = function () {
+    getSchools();
+};
+
+
+const getSchools = () => {
+    fetch('/GetAllSchools', {
+        method: 'GET'
+    })
+        .then(response => response.json())
+        .then(data => {
+            // Handle success response
+            console.log("schools--------", data.schoolData);
+            RenderSchoolsAsUl(data.schoolData);
+            RenderSchoolsOptions(data.schoolData);
+
+        })
+        .catch(error => {
+            // Handle error response
+            console.log(error);
+        });
+};
+
+function RenderSchoolsAsUl(schools) {
+    const allSchools = document.getElementById('AllSchools');
+    allSchools.innerHTML = '';
+
+    schools.forEach(school => {
+        const li = document.createElement('li');
+        li.textContent = school.name;
+        allSchools.appendChild(li);
+    });
+}
+
+function RenderSchoolsOptions(schools) {
+    const SchoolsSelector = document.getElementById('SchoolsSelector');
+    SchoolsSelector.innerHTML = '<option>Select School</option>';
+
+    schools.forEach(school => {
+        console.log("school option", school.schoolId);
+
+        const option = document.createElement('option');
+        option.value = school.name; // It's common to use the id as the value
+        option.textContent = school.name;
+        option.id = school.schoolId;
+        SchoolsSelector.appendChild(option);
+    });
+
+    // Add the event listener to the select element
+    SchoolsSelector.addEventListener('change', addIdToInput);
+}
+
+function addIdToInput(event) {
+    // The value of the selected option is the schoolId
+    const selectedSchoolId = event.target.options[event.target.selectedIndex].id;
+    console.log(selectedSchoolId);
+    document.getElementById('IdFromSchool').value = selectedSchoolId;
+}
