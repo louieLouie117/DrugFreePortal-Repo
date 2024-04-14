@@ -62,7 +62,7 @@
             data.fields.forEach((field) => {
                 if (field === "School") {
                     document.getElementById("StudentSchoolLabel").style.color = "red";
-                    document.getElementById("StudentSchoolLabel").innerText = "can not be empty";
+                    document.getElementById("StudentSchoolLabel").innerText = "Please select a school";
                 }
                 if (field === "StudentId") {
                     document.getElementById("StudentIdLabel").style.color = "red";
@@ -117,7 +117,11 @@
     <form action="">
         @* lable for student school id studentSchoolLable *@
         <label id="StudentSchoolLabel"></label>
-        <input onclick="StudentInputHandler(event)" id="StudentSchool" type="text" placeholder="School:">
+        <select name="" id="StudentSchoolSelector"></select>
+        <input onclick="StudentInputHandler(event)" id="StudentSchool" type="text" placeholder="School:" disabled>
+
+        @* school id did is not in the user data base *@
+        @* <input type="text" id="SchoolIdForStudentReg" placeholder="schoolId:"> *@
 
 
         <label id="StudentIdLabel"></label>
@@ -143,7 +147,7 @@
 
         </div>
 
-        <button id="StudentRegBTN" onclick="RegStudentHandler(event)" disabled>Register</button>
+        <button id="StudentRegBTN" onclick="RegStudentHandler(event)">Register</button>
 
     </form>
 

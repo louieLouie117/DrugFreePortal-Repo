@@ -166,6 +166,8 @@ const ComplianceTypeList = (data) => {
     });
 };
 
+
+// -------------------Schools-------------------
 window.onload = function () {
     getSchools();
 };
@@ -224,3 +226,6 @@ function addIdToInput(event) {
     console.log(selectedSchoolId);
     document.getElementById('IdFromSchool').value = selectedSchoolId;
 }
+
+
+
