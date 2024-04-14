@@ -58,4 +58,16 @@ img{
 }
 
 
-/* last column fix with 100px */
+.Compliance-Container{
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    background-color: whitesmoke;
+    align-items: center;
+    padding: 20px;
+}
+
+.Compliance-Container form{
+    background-color: white;
+    padding: 20px;
+    height: 400px;
+}
