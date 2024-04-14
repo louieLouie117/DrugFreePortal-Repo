@@ -94,17 +94,20 @@ const CreateComplianceHandler = (event) => {
         alert("Please select a school");
         return;
     }
-    const schoolId = document.getElementById("SchoolId").value;
+    const IdFromSchool = document.getElementById("IdFromSchool").value;
     const complianceName = document.getElementById("ComplianceName").value;
     const complianceDetails = document.getElementById("ComplianceDetails").value;
 
 
     const data = {
         school: SchoolsSelector,
-        schoolId: schoolId,
+        idFromSchool: IdFromSchool,
         name: complianceName,
         details: complianceDetails
     };
+    
+
+    
     console.log(data);
 
     fetch('/AddCompliance', {
@@ -153,7 +156,7 @@ const ComplianceTypeList = (data) => {
             <tr>
                 <td>${compliance.name}</td>
                 <td>${compliance.school}</td>
-                <td>${compliance.schoolId}</td>
+                <td>${compliance.idFromSchool}</td>
                 <td>${compliance.details}</td>
             </tr>
         `;
@@ -162,3 +165,4 @@ const ComplianceTypeList = (data) => {
         complianceTypeList.innerHTML += row;
     });
 };
+

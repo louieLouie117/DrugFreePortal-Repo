@@ -11,13 +11,12 @@ namespace DrugFreePortal.Models
 
         public required string School { get; set; }
 
-        public required string SchoolId { get; set; }
-
-
         public required string Details { get; set; }
 
         public DateTime CreatedOn { get; set; }
         public DateTime UpdatedAt { get; set; } = DateTime.Now;
+        public int IdFromSchool { get; set; }
+
 
 
 

@@ -2,45 +2,7 @@
 
 </head>
 
-<script>
-    const createSchool = () => {
-        const schoolDean = document.getElementById("schoolDean").value;
-        const schoolName = document.getElementById("schoolName").value;
-        const schoolAddress = document.getElementById("schoolAddress").value;
-        const schoolCity = document.getElementById("schoolCity").value;
-        const schoolState = document.getElementById("schoolState").value;
-        const schoolZipCode = document.getElementById("schoolZipCode").value;
-        const schoolOnsiteDate = document.getElementById("schoolOnsiteDate").value;
 
-        const schoolData = {
-            dean: schoolDean,
-            name: schoolName,
-            address: schoolAddress,
-            city: schoolCity,
-            state: schoolState,
-            zipCode: schoolZipCode,
-            onsiteDate: schoolOnsiteDate
-        };
-
-        console.log(schoolData);
-
-        fetch("/AddSchool", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(schoolData)
-        })
-            .then((response) => response.json())
-            .then((data) => {
-                console.log(data);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-    };
-
-</script>
 
 <div>
     <h3>School</h3>
@@ -54,7 +16,7 @@
         <input type="text" placeholder="city:" id="schoolCity">
         <input type="text" placeholder="state:" id="schoolState">
         <input type="text" placeholder="zip code:" id="schoolZipCode">
-        <input type="date" placeholder="Onsite Date:" id="schoolOnsiteDate">
+        <input type="text" placeholder="Onsite Date:" id="schoolOnsiteDate">
 
         <input type="button" value="+ school" onclick="createSchool(event)">
 

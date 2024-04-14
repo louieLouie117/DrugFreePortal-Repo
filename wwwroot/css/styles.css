@@ -71,3 +71,7 @@ img{
     padding: 20px;
     height: 400px;
 }
+
+th{
+    text-align: left;
+}
