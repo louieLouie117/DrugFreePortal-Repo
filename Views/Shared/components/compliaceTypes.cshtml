@@ -8,29 +8,26 @@
 </head>
 
 <script>
-    window.onload = function () {
-        GetComplianceTypes();
-    };
 
-    const GetComplianceTypes = () => {
-        fetch('/GetComplianceTypes')
-            .then(response => response.json())
-            .then(data => {
-                console.log("List of compliance", data.data);
-                ComplianceTypeList(data);
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-    };
 
     const CreatComplianceHandler = (event) => {
         event.preventDefault();
 
+        const SchoolsSelector = document.getElementById("SchoolsSelector").value;
+        if (SchoolsSelector === "Select School") {
+            alert("Please select a school");
+            return;
+        }
+        const schoolId = document.getElementById("SchoolId").value;
         const complianceName = document.getElementById("ComplianceName").value;
+        const complianceDetails = document.getElementById("ComplianceDetails").value;
+
 
         const data = {
-            name: complianceName
+            school: SchoolsSelector,
+            schoolId: schoolId,
+            name: complianceName,
+            details: complianceDetails
         };
         console.log(data);
 
@@ -86,7 +83,17 @@
     <h3>Complice Types</h3>
     <p>Allow admin to create, update, delete, and edit Complice types</p>
     <form action="">
+        <select id="SchoolsSelector">
+            <option value="Select School">Select School</option>
+            <option value="School A">School A</option>
+            <option value="School B">School B</option>
+            <option value="School C">School C</option>
+            <option value="School D">School D</option>
+            <option value="School E">School E</option>
+        </select>
+        <input type="text" id="SchoolId">
         <input type="text" id="ComplianceName" placeholder="name of compliance">
+        <textarea name="" id="ComplianceDetails" cols="30" rows="10"></textarea>
         <button onclick="CreatComplianceHandler(event)">Create</button>
     </form>
     <ul id="ComplianceTypeList"></ul>
