@@ -43,5 +43,21 @@ namespace DrugFreePortal.Models
         }
 
 
+        [HttpPost("AddSchool")]
+        public IActionResult SchoolMethod()
+        {
+            // // Access the JSON DataFromUser from the request
+            System.Console.WriteLine("Reached backend of adding new school");
+
+            // // add to database
+            // _context.Schools?.Add(DataFromUser);
+            // _context.SaveChanges();
+
+            // var schools = _context.Schools?.ToList();
+
+            return Ok(new { message = "Reached backend of adding new school" });
+        }
+
+
     }
 }

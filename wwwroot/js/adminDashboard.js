@@ -149,7 +149,7 @@ const ComplianceTypeList = (data) => {
      
        
         // Create table body
-        let tableBody = `
+        let row = `
             <tr>
                 <td>${compliance.name}</td>
                 <td>${compliance.school}</td>
@@ -159,6 +159,6 @@ const ComplianceTypeList = (data) => {
         `;
 
         // Append the table body to the complianceTypeList
-        complianceTypeList.innerHTML += tableBody;
+        complianceTypeList.innerHTML += row;
     });
 };
