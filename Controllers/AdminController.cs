@@ -43,11 +43,19 @@ namespace DrugFreePortal.Models
         }
 
 
-        [HttpPost("AddSchool")]
-        public IActionResult SchoolMethod()
+        [HttpPost("CreateSchool")]
+        public IActionResult CreateSchoolMethod(NewSchool DataFromUser)
         {
             // // Access the JSON DataFromUser from the request
             System.Console.WriteLine("Reached backend of adding new school");
+            System.Console.WriteLine($"Dean: {DataFromUser.Dean}");
+            System.Console.WriteLine($"Name: {DataFromUser.Name}");
+            System.Console.WriteLine($"Address: {DataFromUser.Address}");
+            System.Console.WriteLine($"City: {DataFromUser.City}");
+            System.Console.WriteLine($"State: {DataFromUser.State}");
+            System.Console.WriteLine($"ZipCode: {DataFromUser.ZipCode}");
+            System.Console.WriteLine($"OnsiteData: {DataFromUser.OnSiteDate}");
+
 
             // // add to database
             // _context.Schools?.Add(DataFromUser);

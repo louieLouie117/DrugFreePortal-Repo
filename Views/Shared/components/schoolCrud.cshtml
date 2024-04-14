@@ -1,6 +1,45 @@
-<head>
+<script>
+    function createSchool(event) {
+        event.preventDefault();
 
-</head>
+        const schoolDean = document.getElementById('schoolDean').value;
+        const schoolName = document.getElementById('schoolName').value;
+        const schoolAddress = document.getElementById('schoolAddress').value;
+        const schoolCity = document.getElementById('schoolCity').value;
+        const schoolState = document.getElementById('schoolState').value;
+        const schoolZipCode = document.getElementById('schoolZipCode').value;
+        const schoolOnsiteDate = document.getElementById('schoolOnsiteDate').value;
+
+        const data = {
+            dean: schoolDean,
+            name: schoolName,
+            address: schoolAddress,
+            city: schoolCity,
+            state: schoolState,
+            zipCode: schoolZipCode,
+            onSiteDate: schoolOnsiteDate
+        };
+
+
+        console.log(data);
+        console.log(JSON.stringify(data));
+
+        $.ajax({
+            url: '/CreateSchool',
+            type: 'POST',
+            data: data,
+    @* contentType: 'application/json', *@
+            success: function (response) {
+                // Handle success response
+                console.log(response);
+            },
+            error: function (error) {
+                // Handle error response
+                console.log(error);
+            }
+        });
+    }
+</script>
 
 
 
@@ -9,7 +48,7 @@
 
     <p>Allow admin to create, render, updated, and delete.</p>
 
-    <form action="">
+    <form>
         <input type="text" placeholder="School Dean" id="schoolDean">
         <input type="text" placeholder="name of school:" id="schoolName">
         <input type="text" placeholder="address:" id="schoolAddress">
@@ -17,9 +56,10 @@
         <input type="text" placeholder="state:" id="schoolState">
         <input type="text" placeholder="zip code:" id="schoolZipCode">
         <input type="text" placeholder="Onsite Date:" id="schoolOnsiteDate">
+        <button onclick="createSchool(event)">create School</button>
 
-        <input type="button" value="+ school" onclick="createSchool(event)">
 
     </form>
+
 
 </div>
