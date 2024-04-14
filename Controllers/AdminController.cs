@@ -58,12 +58,12 @@ namespace DrugFreePortal.Models
 
 
             // // add to database
-            // _context.Schools?.Add(DataFromUser);
-            // _context.SaveChanges();
+            _context.NewSchools?.Add(DataFromUser);
+            _context.SaveChanges();
 
-            // var schools = _context.Schools?.ToList();
+            var schools = _context.NewSchools?.ToList();
 
-            return Ok(new { message = "Reached backend of adding new school" });
+            return Ok(new { schoolData = schools, message = "Reached backend of adding new school" });
         }
 
 
