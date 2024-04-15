@@ -10,5 +10,7 @@ namespace DrugFreePortal.Models
         public DbSet<UploadFile>? UploadFiles { get; set; }
 
         public DbSet<ComplianceType>? ComplianceTypes { get; set; }
+
+        public DbSet<NewSchool>? NewSchools { get; set; }
     }
 }

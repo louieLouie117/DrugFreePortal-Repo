@@ -88,6 +88,7 @@ namespace DrugFreePortal.Models
             dataFromUser.ReleaseVersion = "R1.0";
             System.Console.WriteLine($"release version: {dataFromUser.ReleaseVersion}");
 
+            dataFromUser.SubscriptionStatus = SubscriptionStatus.Active;
 
 
 
@@ -340,14 +341,10 @@ namespace DrugFreePortal.Models
             }
 
             // check password = to AdminPassword!DRP
-            if (dataFromUser.Password != "Admin!DFPPa$$2Da$h")
-            {
-                return Json(new { Status = "Admin Password Not working!" });
-            }
+
 
             // account type student
             dataFromUser.AccountType = AccountType.Admin;
-            dataFromUser.Password = "AdminPassword!DRP";
             dataFromUser.AcceptedTerms = true;
             dataFromUser.ReleaseVersion = "R1.0";
 

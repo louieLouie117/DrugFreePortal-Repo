@@ -62,19 +62,19 @@
             data.fields.forEach((field) => {
                 if (field === "School") {
                     document.getElementById("StudentSchoolLabel").style.color = "red";
-                    document.getElementById("StudentSchoolLabel").innerText = "can not be empty";
+                    document.getElementById("StudentSchoolLabel").innerText = "Please select a school";
                 }
                 if (field === "StudentId") {
                     document.getElementById("StudentIdLabel").style.color = "red";
-                    document.getElementById("StudentIdLabel").innerText = "can not be empty";
+                    document.getElementById("StudentIdLabel").innerText = "Student Id can not be empty";
                 }
                 if (field === "FirstName") {
                     document.getElementById("StudentFirstNameLabel").style.color = "red";
-                    document.getElementById("StudentFirstNameLabel").innerText = "can not be empty";
+                    document.getElementById("StudentFirstNameLabel").innerText = "First Name can not be empty";
                 }
                 if (field === "LastName") {
                     document.getElementById("StudentLastNameLabel").style.color = "red";
-                    document.getElementById("StudentLastNameLabel").innerText = "can not be empty";
+                    document.getElementById("StudentLastNameLabel").innerText = "Last Name can not be empty";
                 }
                 if (field === "PhoneNumber") {
                     document.getElementById("StudentPhoneNumberLabel").style.color = "red";
@@ -82,11 +82,11 @@
                 }
                 if (field === "Email") {
                     document.getElementById("StudentEmailLabel").style.color = "red";
-                    document.getElementById("StudentEmailLabel").innerText = "can not be empty";
+                    document.getElementById("StudentEmailLabel").innerText = "Email can not be empty";
                 }
                 if (field === "Password") {
                     document.getElementById("StudentPasswordLabel").style.color = "red";
-                    document.getElementById("StudentPasswordLabel").innerText = "can not be empty";
+                    document.getElementById("StudentPasswordLabel").innerText = "Password can not be empty";
                 }
             })
         }
@@ -117,7 +117,11 @@
     <form action="">
         @* lable for student school id studentSchoolLable *@
         <label id="StudentSchoolLabel"></label>
-        <input onclick="StudentInputHandler(event)" id="StudentSchool" type="text" placeholder="School:">
+        <select name="" id="StudentSchoolSelector"></select>
+        <input onclick="StudentInputHandler(event)" id="StudentSchool" type="text" placeholder="School:" disabled>
+
+        @* school id did is not in the user data base *@
+        @* <input type="text" id="SchoolIdForStudentReg" placeholder="schoolId:"> *@
 
 
         <label id="StudentIdLabel"></label>
@@ -130,7 +134,8 @@
         <input onclick="StudentInputHandler(event)" id="StudentLastName" type="text" placeholder="Last Name:">
 
         <label id="StudentPhoneNumberLabel"></label>
-        <input onclick="StudentInputHandler(event)" id="StudentPhoneNumber" type="text" placeholder="Phone Number:">
+        <input onclick="StudentInputHandler(event)" id="StudentPhoneNumber" type="text" placeholder="Phone Number:"
+            value="000-000-0000" disabled>
 
         <label id="StudentEmailLabel"></label>
         <input onclick="StudentInputHandler(event)" id="StudentEmail" type="text" placeholder="Email:">
@@ -138,12 +143,12 @@
         <label id="StudentPasswordLabel"></label>
         <input onclick="StudentInputHandler(event)" id="StudentPassword" type="password" placeholder="Password:">
         <div>
-            <input id="StudentAccpetTerms" onclick="TermsHandler(event)" type="checkbox" name="Accept Terms">
             <label>Accpet Terms</label>
+            <input id="StudentAccpetTerms" onclick="TermsHandler(event)" type="checkbox" name="Accept Terms">
 
         </div>
 
-        <button id="StudentRegBTN" onclick="RegStudentHandler(event)" disabled>Register</button>
+        <button id="StudentRegBTN" onclick="RegStudentHandler(event)">Register</button>
 
     </form>
 

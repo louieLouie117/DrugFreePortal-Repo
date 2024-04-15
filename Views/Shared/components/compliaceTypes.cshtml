@@ -6,13 +6,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Complicae Types</title>
 </head>
-<div>
-    <h3>Complice Types</h3>
-    <p>Allow admin to create, update, delete, and edit Complice types</p>
+
+
+<div class="Compliance-Container">
     <form action="">
-        <input type="text">
-        <button>Create</button>
+        <h3>Compliance</h3>
+        <select id="SchoolsSelector">
+
+        </select>
+        <input type="text" id="IdFromSchool">
+        <input type="text" id="ComplianceName" placeholder="name of compliance">
+        <textarea name="" id="ComplianceDetails" cols="30" rows="10"></textarea>
+        <button onclick="CreateComplianceHandler(event)">Create</button>
     </form>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Compliance</th>
+                <th>School Name</th>
+                <th>School Id</th>
+                <th>Details</th>
+            </tr>
+        </thead>
+        <tbody id="ComplianceTypeList"></tbody>
+    </table>
 
 </div>
 
