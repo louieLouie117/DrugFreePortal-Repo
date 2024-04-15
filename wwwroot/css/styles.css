@@ -79,3 +79,20 @@ th{
 .hidden{
     display: none;
 }
+
+input, select{
+    font: 1em sans-serif;
+    padding: 5px;
+    border-radius: 5px;
+    border: solid black 1.3px;
+}
+
+
+.studentReg-container>form{
+    background-color: white;
+    padding: 20px;
+    display: grid;
+    row-gap: 5px;
+    border-radius: 7px;
+
+}

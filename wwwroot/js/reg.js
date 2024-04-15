@@ -84,17 +84,6 @@ const signInHandlerFetch = async (e) => {
 
 
 
-
-const TermsHandler = (e) => {
-    // Code for handling terms
-    console.log('Terms handler was called');
-    console.log(e.target.checked);
-
-
-};
-
-
-
 window.onload = function () {
     getSchoolsForStudentReg();
 };

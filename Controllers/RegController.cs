@@ -54,6 +54,10 @@ namespace DrugFreePortal.Models
             {
                 emptyFields.Add("PhoneNumber");
             }
+            if (dataFromUser.AcceptedTerms == false)
+            {
+                emptyFields.Add("Need to accept terms");
+            }
 
             if (emptyFields.Any())
             {
