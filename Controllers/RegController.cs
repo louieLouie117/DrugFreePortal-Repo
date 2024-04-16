@@ -171,6 +171,7 @@ namespace DrugFreePortal.Models
             dataFromUser.AccountType = AccountType.Evaluator;
             dataFromUser.AcceptedTerms = true;
             dataFromUser.ReleaseVersion = "R1.0";
+            dataFromUser.SchoolId = "Not needed for evaluator";
 
             System.Console.WriteLine("Reached backend of register evaluator");
 
@@ -350,6 +351,7 @@ namespace DrugFreePortal.Models
             dataFromUser.AccountType = AccountType.Admin;
             dataFromUser.AcceptedTerms = true;
             dataFromUser.ReleaseVersion = "R1.0";
+            dataFromUser.SchoolId = "Not needed for Admin";
 
             System.Console.WriteLine("Reached backend of register Dean");
 
