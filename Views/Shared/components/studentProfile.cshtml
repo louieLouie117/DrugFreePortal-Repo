@@ -45,7 +45,17 @@
 
 
         studentData.forEach((student) => {
-            console.log("student phoneNumber", student.phoneNumber);
+            console.log("student schoolId", student.schoolId);
+
+
+            const schoolIdInput = document.createElement('input');
+            schoolIdInput.type = 'text';
+            schoolIdInput.value = student.schoolId;
+            schoolIdInput.disabled = true;
+            schoolIdInput.id = 'schoolIdStudentEdit';
+            schoolIdInput.classList.add('hidden');
+            form.appendChild(schoolIdInput);
+
             const schoolLabel = document.createElement('label');
             schoolLabel.textContent = 'School:';
             const schoolInput = document.createElement('input');

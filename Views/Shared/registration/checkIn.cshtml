@@ -4,6 +4,7 @@
         console.log("CheckInHandler called")
 
         let schooName = document.getElementById("schoolStudentEdit").value;
+        let schoolId = document.getElementById("schoolIdStudentEdit").value;
         let studentId = document.getElementById("studentIdStudentEdit").value;
         let studentFirstName = document.getElementById("firstNameStudentEdit").value;
         let studentLastName = document.getElementById("lastNameStudentEdit").value;
@@ -12,6 +13,7 @@
 
         let checkInData = {
             school: schooName,
+            schoolId: schoolId,
             studentId: studentId,
             firstName: studentFirstName,
             lastName: studentLastName,
