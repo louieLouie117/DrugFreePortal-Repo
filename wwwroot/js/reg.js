@@ -136,4 +136,5 @@ function addIdToInputStudentReg(event) {
     console.log("for student reg-----------",selectedSchoolValue);
    
     document.getElementById('StudentSchool').value = selectedSchoolValue;
+    document.getElementById('SchoolIdForStudentReg').value = event.target.selectedOptions[0].id;
 }

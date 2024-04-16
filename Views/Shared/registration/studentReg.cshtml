@@ -16,6 +16,7 @@
 
 
         let StudentSchool = document.getElementById("StudentSchool").value;
+        let SchoolIdForStudentReg = document.getElementById("SchoolIdForStudentReg").value;
         let StudentId = document.getElementById("StudentId").value;
 
         let StudentFirstName = document.getElementById("StudentFirstName").value;
@@ -32,6 +33,7 @@
 
         let jsonData = {
             school: StudentSchool,
+            schoolId: SchoolIdForStudentReg,
             studentId: StudentId,
             firstName: StudentFirstName,
             lastName: StudentLastName,
@@ -132,11 +134,10 @@
         @* lable for student school id studentSchoolLable *@
         <label id="StudentSchoolLabel"></label>
         <select name="" id="StudentSchoolSelector"></select>
-        <input class="hidden" onclick="StudentInputHandler(event)" id="StudentSchool" type="text" placeholder="School:"
-            disabled>
+        <input onclick="StudentInputHandler(event)" id="StudentSchool" type="text" placeholder="School:" disabled>
 
         @* school id did is not in the user data base *@
-        @* <input type="text" id="SchoolIdForStudentReg" placeholder="schoolId:"> *@
+        <input type="text" id="SchoolIdForStudentReg" placeholder="schoolId:" disabled>
 
 
         <label id="StudentIdLabel"></label>
