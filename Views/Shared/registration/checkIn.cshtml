@@ -1,21 +1,34 @@
-<!DOCTYPE html>
-<html lang="en">
+<script>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Check In</title>
-</head>
+    const CheckInHandler = (e) => {
+        console.log("CheckInHandler called")
 
-<div class="signReg-container">
+        let schooName = document.getElementById("schoolStudentEdit").value;
+        let schoolId = document.getElementById("schoolIdStudentEdit").value;
+        let studentId = document.getElementById("studentIdStudentEdit").value;
+        let studentFirstName = document.getElementById("firstNameStudentEdit").value;
+        let studentLastName = document.getElementById("lastNameStudentEdit").value;
+        let studentPhoneNumber = document.getElementById("phoneNumberStudentEdit").value;
+        let studentEmail = document.getElementById("emailStudentEdit").value;
+
+        let checkInData = {
+            school: schooName,
+            schoolId: schoolId,
+            studentId: studentId,
+            firstName: studentFirstName,
+            lastName: studentLastName,
+            phoneNumber: studentPhoneNumber,
+            email: studentEmail
+        }
+
+    @* don't forget to get studentUserId in the backend *@
+
+            console.log("check in", checkInData)
+
+    }
+
+</script>
+<div>
     <h1>CheckIn Partial</h1>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et cupiditate saepe similique commodi sint? Illo ullam,
-        veritatis molestiae, impedit enim ratione recusandae expedita libero soluta sunt reprehenderit, natus quidem
-        distinctio?</p>
-    <form action="">
-        <input type="text">
-        <button>check in</button>
-    </form>
+    <button onclick="CheckInHandler(event)">check in</button>
 </div>
-
-</html>

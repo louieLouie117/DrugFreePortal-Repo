@@ -84,17 +84,6 @@ const signInHandlerFetch = async (e) => {
 
 
 
-
-const TermsHandler = (e) => {
-    // Code for handling terms
-    console.log('Terms handler was called');
-    console.log(e.target.checked);
-
-
-};
-
-
-
 window.onload = function () {
     getSchoolsForStudentReg();
 };
@@ -147,4 +136,5 @@ function addIdToInputStudentReg(event) {
     console.log("for student reg-----------",selectedSchoolValue);
    
     document.getElementById('StudentSchool').value = selectedSchoolValue;
+    document.getElementById('SchoolIdForStudentReg').value = event.target.selectedOptions[0].id;
 }

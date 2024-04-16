@@ -17,7 +17,6 @@ h1{
 
 .dashboard-container{
     background-color: white;
-    padding: 20px;
 }
 
 .signReg-container{
@@ -79,3 +78,64 @@ th{
 .hidden{
     display: none;
 }
+
+input, select{
+    font: 1em sans-serif;
+    padding: 5px;
+    border-radius: 5px;
+    border: solid black 1.3px;
+}
+
+
+.studentReg-container>form{
+    background-color: white;
+    padding: 20px;
+    display: grid;
+    row-gap: 5px;
+    border-radius: 7px;
+
+}
+
+
+.StudentProfile-Container{
+    background-color: whitesmoke;
+    padding: 5px;
+}
+
+.StudentProfile-Container form{
+    background-color: white;
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    row-gap: 5px;
+    padding: 10px;
+
+}
+
+.StudentProfile-Container form label{
+    border: none;
+    font: 1.3em sans-serif;
+}
+
+.StudentProfile-Container form input{
+    border: none;
+}
+
+.StudentProfile-Container form input:disabled{
+    border: none;
+    background-color: white;
+    padding: 0;
+    font: 1.3em sans-serif;
+    color: black;
+
+}
+
+.StudentProfile-Container form input{
+    border: none;
+    padding: 0;
+    border: solid black 1.3px;
+    padding: 5px;
+    font: 1.3em sans-serif;
+
+}
+
+

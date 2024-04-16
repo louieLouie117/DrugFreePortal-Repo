@@ -106,8 +106,16 @@
         accusantium minus iste, vitae error nam quod inventore nisi cupiditate ab assumenda nihil quisquam unde.</p>
 
     <form action="">
+        <select id="DeanSchool">
+            <option value="School1">School 1</option>
+            <option value="School2">School 2</option>
+            <option value="School3">School 3</option>
+        </select>
         <label id="DeanSchoolLabel"></label>
-        <input id="DeanSchool" type="text" placeholder="School:" onClick="DeanInputHandler(event)">
+        <input id="DeanSchool" type="text" placeholder="School name update on select" onClick="DeanInputHandler(event)">
+
+        <input type="text" id="SchoolIdForDean" placeholder="School ID updated on select">
+
 
         <label id="DeanFirstNameLabel"></label>
         <input id="DeanFirstName" type="text" placeholder="First Name:" onClick="DeanInputHandler(event)">

@@ -23,6 +23,8 @@ namespace DrugFreePortal.Models
 
         public required string School { get; set; }
 
+        public required string SchoolId { get; set; }
+
         public required string StudentId { get; set; }
 
 

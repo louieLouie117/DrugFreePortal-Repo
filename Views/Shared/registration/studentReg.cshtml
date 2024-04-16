@@ -14,7 +14,9 @@
         e.preventDefault();
         console.log("RegStudentHandler called")
 
+
         let StudentSchool = document.getElementById("StudentSchool").value;
+        let SchoolIdForStudentReg = document.getElementById("SchoolIdForStudentReg").value;
         let StudentId = document.getElementById("StudentId").value;
 
         let StudentFirstName = document.getElementById("StudentFirstName").value;
@@ -23,18 +25,22 @@
 
         let StudentEmail = document.getElementById("StudentEmail").value;
         let StudentPassword = document.getElementById("StudentPassword").value;
-        let StudentAccpetTerms = document.getElementById("StudentAccpetTerms").value;
+        let StudentAccpetTerms = document.getElementById("StudentAccpetTerms").checked;
 
+
+
+        console.log("------------terms", StudentAccpetTerms)
 
         let jsonData = {
             school: StudentSchool,
+            schoolId: SchoolIdForStudentReg,
             studentId: StudentId,
             firstName: StudentFirstName,
             lastName: StudentLastName,
             phoneNumber: StudentPhoneNumber,
             email: StudentEmail,
             password: StudentPassword,
-            acceptTerms: StudentAccpetTerms
+            acceptedTerms: StudentAccpetTerms
         }
 
         console.log(jsonData)
@@ -88,8 +94,13 @@
                     document.getElementById("StudentPasswordLabel").style.color = "red";
                     document.getElementById("StudentPasswordLabel").innerText = "Password can not be empty";
                 }
+                if (field === "Need to accept terms") {
+                    document.getElementById("StudentAccpetTermsLabel").style.color = "red";
+                    document.getElementById("StudentAccpetTermsLabel").innerText = "Please accept terms";
+                }
             })
         }
+
 
         if (data.status === "Registered") {
             window.location.href = '@Url.Action("Dashboard", "Home")';
@@ -106,9 +117,14 @@
         document.getElementById(LabelId).innerText = "";
     }
 
+    const TermsHandler = (e) => {
+        document.getElementById("StudentAccpetTermsLabel").innerText = "";
+
+    }
+
 </script>
 
-<div class="signReg-container">
+<div class="studentReg-container">
 
     <h1>Student Registration Partial</h1>
     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis hic ducimus saepe facere. Non architecto
@@ -121,7 +137,7 @@
         <input onclick="StudentInputHandler(event)" id="StudentSchool" type="text" placeholder="School:" disabled>
 
         @* school id did is not in the user data base *@
-        @* <input type="text" id="SchoolIdForStudentReg" placeholder="schoolId:"> *@
+        <input type="text" id="SchoolIdForStudentReg" placeholder="schoolId:" disabled>
 
 
         <label id="StudentIdLabel"></label>
@@ -134,8 +150,8 @@
         <input onclick="StudentInputHandler(event)" id="StudentLastName" type="text" placeholder="Last Name:">
 
         <label id="StudentPhoneNumberLabel"></label>
-        <input onclick="StudentInputHandler(event)" id="StudentPhoneNumber" type="text" placeholder="Phone Number:"
-            value="000-000-0000" disabled>
+        <input class="hidden" onclick="StudentInputHandler(event)" id="StudentPhoneNumber" type="text"
+            placeholder="Phone Number:" value="000-000-0000" disabled>
 
         <label id="StudentEmailLabel"></label>
         <input onclick="StudentInputHandler(event)" id="StudentEmail" type="text" placeholder="Email:">
@@ -143,8 +159,11 @@
         <label id="StudentPasswordLabel"></label>
         <input onclick="StudentInputHandler(event)" id="StudentPassword" type="password" placeholder="Password:">
         <div>
-            <label>Accpet Terms</label>
+            <label id="StudentAccpetTermsLabel"></label>
+
             <input id="StudentAccpetTerms" onclick="TermsHandler(event)" type="checkbox" name="Accept Terms">
+            <label for="">Accept Terms</label>
+            <p>By continuing, you agree to our Terms Of Service and Privacy Policy.</p>
 
         </div>
 

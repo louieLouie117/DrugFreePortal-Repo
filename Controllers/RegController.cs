@@ -18,6 +18,7 @@ namespace DrugFreePortal.Models
         [HttpPost("RegisterStudentMethod")]
         public IActionResult RegisterStudentMethod(User dataFromUser)
         {
+            System.Console.WriteLine($"Terms: {dataFromUser.AcceptedTerms}");
 
             // check if any fields are empty with a list
             List<string> emptyFields = new List<string>();
@@ -54,6 +55,10 @@ namespace DrugFreePortal.Models
             {
                 emptyFields.Add("PhoneNumber");
             }
+            if (dataFromUser.AcceptedTerms == false)
+            {
+                emptyFields.Add("Need to accept terms");
+            }
 
             if (emptyFields.Any())
             {
@@ -79,8 +84,6 @@ namespace DrugFreePortal.Models
             System.Console.WriteLine($"stripe customer id: {dataFromUser.StripeCustomerId}");
             System.Console.WriteLine($"subscription status: {dataFromUser.SubscriptionStatus}");
 
-            // set terms to true
-            dataFromUser.AcceptedTerms = true;
 
             System.Console.WriteLine($"accepted terms: {dataFromUser.AcceptedTerms}");
 
@@ -168,6 +171,7 @@ namespace DrugFreePortal.Models
             dataFromUser.AccountType = AccountType.Evaluator;
             dataFromUser.AcceptedTerms = true;
             dataFromUser.ReleaseVersion = "R1.0";
+            dataFromUser.SchoolId = "Not needed for evaluator";
 
             System.Console.WriteLine("Reached backend of register evaluator");
 
@@ -347,6 +351,7 @@ namespace DrugFreePortal.Models
             dataFromUser.AccountType = AccountType.Admin;
             dataFromUser.AcceptedTerms = true;
             dataFromUser.ReleaseVersion = "R1.0";
+            dataFromUser.SchoolId = "Not needed for Admin";
 
             System.Console.WriteLine("Reached backend of register Dean");
 
