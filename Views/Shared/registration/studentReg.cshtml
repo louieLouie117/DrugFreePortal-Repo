@@ -28,6 +28,8 @@
 
 
 
+        console.log("------------terms", StudentAccpetTerms)
+
         let jsonData = {
             school: StudentSchool,
             studentId: StudentId,
@@ -36,7 +38,7 @@
             phoneNumber: StudentPhoneNumber,
             email: StudentEmail,
             password: StudentPassword,
-            acceptTerms: StudentAccpetTerms
+            acceptedTerms: StudentAccpetTerms
         }
 
         console.log(jsonData)
@@ -114,7 +116,6 @@
     }
 
     const TermsHandler = (e) => {
-        e.preventDefault();
         document.getElementById("StudentAccpetTermsLabel").innerText = "";
 
     }

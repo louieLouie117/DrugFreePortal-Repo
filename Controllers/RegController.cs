@@ -18,6 +18,7 @@ namespace DrugFreePortal.Models
         [HttpPost("RegisterStudentMethod")]
         public IActionResult RegisterStudentMethod(User dataFromUser)
         {
+            System.Console.WriteLine($"Terms: {dataFromUser.AcceptedTerms}");
 
             // check if any fields are empty with a list
             List<string> emptyFields = new List<string>();
@@ -83,8 +84,6 @@ namespace DrugFreePortal.Models
             System.Console.WriteLine($"stripe customer id: {dataFromUser.StripeCustomerId}");
             System.Console.WriteLine($"subscription status: {dataFromUser.SubscriptionStatus}");
 
-            // set terms to true
-            dataFromUser.AcceptedTerms = true;
 
             System.Console.WriteLine($"accepted terms: {dataFromUser.AcceptedTerms}");
 

@@ -77,5 +77,18 @@ namespace DrugFreePortal.Models
         }
 
 
+        [HttpGet("GetStudentInformation")]
+        public IActionResult GetStudentInformation()
+        {
+
+            // Get the user ID from the session
+            var userIdInSession = HttpContext.Session.GetInt32("UserId");
+            // Get all students
+            var student = _context.Users?.Where(u => u.UserId == userIdInSession).ToList();
+
+            return Ok(new { studentData = student, message = "Reached backend of getting student" });
+        }
+
+
     }
 }
