@@ -175,17 +175,17 @@ namespace DrugFreePortal.Models
 
 
             // Check if the user id in session is in the database
-            bool isUserInDatabase = _context.Users?.Any(u => u.UserId == UserIdInSession) ?? false;
+            bool isUserInDatabase = _context.Queues?.Any(u => u.StudentUserId == UserIdInSession) ?? false;
             System.Console.WriteLine($"----------------isUserInDatabase in Home:CheckIn => {isUserInDatabase}");
 
             // if user is in data base return you are already in queue
             if (isUserInDatabase)
             {
-                return Ok(new { Status = "InQueue", Message = "You are already in the queue" });
+                return Ok(new { Status = "InQueue", Message = "You are already in the queue and will be called when you are next in line." });
             }
 
 
-            DataFromUser.StudentUserId = UserIdInSession?.ToString() ?? "0";
+            DataFromUser.StudentUserId = UserIdInSession ?? 0;
 
             // Add the file information to the database
             _context.Add(DataFromUser);
@@ -198,7 +198,7 @@ namespace DrugFreePortal.Models
 
 
             // Return the updated user data
-            return Ok(new { QueueData = DataFromUser, Status = "Success", Message = "Checked in successfully" });
+            return Ok(new { Status = "Success", Message = "Checked in successfully" });
 
 
         }

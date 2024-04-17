@@ -32,8 +32,11 @@
     @* contentType: 'application/json', *@
             success: function (response) {
                 // Handle success response
-                console.log("Backend: Data", response.queueData);
                 console.log(response);
+
+                console.log("Status:", response.status);
+                console.log("Message:", response.message);
+                document.getElementById("QueueStatusLabel").innerText = response.message;
 
             },
             error: function (error) {
@@ -47,5 +50,6 @@
 </script>
 <div>
     <h1>CheckIn Partial</h1>
+    <label id="QueueStatusLabel"></label>
     <button onclick="CheckInHandler(event)">check in</button>
 </div>
