@@ -13,7 +13,18 @@
             type: 'Get',
             success: function (response) {
                 // Handle success response
-                console.log("=====>GetStudentInProgress:", response.userInQueueData);
+                console.log("<<<==============");
+                console.log("StudentInProgress result:", response);
+                console.log("==============>>>");
+
+                if (response.status === "No User In Progress") {
+                    document.getElementById("NoUserSelectedInQueue").innerHTML = "No User Selected In Queue. Please select a user from the queue.";
+                } else {
+                    document.getElementById("NoUserSelectedInQueue").innerHTML = "";
+                    RenderSelectedUser(response.userInQueueData);
+
+                }
+
                 GetQueue();
 
 
@@ -25,6 +36,28 @@
         });
     };
 
+
+    const RenderSelectedUser = (userData) => {
+
+
+        const user = userData; // Assuming there is only one user in the userData array
+        console.log("User data:", user);
+
+        const mainElement = document.createElement("main");
+        mainElement.id = "SlectedUserInfo";
+
+        const lablelName = document.createElement("label");
+        lablelName.innerHTML = user.firstName + " " + user.lastName;
+        mainElement.appendChild(lablelName);
+
+        const labelStudentId = document.createElement("label");
+        labelStudentId.innerHTML = user.studentId;
+        mainElement.appendChild(labelStudentId);
+
+
+        document.getElementById("SubmitRecordsView").appendChild(mainElement);
+
+    };
 
 
 
@@ -38,8 +71,9 @@
             success: function (response) {
                 // Handle success response
                 console.log("Return to Queue:", response);
-
                 GetQueue();
+                const selectedUserInfo = document.getElementById("SlectedUserInfo");
+                selectedUserInfo.parentNode.removeChild(selectedUserInfo);
 
             },
             error: function (error) {
@@ -58,7 +92,11 @@
 </script>
 
 
-<div id="SubmitRecordsView">
+<div class="SubmitRecords-Container" id="SubmitRecordsView">
     <h1>Submit Records </h1>
     <button id="ReturnToQueueBTN" onclick="ReturnToQueueHandler(event)">Return to Queue</button>
+    <label id="NoUserSelectedInQueue"></label>
+
+
+
 </div>

@@ -58,6 +58,10 @@ img{
     width: auto;
 }
 
+button{
+    width: 130px;
+}
+
 
 .Compliance-Container{
     display: grid;
@@ -223,4 +227,26 @@ input, select{
             cursor: not-allowed;
     }
 
+
+    .SubmitRecords-Container{
+        display: grid;
+    }
+
+
     
+    .SubmitRecords-Container>main{
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        background-color: #245684;
+        padding: 20px;
+        width: 800px;
+        height: 50px;
+        justify-self: center;
+        align-items: center;
+        border-radius: 10px 10px 0 0;
+    }
+    
+    .SubmitRecords-Container>main label{
+        font: 1.7em sans-serif;
+        color: white;
+    }
