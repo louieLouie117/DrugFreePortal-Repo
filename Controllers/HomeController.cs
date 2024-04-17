@@ -208,6 +208,8 @@ namespace DrugFreePortal.Models
             List<Queue> Queue = _context.Queues?.Select(q => q).ToList() ?? new List<Queue>();
 
 
+            // Check if any data has been changed since the last call
+
             return Ok(new { Status = "Success", QueueData = Queue });
         }
 

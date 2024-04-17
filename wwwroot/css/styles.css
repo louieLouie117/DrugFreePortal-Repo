@@ -176,7 +176,7 @@ input, select{
 
     .QueueBody li{
         display: grid;
-        grid-template-columns: 1fr 1fr 200px;
+        grid-template-columns: 1.5fr 1fr 150px;
         padding: 10px;
         border-radius: 5px;
     }
@@ -211,7 +211,7 @@ input, select{
 
      .QueueHeading li{
         display: grid;
-        grid-template-columns: 1fr 1fr 200px;
+        grid-template-columns: 1.5fr 1fr 150px;
         padding: 10px;
         border-radius: 5px;
         font: 1.3em sans-serif;
