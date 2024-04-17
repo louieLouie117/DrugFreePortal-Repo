@@ -7,8 +7,10 @@
 
 
 
+
+
     const GetQueue = (e) => {
-        console.log("----------Get queue called")
+        console.log("------------------Get queue called")
 
         $.ajax({
             url: '/GetQueue',
@@ -27,43 +29,93 @@
 
         }
 
+    // const RenderQueue = (queueData) => {
+    //     const tableBody = document.getElementById('QueueList');
+
+    //     queueData.forEach((queue) => {
+    //         const row = document.createElement('tr');
+    //         const firstNameCell = document.createElement('td');
+    //         const lastNameCell = document.createElement('td');
+    //         lastNameCell.classList.add('hidden');
+    //         const statusCell = document.createElement('button');
+
+    //         firstNameCell.textContent = queue.firstName;
+    //         lastNameCell.textContent = queue.lastName;
+    //         statusCell.textContent = queue.status;
+
+    //         row.appendChild(firstNameCell);
+    //         row.appendChild(lastNameCell);
+    //         row.appendChild(statusCell);
+
+    //         tableBody.appendChild(row);
+    //     });
+    // }
+
     const RenderQueue = (queueData) => {
-        const tableBody = document.getElementById('QueueList');
+        const ul = document.getElementById('QueueList');
+        ul.innerHTML = '';
+
 
         queueData.forEach((queue) => {
-            const row = document.createElement('tr');
-            const firstNameCell = document.createElement('td');
-            const lastNameCell = document.createElement('td');
-            lastNameCell.classList.add('hidden');
-            const statusCell = document.createElement('button');
 
-            firstNameCell.textContent = queue.firstName;
-            lastNameCell.textContent = queue.lastName;
-            statusCell.textContent = queue.status;
+            const li = document.createElement('li');
+            const name = document.createElement('label');
+            const school = document.createElement('label');
+            const status = document.createElement('button');
 
-            row.appendChild(firstNameCell);
-            row.appendChild(lastNameCell);
-            row.appendChild(statusCell);
+            name.textContent = queue.firstName + " " + queue.lastName;
+            school.textContent = queue.schoolName;
+            status.textContent = queue.status;
 
-            tableBody.appendChild(row);
+            li.appendChild(name);
+            li.appendChild(school);
+            li.appendChild(status);
+
+            ul.appendChild(li);
         });
     }
 
+    // function that calls GetQueue every 10 seconds
+    setInterval(GetQueue, 10000);
+
+
 
 </script>
+
+@* <div class="Queue-Container">
+<h1>In Queue</h1>
+<button onclick="GetQueue()">Get Queue</button>
+
+<table id="QueueTable">
+<thead>
+<tr>
+<th>Name</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody id="QueueList"></tbody>
+</table>
+
+</div> *@
+
 
 <div class="Queue-Container">
     <h1>In Queue</h1>
     <button onclick="GetQueue()">Get Queue</button>
 
-    <table id="QueueTable">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Status</th>
-            </tr>
-        </thead>
-        <tbody id="QueueList"></tbody>
-    </table>
+    <ul class="QueueHeading">
+        <li>
+            <label>Name:</label>
+            <label>School:</label>
+            <label>Status:</label>
+        </li>
+    </ul>
+
+    <ul class="QueueBody" id="QueueList">
+        <li>
+            <label>Name:</label>
+            <label>Status:</label>
+        </li>
+    </ul>
 
 </div>

@@ -49,6 +49,7 @@ th, td{
 ul{
     list-style-type: none;
     padding: 0;
+    margin: 0;
 }
 
 img{
@@ -143,24 +144,59 @@ input, select{
     background-color: #245684;
  }
 
+
  .Queue-Container h1{
     color: white;
 
  }
 
- .Queue-Container table tbody tr:nth-child(odd){
+ .QueueBody{
+    display: grid;
+    row-gap: 10px;
+    padding: 10px;
     background-color: white;
+    max-width: 45em;
  }
 
- .Queue-Container table tbody tr:nth-child(even){
-    background-color: white;
- }
+    .QueueBody li{
+        display: grid;
+        grid-template-columns: 1fr 1fr 200px;
+        padding: 10px;
+        background-color: white;
+        border-radius: 5px;
+    }
 
- .Queue-Container table tbody button{
-    background-color: #245684;
-    color: white;
-    border: none;
-    font: 1em sans-serif;
-    width: 100px;
-    height: 40px;
- }
+    .QueueBody li label{
+        font: 1.3em sans-serif;
+    }
+
+    .QueueBody li button{
+        background-color: #245684;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        padding: 5px;
+        cursor: pointer;
+        font: 1.3em sans-serif;
+
+    }
+
+    .QueueHeading{
+        display: grid;
+        row-gap: 10px;
+        padding: 10px;
+        background-color: whitesmoke;
+        max-width: 45em;
+        border-bottom: solid black 1px;
+
+
+     }
+
+     .QueueHeading li{
+        display: grid;
+        grid-template-columns: 1fr 1fr 200px;
+        padding: 10px;
+        border-radius: 5px;
+        font: 1.3em sans-serif;
+    }
+    
