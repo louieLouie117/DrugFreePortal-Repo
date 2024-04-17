@@ -254,7 +254,7 @@ namespace DrugFreePortal.Models
             System.Console.WriteLine($"----------------UserIdInProgress => {UserIdInProgress}");
 
             // Get the user from the database
-            Queue? UserInQueue = _context.Queues?.FirstOrDefault(u => u.QueueId == UserIdInProgress);
+            Queue? UserInQueue = _context.Queues?.FirstOrDefault(u => u.StudentUserId == UserIdInProgress);
 
             // Change status to start if UserInQueue is not null
             if (UserInQueue != null)
@@ -266,6 +266,27 @@ namespace DrugFreePortal.Models
 
 
             return Ok(new { Status = "Success", Message = "Returned to queue successfully" });
+        }
+
+
+        [HttpGet("GetStudentInProgress")]
+        public IActionResult GetStudentInProgressMethod()
+        {
+            System.Console.WriteLine("Reached backend of get student in progress");
+
+            // Get the user in progress from the session
+            int? UserIdInProgress = HttpContext.Session.GetInt32("UserIdInProgress");
+            System.Console.WriteLine($"----------------UserIdInProgress => {UserIdInProgress}");
+
+            if (UserIdInProgress == null || UserIdInProgress == 0)
+            {
+                return Ok(new { Status = "No User In Progress", Message = "There is no user in progress." });
+            }
+
+            // Get the user from the database
+            User? UserInQueue = _context.Users?.FirstOrDefault(u => u.UserId == UserIdInProgress);
+
+            return Ok(new { Status = "Success", UserInQueueData = UserInQueue });
         }
 
 

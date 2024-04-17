@@ -32,11 +32,16 @@
 
 
     const QueueStatusHandler = (id) => {
-        console.log("QueueStatusHandler called")
+        console.log("QueueStatusHandler called=====>")
+
 
         const QueueId = id;
         const QueueStatus = "In Progress"
-        const StudentUserId = id;
+    @* must be user Id *@
+        const StudentUserId = document.getElementById('studentUserIdQueueLable' + id).textContent;
+
+        console.log("************************QueueId:", QueueId);
+        console.log("************************StudentUserId:", StudentUserId);
 
 
         const jsonData = {
@@ -45,7 +50,7 @@
             status: QueueStatus
         }
 
-        console.log("Frontend Queue data:", jsonData)
+        console.log("Frontend Queue data=======:", jsonData)
 
 
         $.ajax({
@@ -55,6 +60,8 @@
             success: function (response) {
                 // Handle success response
                 console.log("Backend Queue:", response);
+                GetStudentInProgress();
+
                 if (response.status === "In Progress Error") {
                     alert("Message: " + response.message);
                 }
@@ -136,7 +143,7 @@
     }
 
     // function that calls GetQueue every 7 seconds
-    setInterval(GetQueue, 7000);
+    @* setInterval(GetQueue, 7000); *@
 
 
 

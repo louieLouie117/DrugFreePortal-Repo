@@ -1,5 +1,34 @@
 <script>
 
+    window.onload = function () {
+        GetStudentInProgress();
+    };
+
+
+    const GetStudentInProgress = (event) => {
+        console.log("*************>>GetStudentInProgress");
+        // Add your code here
+        $.ajax({
+            url: '/GetStudentInProgress',
+            type: 'Get',
+            success: function (response) {
+                // Handle success response
+                console.log("=====>GetStudentInProgress:", response.userInQueueData);
+                GetQueue();
+
+
+            },
+            error: function (error) {
+                // Handle error response
+                console.log(error);
+            }
+        });
+    };
+
+
+
+
+
     const ReturnToQueueHandler = (event) => {
         console.log("ReturnToQueueHandler called");
         // Add your code here
@@ -19,6 +48,8 @@
             }
         });
     };
+
+
 
 
 
