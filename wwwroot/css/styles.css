@@ -12,6 +12,7 @@ body{
 h1{
     font: 3em sans-serif;
     color: black;
+    margin: 0;
 }
 
 
@@ -140,6 +141,22 @@ input, select{
 
  /*------- Queue styles */
 
+ .dashboard-evaluator{
+    background-color: #245684;
+    display: grid;
+    grid-template-columns: 40em 1fr;
+    height: 100vh;
+ }
+
+ .Queue-MainContainer{
+    background-color: white;
+ }
+
+ .SubmitRecords-MainContainer{
+    background-color: white;
+ }
+
+
  .Queue-Container{
     background-color: #245684;
  }
@@ -155,14 +172,12 @@ input, select{
     row-gap: 10px;
     padding: 10px;
     background-color: white;
-    max-width: 45em;
  }
 
     .QueueBody li{
         display: grid;
         grid-template-columns: 1fr 1fr 200px;
         padding: 10px;
-        background-color: white;
         border-radius: 5px;
     }
 
@@ -178,6 +193,7 @@ input, select{
         padding: 5px;
         cursor: pointer;
         font: 1.3em sans-serif;
+        height: 40px;
 
     }
 
