@@ -165,6 +165,20 @@ namespace DrugFreePortal.Models
             return Ok(new { Status = "Success", StudentFiles = StudentFiles });
         }
 
+        [HttpPost("CheckIn")]
+        public IActionResult CheckInMethod(Queue DataFromUser)
+        {
+            System.Console.WriteLine("Reached backend of check in");
+
+            // Get session user id
+            int? UserIdInSession = HttpContext.Session.GetInt32("UserId");
+            System.Console.WriteLine($"----------------UserId in session Home:CheckIn => {UserIdInSession}");
+
+            DataFromUser.StudentUserId = UserIdInSession?.ToString() ?? "0";
+
+            return Ok(new { QueueData = DataFromUser, Status = "Success", Message = "reached backend of Checked in" });
+        }
+
 
     }
 }
