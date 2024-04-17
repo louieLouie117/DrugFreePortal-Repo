@@ -181,6 +181,7 @@ input, select{
 
     }
 
+
     .QueueHeading{
         display: grid;
         row-gap: 10px;
@@ -199,4 +200,11 @@ input, select{
         border-radius: 5px;
         font: 1.3em sans-serif;
     }
+
+
+    .QueueBody li button:disabled{
+        background-color: grey;
+            cursor: not-allowed;
+    }
+
     

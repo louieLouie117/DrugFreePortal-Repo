@@ -1,0 +1,33 @@
+<script>
+
+    const ReturnToQueueHandler = (event) => {
+        console.log("ReturnToQueueHandler called");
+        // Add your code here
+        $.ajax({
+            url: '/ReturnQueueStatus',
+            type: 'Post',
+            success: function (response) {
+                // Handle success response
+                console.log("Return to Queue:", response);
+
+                GetQueue();
+
+            },
+            error: function (error) {
+                // Handle error response
+                console.log(error);
+            }
+        });
+    };
+
+
+
+
+
+</script>
+
+
+<div id="SubmitRecordsView">
+    <h1>Submit Records </h1>
+    <button id="ReturnToQueueBTN" onclick="ReturnToQueueHandler(event)">Return to Queue</button>
+</div>

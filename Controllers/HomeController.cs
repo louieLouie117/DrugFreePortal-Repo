@@ -211,6 +211,65 @@ namespace DrugFreePortal.Models
             return Ok(new { Status = "Success", QueueData = Queue });
         }
 
+        [HttpPost("ChangeQueueStatus")]
+        public IActionResult ChangeQueueStatusMethod(Queue DataFromUser)
+        {
+            System.Console.WriteLine("Reached backend of change queue status");
+
+            // Get the user from the database
+            Queue? UserInQueue = _context.Queues?.FirstOrDefault(u => u.QueueId == DataFromUser.QueueId);
+
+
+            var UserIdInProgress = HttpContext.Session.GetInt32("UserIdInProgress");
+            System.Console.WriteLine($"----------------UserIdInProgress => {UserIdInProgress}");
+
+            if (UserIdInProgress == null || UserIdInProgress == 0)
+            {
+                HttpContext.Session.SetInt32("UserIdInProgress", DataFromUser.StudentUserId);
+                // Update database if UserInQueue is not null
+                if (UserInQueue != null)
+                {
+                    UserInQueue.Status = DataFromUser.Status;
+                    _context.SaveChanges();
+                }
+            }
+            else
+            {
+                return Ok(new { Status = "In Progress Error", Message = "There is already a user in progress. You must return student to queue before working on another student." });
+            }
+
+
+            return Ok(new { Status = "Success", Message = "Queue status updated successfully" });
+        }
+
+        [HttpPost("ReturnQueueStatus")]
+        public IActionResult ReturnQueueStatusMethod()
+        {
+            System.Console.WriteLine("Reached backend of return to queue");
+
+            // Get the user in progress from the session
+            int? UserIdInProgress = HttpContext.Session.GetInt32("UserIdInProgress");
+            System.Console.WriteLine($"----------------UserIdInProgress => {UserIdInProgress}");
+
+            // Get the user from the database
+            Queue? UserInQueue = _context.Queues?.FirstOrDefault(u => u.QueueId == UserIdInProgress);
+
+            // Change status to start if UserInQueue is not null
+            if (UserInQueue != null)
+            {
+                UserInQueue.Status = "Start";
+                HttpContext.Session.Remove("UserIdInProgress");
+                _context.SaveChanges();
+            }
+
+
+            return Ok(new { Status = "Success", Message = "Returned to queue successfully" });
+        }
+
+
+
+
+
 
     }
 }

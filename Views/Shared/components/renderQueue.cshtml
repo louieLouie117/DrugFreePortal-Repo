@@ -6,6 +6,7 @@
     };
 
 
+    @* GetQueue(); // refresh the queue list after changing the status submiting or returning a student to the queue *@
 
 
 
@@ -32,7 +33,39 @@
 
     const QueueStatusHandler = (id) => {
         console.log("QueueStatusHandler called")
-        console.log("Queue Id:", id)
+
+        const QueueId = id;
+        const QueueStatus = "In Progress"
+        const StudentUserId = id;
+
+
+        const jsonData = {
+            queueId: QueueId,
+            studentUserId: StudentUserId,
+            status: QueueStatus
+        }
+
+        console.log("Frontend Queue data:", jsonData)
+
+
+        $.ajax({
+            url: '/ChangeQueueStatus',
+            type: 'Post',
+            data: jsonData,
+            success: function (response) {
+                // Handle success response
+                console.log("Backend Queue:", response);
+                if (response.status === "In Progress Error") {
+                    alert("Message: " + response.message);
+                }
+                GetQueue();
+
+            },
+            error: function (error) {
+                // Handle error response
+                console.log(error);
+            }
+        });
     }
 
     const RenderQueue = (queueData) => {
@@ -48,22 +81,41 @@
             name.id = 'nameQueueLabel' + queue.queueId;
             li.appendChild(name);
 
-
-
             const school = document.createElement('label');
             school.textContent = queue.schoolName;
             school.id = 'schoolQueueLable' + queue.queueId;
-
             li.appendChild(school);
 
-
             const status = document.createElement('button');
-            status.textContent = queue.status;
             status.id = 'statusQueueLableButton' + queue.queueId;
+            status.textContent = queue.status;
+            if (queue.status === "In Progress") {
+                status.disabled = true;
+
+            }
+
             status.addEventListener('click', () => QueueStatusHandler(queue.queueId));
             li.appendChild(status);
 
 
+    @* all hidden items *@
+            const shcoolId = document.createElement('label');
+            shcoolId.textContent = queue.schoolId;
+            shcoolId.classList.add('hidden');
+            shcoolId.id = 'schoolIdQueueLable' + queue.queueId;
+            li.appendChild(shcoolId);
+
+            const studentId = document.createElement('label');
+            studentId.textContent = queue.studentId;
+            studentId.classList.add('hidden');
+            studentId.id = 'studentIdQueueLable' + queue.queueId;
+            li.appendChild(studentId);
+
+            const studedentUserId = document.createElement('label');
+            studedentUserId.textContent = queue.studentUserId;
+            studedentUserId.classList.add('hidden');
+            studedentUserId.id = 'studentUserIdQueueLable' + queue.queueId;
+            li.appendChild(studedentUserId);
 
             const email = document.createElement('label');
             email.textContent = queue.email;
@@ -71,7 +123,11 @@
             email.id = 'emailQueueLable' + queue.queueId;
             li.appendChild(email);
 
-
+            const phone = document.createElement('label');
+            phone.textContent = queue.phoneNumber;
+            phone.classList.add('hidden');
+            phone.id = 'phoneQueueLable' + queue.queueId;
+            li.appendChild(phone);
 
 
 
@@ -80,7 +136,7 @@
     }
 
     // function that calls GetQueue every 10 seconds
-    setInterval(GetQueue, 7000);
+    @* setInterval(GetQueue, 30000); *@
 
 
 
