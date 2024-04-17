@@ -1,0 +1,69 @@
+<script>
+
+
+    window.onload = function () {
+        GetQueue();
+    };
+
+
+
+    const GetQueue = (e) => {
+        console.log("----------Get queue called")
+
+        $.ajax({
+            url: '/GetQueue',
+            type: 'Get',
+    @* contentType: 'application/json', *@
+            success: function (response) {
+                // Handle success response
+                console.log("Backend Queue:", response.queueData);
+                RenderQueue(response.queueData);
+            },
+            error: function (error) {
+                // Handle error response
+                console.log(error);
+            }
+        });
+
+        }
+
+    const RenderQueue = (queueData) => {
+        const tableBody = document.getElementById('QueueList');
+
+        queueData.forEach((queue) => {
+            const row = document.createElement('tr');
+            const firstNameCell = document.createElement('td');
+            const lastNameCell = document.createElement('td');
+            lastNameCell.classList.add('hidden');
+            const statusCell = document.createElement('button');
+
+            firstNameCell.textContent = queue.firstName;
+            lastNameCell.textContent = queue.lastName;
+            statusCell.textContent = queue.status;
+
+            row.appendChild(firstNameCell);
+            row.appendChild(lastNameCell);
+            row.appendChild(statusCell);
+
+            tableBody.appendChild(row);
+        });
+    }
+
+
+</script>
+
+<div class="Queue-Container">
+    <h1>In Queue</h1>
+    <button onclick="GetQueue()">Get Queue</button>
+
+    <table id="QueueTable">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody id="QueueList"></tbody>
+    </table>
+
+</div>

@@ -7,6 +7,8 @@ namespace DrugFreePortal.Models
         [Key]
         public int QueueId { get; set; }
 
+        public required string Status { get; set; }
+
         public required int SchoolId { get; set; }
 
         public required string SchoolName { get; set; }

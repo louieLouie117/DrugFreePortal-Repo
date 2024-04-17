@@ -186,21 +186,29 @@ namespace DrugFreePortal.Models
 
 
             DataFromUser.StudentUserId = UserIdInSession ?? 0;
+            DataFromUser.Status = "Start";
 
             // Add the file information to the database
             _context.Add(DataFromUser);
             _context.SaveChanges();
 
-
-
-
-
-
-
             // Return the updated user data
             return Ok(new { Status = "Success", Message = "Checked in successfully" });
 
 
+        }
+
+        [HttpGet("GetQueue")]
+        public IActionResult GetQueueMethod()
+        {
+            System.Console.WriteLine("Reached backend of get queue");
+
+
+            // lambda expression to get all data from queue with null or empty check net8.0 new feature
+            List<Queue> Queue = _context.Queues?.Select(q => q).ToList() ?? new List<Queue>();
+
+
+            return Ok(new { Status = "Success", QueueData = Queue });
         }
 
 

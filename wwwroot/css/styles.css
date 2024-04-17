@@ -137,4 +137,30 @@ input, select{
 
 }
 
+ /*------- Queue styles */
 
+ .Queue-Container{
+    background-color: #245684;
+ }
+
+ .Queue-Container h1{
+    color: white;
+
+ }
+
+ .Queue-Container table tbody tr:nth-child(odd){
+    background-color: white;
+ }
+
+ .Queue-Container table tbody tr:nth-child(even){
+    background-color: white;
+ }
+
+ .Queue-Container table tbody button{
+    background-color: #245684;
+    color: white;
+    border: none;
+    font: 1em sans-serif;
+    width: 100px;
+    height: 40px;
+ }
