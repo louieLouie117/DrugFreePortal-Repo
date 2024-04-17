@@ -60,11 +60,14 @@
             success: function (response) {
                 // Handle success response
                 console.log("Backend Queue:", response);
-                GetStudentInProgress();
 
                 if (response.status === "In Progress Error") {
                     alert("Message: " + response.message);
+                    const selectedUserInfo = document.getElementById("SlectedUserInfo");
+                    selectedUserInfo.parentNode.removeChild(selectedUserInfo);
                 }
+    @* need to imporve *@
+                    GetStudentInProgress();
                 GetQueue();
 
             },

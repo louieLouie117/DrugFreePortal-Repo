@@ -17,12 +17,12 @@
                 console.log("StudentInProgress result:", response);
                 console.log("==============>>>");
 
+
                 if (response.status === "No User In Progress") {
                     document.getElementById("NoUserSelectedInQueue").innerHTML = "No User Selected In Queue. Please select a user from the queue.";
                 } else {
                     document.getElementById("NoUserSelectedInQueue").innerHTML = "";
                     RenderSelectedUser(response.userInQueueData);
-
                 }
 
                 GetQueue();
