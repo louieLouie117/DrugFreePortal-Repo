@@ -176,6 +176,10 @@ namespace DrugFreePortal.Models
 
             DataFromUser.StudentUserId = UserIdInSession?.ToString() ?? "0";
 
+            // Add the file information to the database
+            _context.Add(DataFromUser);
+            _context.SaveChanges();
+
             return Ok(new { QueueData = DataFromUser, Status = "Success", Message = "reached backend of Checked in" });
         }
 
