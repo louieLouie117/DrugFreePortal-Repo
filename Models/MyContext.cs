@@ -12,5 +12,7 @@ namespace DrugFreePortal.Models
         public DbSet<ComplianceType>? ComplianceTypes { get; set; }
 
         public DbSet<NewSchool>? NewSchools { get; set; }
+
+        public DbSet<Queue>? Queues { get; set; }
     }
 }

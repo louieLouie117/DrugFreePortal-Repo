@@ -12,6 +12,7 @@ body{
 h1{
     font: 3em sans-serif;
     color: black;
+    margin: 0;
 }
 
 
@@ -49,11 +50,16 @@ th, td{
 ul{
     list-style-type: none;
     padding: 0;
+    margin: 0;
 }
 
 img{
     height: 200px;
     width: auto;
+}
+
+button{
+    width: 130px;
 }
 
 
@@ -105,7 +111,7 @@ input, select{
 .StudentProfile-Container form{
     background-color: white;
     display: grid;
-    grid-template-columns: 120px 1fr;
+    /* grid-template-columns: 120px 1fr; */
     row-gap: 5px;
     padding: 10px;
 
@@ -116,9 +122,7 @@ input, select{
     font: 1.3em sans-serif;
 }
 
-.StudentProfile-Container form input{
-    border: none;
-}
+
 
 .StudentProfile-Container form input:disabled{
     border: none;
@@ -135,7 +139,114 @@ input, select{
     border: solid black 1.3px;
     padding: 5px;
     font: 1.3em sans-serif;
+    margin-bottom: 10px;
 
 }
 
+ /*------- Queue styles */
 
+ .dashboard-evaluator{
+    background-color: #245684;
+    display: grid;
+    grid-template-columns: 40em 1fr;
+    height: 100vh;
+ }
+
+ .Queue-MainContainer{
+    background-color: white;
+ }
+
+ .SubmitRecords-MainContainer{
+    background-color: white;
+ }
+
+
+ .Queue-Container{
+    background-color: #245684;
+ }
+
+
+ .Queue-Container h1{
+    color: white;
+
+ }
+
+ .QueueBody{
+    display: grid;
+    row-gap: 10px;
+    padding: 10px;
+    background-color: white;
+ }
+
+    .QueueBody li{
+        display: grid;
+        grid-template-columns: 1.5fr 1fr 150px;
+        padding: 10px;
+        border-radius: 5px;
+    }
+
+    .QueueBody li label{
+        font: 1.3em sans-serif;
+    }
+
+    .QueueBody li button{
+        background-color: #245684;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        padding: 5px;
+        cursor: pointer;
+        font: 1.3em sans-serif;
+        height: 40px;
+
+    }
+
+
+    .QueueHeading{
+        display: grid;
+        row-gap: 10px;
+        padding: 10px;
+        background-color: whitesmoke;
+        max-width: 45em;
+        border-bottom: solid black 1px;
+
+
+     }
+
+     .QueueHeading li{
+        display: grid;
+        grid-template-columns: 1.5fr 1fr 150px;
+        padding: 10px;
+        border-radius: 5px;
+        font: 1.3em sans-serif;
+    }
+
+
+    .QueueBody li button:disabled{
+        background-color: grey;
+            cursor: not-allowed;
+    }
+
+
+    .SubmitRecords-Container{
+        display: grid;
+    }
+
+
+    
+    .SubmitRecords-Container>main{
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        background-color: #245684;
+        padding: 20px;
+        width: 800px;
+        height: 50px;
+        justify-self: center;
+        align-items: center;
+        border-radius: 10px 10px 0 0;
+    }
+    
+    .SubmitRecords-Container>main label{
+        font: 1.7em sans-serif;
+        color: white;
+    }

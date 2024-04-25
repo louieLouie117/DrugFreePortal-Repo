@@ -3,7 +3,7 @@
     const CheckInHandler = (e) => {
         console.log("CheckInHandler called")
 
-        let schooName = document.getElementById("schoolStudentEdit").value;
+        let schoolName = document.getElementById("schoolStudentEdit").value;
         let schoolId = document.getElementById("schoolIdStudentEdit").value;
         let studentId = document.getElementById("studentIdStudentEdit").value;
         let studentFirstName = document.getElementById("firstNameStudentEdit").value;
@@ -12,7 +12,7 @@
         let studentEmail = document.getElementById("emailStudentEdit").value;
 
         let checkInData = {
-            school: schooName,
+            schoolName: schoolName,
             schoolId: schoolId,
             studentId: studentId,
             firstName: studentFirstName,
@@ -23,12 +23,33 @@
 
     @* don't forget to get studentUserId in the backend *@
 
-            console.log("check in", checkInData)
+            console.log("Frontend: Check In", checkInData)
+
+        $.ajax({
+            url: '/CheckIn',
+            type: 'POST',
+            data: checkInData,
+    @* contentType: 'application/json', *@
+            success: function (response) {
+                // Handle success response
+                console.log(response);
+
+                console.log("Status:", response.status);
+                console.log("Message:", response.message);
+                document.getElementById("QueueStatusLabel").innerText = response.message;
+
+            },
+            error: function (error) {
+                // Handle error response
+                console.log(error);
+            }
+        });
 
     }
 
 </script>
 <div>
     <h1>CheckIn Partial</h1>
+    <label id="QueueStatusLabel"></label>
     <button onclick="CheckInHandler(event)">check in</button>
 </div>
