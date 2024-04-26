@@ -171,7 +171,7 @@ namespace DrugFreePortal.Models
             dataFromUser.AccountType = AccountType.Evaluator;
             dataFromUser.AcceptedTerms = true;
             dataFromUser.ReleaseVersion = "R1.0";
-            // dataFromUser.SchoolId = 0;
+            dataFromUser.SchoolId = "0";
 
             System.Console.WriteLine("Reached backend of register evaluator");
 
@@ -187,12 +187,12 @@ namespace DrugFreePortal.Models
             System.Console.WriteLine($"phone number: {dataFromUser.PhoneNumber}");
 
             // Not needed for evaluator
-            dataFromUser.StripeCustomerId = "Not needed for evaluator";
+            dataFromUser.StripeCustomerId = "StripeId Not needed for evaluator";
             dataFromUser.SubscriptionStatus = SubscriptionStatus.Active;
-            dataFromUser.School = "Not needed for evaluator";
-            dataFromUser.StudentId = "Not needed for evaluator";
+            dataFromUser.School = "School Not assigned for evaluator";
+            dataFromUser.StudentId = "Student Id Not needed for evaluator";
             dataFromUser.CheckedIn = false;
-            dataFromUser.PhoneNumber = "Not needed for evaluator";
+            dataFromUser.PhoneNumber = "Phone Not needed for evaluator";
 
 
 
@@ -351,7 +351,7 @@ namespace DrugFreePortal.Models
             dataFromUser.AccountType = AccountType.Admin;
             dataFromUser.AcceptedTerms = true;
             dataFromUser.ReleaseVersion = "R1.0";
-            // dataFromUser.SchoolId = 0;
+            dataFromUser.SchoolId = "0";
 
             System.Console.WriteLine("Reached backend of register Dean");
 
@@ -370,9 +370,9 @@ namespace DrugFreePortal.Models
             dataFromUser.StripeCustomerId = "Not needed for Dean";
             dataFromUser.SubscriptionStatus = SubscriptionStatus.Active;
             dataFromUser.School = "Admin not assigned school";
-            dataFromUser.StudentId = "Not needed for Dean";
+            dataFromUser.StudentId = "Student Id Not needed for Admin";
             dataFromUser.CheckedIn = false;
-            dataFromUser.PhoneNumber = "Not needed for Dean";
+            dataFromUser.PhoneNumber = "Not needed for Admin";
 
 
 
