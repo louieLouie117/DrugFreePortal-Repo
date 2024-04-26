@@ -20,6 +20,11 @@ const fetchAllUsers = async () => {
     });
 };
 
+// arrow function to delete a user from the database
+const DeleteUser = async (userId) => {
+    console.log("userId", userId);
+}
+
 
 const RenderAllUsers = (users) => {
 const table = document.getElementById('usersList'); // Assuming you have a table with id 'usersList'
@@ -48,14 +53,15 @@ const table = document.getElementById('usersList'); // Assuming you have a table
         // Create a new table row
         const row = document.createElement('tr');
         row.innerHTML = `
-        <td>${user.userId}</td>
-        <td>${user.accountType}</td>
-        <td>${user.school}</td>
-        <td>${user.studentId}</td>
-        <td>${user.firstName}</td>
-        <td>${user.lastName}</td>
-        <td>${user.email}</td>
-        <td>${user.password}</td>
+            <td>${user.userId}</td>
+            <td>${user.accountType}</td>
+            <td>${user.schoolId}</td>
+            <td>${user.school}</td>
+            <td>${user.studentId}</td>
+            <td>${user.firstName}</td>
+            <td>${user.lastName}</td>
+            <td>${user.email}</td>
+            <td><button id="${user.userId}" onclick="DeleteUser(${user.userId})">Delete</button></td>
         `;
 
         // Append the row to the table
