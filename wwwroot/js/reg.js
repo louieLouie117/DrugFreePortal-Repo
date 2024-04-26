@@ -125,6 +125,8 @@ function RenderSchoolsOptionsForStudentsReg(schools) {
     StudentSchoolSelector.addEventListener('change', addIdToInputStudentReg);
 }
 
+
+
 function addIdToInputStudentReg(event) {
     // The value of the selected option is the schoolId
     
