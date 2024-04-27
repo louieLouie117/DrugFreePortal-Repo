@@ -2,7 +2,11 @@ console.log("adminDashboard.js loaded");
 
 document.addEventListener('DOMContentLoaded', () => {
   fetchAllUsers();
+  getSchools();
+  getSchoolsForDeanReg();
 });
+window.onload = function () {}; // loads after all the elements are loaded
+
 
 // arrow function to fetch all users from the database
 const fetchAllUsers = async () => {
@@ -15,6 +19,7 @@ const fetchAllUsers = async () => {
         RenderAllUsers(data.usersList);
     });
 };
+
 
 
 const RenderAllUsers = (users) => {
@@ -44,14 +49,15 @@ const table = document.getElementById('usersList'); // Assuming you have a table
         // Create a new table row
         const row = document.createElement('tr');
         row.innerHTML = `
-        <td>${user.userId}</td>
-        <td>${user.accountType}</td>
-        <td>${user.school}</td>
-        <td>${user.studentId}</td>
-        <td>${user.firstName}</td>
-        <td>${user.lastName}</td>
-        <td>${user.email}</td>
-        <td>${user.password}</td>
+            <td>${user.userId}</td>
+            <td>${user.accountType}</td>
+            <td>${user.schoolId}</td>
+            <td>${user.school}</td>
+            <td>${user.studentId}</td>
+            <td>${user.firstName}</td>
+            <td>${user.lastName}</td>
+            <td>${user.email}</td>
+            <td><button id="${user.userId}" onclick="DeleteUserHandler(${user.userId})">Delete</button></td>
         `;
 
         // Append the row to the table
@@ -168,9 +174,7 @@ const ComplianceTypeList = (data) => {
 
 
 // -------------------Schools-------------------
-window.onload = function () {
-    getSchools();
-};
+
 
 
 const getSchools = () => {
@@ -229,3 +233,37 @@ function addIdToInput(event) {
 
 
 
+const getSchoolsForDeanReg = () => {
+    fetch('/GetAllSchools', {
+        method: 'GET'
+    })
+        .then(response => response.json())
+        .then(data => {
+            // Handle success response
+            console.log("schools list--------", data.schoolData);
+            RenderSchoolsOptionsForDeanReg(data.schoolData);
+
+        })
+        .catch(error => {
+            // Handle error response
+            console.log(error);
+        });
+};
+
+function RenderSchoolsOptionsForDeanReg(schools) {
+    const DeanSchoolSelector = document.getElementById('DeanSchoolSelector');
+    DeanSchoolSelector.innerHTML = '<option>Select School</option>';
+
+    schools.forEach(school => {
+        console.log("school option", school.schoolId);
+
+        const option = document.createElement('option');
+        option.value = school.name; // It's common to use the id as the value
+        option.textContent = school.name;
+        option.id = school.schoolId;
+        DeanSchoolSelector.appendChild(option);
+    });
+
+    // Add the event listener to the select element
+    DeanSchoolSelector.addEventListener('change', addIdToInputStudentReg);
+}
