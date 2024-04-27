@@ -28,13 +28,20 @@ namespace DrugFreePortal.Models
         [HttpPost("DeleteFromQueue")]
         public IActionResult DeleteFromQueueMethod(Queue DeleteID)
         {
-
             System.Console.WriteLine("DeleteFromQueueMethod reached");
-            // Queue queue = _context.Queues.FirstOrDefault(q => q.QueueId == DeleteID.QueueId);
 
-            // _context.Queues.Remove(queue);
-            // _context.SaveChanges();
-            return Ok(new { message = "You have reached the backend of DeleteFromQueue" });
+            Queue? queue = _context.Queues.FirstOrDefault(q => q.QueueId == DeleteID.QueueId);
+
+            if (queue != null)
+            {
+                _context.Queues.Remove(queue);
+                _context.SaveChanges();
+                return Ok(new { message = "You have reached the backend of DeleteFromQueue" });
+            }
+            else
+            {
+                return NotFound();
+            }
         }
 
 

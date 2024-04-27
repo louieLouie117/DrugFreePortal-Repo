@@ -232,7 +232,7 @@ input, select{
 
     .QueueMainBTN:hover{
         width: 140px;
-        border-radius: 150px; /* Changed border to border-radius */
+        border-radius: 20px; /* Changed border to border-radius */
 
     }
 
