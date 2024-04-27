@@ -153,7 +153,7 @@ input, select{
  }
 
  .Queue-MainContainer{
-    background-color: white;
+    background-color: whitesmoke;
  }
 
  .SubmitRecords-MainContainer{
@@ -171,25 +171,52 @@ input, select{
 
  }
 
- .QueueBody{
+ 
+
+ .QueueHeading{
     display: grid;
     row-gap: 10px;
     padding: 10px;
-    background-color: white;
+    background-color: whitesmoke;
+    max-width: 45em;
+    border-bottom: solid black 1px;
+
+
+ }
+
+ .QueueHeading li{
+    display: grid;
+    grid-template-columns: 50px 1.5fr 1fr 150px;
+    padding: 10px;
+    border-radius: 5px;
+    font: 1.3em sans-serif;
+}
+
+
+ .QueueBody{
+    display: grid;
+    row-gap: 20px;
+    padding: 10px;
+    background-color: whitesmoke;
+    padding-top: 40px;
  }
 
     .QueueBody li{
         display: grid;
-        grid-template-columns: 1.5fr 1fr 150px;
+        grid-template-columns: 50px 1.5fr 1fr 150px;
         padding: 10px;
         border-radius: 5px;
+        box-shadow: 0px 0px 3px 3px #f0f0f0;
+        background-color: white;
+        align-items: center;
+
     }
 
     .QueueBody li label{
         font: 1.3em sans-serif;
     }
 
-    .QueueBody li button{
+    .QueueMainBTN{
         background-color: #245684;
         color: white;
         border: none;
@@ -201,24 +228,17 @@ input, select{
 
     }
 
-
-    .QueueHeading{
-        display: grid;
-        row-gap: 10px;
-        padding: 10px;
-        background-color: whitesmoke;
-        max-width: 45em;
-        border-bottom: solid black 1px;
-
-
-     }
-
-     .QueueHeading li{
-        display: grid;
-        grid-template-columns: 1.5fr 1fr 150px;
-        padding: 10px;
+    .QueueDeleteBTN{
+        background-color: #e0e0e0;
+        color: white;
+        border: none;
         border-radius: 5px;
+        padding: 5px;
+        cursor: pointer;
         font: 1.3em sans-serif;
+        height: 40px;
+        width: 15px;
+
     }
 
 
