@@ -26,6 +26,99 @@ namespace DrugFreePortal.Models
         }
 
 
+        [HttpGet("GetQueue")]
+        public IActionResult GetQueueMethod()
+        {
+            System.Console.WriteLine("Reached backend of get queue");
+
+
+            // lambda expression to get all data from queue with null or empty check net8.0 new feature
+            List<Queue> Queue = _context.Queues?.Select(q => q).ToList() ?? new List<Queue>();
+
+
+            // Check if any data has been changed since the last call
+
+            return Ok(new { Status = "Success", QueueData = Queue });
+        }
+
+        [HttpPost("ChangeQueueStatus")]
+        public IActionResult ChangeQueueStatusMethod(Queue DataFromUser)
+        {
+            System.Console.WriteLine("Reached backend of change queue status");
+
+            // Get the user from the database
+            Queue? UserInQueue = _context.Queues?.FirstOrDefault(u => u.QueueId == DataFromUser.QueueId);
+
+
+            var UserIdInProgress = HttpContext.Session.GetInt32("UserIdInProgress");
+            System.Console.WriteLine($"----------------UserIdInProgress => {UserIdInProgress}");
+
+            if (UserIdInProgress == null || UserIdInProgress == 0)
+            {
+                HttpContext.Session.SetInt32("UserIdInProgress", DataFromUser.StudentUserId);
+                // Update database if UserInQueue is not null
+                if (UserInQueue != null)
+                {
+                    UserInQueue.Status = DataFromUser.Status;
+                    _context.SaveChanges();
+                }
+            }
+            else
+            {
+                return Ok(new { Status = "In Progress Error", Message = "There is already a user in progress. You must return student to queue before working on another student." });
+            }
+
+
+            return Ok(new { Status = "Success", Message = "Queue status updated successfully" });
+        }
+
+        [HttpPost("ReturnQueueStatus")]
+        public IActionResult ReturnQueueStatusMethod()
+        {
+            System.Console.WriteLine("Reached backend of return to queue");
+
+            // Get the user in progress from the session
+            int? UserIdInProgress = HttpContext.Session.GetInt32("UserIdInProgress");
+            System.Console.WriteLine($"----------------UserIdInProgress => {UserIdInProgress}");
+
+            // Get the user from the database
+            Queue? UserInQueue = _context.Queues?.FirstOrDefault(u => u.StudentUserId == UserIdInProgress);
+
+            // Change status to start if UserInQueue is not null
+            if (UserInQueue != null)
+            {
+                UserInQueue.Status = "Start";
+                HttpContext.Session.Remove("UserIdInProgress");
+                _context.SaveChanges();
+            }
+
+
+            return Ok(new { Status = "Success", Message = "Returned to queue successfully" });
+        }
+
+
+        [HttpGet("GetStudentInProgress")]
+        public IActionResult GetStudentInProgressMethod()
+        {
+            System.Console.WriteLine("Reached backend of get student in progress");
+
+            // Get the user in progress from the session
+            int? UserIdInProgress = HttpContext.Session.GetInt32("UserIdInProgress");
+            System.Console.WriteLine($"----------------UserIdInProgress => {UserIdInProgress}");
+
+            if (UserIdInProgress == null || UserIdInProgress == 0)
+            {
+                return Ok(new { Status = "No User In Progress", Message = "There is no user in progress." });
+            }
+
+            // Get the user from the database
+            User? UserInQueue = _context.Users?.FirstOrDefault(u => u.UserId == UserIdInProgress);
+
+            return Ok(new { Status = "Success", UserInQueueData = UserInQueue });
+        }
+
+
+
 
 
         [HttpPost("DeleteFromQueue")]
@@ -46,6 +139,7 @@ namespace DrugFreePortal.Models
                 return NotFound();
             }
         }
+
 
 
 
