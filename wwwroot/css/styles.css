@@ -273,7 +273,7 @@ input, select{
     
     .SubmitRecords-Container>main{
         display: grid;
-        grid-template-columns: 2fr 1fr;
+        grid-template-columns: 100px 2fr 1fr;
         background-color: #245684;
         padding: 20px;
         width: 800px;

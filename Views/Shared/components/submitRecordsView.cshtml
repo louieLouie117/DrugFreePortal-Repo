@@ -39,21 +39,30 @@
 
     const RenderSelectedUser = (userData) => {
 
-
-        const user = userData; // Assuming there is only one user in the userData array
-        console.log("User data:", user);
+        console.log("userData====:", userData);
 
         const mainElement = document.createElement("main");
         mainElement.id = "SlectedUserInfo";
 
+        const labelStudentUserId = document.createElement("label");
+        labelStudentUserId.innerHTML = userData.userId;
+        labelStudentUserId.id = "labelStudentUserId"; // Add unique id
+        mainElement.appendChild(labelStudentUserId);
+
         const lablelName = document.createElement("label");
-        lablelName.innerHTML = user.firstName + " " + user.lastName;
+        lablelName.innerHTML = userData.firstName + " " + userData.lastName;
+        lablelName.id = "lablelName"; // Add unique id
         mainElement.appendChild(lablelName);
 
         const labelStudentId = document.createElement("label");
-        labelStudentId.innerHTML = user.studentId;
+        labelStudentId.innerHTML = userData.studentId;
+        labelStudentId.id = "labelStudentId"; // Add unique id
         mainElement.appendChild(labelStudentId);
 
+        const labelSchoolId = document.createElement("label");
+        labelSchoolId.innerHTML = userData.schoolId;
+        labelSchoolId.id = "labelSchoolId"; // Add unique id
+        mainElement.appendChild(labelSchoolId);
 
         document.getElementById("SubmitRecordsView").appendChild(mainElement);
 
@@ -83,6 +92,32 @@
         });
     };
 
+    const RenderSchoolComplianceHandler = (event) => {
+        console.log("RenderSchoolComplianceHandler called");
+
+        let schoolIdFilter = document.getElementById("labelSchoolId").textContent;
+
+        jsonData = {
+            idFromSchool: schoolIdFilter
+        };
+
+        console.log("jsonData:", jsonData);
+        // Add your code here
+        $.ajax({
+            url: '/RenderSchoolCompliance',
+            type: 'Post',
+            data: jsonData,
+            success: function (response) {
+                // Handle success response
+                console.log("RenderCompliance:", response);
+            },
+            error: function (error) {
+                // Handle error response
+                console.log(error);
+            }
+        });
+    };
+
 
 
 
@@ -93,9 +128,10 @@
 
 
 <div class="SubmitRecords-Container" id="SubmitRecordsView">
-    <h1>Submit Records </h1>
     <button id="ReturnToQueueBTN" onclick="ReturnToQueueHandler(event)">Return to Queue</button>
+    <button onclick="RenderSchoolComplianceHandler(event)">+</button>
     <label id="NoUserSelectedInQueue"></label>
+
 
 
 

@@ -141,6 +141,18 @@ namespace DrugFreePortal.Models
         }
 
 
+        [HttpPost("RenderSchoolCompliance")]
+        public IActionResult RenderSchoolComplianceMethod(ComplianceType DataFromUser)
+        {
+            System.Console.WriteLine($"=========>Reached backend of render school compliance {DataFromUser.IdFromSchool}");
+
+            int FilterById = DataFromUser.IdFromSchool;
+            // Get school compliance data that have the same id
+            List<ComplianceType> ComplianceList = _context.ComplianceTypes?.Where(c => c.IdFromSchool == FilterById).ToList() ?? new List<ComplianceType>();
+
+            return Ok(new { ComplianceData = ComplianceList, message = "You have reached the backend of RenderSchoolCompliance" });
+        }
+
 
 
 
