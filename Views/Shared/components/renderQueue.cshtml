@@ -78,6 +78,39 @@
         });
     }
 
+
+    const DeleteFromQueueHandler = (id) => {
+        console.log("DeleteFromQueueHandler called=====>")
+
+        const QueueId = id;
+        const StudentUserId = document.getElementById('studentUserIdQueueLable' + id).textContent;
+
+        console.log("************************QueueId to delete:", QueueId);
+        console.log("************************StudentUserId to delete:", StudentUserId);
+
+        const jsonData = {
+            queueId: QueueId,
+            studentUserId: StudentUserId
+        }
+
+        console.log("Frontend Queue data=======:", jsonData)
+    @*
+            $.ajax({
+            url: '/DeleteFromQueue',
+            type: 'Post',
+            data: jsonData,
+            success: function (response) {
+            // Handle success response
+            console.log("Backend Queue:", response);
+            GetQueue();
+            },
+            error: function (error) {
+            // Handle error response
+            console.log(error);
+            }
+            }); *@
+    }
+
     const RenderQueue = (queueData) => {
         const ul = document.getElementById('QueueList');
         ul.innerHTML = '';
@@ -91,6 +124,7 @@
             deleteButton.id = 'deleteButton' + queue.queueId;
             deleteButton.textContent = '';
             deleteButton.classList.add('QueueDeleteBTN');
+            deleteButton.addEventListener('click', () => DeleteFromQueueHandler(queue.queueId));
             li.appendChild(deleteButton);
 
             const name = document.createElement('label');
