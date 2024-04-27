@@ -186,10 +186,12 @@ input, select{
 
  .QueueHeading li{
     display: grid;
-    grid-template-columns: 50px 1.5fr 1fr 150px;
+    grid-template-columns: 40px 1.5fr 1fr 150px;
     padding: 10px;
     border-radius: 5px;
     font: 1.3em sans-serif;
+    align-items: center;
+    justify-items: center;
 }
 
 
@@ -203,7 +205,7 @@ input, select{
 
     .QueueBody li{
         display: grid;
-        grid-template-columns: 50px 1.5fr 1fr 150px;
+        grid-template-columns: 40px 1.5fr 1fr 150px;
         padding: 10px;
         border-radius: 5px;
         box-shadow: 0px 0px 3px 3px #f0f0f0;
@@ -226,19 +228,17 @@ input, select{
         cursor: pointer;
         font: 1.3em sans-serif;
         height: 40px;
-        transition: width 0.5s ease, border-radius 0.5s ease; /* Changed border to border-radius */
-        width: 120px;
+        transition: border-radius 0.5s ease; /* Changed border to border-radius */
+        width: 140px;
     }
 
     .QueueMainBTN:hover{
-        width: 140px;
         border-radius: 20px; /* Changed border to border-radius */
 
     }
 
     .QueueMainBTN:disabled{
-        width: 120px;
-        border-radius: 5px; /* Changed border to border-radius */
+        border-radius: 20px; /* Changed border to border-radius */
 
     }
     

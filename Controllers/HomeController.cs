@@ -198,6 +198,7 @@ namespace DrugFreePortal.Models
 
         }
 
+
         [HttpGet("GetQueue")]
         public IActionResult GetQueueMethod()
         {
@@ -288,7 +289,6 @@ namespace DrugFreePortal.Models
 
             return Ok(new { Status = "Success", UserInQueueData = UserInQueue });
         }
-
 
 
 

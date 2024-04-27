@@ -8,77 +8,6 @@
 
     @* GetQueue(); // refresh the queue list after changing the status submiting or returning a student to the queue *@
 
-
-
-    const GetQueue = (e) => {
-        console.log("------------------Get queue called")
-
-        $.ajax({
-            url: '/GetQueue',
-            type: 'Get',
-    @* contentType: 'application/json', *@
-            success: function (response) {
-                // Handle success response
-                console.log("Backend Queue:", response.queueData);
-                RenderQueue(response.queueData);
-            },
-            error: function (error) {
-                // Handle error response
-                console.log(error);
-            }
-        });
-
-        }
-
-
-    const QueueStatusHandler = (id) => {
-        console.log("QueueStatusHandler called=====>")
-
-
-        const QueueId = id;
-        const QueueStatus = "In Progress"
-    @* must be user Id *@
-        const StudentUserId = document.getElementById('studentUserIdQueueLable' + id).textContent;
-
-        console.log("************************QueueId to chanage status:", QueueId);
-        console.log("************************StudentUserId to add to session:", StudentUserId);
-
-
-        const jsonData = {
-            queueId: QueueId,
-            studentUserId: StudentUserId,
-            status: QueueStatus
-        }
-
-        console.log("Frontend Queue data=======:", jsonData)
-
-
-        $.ajax({
-            url: '/ChangeQueueStatus',
-            type: 'Post',
-            data: jsonData,
-            success: function (response) {
-                // Handle success response
-                console.log("Backend Queue:", response);
-
-                if (response.status === "In Progress Error") {
-                    alert("Message: " + response.message);
-                    const selectedUserInfo = document.getElementById("SlectedUserInfo");
-                    selectedUserInfo.parentNode.removeChild(selectedUserInfo);
-                }
-    @* need to imporve *@
-                    GetStudentInProgress();
-                GetQueue();
-
-            },
-            error: function (error) {
-                // Handle error response
-                console.log(error);
-            }
-        });
-    }
-
-
     const DeleteFromQueueHandler = (id) => {
         console.log("DeleteFromQueueHandler called=====>")
 
@@ -110,6 +39,76 @@
             }
         });
     }
+
+
+    const GetQueue = (e) => {
+        console.log("------------------Get queue called")
+
+        $.ajax({
+            url: '/GetQueue',
+            type: 'Get',
+    @* contentType: 'application/json', *@
+            success: function (response) {
+                // Handle success response
+                console.log("Backend Queue:", response.queueData);
+                RenderQueue(response.queueData);
+            },
+            error: function (error) {
+                // Handle error response
+                console.log(error);
+            }
+        });
+
+        }
+
+
+    const QueueStatusHandler = (id) => {
+        console.log("QueueStatusHandler called=====>")
+
+
+        const QueueId = id;
+        const QueueStatus = "In Progress"
+        //must be changed to the student id
+        const StudentUserId = document.getElementById('studentUserIdQueueLable' + id).textContent;
+
+        console.log("************************QueueId to chanage status:", QueueId);
+        console.log("************************StudentUserId to add to session:", StudentUserId);
+
+
+        const jsonData = {
+            queueId: QueueId,
+            studentUserId: StudentUserId,
+            status: QueueStatus
+        }
+
+        console.log("Frontend Queue data=======:", jsonData)
+
+
+        $.ajax({
+            url: '/ChangeQueueStatus',
+            type: 'Post',
+            data: jsonData,
+            success: function (response) {
+                // Handle success response
+                console.log("Backend Queue:", response);
+
+                if (response.status === "In Progress Error") {
+                    alert("Message: " + response.message);
+                    const selectedUserInfo = document.getElementById("SlectedUserInfo");
+                    selectedUserInfo.parentNode.removeChild(selectedUserInfo);
+                }
+                GetStudentInProgress();
+                GetQueue();
+
+            },
+            error: function (error) {
+                // Handle error response
+                console.log(error);
+            }
+        });
+    }
+
+
 
     const RenderQueue = (queueData) => {
         const ul = document.getElementById('QueueList');
