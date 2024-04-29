@@ -339,4 +339,14 @@ input, select{
     }
     
    
+
+    .UserSelectedCompliance-Container{
+        display: grid;
+    }
+
+    .UserUpload-Container{
+        background-color: red;
+        height: 400px;
+        width: 400px;
+    }
  

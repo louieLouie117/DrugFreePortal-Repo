@@ -117,12 +117,52 @@
 
     };
 
+    const GetUserUploads = (UserId) => {
+        console.log("==================>UserId to get upload from the student:", UserId);
+
+        console.log("GetUserUploads called");
+        console.log("UserId:", UserId);
+        const userUploadDiv = document.createElement("div");
+        userUploadDiv.id = "UserUploadDiv";
+        userUploadDiv.className = "UserUpload-Container";
+        document.getElementById("EvaluatorWindow").appendChild(userUploadDiv);
+
+        const EvaluatorWindow = document.getElementById("EvaluatorWindow");
+        EvaluatorWindow.style.gridTemplateColumns = "1fr 1fr";
+
+        jsonData = {
+            UserId: UserId
+        };
+
+        console.log("jsonData:", jsonData);
+        // Add your code here
+        $.ajax({
+            url: '/GetUserUploads',
+            type: 'Post',
+            data: jsonData,
+            success: function (response) {
+                // Handle success response
+                console.log("GetUserUploads:", response);
+            },
+            error: function (error) {
+                // Handle error response
+                console.log(error);
+            }
+        });
+    };
+
     //This is the function when a user selects the complicnace list button  
     const ComplianceSelectedHandeler = (event) => {
 
         //clear selected compliance record
         console.log("ComplianceSelectedHandeler called");
         console.log("event.target:", event.target);
+
+        const UserId = document.getElementById("labelUserIdRecord").innerHTML;
+
+
+        GetUserUploads(UserId);
+
 
         const ComplianceList = document.getElementById("ComplianceList");
         ComplianceList.style.display = "none";
@@ -131,14 +171,37 @@
         ContollerLabel.innerHTML = "< Back";
 
         const complianceSelected = event.target.innerHTML;
-        const complianceSelectedDiv = document.createElement("div"); // Create a div element
-        complianceSelectedDiv.id = "ComplianceSelectedDiv"; // Add unique id
+        const UserSelectedcomplianceDiv = document.createElement("div"); // Create a div element
+        UserSelectedcomplianceDiv.id = "UserSelectedComplianceDiv"; // Add unique id
+        UserSelectedcomplianceDiv.className = "UserSelectedCompliance-Container"; // Add a class name to the div element
+
         const complianceSelectedLabelRecord = document.createElement("label");
         complianceSelectedLabelRecord.innerHTML = complianceSelected;
         complianceSelectedLabelRecord.id = "ComplianceSelectedLabelRecord"; // Add unique id
-        complianceSelectedDiv.appendChild(complianceSelectedLabelRecord); // Append the label to the div
+        UserSelectedcomplianceDiv.appendChild(complianceSelectedLabelRecord); // Append the label to the div
 
-        document.getElementById("EvaluatorController").appendChild(complianceSelectedDiv); // Append the div to the EvaluatorController element
+        document.getElementById("EvaluatorController").appendChild(UserSelectedcomplianceDiv); // Append the div to the EvaluatorController element
+
+
+        const PassedButton = document.createElement("button");
+        PassedButton.innerHTML = "Passed";
+        document.getElementById("UserSelectedComplianceDiv").appendChild(PassedButton);
+
+        const FailedButton = document.createElement("button");
+        FailedButton.innerHTML = "Failed";
+        document.getElementById("UserSelectedComplianceDiv").appendChild(FailedButton);
+
+        const PendingButton = document.createElement("button");
+        PendingButton.innerHTML = "Pending";
+        document.getElementById("UserSelectedComplianceDiv").appendChild(PendingButton);
+
+
+
+
+
+
+
+
 
     };
 
@@ -148,7 +211,6 @@
             return;
         }
         console.log("ControllerNavHandler called");
-        console.log("event.target:", event.target);
 
         const ComplianceList = document.getElementById("ComplianceList");
         ComplianceList.style.display = "grid";
@@ -161,7 +223,13 @@
             ComplianceSelectedLabelRecord.parentNode.removeChild(ComplianceSelectedLabelRecord);
         }
 
-        document.getElementById("ComplianceSelectedDiv").remove();
+
+        document.getElementById("UserSelectedComplianceDiv").remove();
+        const EvaluatorWindow = document.getElementById("EvaluatorWindow");
+        EvaluatorWindow.style.gridTemplateColumns = "1fr";
+
+        const UserUploadDiv = document.getElementById("UserUploadDiv");
+        UserUploadDiv.remove();
 
 
     };
@@ -174,7 +242,7 @@
         divElement.className = "Evaluator-Container"; // Add a class name to the div element
         divElement.id = "EvaluatorWindow";
         divElement.addEventListener("click", function (event) {
-            console.log("event.target:", event.target);
+            console.log("Check event.target:", event.target);
             if (event.target === divElement) {
                 EvaluatorWindowHandler(event);
             }

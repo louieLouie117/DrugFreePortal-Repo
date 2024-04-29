@@ -154,7 +154,17 @@ namespace DrugFreePortal.Models
         }
 
 
+        [HttpPost("GetUserUploads")]
+        public IActionResult GetUserUploadsMethod(UploadFile DataFromUser)
+        {
+            System.Console.WriteLine("Reached backend of get user uploads");
 
+            // Get the user from the database
+            List<UploadFile> Uploads = _context.UploadFiles?.Where(u => u.UserId == DataFromUser.UserId).ToList() ?? new List<UploadFile>();
+
+
+            return Ok(new { UploadData = Uploads, message = "You have reached the backend of GetUserUploads" });
+        }
 
     }
 }
