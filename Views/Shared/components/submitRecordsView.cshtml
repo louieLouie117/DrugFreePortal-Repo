@@ -108,6 +108,18 @@
             imgElement.className = "UserUpload-Image";
             UserUploadDiv.appendChild(imgElement);
 
+            //button for the evaluator to view the file
+            const ViewButton = document.createElement("button");
+            ViewButton.innerHTML = "View";
+            ViewButton.addEventListener("click", function() {
+                window.open("/img/uploads/" + FileName);
+            });
+            
+            UserUploadDiv.appendChild(ViewButton);
+
+            UserUploadDiv.appendChild(ViewButton);
+            
+
 
 
         });

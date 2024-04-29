@@ -354,6 +354,15 @@ input, select{
         justify-content: center;
         padding: 20px;
         border-radius: 50px 0 0 50px;
+        overflow-y: scroll;
+
+
+    }
+
+    .UserUpload-Container>img{
+        height: auto;
+        width: 830px;
+        border: solid black 1px;
 
     }
  
