@@ -281,6 +281,9 @@ input, select{
         justify-self: center;
         align-items: center;
         border-radius: 10px 10px 0 0;
+        justify-content: center;
+        column-gap: 20px;
+
     }
     
     .SubmitRecords-Container>main label{
