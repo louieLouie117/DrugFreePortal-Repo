@@ -149,7 +149,7 @@ input, select{
     background-color: #245684;
     display: grid;
     grid-template-columns: 40em 1fr;
-    height: 100vh;
+    height: 97vh;
  }
 
  .Queue-MainContainer{
@@ -290,3 +290,53 @@ input, select{
         font: 1.7em sans-serif;
         color: white;
     }
+
+
+    .Evaluator-Container{
+        display: grid;
+        background-color: rgba(0, 0, 0, 0.36);
+        position: fixed;
+        top: 0;
+        right: 0;
+        height: 98vh;
+        width: 100vw;
+        justify-items: center;
+        align-items: center;
+    }
+
+    .Evaluator-Controller{
+        font: 1em sans-serif;
+        display: grid;
+        row-gap: 20px;
+        background-color: white;
+        height: 600px;
+        width: 400px;
+        padding: 40px;
+        align-content: flex-start;
+        border-radius: 10px;
+    }
+
+    .Evaluator-Controller>ul{
+        display: grid;
+        row-gap: 20px;
+       
+    }
+
+    .Evaluator-Controller>ul li button{
+     background-color: #245684;
+        color: white; 
+        font: 1em sans-serif;
+        border: none;
+        width: 100%;
+        padding: 10px;
+        transition: border-radius 0.5s ease; /* Added transition effect */
+        border-radius: 5px;
+
+    }
+
+    .Evaluator-Controller>ul li button:hover {
+        border-radius: 30px; /* Increase the border-radius value to 30px */
+    }
+    
+   
+ 

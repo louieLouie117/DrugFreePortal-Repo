@@ -106,10 +106,116 @@
         });
     };
 
+
+    const EvaluatorWindowHandler = (event) => {
+        console.log("EvaluatorWindowHandler called");
+        console.log("event.target:", event.target);
+        // get element by class name and change dislpay to none
+        const evaluatorWindow = document.getElementById("EvaluatorWindow");
+        // clear element
+        evaluatorWindow.parentNode.removeChild(evaluatorWindow);
+
+    };
+
+    //This is the function when a user selects the complicnace list button  
+    const ComplianceSelectedHandeler = (event) => {
+
+        //clear selected compliance record
+        console.log("ComplianceSelectedHandeler called");
+        console.log("event.target:", event.target);
+
+        const ComplianceList = document.getElementById("ComplianceList");
+        ComplianceList.style.display = "none";
+
+        const ContollerLabel = document.getElementById("ContollerLabel");
+        ContollerLabel.innerHTML = "< Back";
+
+        const complianceSelected = event.target.innerHTML;
+        const complianceSelectedDiv = document.createElement("div"); // Create a div element
+        complianceSelectedDiv.id = "ComplianceSelectedDiv"; // Add unique id
+        const complianceSelectedLabelRecord = document.createElement("label");
+        complianceSelectedLabelRecord.innerHTML = complianceSelected;
+        complianceSelectedLabelRecord.id = "ComplianceSelectedLabelRecord"; // Add unique id
+        complianceSelectedDiv.appendChild(complianceSelectedLabelRecord); // Append the label to the div
+
+        document.getElementById("EvaluatorController").appendChild(complianceSelectedDiv); // Append the div to the EvaluatorController element
+
+    };
+
+    const ControllerNavHandler = (event) => {
+        if (event.target.innerHTML === "Select Compliance") {
+            console.log("No need to do anything.");
+            return;
+        }
+        console.log("ControllerNavHandler called");
+        console.log("event.target:", event.target);
+
+        const ComplianceList = document.getElementById("ComplianceList");
+        ComplianceList.style.display = "grid";
+
+        const ContollerLabel = document.getElementById("ContollerLabel");
+        ContollerLabel.innerHTML = "Select Compliance";
+
+        const ComplianceSelectedLabelRecord = document.getElementById("ComplianceSelectedLabelRecord");
+        if (ComplianceSelectedLabelRecord) {
+            ComplianceSelectedLabelRecord.parentNode.removeChild(ComplianceSelectedLabelRecord);
+        }
+
+        document.getElementById("ComplianceSelectedDiv").remove();
+
+
+    };
+
+    const RenderCompliance = (complianceData) => {
+        console.log("RenderCompliance called");
+        console.log("complianceData:", complianceData);
+
+        const divElement = document.createElement("div"); // Create a div element
+        divElement.className = "Evaluator-Container"; // Add a class name to the div element
+        divElement.id = "EvaluatorWindow";
+        divElement.addEventListener("click", function (event) {
+            console.log("event.target:", event.target);
+            if (event.target === divElement) {
+                EvaluatorWindowHandler(event);
+            }
+        });
+
+        const aside = document.createElement("aside");
+        aside.className = "Evaluator-Controller";
+        aside.id = "EvaluatorController";
+
+        const label = document.createElement("label");
+        label.innerHTML = "Select Compliance";
+        label.id = "ContollerLabel";
+        label.addEventListener("click", ControllerNavHandler);
+        aside.appendChild(label);
+
+        const ulElement = document.createElement("ul");
+        ulElement.id = "ComplianceList";
+
+        complianceData.forEach((item) => {
+            console.log("item:", item.name);
+            const liElement = document.createElement("li");
+            const buttonElement = document.createElement("button");
+            buttonElement.innerHTML = item.name;
+            buttonElement.addEventListener("click", ComplianceSelectedHandeler)
+            liElement.appendChild(buttonElement);
+            ulElement.appendChild(liElement);
+        });
+
+        aside.appendChild(ulElement);
+
+        divElement.appendChild(aside); // Append the aside element to the div element
+
+        document.getElementById("SubmitRecordsView").appendChild(divElement); // Append the div element to the SubmitRecordsView element
+    };
+
+
     const RenderSchoolComplianceHandler = (event) => {
         console.log("RenderSchoolComplianceHandler called");
 
-        let schoolIdFilter = document.getElementById("labelSchoolId").textContent;
+        // You need the school id to filter the compliance data
+        let schoolIdFilter = document.getElementById("labelSchoolIdRecord").textContent;
 
         jsonData = {
             idFromSchool: schoolIdFilter
@@ -124,6 +230,7 @@
             success: function (response) {
                 // Handle success response
                 console.log("RenderCompliance:", response);
+                RenderCompliance(response.complianceData);
             },
             error: function (error) {
                 // Handle error response
@@ -145,7 +252,6 @@
     <button id="ReturnToQueueBTN" onclick="ReturnToQueueHandler(event)">Return to Queue</button>
     <button onclick="RenderSchoolComplianceHandler(event)">+</button>
     <label id="NoUserSelectedInQueue"></label>
-
     <button onclick="RecordHandler(event)">Cretae Record DB</button>
 
 
