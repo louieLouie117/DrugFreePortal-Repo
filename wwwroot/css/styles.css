@@ -298,7 +298,7 @@ input, select{
         position: fixed;
         top: 0;
         right: 0;
-        height: 98vh;
+        height: 99vh;
         width: 100vw;
         justify-items: center;
         align-items: center;
@@ -345,8 +345,15 @@ input, select{
     }
 
     .UserUpload-Container{
-        background-color: red;
-        height: 400px;
-        width: 400px;
+        display: grid;
+        row-gap: 20px;
+        background-color: whitesmoke;
+        height: 94vh;
+        width: 100%;
+        align-content: flex-start;
+        justify-content: center;
+        padding: 20px;
+        border-radius: 50px 0 0 50px;
+
     }
  

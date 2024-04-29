@@ -82,6 +82,74 @@
 
     };
 
+    const RenderStudentUploadedFiles = (uploadData) => {
+        console.log("RenderStudentUploadedFiles called");
+        console.log("uploadData:", uploadData);
+        const UserUploadDiv = document.getElementById("UserUploadDiv");
+
+
+        //IF length of uploadData is 0 than render message to the user that no files uploaded by the student
+        if (uploadData.length === 0) {
+            const NoFilesUploadedLabel = document.createElement("label");
+            NoFilesUploadedLabel.innerHTML = "No files uploaded by the student.";
+            UserUploadDiv.appendChild(NoFilesUploadedLabel);
+            return;
+        }
+
+
+
+        uploadData.forEach((item) => {
+            const FileName = item.fileName;
+            console.log("FileName:", FileName);
+
+            //create a img element and set the src to the file name
+            const imgElement = document.createElement("img");
+            imgElement.src = "/img/uploads/" + FileName;
+            imgElement.className = "UserUpload-Image";
+            UserUploadDiv.appendChild(imgElement);
+
+
+
+        });
+
+    };
+
+    const GetUserUploads = (UserId) => {
+        console.log("==================>UserId to get upload from the student:", UserId);
+
+        console.log("GetUserUploads called");
+        console.log("UserId:", UserId);
+        const userUploadDiv = document.createElement("div");
+        userUploadDiv.id = "UserUploadDiv";
+        userUploadDiv.className = "UserUpload-Container";
+        document.getElementById("EvaluatorWindow").appendChild(userUploadDiv);
+
+        const EvaluatorWindow = document.getElementById("EvaluatorWindow");
+        EvaluatorWindow.style.gridTemplateColumns = "1fr 2fr";
+
+        jsonData = {
+            UserId: UserId
+        };
+
+        console.log("jsonData:", jsonData);
+        // Add your code here
+        $.ajax({
+            url: '/GetUserUploads',
+            type: 'Post',
+            data: jsonData,
+            success: function (response) {
+                // Handle success response
+                console.log("GetUserUploads:", response);
+                console.log("GetUserUploads:", response.uploadData);
+                RenderStudentUploadedFiles(response.uploadData);
+
+            },
+            error: function (error) {
+                // Handle error response
+                console.log(error);
+            }
+        });
+    };
 
 
 
@@ -117,39 +185,7 @@
 
     };
 
-    const GetUserUploads = (UserId) => {
-        console.log("==================>UserId to get upload from the student:", UserId);
 
-        console.log("GetUserUploads called");
-        console.log("UserId:", UserId);
-        const userUploadDiv = document.createElement("div");
-        userUploadDiv.id = "UserUploadDiv";
-        userUploadDiv.className = "UserUpload-Container";
-        document.getElementById("EvaluatorWindow").appendChild(userUploadDiv);
-
-        const EvaluatorWindow = document.getElementById("EvaluatorWindow");
-        EvaluatorWindow.style.gridTemplateColumns = "1fr 1fr";
-
-        jsonData = {
-            UserId: UserId
-        };
-
-        console.log("jsonData:", jsonData);
-        // Add your code here
-        $.ajax({
-            url: '/GetUserUploads',
-            type: 'Post',
-            data: jsonData,
-            success: function (response) {
-                // Handle success response
-                console.log("GetUserUploads:", response);
-            },
-            error: function (error) {
-                // Handle error response
-                console.log(error);
-            }
-        });
-    };
 
     //This is the function when a user selects the complicnace list button  
     const ComplianceSelectedHandeler = (event) => {
