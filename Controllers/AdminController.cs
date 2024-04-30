@@ -121,6 +121,18 @@ namespace DrugFreePortal.Models
             return Ok(new { UserDeleted = IdToDelete, message = "Reached backend of deleting user" });
         }
 
+        [HttpPost("CreateSemester")]
+        public IActionResult CreateSemesterMethod(Semester DataFromUser)
+        {
+            // Access the JSON DataFromUser from the request
+            System.Console.WriteLine("Reached backend of adding new semester");
+            System.Console.WriteLine($"Title: {DataFromUser.Title}");
+            DataFromUser.Tracker = "Current Semester";
+
+
+            return Ok(new { message = "Successfully added new semester" });
+        }
+
 
 
 
