@@ -114,7 +114,7 @@
             ViewButton.addEventListener("click", function() {
                 window.open("/img/uploads/" + FileName);
             });
-            
+
             UserUploadDiv.appendChild(ViewButton);
 
             UserUploadDiv.appendChild(ViewButton);
@@ -189,12 +189,35 @@
 
     const EvaluatorWindowHandler = (event) => {
         console.log("EvaluatorWindowHandler called");
-        console.log("event.target:", event.target);
+        console.log("Evnt.target:", event.target);
         // get element by class name and change dislpay to none
         const evaluatorWindow = document.getElementById("EvaluatorWindow");
         // clear element
         evaluatorWindow.parentNode.removeChild(evaluatorWindow);
 
+    };
+
+
+    const SubmitRecordsHandler = (event) => {
+        console.log("SubmitRecordsHandler called");
+        console.log("event.target.innerHTML:", event.target.innerHTML);
+    
+
+        // Add your code here
+        @* $.ajax({
+            url: '/SubmitRecords',
+            type: 'Post',
+            data: jsonData,
+            success: function (response) {
+                // Handle success response
+                console.log("SubmitRecords:", response);
+                GetUserUploads(UserId);
+            },
+            error: function (error) {
+                // Handle error response
+                console.log(error);
+            }
+        }); *@
     };
 
 
@@ -204,7 +227,7 @@
 
         //clear selected compliance record
         console.log("ComplianceSelectedHandeler called");
-        console.log("event.target:", event.target);
+        console.log("Complice slected ======================>>>>:", event.target.innerHTML);
 
         const UserId = document.getElementById("labelUserIdRecord").innerHTML;
 
@@ -231,22 +254,39 @@
         document.getElementById("EvaluatorController").appendChild(UserSelectedcomplianceDiv); // Append the div to the EvaluatorController element
 
 
-        const PassedButton = document.createElement("button");
-        PassedButton.innerHTML = "Passed";
-        document.getElementById("UserSelectedComplianceDiv").appendChild(PassedButton);
+                if (event.target.innerHTML === "Head Size") {
+                    console.log("Head Size");
 
-        const FailedButton = document.createElement("button");
-        FailedButton.innerHTML = "Failed";
-        document.getElementById("UserSelectedComplianceDiv").appendChild(FailedButton);
+                    const SmallButton = document.createElement("button");
+                    SmallButton.innerHTML = "Small";
+                    SmallButton.addEventListener("click", SubmitRecordsHandler);
+                    document.getElementById("UserSelectedComplianceDiv").appendChild(SmallButton);
 
-        const PendingButton = document.createElement("button");
-        PendingButton.innerHTML = "Pending";
-        document.getElementById("UserSelectedComplianceDiv").appendChild(PendingButton);
+                    const MediumButton = document.createElement("button");
+                    MediumButton.innerHTML = "Medium";
+                    MediumButton.addEventListener("click", SubmitRecordsHandler);
+                    document.getElementById("UserSelectedComplianceDiv").appendChild(MediumButton);
 
+                    const LargeButton = document.createElement("button");
+                    LargeButton.innerHTML = "Large";
+                    LargeButton.addEventListener("click", SubmitRecordsHandler);
+                    document.getElementById("UserSelectedComplianceDiv").appendChild(LargeButton);
+                } else {
+                    const PassedButton = document.createElement("button");
+                    PassedButton.innerHTML = "Passed";
+                    PassedButton.addEventListener("click", SubmitRecordsHandler);
+                    document.getElementById("UserSelectedComplianceDiv").appendChild(PassedButton);
 
+                    const FailedButton = document.createElement("button");
+                    FailedButton.innerHTML = "Failed";
+                    FailedButton.addEventListener("click", SubmitRecordsHandler);
+                    document.getElementById("UserSelectedComplianceDiv").appendChild(FailedButton);
 
-
-
+                    const PendingButton = document.createElement("button");
+                    PendingButton.innerHTML = "Pending";
+                    PendingButton.addEventListener("click", SubmitRecordsHandler);
+                    document.getElementById("UserSelectedComplianceDiv").appendChild(PendingButton);
+                }
 
 
 
