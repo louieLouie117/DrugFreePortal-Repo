@@ -201,6 +201,45 @@
     const SubmitRecordsHandler = (event) => {
         console.log("SubmitRecordsHandler called");
         console.log("event.target.innerHTML:", event.target.innerHTML);
+
+        const UserId = document.getElementById("labelUserIdRecord").innerHTML;
+        const FirstName = document.getElementById("lablelFristNameRecord").innerHTML;
+        const LastName = document.getElementById("labelLastNameRecord").innerHTML;
+        const StudentId = document.getElementById("labelStudentIdRecord").innerHTML;
+        const SchoolName = document.getElementById("labelSchoolRecord").innerHTML;
+        const SchoolId = document.getElementById("labelSchoolIdRecord").innerHTML;
+        const SemesterId = document.getElementById("SemesterId").innerHTML;
+        const SemesterTitle = document.getElementById("SemesterTitle").innerHTML;
+        const ComplianceType = document.getElementById("ComplianceSelectedLabelRecord").innerHTML;
+        const ComplianceStatus = event.target.innerHTML;
+        let StatusColor = "245684";
+        const Notes = "No notes";
+
+        if (ComplianceStatus === "Passed") {
+            StatusColor = "39C32B";
+        } else if (ComplianceStatus === "Failed") {
+            StatusColor = "CF1616";
+        } else if (ComplianceStatus === "Pending") {
+            StatusColor = "D2D2D2";
+        }
+
+        const jsonData = {
+            userId: UserId,
+            firstName: FirstName,
+            lastName: LastName,
+            studentId: StudentId,
+            schoolName: SchoolName,
+            schoolId: SchoolId,
+            semesterId: SemesterId,
+            semesterTitle: SemesterTitle,
+            complianceType: ComplianceType,
+            complianceStatus: ComplianceStatus,
+            statusColor: StatusColor,
+            notes: Notes
+
+        };
+
+        console.log("jsonData:", jsonData);
     
 
         // Add your code here
@@ -274,16 +313,19 @@
                 } else {
                     const PassedButton = document.createElement("button");
                     PassedButton.innerHTML = "Passed";
+                    PassedButton.className = "PassedButton";
                     PassedButton.addEventListener("click", SubmitRecordsHandler);
                     document.getElementById("UserSelectedComplianceDiv").appendChild(PassedButton);
 
                     const FailedButton = document.createElement("button");
                     FailedButton.innerHTML = "Failed";
+                    FailedButton.className = "FailedButton";
                     FailedButton.addEventListener("click", SubmitRecordsHandler);
                     document.getElementById("UserSelectedComplianceDiv").appendChild(FailedButton);
 
                     const PendingButton = document.createElement("button");
                     PendingButton.innerHTML = "Pending";
+                    PendingButton.className = "PendingButton";
                     PendingButton.addEventListener("click", SubmitRecordsHandler);
                     document.getElementById("UserSelectedComplianceDiv").appendChild(PendingButton);
                 }
@@ -407,8 +449,12 @@
 <div class="SubmitRecords-Container" id="SubmitRecordsView">
     <button id="ReturnToQueueBTN" onclick="ReturnToQueueHandler(event)">Return to Queue</button>
     <button onclick="RenderSchoolComplianceHandler(event)">+</button>
-    <label id="NoUserSelectedInQueue"></label>
     <button onclick="RecordHandler(event)">Cretae Record DB</button>
+    <div class="Semester-Container" id="SemsterContainer">
+        <label id="SemesterId">1</label>
+        <label id="SemesterTitle">Fall 2024</label>
+    </div>
+    <label id="NoUserSelectedInQueue"></label>
 
 
 

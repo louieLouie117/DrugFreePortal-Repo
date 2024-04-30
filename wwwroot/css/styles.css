@@ -342,7 +342,56 @@ input, select{
 
     .UserSelectedCompliance-Container{
         display: grid;
+        row-gap: 20px;
+        justify-content: center;
     }
+
+    .UserSelectedCompliance-Container>label{
+        font: 2em sans-serif;
+    }
+
+
+    
+
+    .PassedButton{
+        background-color: #39C32B;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        padding: 5px;
+        cursor: pointer;
+        font: 1.3em sans-serif;
+        height: 40px;
+        transition: border-radius 0.5s ease; /* Changed border to border-radius */
+        width: 140px;
+    }
+
+    .FailedButton{
+        background-color: #CF1616;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        padding: 5px;
+        cursor: pointer;
+        font: 1.3em sans-serif;
+        height: 40px;
+        transition: border-radius 0.5s ease; /* Changed border to border-radius */
+        width: 140px;
+    }
+
+    .PendingButton{
+        background-color: #D2D2D2;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        padding: 5px;
+        cursor: pointer;
+        font: 1.3em sans-serif;
+        height: 40px;
+        transition: border-radius 0.5s ease; /* Changed border to border-radius */
+        width: 140px;
+    }
+ 
 
     .UserUpload-Container{
         display: grid;
@@ -365,4 +414,3 @@ input, select{
         border: solid black 1px;
 
     }
- 
