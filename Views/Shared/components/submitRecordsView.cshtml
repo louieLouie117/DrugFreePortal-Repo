@@ -111,14 +111,14 @@
             //button for the evaluator to view the file
             const ViewButton = document.createElement("button");
             ViewButton.innerHTML = "View";
-            ViewButton.addEventListener("click", function() {
+            ViewButton.addEventListener("click", function () {
                 window.open("/img/uploads/" + FileName);
             });
 
             UserUploadDiv.appendChild(ViewButton);
 
             UserUploadDiv.appendChild(ViewButton);
-            
+
 
 
 
@@ -240,23 +240,23 @@
         };
 
         console.log("jsonData:", jsonData);
-    
+
 
         // Add your code here
-        @* $.ajax({
+    @* $.ajax({
             url: '/SubmitRecords',
             type: 'Post',
             data: jsonData,
             success: function (response) {
-                // Handle success response
-                console.log("SubmitRecords:", response);
-                GetUserUploads(UserId);
+            // Handle success response
+            console.log("SubmitRecords:", response);
+            GetUserUploads(UserId);
             },
             error: function (error) {
-                // Handle error response
-                console.log(error);
+            // Handle error response
+            console.log(error);
             }
-        }); *@
+            }); *@
     };
 
 
@@ -293,42 +293,42 @@
         document.getElementById("EvaluatorController").appendChild(UserSelectedcomplianceDiv); // Append the div to the EvaluatorController element
 
 
-                if (event.target.innerHTML === "Head Size") {
-                    console.log("Head Size");
+        if (event.target.innerHTML === "Head Size") {
+            console.log("Head Size");
 
-                    const SmallButton = document.createElement("button");
-                    SmallButton.innerHTML = "Small";
-                    SmallButton.addEventListener("click", SubmitRecordsHandler);
-                    document.getElementById("UserSelectedComplianceDiv").appendChild(SmallButton);
+            const SmallButton = document.createElement("button");
+            SmallButton.innerHTML = "Small";
+            SmallButton.addEventListener("click", SubmitRecordsHandler);
+            document.getElementById("UserSelectedComplianceDiv").appendChild(SmallButton);
 
-                    const MediumButton = document.createElement("button");
-                    MediumButton.innerHTML = "Medium";
-                    MediumButton.addEventListener("click", SubmitRecordsHandler);
-                    document.getElementById("UserSelectedComplianceDiv").appendChild(MediumButton);
+            const MediumButton = document.createElement("button");
+            MediumButton.innerHTML = "Medium";
+            MediumButton.addEventListener("click", SubmitRecordsHandler);
+            document.getElementById("UserSelectedComplianceDiv").appendChild(MediumButton);
 
-                    const LargeButton = document.createElement("button");
-                    LargeButton.innerHTML = "Large";
-                    LargeButton.addEventListener("click", SubmitRecordsHandler);
-                    document.getElementById("UserSelectedComplianceDiv").appendChild(LargeButton);
-                } else {
-                    const PassedButton = document.createElement("button");
-                    PassedButton.innerHTML = "Passed";
-                    PassedButton.className = "PassedButton";
-                    PassedButton.addEventListener("click", SubmitRecordsHandler);
-                    document.getElementById("UserSelectedComplianceDiv").appendChild(PassedButton);
+            const LargeButton = document.createElement("button");
+            LargeButton.innerHTML = "Large";
+            LargeButton.addEventListener("click", SubmitRecordsHandler);
+            document.getElementById("UserSelectedComplianceDiv").appendChild(LargeButton);
+        } else {
+            const PassedButton = document.createElement("button");
+            PassedButton.innerHTML = "Passed";
+            PassedButton.className = "PassedButton";
+            PassedButton.addEventListener("click", SubmitRecordsHandler);
+            document.getElementById("UserSelectedComplianceDiv").appendChild(PassedButton);
 
-                    const FailedButton = document.createElement("button");
-                    FailedButton.innerHTML = "Failed";
-                    FailedButton.className = "FailedButton";
-                    FailedButton.addEventListener("click", SubmitRecordsHandler);
-                    document.getElementById("UserSelectedComplianceDiv").appendChild(FailedButton);
+            const FailedButton = document.createElement("button");
+            FailedButton.innerHTML = "Failed";
+            FailedButton.className = "FailedButton";
+            FailedButton.addEventListener("click", SubmitRecordsHandler);
+            document.getElementById("UserSelectedComplianceDiv").appendChild(FailedButton);
 
-                    const PendingButton = document.createElement("button");
-                    PendingButton.innerHTML = "Pending";
-                    PendingButton.className = "PendingButton";
-                    PendingButton.addEventListener("click", SubmitRecordsHandler);
-                    document.getElementById("UserSelectedComplianceDiv").appendChild(PendingButton);
-                }
+            const PendingButton = document.createElement("button");
+            PendingButton.innerHTML = "Pending";
+            PendingButton.className = "PendingButton";
+            PendingButton.addEventListener("click", SubmitRecordsHandler);
+            document.getElementById("UserSelectedComplianceDiv").appendChild(PendingButton);
+        }
 
 
 
@@ -440,9 +440,6 @@
 
 
 
-
-
-
 </script>
 
 
@@ -451,8 +448,8 @@
     <button onclick="RenderSchoolComplianceHandler(event)">+</button>
     <button onclick="RecordHandler(event)">Cretae Record DB</button>
     <div class="Semester-Container" id="SemsterContainer">
-        <label id="SemesterId">1</label>
-        <label id="SemesterTitle">Fall 2024</label>
+        <label id="SemesterId">SemesterId</label>
+        <label id="SemesterTitle">SemesterTitle</label>
     </div>
     <label id="NoUserSelectedInQueue"></label>
 
