@@ -149,11 +149,11 @@ input, select{
     background-color: #245684;
     display: grid;
     grid-template-columns: 40em 1fr;
-    height: 100vh;
+    height: 97vh;
  }
 
  .Queue-MainContainer{
-    background-color: white;
+    background-color: whitesmoke;
  }
 
  .SubmitRecords-MainContainer{
@@ -171,25 +171,55 @@ input, select{
 
  }
 
- .QueueBody{
+ 
+
+ .QueueHeading{
     display: grid;
     row-gap: 10px;
     padding: 10px;
-    background-color: white;
+    background-color: whitesmoke;
+    max-width: 45em;
+    border-bottom: solid black 1px;
+
+
+ }
+
+ .QueueHeading li{
+    display: grid;
+    grid-template-columns: 40px 1.5fr 1fr 150px;
+    padding: 10px;
+    border-radius: 5px;
+    font: 1.3em sans-serif;
+    align-items: center;
+    justify-items: center;
+}
+
+
+ .QueueBody{
+    display: grid;
+    row-gap: 20px;
+    padding: 10px;
+    background-color: whitesmoke;
+    padding-top: 40px;
  }
 
     .QueueBody li{
         display: grid;
-        grid-template-columns: 1.5fr 1fr 150px;
+        grid-template-columns: 40px 1.5fr 1fr 150px;
         padding: 10px;
         border-radius: 5px;
+        box-shadow: 0px 0px 3px 3px #f0f0f0;
+        background-color: white;
+        align-items: center;
+        justify-items: center;
+
     }
 
     .QueueBody li label{
         font: 1.3em sans-serif;
     }
 
-    .QueueBody li button{
+    .QueueMainBTN{
         background-color: #245684;
         color: white;
         border: none;
@@ -198,28 +228,35 @@ input, select{
         cursor: pointer;
         font: 1.3em sans-serif;
         height: 40px;
+        transition: border-radius 0.5s ease; /* Changed border to border-radius */
+        width: 140px;
+    }
+
+    .QueueMainBTN:hover{
+        border-radius: 20px; /* Changed border to border-radius */
 
     }
 
+    .QueueMainBTN:disabled{
+        border-radius: 20px; /* Changed border to border-radius */
 
-    .QueueHeading{
-        display: grid;
-        row-gap: 10px;
-        padding: 10px;
-        background-color: whitesmoke;
-        max-width: 45em;
-        border-bottom: solid black 1px;
+    }
+    
 
-
-     }
-
-     .QueueHeading li{
-        display: grid;
-        grid-template-columns: 1.5fr 1fr 150px;
-        padding: 10px;
+    .QueueDeleteBTN{
+        background-color: #e0e0e0;
+        color: white;
+        border: none;
         border-radius: 5px;
+        padding: 5px;
+        cursor: pointer;
         font: 1.3em sans-serif;
+        height: 40px;
+        width: 15px;
+      
+
     }
+
 
 
     .QueueBody li button:disabled{
@@ -236,7 +273,7 @@ input, select{
     
     .SubmitRecords-Container>main{
         display: grid;
-        grid-template-columns: 2fr 1fr;
+        grid-template-columns: 100px 2fr 1fr;
         background-color: #245684;
         padding: 20px;
         width: 800px;
@@ -244,9 +281,136 @@ input, select{
         justify-self: center;
         align-items: center;
         border-radius: 10px 10px 0 0;
+        justify-content: center;
+        column-gap: 20px;
+
     }
     
     .SubmitRecords-Container>main label{
         font: 1.7em sans-serif;
         color: white;
+    }
+
+
+    .Evaluator-Container{
+        display: grid;
+        background-color: rgba(0, 0, 0, 0.36);
+        position: fixed;
+        top: 0;
+        right: 0;
+        height: 99vh;
+        width: 100vw;
+        justify-items: center;
+        align-items: center;
+    }
+
+    .Evaluator-Controller{
+        font: 1em sans-serif;
+        display: grid;
+        row-gap: 20px;
+        background-color: white;
+        height: 600px;
+        width: 400px;
+        padding: 40px;
+        align-content: flex-start;
+        border-radius: 10px;
+    }
+
+    .Evaluator-Controller>ul{
+        display: grid;
+        row-gap: 20px;
+       
+    }
+
+    .Evaluator-Controller>ul li button{
+     background-color: #245684;
+        color: white; 
+        font: 1em sans-serif;
+        border: none;
+        width: 100%;
+        padding: 10px;
+        transition: border-radius 0.5s ease; /* Added transition effect */
+        border-radius: 5px;
+
+    }
+
+    .Evaluator-Controller>ul li button:hover {
+        border-radius: 30px; /* Increase the border-radius value to 30px */
+    }
+    
+   
+
+    .UserSelectedCompliance-Container{
+        display: grid;
+        row-gap: 20px;
+        justify-content: center;
+    }
+
+    .UserSelectedCompliance-Container>label{
+        font: 2em sans-serif;
+    }
+
+
+    
+
+    .PassedButton{
+        background-color: #39C32B;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        padding: 5px;
+        cursor: pointer;
+        font: 1.3em sans-serif;
+        height: 40px;
+        transition: border-radius 0.5s ease; /* Changed border to border-radius */
+        width: 140px;
+    }
+
+    .FailedButton{
+        background-color: #CF1616;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        padding: 5px;
+        cursor: pointer;
+        font: 1.3em sans-serif;
+        height: 40px;
+        transition: border-radius 0.5s ease; /* Changed border to border-radius */
+        width: 140px;
+    }
+
+    .PendingButton{
+        background-color: #D2D2D2;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        padding: 5px;
+        cursor: pointer;
+        font: 1.3em sans-serif;
+        height: 40px;
+        transition: border-radius 0.5s ease; /* Changed border to border-radius */
+        width: 140px;
+    }
+ 
+
+    .UserUpload-Container{
+        display: grid;
+        row-gap: 20px;
+        background-color: whitesmoke;
+        height: 94vh;
+        width: 100%;
+        align-content: flex-start;
+        justify-content: center;
+        padding: 20px;
+        border-radius: 50px 0 0 50px;
+        overflow-y: scroll;
+
+
+    }
+
+    .UserUpload-Container>img{
+        height: auto;
+        width: 830px;
+        border: solid black 1px;
+
     }

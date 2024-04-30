@@ -8,6 +8,37 @@
 
     @* GetQueue(); // refresh the queue list after changing the status submiting or returning a student to the queue *@
 
+    const DeleteFromQueueHandler = (id) => {
+        console.log("DeleteFromQueueHandler called=====>")
+
+        const QueueId = id;
+        const StudentUserId = document.getElementById('studentUserIdQueueLable' + id).textContent;
+
+        console.log("************************QueueId to delete:", QueueId);
+        console.log("************************StudentUserId to delete:", StudentUserId);
+
+        const jsonData = {
+            queueId: QueueId,
+            studentUserId: StudentUserId
+        }
+
+        console.log("Frontend Queue data=======:", jsonData)
+
+        $.ajax({
+            url: '/DeleteFromQueue',
+            type: 'Post',
+            data: jsonData,
+            success: function (response) {
+                // Handle success response
+                console.log("Backend Queue:", response);
+                GetQueue();
+            },
+            error: function (error) {
+                // Handle error response
+                console.log(error);
+            }
+        });
+    }
 
 
     const GetQueue = (e) => {
@@ -37,7 +68,7 @@
 
         const QueueId = id;
         const QueueStatus = "In Progress"
-    @* must be user Id *@
+        //must be changed to the student id
         const StudentUserId = document.getElementById('studentUserIdQueueLable' + id).textContent;
 
         console.log("************************QueueId to chanage status:", QueueId);
@@ -66,8 +97,7 @@
                     const selectedUserInfo = document.getElementById("SlectedUserInfo");
                     selectedUserInfo.parentNode.removeChild(selectedUserInfo);
                 }
-    @* need to imporve *@
-                    GetStudentInProgress();
+                GetStudentInProgress();
                 GetQueue();
 
             },
@@ -78,6 +108,8 @@
         });
     }
 
+
+
     const RenderQueue = (queueData) => {
         const ul = document.getElementById('QueueList');
         ul.innerHTML = '';
@@ -86,6 +118,14 @@
         queueData.forEach((queue) => {
 
             const li = document.createElement('li');
+
+            const deleteButton = document.createElement('button');
+            deleteButton.id = 'deleteButton' + queue.queueId;
+            deleteButton.textContent = '';
+            deleteButton.classList.add('QueueDeleteBTN');
+            deleteButton.addEventListener('click', () => DeleteFromQueueHandler(queue.queueId));
+            li.appendChild(deleteButton);
+
             const name = document.createElement('label');
             name.textContent = queue.firstName + " " + queue.lastName;
             name.id = 'nameQueueLabel' + queue.queueId;
@@ -99,10 +139,11 @@
             const status = document.createElement('button');
             status.id = 'statusQueueLableButton' + queue.queueId;
             status.textContent = queue.status;
+            status.classList.add('QueueMainBTN');
             if (queue.status === "In Progress") {
                 status.disabled = true;
-
             }
+
 
             status.addEventListener('click', () => QueueStatusHandler(queue.queueId));
             li.appendChild(status);
@@ -139,6 +180,8 @@
             phone.id = 'phoneQueueLable' + queue.queueId;
             li.appendChild(phone);
 
+            ;
+
 
 
             ul.appendChild(li);
@@ -161,6 +204,7 @@
 
     <ul class="QueueHeading">
         <li>
+            <label>...</label>
             <label>Name:</label>
             <label>School:</label>
             <label>Status:</label>
