@@ -136,6 +136,41 @@ namespace DrugFreePortal.Models
             return Ok(new { SemesterData = DataFromUser, message = "Successfully added new semester" });
         }
 
+        [HttpGet("GetSemesters")]
+        public IActionResult GetSemestersMethod()
+        {
+            // Get all semesters
+            var semesters = _context.Semesters?.ToList();
+
+            return Ok(new { SemesterData = semesters, message = "Successfully retrieved all semesters" });
+        }
+
+
+        [HttpPost("RemoveSemester")]
+        public IActionResult RemoveSemesterMethod(Semester DataFromUser)
+        {
+            // Access the JSON DataFromUser from the request
+            System.Console.WriteLine("Reached backend of removing semester");
+            System.Console.WriteLine($"SemesterId===============>: {DataFromUser.Tracker}");
+
+            // get the semester from the database
+            Semester? semester = _context.Semesters?.FirstOrDefault(s => s.SemesterId == DataFromUser.SemesterId);
+
+            // check if the semester is null
+            if (semester == null)
+            {
+                return NotFound(new { message = "Semester not found" });
+            }
+
+            // update the semester tracker
+            semester.Tracker = DataFromUser.Tracker;
+            _context.SaveChanges();
+
+
+
+            return Ok(new { SemesterData = DataFromUser, message = "Successfully removed semester" });
+        }
+
 
 
 

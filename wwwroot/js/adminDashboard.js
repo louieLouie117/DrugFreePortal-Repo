@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
   fetchAllUsers();
   getSchools();
   getSchoolsForDeanReg();
+  getSemesters();
 });
 window.onload = function () {}; // loads after all the elements are loaded
 
@@ -19,6 +20,9 @@ const fetchAllUsers = async () => {
         RenderAllUsers(data.usersList);
     });
 };
+
+
+
 
 
 
