@@ -37,6 +37,12 @@ const RenderStudentRecords = async (RenderStudentRecords) => {
     // loop data and render to ul element id RecordList
     RenderStudentRecords.forEach((student) => {
         let li = document.createElement('li');
+
+        let button = document.createElement('button');
+        button.innerHTML = "";
+        button.className = "QueueDeleteBTN";
+        li.appendChild(button);
+        
         
         let labelType = document.createElement('label');
         labelType.innerHTML = `${student.complianceType}`;

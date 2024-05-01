@@ -175,6 +175,7 @@
     const ReturnToQueueHandler = (event) => {
         console.log("ReturnToQueueHandler called");
         document.getElementById('RecordList').innerHTML = '';
+        document.getElementById('RecordList').style.display = 'none ';
 
         // Add your code here
         $.ajax({

@@ -296,19 +296,22 @@ input, select{
     }
 
     .RecordList-Container{
-        display: grid;
+        display: none;
         padding: 20px;
         background-color: white;
         box-shadow: 0px 5px 3px 3px #f0f0f0;
         width: 800px;
         justify-self: center;
         padding-bottom: 30px;
+        height: 600px;
+        overflow-y: scroll;
 
     }
 
     .RecordList-Container>li{
         display: grid;
-        grid-template-columns: 1fr 100px;
+        grid-template-columns: 10px 1fr 100px;
+        column-gap: 20px;
         background-color: white;
         align-items: center;
         justify-items: center;
@@ -324,6 +327,7 @@ input, select{
     .Evaluator-Container{
         display: grid;
         grid-template-columns: 1fr 2fr;
+       
         background-color: rgba(0, 0, 0, 0.36);
         position: fixed;
         top: 0;
