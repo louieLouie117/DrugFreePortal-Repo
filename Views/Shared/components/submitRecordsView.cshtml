@@ -378,7 +378,7 @@
 
         document.getElementById("UserSelectedComplianceDiv").remove();
         const EvaluatorWindow = document.getElementById("EvaluatorWindow");
-        EvaluatorWindow.style.gridTemplateColumns = "1fr";
+        EvaluatorWindow.style.gridTemplateColumns = "1fr 2fr";
 
         const UserUploadDiv = document.getElementById("UserUploadDiv");
         UserUploadDiv.remove();
@@ -497,17 +497,19 @@
 <div class="SubmitRecords-Container" id="SubmitRecordsView">
     <button id="ReturnToQueueBTN" onclick="ReturnToQueueHandler(event)">Return to Queue</button>
     <button onclick="RenderSchoolComplianceHandler(event)">+</button>
-    <button onclick="RecordHandler(event)">Cretae Record DB</button>
     <div class="Semester-Container" id="SemsterContainer">
         <label id="SemesterId">SemesterId</label>
         <label id="SemesterTitle">SemesterTitle</label>
     </div>
-    <label id="NoUserSelectedInQueue"></label>
 
     <header id="RecordsMainDiv"></header>
 
     <main>
-        <ul id="RecordList"></ul>
+        <label id="NoUserSelectedInQueue"></label>
+
+        <ul class="RecordList-Container" id="RecordList">
+
+        </ul>
 
     </main>
 

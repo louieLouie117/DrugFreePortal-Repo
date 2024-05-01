@@ -37,7 +37,20 @@ const RenderStudentRecords = async (RenderStudentRecords) => {
     // loop data and render to ul element id RecordList
     RenderStudentRecords.forEach((student) => {
         let li = document.createElement('li');
-        li.innerHTML = `${student.complianceType} ${student.complianceStatus}`;
+        
+        let labelType = document.createElement('label');
+        labelType.innerHTML = `${student.complianceType}`;
+        li.appendChild(labelType);
+        
+        let labelStatus = document.createElement('label');
+        labelStatus.innerHTML = `${student.complianceStatus}`;
+        labelStatus.style.background = "#"+`${student.statusColor}`;
+        labelStatus.style.color = "white";
+        labelStatus.style.padding = "5px";
+        labelStatus.style.width = "100%";
+        labelStatus.style.textAlign = "center";
+        li.appendChild(labelStatus);
+        
         document.getElementById('RecordList').appendChild(li);
     });
     

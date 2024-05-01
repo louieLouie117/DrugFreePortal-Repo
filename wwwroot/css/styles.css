@@ -24,6 +24,10 @@ h1{
     background-color: white;
     padding: 20px;
 }
+main{
+    display: grid;
+ 
+}
 
 form{
     display: grid;
@@ -291,9 +295,35 @@ input, select{
         color: white;
     }
 
+    .RecordList-Container{
+        display: grid;
+        padding: 20px;
+        background-color: white;
+        box-shadow: 0px 5px 3px 3px #f0f0f0;
+        width: 800px;
+        justify-self: center;
+        padding-bottom: 30px;
+
+    }
+
+    .RecordList-Container>li{
+        display: grid;
+        grid-template-columns: 1fr 100px;
+        background-color: white;
+        align-items: center;
+        justify-items: center;
+        border-bottom: dashed grey 1px;
+        padding-top: 20px;
+    }
+
+    .RecordList-Container>li label:first-of-type{
+        font: 1.3em sans-serif;
+        justify-self: flex-start;
+    }
 
     .Evaluator-Container{
         display: grid;
+        grid-template-columns: 1fr 2fr;
         background-color: rgba(0, 0, 0, 0.36);
         position: fixed;
         top: 0;
