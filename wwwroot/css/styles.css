@@ -265,13 +265,13 @@ input, select{
     }
 
 
-    .SubmitRecords-Container{
+    .SubmitRecords-Container>header{
         display: grid;
     }
 
 
     
-    .SubmitRecords-Container>main{
+    .SubmitRecords-Container>header>div{
         display: grid;
         grid-template-columns: 100px 2fr 1fr;
         background-color: #245684;
@@ -286,7 +286,7 @@ input, select{
 
     }
     
-    .SubmitRecords-Container>main label{
+    .SubmitRecords-Container>header>div label{
         font: 1.7em sans-serif;
         color: white;
     }

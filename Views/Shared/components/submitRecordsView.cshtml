@@ -40,13 +40,15 @@
     const RenderSelectedUser = (userData) => {
 
         console.log("userData====:", userData);
-        const mainElement = document.createElement("main");
-        mainElement.id = "SlectedUserInfo";
+        const divElement = document.createElement("div");
+        divElement.id = "SlectedUserInfo";
+
+
 
         const labelUserId = document.createElement("label");
         labelUserId.innerHTML = userData.userId;
         labelUserId.id = "labelUserIdRecord"; // Add unique id
-        mainElement.appendChild(labelUserId);
+        divElement.appendChild(labelUserId);
 
         const userNameDiv = document.createElement("div");
         userNameDiv.id = "userNameDivRecord";
@@ -61,24 +63,29 @@
         labelLastName.id = "labelLastNameRecord"; // Add unique id
         userNameDiv.appendChild(labelLastName);
 
-        mainElement.appendChild(userNameDiv);
+        divElement.appendChild(userNameDiv);
 
         const labelStudentId = document.createElement("label");
         labelStudentId.innerHTML = userData.studentId;
         labelStudentId.id = "labelStudentIdRecord"; // Add unique id
-        mainElement.appendChild(labelStudentId);
+        divElement.appendChild(labelStudentId);
 
         const labelSchool = document.createElement("label");
         labelSchool.innerHTML = userData.school;
         labelSchool.id = "labelSchoolRecord"; // Add unique id
-        mainElement.appendChild(labelSchool);
+        divElement.appendChild(labelSchool);
 
         const labelSchoolId = document.createElement("label");
         labelSchoolId.innerHTML = userData.schoolId;
         labelSchoolId.id = "labelSchoolIdRecord"; // Add unique id
-        mainElement.appendChild(labelSchoolId);
+        divElement.appendChild(labelSchoolId);
 
-        document.getElementById("SubmitRecordsView").appendChild(mainElement);
+
+
+        document.getElementById("RecordsMainDiv").appendChild(divElement);
+
+
+
 
     };
 
@@ -167,6 +174,8 @@
 
     const ReturnToQueueHandler = (event) => {
         console.log("ReturnToQueueHandler called");
+        document.getElementById('RecordList').innerHTML = '';
+
         // Add your code here
         $.ajax({
             url: '/ReturnQueueStatus',
@@ -449,6 +458,35 @@
         });
     };
 
+    const SetSemesterSession = (studentUserId) => {
+        console.log("SetSemesterSession called=====>")
+
+        const semersterId = document.getElementById('SemesterId').textContent;
+
+        const jsonDataFilter = {
+            userId: studentUserId,
+            semesterId: semersterId
+        }
+
+        console.log("Get Student Record data============>>>>:", jsonDataFilter)
+
+        $.ajax({
+            url: '/SetSemesterSession',
+            type: 'Post',
+            data: jsonDataFilter,
+            success: function (response) {
+                // Handle success response
+                console.log("Get Student Records filter by UserID and SemetersID:", response.recordsDataFilter);
+                RenderStudentRecords(response.recordsDataFilter);
+            },
+            error: function (error) {
+                // Handle error response
+                console.log(error);
+            }
+        });
+    }
+
+
 
 
 
@@ -464,6 +502,13 @@
         <label id="SemesterTitle">SemesterTitle</label>
     </div>
     <label id="NoUserSelectedInQueue"></label>
+
+    <header id="RecordsMainDiv"></header>
+
+    <main>
+        <ul id="RecordList"></ul>
+
+    </main>
 
 
 

@@ -29,3 +29,16 @@ const fetchCurrentSemesters = async () => {
         console.error("Error fetching current semesters:", error);
     }
 };
+
+const RenderStudentRecords = async (RenderStudentRecords) => {
+    console.log("***RenderStudentRecords was called", RenderStudentRecords);
+    // clear ul element id RecordList
+    document.getElementById('RecordList').innerHTML = '';
+    // loop data and render to ul element id RecordList
+    RenderStudentRecords.forEach((student) => {
+        let li = document.createElement('li');
+        li.innerHTML = `${student.complianceType} ${student.complianceStatus}`;
+        document.getElementById('RecordList').appendChild(li);
+    });
+    
+}
