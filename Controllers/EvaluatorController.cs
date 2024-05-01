@@ -184,10 +184,15 @@ namespace DrugFreePortal.Models
         {
             System.Console.WriteLine("Reached backend of submit record");
 
-            // Get the user from the database
+            // Save to database
+            _context.Records?.Add(DataFromUser);
+            _context.SaveChanges();
+
+            // Get records filter by user id and semester id
+            List<Record> Records = _context.Records?.Where(r => r.UserId == DataFromUser.UserId && r.SemesterId == DataFromUser.SemesterId).ToList() ?? new List<Record>();
 
 
-            return Ok(new { TestData = DataFromUser, message = "You have reached the backend of SubmitRecord" });
+            return Ok(new { RecordsData = Records, message = "You have reached the backend of SubmitRecord" });
         }
     }
 }

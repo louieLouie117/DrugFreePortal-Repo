@@ -350,12 +350,13 @@ input, select{
 
     .UserSelectedCompliance-Container>label{
         font: 2em sans-serif;
+        justify-self: flex-start;
     }
 
     .UserSelectedCompliance-Container>textarea{
         font: 1.3em sans-serif;
         padding: 20px;
-        width: 380px;
+        width: 360px;
         height: 300px;
     }
 
