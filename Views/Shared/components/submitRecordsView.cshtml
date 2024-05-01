@@ -215,7 +215,7 @@
         let StatusColor = "245684";
         let Notes = document.getElementById("NotesTextAreaRecords").value;
 
-        if(Notes === ""){
+        if (Notes === "") {
             Notes = "No notes added.";
         }
 
@@ -247,20 +247,19 @@
 
 
         // Add your code here
-    @* $.ajax({
-            url: '/SubmitRecords',
-            type: 'Post',
+        $.ajax({
+            url: '/SubmitStudentRecords',
+            type: 'POST',
             data: jsonData,
             success: function (response) {
-            // Handle success response
-            console.log("SubmitRecords:", response);
-            GetUserUploads(UserId);
+                // Handle success response
+                console.log("RenderCompliance:", response);
             },
             error: function (error) {
-            // Handle error response
-            console.log(error);
+                // Handle error response
+                console.log(error);
             }
-            }); *@
+        });
     };
 
 
@@ -295,10 +294,10 @@
         UserSelectedcomplianceDiv.appendChild(complianceSelectedLabelRecord); // Append the label to the div
 
         document.getElementById("EvaluatorController").appendChild(UserSelectedcomplianceDiv); // Append the div to the EvaluatorController element
-            const NotesTextArea = document.createElement("textarea");
-            NotesTextArea.placeholder = "Notes here:";
-            NotesTextArea.id = "NotesTextAreaRecords"; 
-            document.getElementById("UserSelectedComplianceDiv").appendChild(NotesTextArea);
+        const NotesTextArea = document.createElement("textarea");
+        NotesTextArea.placeholder = "Notes here:";
+        NotesTextArea.id = "NotesTextAreaRecords";
+        document.getElementById("UserSelectedComplianceDiv").appendChild(NotesTextArea);
 
         if (event.target.innerHTML === "Head Size") {
             console.log("Head Size");
@@ -340,8 +339,8 @@
             document.getElementById("UserSelectedComplianceDiv").appendChild(PendingButton);
         }
 
-          
-        
+
+
 
 
 

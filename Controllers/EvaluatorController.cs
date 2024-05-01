@@ -178,5 +178,16 @@ namespace DrugFreePortal.Models
             return Ok(new { SemesterData = Semesters, message = "You have reached the backend of GetCurrentSemesters" });
 
         }
+
+        [HttpPost("SubmitStudentRecords")]
+        public IActionResult SubmitStudentRecordsMethod(Record DataFromUser)
+        {
+            System.Console.WriteLine("Reached backend of submit record");
+
+            // Get the user from the database
+
+
+            return Ok(new { TestData = DataFromUser, message = "You have reached the backend of SubmitRecord" });
+        }
     }
 }
