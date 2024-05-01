@@ -331,6 +331,7 @@ input, select{
         padding: 10px;
         transition: border-radius 0.5s ease; /* Added transition effect */
         border-radius: 5px;
+        cursor: pointer;
 
     }
 
@@ -344,10 +345,22 @@ input, select{
         display: grid;
         row-gap: 20px;
         justify-content: center;
+        justify-items: center;
     }
 
     .UserSelectedCompliance-Container>label{
         font: 2em sans-serif;
+    }
+
+    .UserSelectedCompliance-Container>textarea{
+        font: 1.3em sans-serif;
+        padding: 20px;
+        width: 380px;
+        height: 300px;
+    }
+
+    .UserSelectedCompliance-Container>button{
+        width: 100%;
     }
 
 
@@ -363,7 +376,6 @@ input, select{
         font: 1.3em sans-serif;
         height: 40px;
         transition: border-radius 0.5s ease; /* Changed border to border-radius */
-        width: 140px;
     }
 
     .FailedButton{
@@ -376,11 +388,10 @@ input, select{
         font: 1.3em sans-serif;
         height: 40px;
         transition: border-radius 0.5s ease; /* Changed border to border-radius */
-        width: 140px;
     }
 
     .PendingButton{
-        background-color: #D2D2D2;
+        background-color: #bfbfbf;
         color: white;
         border: none;
         border-radius: 5px;
@@ -389,14 +400,24 @@ input, select{
         font: 1.3em sans-serif;
         height: 40px;
         transition: border-radius 0.5s ease; /* Changed border to border-radius */
-        width: 140px;
+    }
+
+    .DefaultButton{
+        background-color: #245684;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        padding: 5px;
+        cursor: pointer;
+        font: 1.3em sans-serif;
+        height: 40px;
     }
  
 
     .UserUpload-Container{
         display: grid;
         row-gap: 20px;
-        background-color: whitesmoke;
+        background-color: none;
         height: 94vh;
         width: 100%;
         align-content: flex-start;
@@ -406,6 +427,11 @@ input, select{
         overflow-y: scroll;
 
 
+    }
+
+    .UserUpload-Container>label{
+        font: 2em sans-serif;
+        background-color: white;
     }
 
     .UserUpload-Container>img{

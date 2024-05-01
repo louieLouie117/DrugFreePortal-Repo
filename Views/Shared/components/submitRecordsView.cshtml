@@ -213,7 +213,11 @@
         const ComplianceType = document.getElementById("ComplianceSelectedLabelRecord").innerHTML;
         const ComplianceStatus = event.target.innerHTML;
         let StatusColor = "245684";
-        const Notes = "No notes";
+        let Notes = document.getElementById("NotesTextAreaRecords").value;
+
+        if(Notes === ""){
+            Notes = "No notes added.";
+        }
 
         if (ComplianceStatus === "Passed") {
             StatusColor = "39C32B";
@@ -291,23 +295,29 @@
         UserSelectedcomplianceDiv.appendChild(complianceSelectedLabelRecord); // Append the label to the div
 
         document.getElementById("EvaluatorController").appendChild(UserSelectedcomplianceDiv); // Append the div to the EvaluatorController element
-
+            const NotesTextArea = document.createElement("textarea");
+            NotesTextArea.placeholder = "Notes here:";
+            NotesTextArea.id = "NotesTextAreaRecords"; 
+            document.getElementById("UserSelectedComplianceDiv").appendChild(NotesTextArea);
 
         if (event.target.innerHTML === "Head Size") {
             console.log("Head Size");
 
             const SmallButton = document.createElement("button");
             SmallButton.innerHTML = "Small";
+            SmallButton.className = "DefaultButton";
             SmallButton.addEventListener("click", SubmitRecordsHandler);
             document.getElementById("UserSelectedComplianceDiv").appendChild(SmallButton);
 
             const MediumButton = document.createElement("button");
             MediumButton.innerHTML = "Medium";
+            MediumButton.className = "DefaultButton";
             MediumButton.addEventListener("click", SubmitRecordsHandler);
             document.getElementById("UserSelectedComplianceDiv").appendChild(MediumButton);
 
             const LargeButton = document.createElement("button");
             LargeButton.innerHTML = "Large";
+            LargeButton.className = "DefaultButton";
             LargeButton.addEventListener("click", SubmitRecordsHandler);
             document.getElementById("UserSelectedComplianceDiv").appendChild(LargeButton);
         } else {
@@ -329,6 +339,9 @@
             PendingButton.addEventListener("click", SubmitRecordsHandler);
             document.getElementById("UserSelectedComplianceDiv").appendChild(PendingButton);
         }
+
+          
+        
 
 
 
