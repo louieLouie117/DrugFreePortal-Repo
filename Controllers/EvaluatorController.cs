@@ -166,5 +166,17 @@ namespace DrugFreePortal.Models
             return Ok(new { UploadData = Uploads, message = "You have reached the backend of GetUserUploads" });
         }
 
+        [HttpGet("GetCurrentSemesters")]
+        public IActionResult GetCurrentSemestersMethod(Semester DataFromUser)
+        {
+            System.Console.WriteLine("Reached backend of get current semesters");
+
+            // Get the user from the database that tracker = Current Semester
+            List<Semester> Semesters = _context.Semesters?.Where(s => s.Tracker == "Current Semester").ToList() ?? new List<Semester>();
+
+
+            return Ok(new { SemesterData = Semesters, message = "You have reached the backend of GetCurrentSemesters" });
+
+        }
     }
 }

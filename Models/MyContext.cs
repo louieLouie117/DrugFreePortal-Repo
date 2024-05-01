@@ -14,5 +14,7 @@ namespace DrugFreePortal.Models
         public DbSet<NewSchool>? NewSchools { get; set; }
 
         public DbSet<Queue>? Queues { get; set; }
+
+        public DbSet<Semester>? Semesters { get; set; }
     }
 }

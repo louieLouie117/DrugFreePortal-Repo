@@ -15,6 +15,7 @@
         console.log("RegDeanHandler called")
 
         let DeanSchool = document.getElementById("DeanSchool").value;
+        let SchoolIdForDean = document.getElementById("SchoolIdForDean").value;
 
         let DeanFirstName = document.getElementById("DeanFirstName").value;
         let DeanLastName = document.getElementById("DeanLastName").value;
@@ -25,6 +26,7 @@
 
         let jsonData = {
             school: DeanSchool,
+            schoolId: SchoolIdForDean,
             firstName: DeanFirstName,
             lastName: DeanLastName,
             email: DeanEmail,
@@ -96,6 +98,19 @@
         document.getElementById(LabelId).innerText = "";
     }
 
+    const DeanSchoolSelecterHandler = (e) => {
+        e.preventDefault();
+        console.log("DeanSchoolSelecterHandler called", e.target)
+        console.log("Shcool Name:", e.target.value)
+        console.log("SChool ID:", e.target.options[e.target.selectedIndex].id)
+        let SchoolName = document.getElementById("DeanSchool");
+        SchoolName.value = e.target.value;
+
+        let SchoolId = document.getElementById("SchoolIdForDean");
+        SchoolId.value = e.target.options[e.target.selectedIndex].id;
+
+    }
+
 
 </script>
 
@@ -106,7 +121,7 @@
         accusantium minus iste, vitae error nam quod inventore nisi cupiditate ab assumenda nihil quisquam unde.</p>
 
     <form action="">
-        <select id="DeanSchoolSelector">
+        <select id="DeanSchoolSelector" onchange="DeanSchoolSelecterHandler(event)">
 
         </select>
         <label id="DeanSchoolLabel"></label>
