@@ -262,7 +262,8 @@
             data: jsonData,
             success: function (response) {
                 // Handle success response
-                console.log("RenderCompliance:", response);
+                console.log("<<<======Render After Submitting Records=======>>:", response.recordsData);
+                RenderStudentRecords(response.recordsData);
             },
             error: function (error) {
                 // Handle error response
