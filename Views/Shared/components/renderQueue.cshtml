@@ -6,6 +6,9 @@
     };
 
 
+
+
+
     @* GetQueue(); // refresh the queue list after changing the status submiting or returning a student to the queue *@
 
     const DeleteFromQueueHandler = (id) => {
@@ -71,6 +74,8 @@
         //must be changed to the student id
         const StudentUserId = document.getElementById('studentUserIdQueueLable' + id).textContent;
 
+        SetSemesterSession(StudentUserId);
+
         console.log("************************QueueId to chanage status:", QueueId);
         console.log("************************StudentUserId to add to session:", StudentUserId);
 
@@ -97,6 +102,8 @@
                     const selectedUserInfo = document.getElementById("SlectedUserInfo");
                     selectedUserInfo.parentNode.removeChild(selectedUserInfo);
                 }
+                document.getElementById('RecordList').style.display = 'grid ';
+
                 GetStudentInProgress();
                 GetQueue();
 

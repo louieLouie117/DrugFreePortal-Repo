@@ -178,5 +178,35 @@ namespace DrugFreePortal.Models
             return Ok(new { SemesterData = Semesters, message = "You have reached the backend of GetCurrentSemesters" });
 
         }
+
+        [HttpPost("SubmitStudentRecords")]
+        public IActionResult SubmitStudentRecordsMethod(Record DataFromUser)
+        {
+            System.Console.WriteLine("Reached backend of submit record");
+
+            // Save to database
+            _context.Records?.Add(DataFromUser);
+            _context.SaveChanges();
+
+            // Get records filter by user id and semester id
+            List<Record> Records = _context.Records?.Where(r => r.UserId == DataFromUser.UserId && r.SemesterId == DataFromUser.SemesterId).ToList() ?? new List<Record>();
+
+
+            return Ok(new { RecordsData = Records, message = "You have reached the backend of SubmitRecord" });
+        }
+
+        [HttpPost("SetSemesterSession")]
+        public IActionResult SetSemesterSessionMethod(Record DataFromUser)
+        {
+            System.Console.WriteLine("Reached backend of get student records filter");
+
+            // Set the session for the semester id
+            HttpContext.Session.SetInt32("SemesterIdForFilter", DataFromUser.SemesterId);
+
+            // Get records filter by user id and semester id
+            List<Record> Records = _context.Records?.Where(r => r.UserId == DataFromUser.UserId && r.SemesterId == DataFromUser.SemesterId).ToList() ?? new List<Record>();
+
+            return Ok(new { RecordsDataFilter = Records, message = "You have reached the backend of SetSemesterSession" });
+        }
     }
 }
