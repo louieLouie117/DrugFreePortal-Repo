@@ -18,6 +18,7 @@ namespace DrugFreePortal.Models
         [HttpPost("RegisterStudentMethod")]
         public IActionResult RegisterStudentMethod(User dataFromUser)
         {
+            System.Console.WriteLine($"Terms: {dataFromUser.AcceptedTerms}");
 
             // check if any fields are empty with a list
             List<string> emptyFields = new List<string>();
@@ -54,6 +55,10 @@ namespace DrugFreePortal.Models
             {
                 emptyFields.Add("PhoneNumber");
             }
+            if (dataFromUser.AcceptedTerms == false)
+            {
+                emptyFields.Add("Need to accept terms");
+            }
 
             if (emptyFields.Any())
             {
@@ -79,8 +84,6 @@ namespace DrugFreePortal.Models
             System.Console.WriteLine($"stripe customer id: {dataFromUser.StripeCustomerId}");
             System.Console.WriteLine($"subscription status: {dataFromUser.SubscriptionStatus}");
 
-            // set terms to true
-            dataFromUser.AcceptedTerms = true;
 
             System.Console.WriteLine($"accepted terms: {dataFromUser.AcceptedTerms}");
 
@@ -88,6 +91,7 @@ namespace DrugFreePortal.Models
             dataFromUser.ReleaseVersion = "R1.0";
             System.Console.WriteLine($"release version: {dataFromUser.ReleaseVersion}");
 
+            dataFromUser.SubscriptionStatus = SubscriptionStatus.Active;
 
 
 
@@ -167,6 +171,7 @@ namespace DrugFreePortal.Models
             dataFromUser.AccountType = AccountType.Evaluator;
             dataFromUser.AcceptedTerms = true;
             dataFromUser.ReleaseVersion = "R1.0";
+            dataFromUser.SchoolId = 0;
 
             System.Console.WriteLine("Reached backend of register evaluator");
 
@@ -182,12 +187,12 @@ namespace DrugFreePortal.Models
             System.Console.WriteLine($"phone number: {dataFromUser.PhoneNumber}");
 
             // Not needed for evaluator
-            dataFromUser.StripeCustomerId = "Not needed for evaluator";
+            dataFromUser.StripeCustomerId = "StripeId Not needed for evaluator";
             dataFromUser.SubscriptionStatus = SubscriptionStatus.Active;
-            dataFromUser.School = "Not needed for evaluator";
-            dataFromUser.StudentId = "Not needed for evaluator";
+            dataFromUser.School = "School Not assigned for evaluator";
+            dataFromUser.StudentId = "Student Id Not needed for evaluator";
             dataFromUser.CheckedIn = false;
-            dataFromUser.PhoneNumber = "Not needed for evaluator";
+            dataFromUser.PhoneNumber = "Phone Not needed for evaluator";
 
 
 
@@ -340,16 +345,13 @@ namespace DrugFreePortal.Models
             }
 
             // check password = to AdminPassword!DRP
-            if (dataFromUser.Password != "Admin!DFPPa$$2Da$h")
-            {
-                return Json(new { Status = "Admin Password Not working!" });
-            }
+
 
             // account type student
             dataFromUser.AccountType = AccountType.Admin;
-            dataFromUser.Password = "AdminPassword!DRP";
             dataFromUser.AcceptedTerms = true;
             dataFromUser.ReleaseVersion = "R1.0";
+            dataFromUser.SchoolId = 0;
 
             System.Console.WriteLine("Reached backend of register Dean");
 
@@ -368,9 +370,9 @@ namespace DrugFreePortal.Models
             dataFromUser.StripeCustomerId = "Not needed for Dean";
             dataFromUser.SubscriptionStatus = SubscriptionStatus.Active;
             dataFromUser.School = "Admin not assigned school";
-            dataFromUser.StudentId = "Not needed for Dean";
+            dataFromUser.StudentId = "Student Id Not needed for Admin";
             dataFromUser.CheckedIn = false;
-            dataFromUser.PhoneNumber = "Not needed for Dean";
+            dataFromUser.PhoneNumber = "Not needed for Admin";
 
 
 

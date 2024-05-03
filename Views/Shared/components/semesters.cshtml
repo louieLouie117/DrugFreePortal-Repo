@@ -6,14 +6,134 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Semesters</title>
 </head>
+<script>
+    const CreateSemesterHandler = (e) => {
+        e.preventDefault();
+        console.log("CreateSemesterHandler called")
+
+        let SemesterTitle = document.getElementById("SemesterTitle").value;
+
+        let jsonData = {
+            title: SemesterTitle,
+        }
+
+        console.log(jsonData)
+
+
+        $.ajax({
+            url: '/CreateSemester',
+            type: "POST",
+            data: jsonData,
+            success: function (response) {
+                // Handle the success response here
+                console.log("Semester created successfully");
+                console.log(response);
+                // You can perform additional actions based on the response
+            },
+            error: function (error) {
+                // Handle the error response here
+                console.log("Error creating semester");
+                console.log(error);
+                // You can display an error message or perform other actions
+            }
+        });
+
+
+    }
+
+    const ChangeSemesterHandler = (e) => {
+        e.preventDefault();
+        console.log("Change Semster called", e.target.innerHTML)
+
+        let SemesterId = e.target.id;
+        let TrakerOptions = " ";
+
+        if (e.target.innerHTML === "Past Semester") {
+            TrakerOptions = "Current Semester";
+        } else {
+            TrakerOptions = "Past Semester";
+        }
+
+        let jsonData = {
+            semesterId: SemesterId,
+            tracker: TrakerOptions
+        }
+
+        console.log(jsonData)
+
+        //ajax call to remove semester
+        $.ajax({
+            url: '/RemoveSemester',
+            type: "POST",
+            data: jsonData,
+            success: function (response) {
+                // Handle the success response here
+                console.log("Semester removed successfully");
+                console.log(response);
+                // You can perform additional actions based on the response
+            },
+            error: function (error) {
+                // Handle the error response here
+                console.log("Error removing semester");
+                console.log(error);
+                // You can display an error message or perform other actions
+            }
+        });
+    }
+
+    const RenderSemesters = (semesters) => {
+        const semestersList = document.getElementById('SemestersList');
+        semestersList.innerHTML = '';
+
+        semesters.forEach(semester => {
+            const li = document.createElement('li');
+            const Title = document.createElement('label');
+            const Button = document.createElement('button');
+
+            Title.textContent = semester.title;
+            li.appendChild(Title);
+            semestersList.appendChild(li);
+
+
+            Button.textContent = semester.tracker;
+            Button.id = semester.semesterId;
+            Button.onclick = function () {
+                ChangeSemesterHandler(event);
+            };
+            li.appendChild(Button);
+            semestersList.appendChild(li);
+        });
+    }
+
+    const getSemesters = () => {
+
+        fetch('/GetSemesters', {
+            method: 'GET'
+        })
+            .then(response => response.json())
+            .then(data => {
+                // Handle success response
+                console.log("Semesters--------", data.semesterData);
+                RenderSemesters(data.semesterData);
+            })
+            .catch(error => {
+                // Handle error response
+                console.log(error);
+            });
+
+    }
+
+
+</script>
+
 <div>
     <h3>Semesters</h3>
     <p>Allow admin to create, update, delete, and edit semesters</p>
     <form action="">
-        <input type="text" name="term" placeholder="term">
-        <input type="text" name="year" placeholder="Year">
-        <input type="submit" name="submit" value="Add Semester">
+        <input id="SemesterTitle" type="text" name="term" placeholder="term and year">
+        <button onclick="CreateSemesterHandler(event)"> Create Semester</button>
     </form>
+    <ul id="SemestersList"></ul>
 
 </div>
 

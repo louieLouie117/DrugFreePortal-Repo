@@ -1,0 +1,521 @@
+<script>
+
+    window.onload = function () {
+        GetStudentInProgress();
+    };
+
+
+    const GetStudentInProgress = (event) => {
+        console.log("*************>>GetStudentInProgress");
+        // Add your code here
+        $.ajax({
+            url: '/GetStudentInProgress',
+            type: 'Get',
+            success: function (response) {
+                // Handle success response
+                console.log("<<<==============");
+                console.log("StudentInProgress result:", response);
+                console.log("==============>>>");
+
+
+                if (response.status === "No User In Progress") {
+                    document.getElementById("NoUserSelectedInQueue").innerHTML = "No User Selected In Queue. Please select a user from the queue.";
+                } else {
+                    document.getElementById("NoUserSelectedInQueue").innerHTML = "";
+                    RenderSelectedUser(response.userInQueueData);
+                }
+
+                GetQueue();
+
+
+            },
+            error: function (error) {
+                // Handle error response
+                console.log(error);
+            }
+        });
+    };
+
+
+    const RenderSelectedUser = (userData) => {
+
+        console.log("userData====:", userData);
+        const divElement = document.createElement("div");
+        divElement.id = "SlectedUserInfo";
+
+
+
+        const labelUserId = document.createElement("label");
+        labelUserId.innerHTML = userData.userId;
+        labelUserId.id = "labelUserIdRecord"; // Add unique id
+        divElement.appendChild(labelUserId);
+
+        const userNameDiv = document.createElement("div");
+        userNameDiv.id = "userNameDivRecord";
+
+        const lablelFristName = document.createElement("label");
+        lablelFristName.innerHTML = userData.firstName;
+        lablelFristName.id = "lablelFristNameRecord"; // Add unique id
+        userNameDiv.appendChild(lablelFristName);
+
+        const labelLastName = document.createElement("label");
+        labelLastName.innerHTML = userData.lastName;
+        labelLastName.id = "labelLastNameRecord"; // Add unique id
+        userNameDiv.appendChild(labelLastName);
+
+        divElement.appendChild(userNameDiv);
+
+        const labelStudentId = document.createElement("label");
+        labelStudentId.innerHTML = userData.studentId;
+        labelStudentId.id = "labelStudentIdRecord"; // Add unique id
+        divElement.appendChild(labelStudentId);
+
+        const labelSchool = document.createElement("label");
+        labelSchool.innerHTML = userData.school;
+        labelSchool.id = "labelSchoolRecord"; // Add unique id
+        divElement.appendChild(labelSchool);
+
+        const labelSchoolId = document.createElement("label");
+        labelSchoolId.innerHTML = userData.schoolId;
+        labelSchoolId.id = "labelSchoolIdRecord"; // Add unique id
+        divElement.appendChild(labelSchoolId);
+
+
+
+        document.getElementById("RecordsMainDiv").appendChild(divElement);
+
+
+
+
+    };
+
+    const RenderStudentUploadedFiles = (uploadData) => {
+        console.log("RenderStudentUploadedFiles called");
+        console.log("uploadData:", uploadData);
+        const UserUploadDiv = document.getElementById("UserUploadDiv");
+
+
+        //IF length of uploadData is 0 than render message to the user that no files uploaded by the student
+        if (uploadData.length === 0) {
+            const NoFilesUploadedLabel = document.createElement("label");
+            NoFilesUploadedLabel.innerHTML = "No files uploaded by the student.";
+            UserUploadDiv.appendChild(NoFilesUploadedLabel);
+            return;
+        }
+
+
+
+        uploadData.forEach((item) => {
+            const FileName = item.fileName;
+            console.log("FileName:", FileName);
+
+            //create a img element and set the src to the file name
+            const imgElement = document.createElement("img");
+            imgElement.src = "/img/uploads/" + FileName;
+            imgElement.className = "UserUpload-Image";
+            UserUploadDiv.appendChild(imgElement);
+
+            //button for the evaluator to view the file
+            const ViewButton = document.createElement("button");
+            ViewButton.innerHTML = "View";
+            ViewButton.addEventListener("click", function () {
+                window.open("/img/uploads/" + FileName);
+            });
+
+            UserUploadDiv.appendChild(ViewButton);
+
+            UserUploadDiv.appendChild(ViewButton);
+
+
+
+
+        });
+
+    };
+
+    const GetUserUploads = (UserId) => {
+        console.log("==================>UserId to get upload from the student:", UserId);
+
+        console.log("GetUserUploads called");
+        console.log("UserId:", UserId);
+        const userUploadDiv = document.createElement("div");
+        userUploadDiv.id = "UserUploadDiv";
+        userUploadDiv.className = "UserUpload-Container";
+        document.getElementById("EvaluatorWindow").appendChild(userUploadDiv);
+
+        const EvaluatorWindow = document.getElementById("EvaluatorWindow");
+        EvaluatorWindow.style.gridTemplateColumns = "1fr 2fr";
+
+        jsonData = {
+            UserId: UserId
+        };
+
+        console.log("jsonData:", jsonData);
+        // Add your code here
+        $.ajax({
+            url: '/GetUserUploads',
+            type: 'Post',
+            data: jsonData,
+            success: function (response) {
+                // Handle success response
+                console.log("GetUserUploads:", response);
+                console.log("GetUserUploads:", response.uploadData);
+                RenderStudentUploadedFiles(response.uploadData);
+
+            },
+            error: function (error) {
+                // Handle error response
+                console.log(error);
+            }
+        });
+    };
+
+
+
+    const ReturnToQueueHandler = (event) => {
+        console.log("ReturnToQueueHandler called");
+        document.getElementById('RecordList').innerHTML = '';
+        document.getElementById('RecordList').style.display = 'none ';
+
+        // Add your code here
+        $.ajax({
+            url: '/ReturnQueueStatus',
+            type: 'Post',
+            success: function (response) {
+                // Handle success response
+                console.log("Return to Queue:", response);
+                GetQueue();
+                const selectedUserInfo = document.getElementById("SlectedUserInfo");
+                selectedUserInfo.parentNode.removeChild(selectedUserInfo);
+
+            },
+            error: function (error) {
+                // Handle error response
+                console.log(error);
+            }
+        });
+    };
+
+
+    const EvaluatorWindowHandler = (event) => {
+        console.log("EvaluatorWindowHandler called");
+        console.log("Evnt.target:", event.target);
+        // get element by class name and change dislpay to none
+        const evaluatorWindow = document.getElementById("EvaluatorWindow");
+        // clear element
+        evaluatorWindow.parentNode.removeChild(evaluatorWindow);
+
+    };
+
+
+    const SubmitRecordsHandler = (event) => {
+        console.log("SubmitRecordsHandler called");
+        console.log("event.target.innerHTML:", event.target.innerHTML);
+
+        const UserId = document.getElementById("labelUserIdRecord").innerHTML;
+        const FirstName = document.getElementById("lablelFristNameRecord").innerHTML;
+        const LastName = document.getElementById("labelLastNameRecord").innerHTML;
+        const StudentId = document.getElementById("labelStudentIdRecord").innerHTML;
+        const SchoolName = document.getElementById("labelSchoolRecord").innerHTML;
+        const SchoolId = document.getElementById("labelSchoolIdRecord").innerHTML;
+        const SemesterId = document.getElementById("SemesterId").innerHTML;
+        const SemesterTitle = document.getElementById("SemesterTitle").innerHTML;
+        const ComplianceType = document.getElementById("ComplianceSelectedLabelRecord").innerHTML;
+        const ComplianceStatus = event.target.innerHTML;
+        let StatusColor = "245684";
+        let Notes = document.getElementById("NotesTextAreaRecords").value;
+
+        if (Notes === "") {
+            Notes = "No notes added.";
+        }
+
+        if (ComplianceStatus === "Passed") {
+            StatusColor = "39C32B";
+        } else if (ComplianceStatus === "Failed") {
+            StatusColor = "CF1616";
+        } else if (ComplianceStatus === "Pending") {
+            StatusColor = "D2D2D2";
+        }
+
+        const jsonData = {
+            userId: UserId,
+            firstName: FirstName,
+            lastName: LastName,
+            studentId: StudentId,
+            schoolName: SchoolName,
+            schoolId: SchoolId,
+            semesterId: SemesterId,
+            semesterTitle: SemesterTitle,
+            complianceType: ComplianceType,
+            complianceStatus: ComplianceStatus,
+            statusColor: StatusColor,
+            notes: Notes
+
+        };
+
+        console.log("jsonData for Records:", jsonData);
+
+
+        // Add your code here
+        $.ajax({
+            url: '/SubmitStudentRecords',
+            type: 'POST',
+            data: jsonData,
+            success: function (response) {
+                // Handle success response
+                console.log("<<<======Render After Submitting Records=======>>:", response.recordsData);
+                RenderStudentRecords(response.recordsData);
+            },
+            error: function (error) {
+                // Handle error response
+                console.log(error);
+            }
+        });
+    };
+
+
+
+    //This is the function when a user selects the complicnace list button  
+    const ComplianceSelectedHandeler = (event) => {
+
+        //clear selected compliance record
+        console.log("ComplianceSelectedHandeler called");
+        console.log("Complice slected ======================>>>>:", event.target.innerHTML);
+
+        const UserId = document.getElementById("labelUserIdRecord").innerHTML;
+
+
+        GetUserUploads(UserId);
+
+
+        const ComplianceList = document.getElementById("ComplianceList");
+        ComplianceList.style.display = "none";
+
+        const ContollerLabel = document.getElementById("ContollerLabel");
+        ContollerLabel.innerHTML = "< Back";
+
+        const complianceSelected = event.target.innerHTML;
+        const UserSelectedcomplianceDiv = document.createElement("div"); // Create a div element
+        UserSelectedcomplianceDiv.id = "UserSelectedComplianceDiv"; // Add unique id
+        UserSelectedcomplianceDiv.className = "UserSelectedCompliance-Container"; // Add a class name to the div element
+
+        const complianceSelectedLabelRecord = document.createElement("label");
+        complianceSelectedLabelRecord.innerHTML = complianceSelected;
+        complianceSelectedLabelRecord.id = "ComplianceSelectedLabelRecord"; // Add unique id
+        UserSelectedcomplianceDiv.appendChild(complianceSelectedLabelRecord); // Append the label to the div
+
+        document.getElementById("EvaluatorController").appendChild(UserSelectedcomplianceDiv); // Append the div to the EvaluatorController element
+        const NotesTextArea = document.createElement("textarea");
+        NotesTextArea.placeholder = "Notes here:";
+        NotesTextArea.id = "NotesTextAreaRecords";
+        document.getElementById("UserSelectedComplianceDiv").appendChild(NotesTextArea);
+
+        if (event.target.innerHTML === "Head Size") {
+            console.log("Head Size");
+
+            const SmallButton = document.createElement("button");
+            SmallButton.innerHTML = "Small";
+            SmallButton.className = "DefaultButton";
+            SmallButton.addEventListener("click", SubmitRecordsHandler);
+            document.getElementById("UserSelectedComplianceDiv").appendChild(SmallButton);
+
+            const MediumButton = document.createElement("button");
+            MediumButton.innerHTML = "Medium";
+            MediumButton.className = "DefaultButton";
+            MediumButton.addEventListener("click", SubmitRecordsHandler);
+            document.getElementById("UserSelectedComplianceDiv").appendChild(MediumButton);
+
+            const LargeButton = document.createElement("button");
+            LargeButton.innerHTML = "Large";
+            LargeButton.className = "DefaultButton";
+            LargeButton.addEventListener("click", SubmitRecordsHandler);
+            document.getElementById("UserSelectedComplianceDiv").appendChild(LargeButton);
+        } else {
+            const PassedButton = document.createElement("button");
+            PassedButton.innerHTML = "Passed";
+            PassedButton.className = "PassedButton";
+            PassedButton.addEventListener("click", SubmitRecordsHandler);
+            document.getElementById("UserSelectedComplianceDiv").appendChild(PassedButton);
+
+            const FailedButton = document.createElement("button");
+            FailedButton.innerHTML = "Failed";
+            FailedButton.className = "FailedButton";
+            FailedButton.addEventListener("click", SubmitRecordsHandler);
+            document.getElementById("UserSelectedComplianceDiv").appendChild(FailedButton);
+
+            const PendingButton = document.createElement("button");
+            PendingButton.innerHTML = "Pending";
+            PendingButton.className = "PendingButton";
+            PendingButton.addEventListener("click", SubmitRecordsHandler);
+            document.getElementById("UserSelectedComplianceDiv").appendChild(PendingButton);
+        }
+
+
+
+
+
+
+
+    };
+
+    const ControllerNavHandler = (event) => {
+        if (event.target.innerHTML === "Select Compliance") {
+            console.log("No need to do anything.");
+            return;
+        }
+        console.log("ControllerNavHandler called");
+
+        const ComplianceList = document.getElementById("ComplianceList");
+        ComplianceList.style.display = "grid";
+
+        const ContollerLabel = document.getElementById("ContollerLabel");
+        ContollerLabel.innerHTML = "Select Compliance";
+
+        const ComplianceSelectedLabelRecord = document.getElementById("ComplianceSelectedLabelRecord");
+        if (ComplianceSelectedLabelRecord) {
+            ComplianceSelectedLabelRecord.parentNode.removeChild(ComplianceSelectedLabelRecord);
+        }
+
+
+        document.getElementById("UserSelectedComplianceDiv").remove();
+        const EvaluatorWindow = document.getElementById("EvaluatorWindow");
+        EvaluatorWindow.style.gridTemplateColumns = "1fr 2fr";
+
+        const UserUploadDiv = document.getElementById("UserUploadDiv");
+        UserUploadDiv.remove();
+
+
+    };
+
+    const RenderCompliance = (complianceData) => {
+        console.log("RenderCompliance called");
+        console.log("complianceData:", complianceData);
+
+        const divElement = document.createElement("div"); // Create a div element
+        divElement.className = "Evaluator-Container"; // Add a class name to the div element
+        divElement.id = "EvaluatorWindow";
+        divElement.addEventListener("click", function (event) {
+            console.log("Check event.target:", event.target);
+            if (event.target === divElement) {
+                EvaluatorWindowHandler(event);
+            }
+        });
+
+        const aside = document.createElement("aside");
+        aside.className = "Evaluator-Controller";
+        aside.id = "EvaluatorController";
+
+        const label = document.createElement("label");
+        label.innerHTML = "Select Compliance";
+        label.id = "ContollerLabel";
+        label.addEventListener("click", ControllerNavHandler);
+        aside.appendChild(label);
+
+        const ulElement = document.createElement("ul");
+        ulElement.id = "ComplianceList";
+
+        complianceData.forEach((item) => {
+            console.log("item:", item.name);
+            const liElement = document.createElement("li");
+            const buttonElement = document.createElement("button");
+            buttonElement.innerHTML = item.name;
+            buttonElement.addEventListener("click", ComplianceSelectedHandeler)
+            liElement.appendChild(buttonElement);
+            ulElement.appendChild(liElement);
+        });
+
+        aside.appendChild(ulElement);
+
+        divElement.appendChild(aside); // Append the aside element to the div element
+
+        document.getElementById("SubmitRecordsView").appendChild(divElement); // Append the div element to the SubmitRecordsView element
+    };
+
+
+    const RenderSchoolComplianceHandler = (event) => {
+        console.log("RenderSchoolComplianceHandler called");
+
+        // You need the school id to filter the compliance data
+        let schoolIdFilter = document.getElementById("labelSchoolIdRecord").textContent;
+
+        jsonData = {
+            idFromSchool: schoolIdFilter
+        };
+
+        console.log("jsonData:", jsonData);
+        // Add your code here
+        $.ajax({
+            url: '/RenderSchoolCompliance',
+            type: 'Post',
+            data: jsonData,
+            success: function (response) {
+                // Handle success response
+                console.log("RenderCompliance:", response);
+                RenderCompliance(response.complianceData);
+            },
+            error: function (error) {
+                // Handle error response
+                console.log(error);
+            }
+        });
+    };
+
+    const SetSemesterSession = (studentUserId) => {
+        console.log("SetSemesterSession called=====>")
+
+        const semersterId = document.getElementById('SemesterId').textContent;
+
+        const jsonDataFilter = {
+            userId: studentUserId,
+            semesterId: semersterId
+        }
+
+        console.log("Get Student Record data============>>>>:", jsonDataFilter)
+
+        $.ajax({
+            url: '/SetSemesterSession',
+            type: 'Post',
+            data: jsonDataFilter,
+            success: function (response) {
+                // Handle success response
+                console.log("Get Student Records filter by UserID and SemetersID:", response.recordsDataFilter);
+                RenderStudentRecords(response.recordsDataFilter);
+            },
+            error: function (error) {
+                // Handle error response
+                console.log(error);
+            }
+        });
+    }
+
+
+
+
+
+</script>
+
+
+<div class="SubmitRecords-Container" id="SubmitRecordsView">
+    <button id="ReturnToQueueBTN" onclick="ReturnToQueueHandler(event)">Return to Queue</button>
+    <button onclick="RenderSchoolComplianceHandler(event)">+</button>
+    <div class="Semester-Container" id="SemsterContainer">
+        <label id="SemesterId">SemesterId</label>
+        <label id="SemesterTitle">SemesterTitle</label>
+    </div>
+
+    <header id="RecordsMainDiv"></header>
+
+    <main>
+        <label id="NoUserSelectedInQueue"></label>
+
+        <ul class="RecordList-Container" id="RecordList">
+
+        </ul>
+
+    </main>
+
+
+
+
+
+</div>

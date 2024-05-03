@@ -165,6 +165,42 @@ namespace DrugFreePortal.Models
             return Ok(new { Status = "Success", StudentFiles = StudentFiles });
         }
 
+        [HttpPost("CheckIn")]
+        public IActionResult CheckInMethod(Queue DataFromUser)
+        {
+            System.Console.WriteLine("Reached backend of check in");
+            // Get session user id
+            int? UserIdInSession = HttpContext.Session.GetInt32("UserId");
+            System.Console.WriteLine($"----------------UserId in session Home:CheckIn => {UserIdInSession}");
+
+
+            // Check if the user id in session is in the database
+            bool isUserInDatabase = _context.Queues?.Any(u => u.StudentUserId == UserIdInSession) ?? false;
+            System.Console.WriteLine($"----------------isUserInDatabase in Home:CheckIn => {isUserInDatabase}");
+
+            // if user is in data base return you are already in queue
+            if (isUserInDatabase)
+            {
+                return Ok(new { Status = "InQueue", Message = "You are already in the queue and will be called when you are next in line." });
+            }
+
+
+            DataFromUser.StudentUserId = UserIdInSession ?? 0;
+            DataFromUser.Status = "Start";
+
+            // Add the file information to the database
+            _context.Add(DataFromUser);
+            _context.SaveChanges();
+
+            // Return the updated user data
+            return Ok(new { Status = "Success", Message = "Checked in successfully" });
+
+
+        }
+
+
+
+
 
     }
 }

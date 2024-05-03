@@ -1,20 +1,71 @@
-<head>
+<script>
+    function createSchool(event) {
+        event.preventDefault();
 
-</head>
+        const schoolDean = document.getElementById('schoolDean').value;
+        const schoolName = document.getElementById('schoolName').value;
+        const schoolAddress = document.getElementById('schoolAddress').value;
+        const schoolCity = document.getElementById('schoolCity').value;
+        const schoolState = document.getElementById('schoolState').value;
+        const schoolZipCode = document.getElementById('schoolZipCode').value;
+        const schoolOnsiteDate = document.getElementById('schoolOnsiteDate').value;
+
+        const data = {
+            dean: schoolDean,
+            name: schoolName,
+            address: schoolAddress,
+            city: schoolCity,
+            state: schoolState,
+            zipCode: schoolZipCode,
+            onSiteDate: schoolOnsiteDate
+        };
+
+
+        console.log(data);
+        console.log(JSON.stringify(data));
+
+        $.ajax({
+            url: '/CreateSchool',
+            type: 'POST',
+            data: data,
+    @* contentType: 'application/json', *@
+            success: function (response) {
+                // Handle success response
+                console.log(response);
+            },
+            error: function (error) {
+                // Handle error response
+                console.log(error);
+            }
+        });
+    }
+
+
+
+
+</script>
+
+
 
 <div>
     <h3>School</h3>
 
     <p>Allow admin to create, render, updated, and delete.</p>
 
-    <form action="">
-        <input type="text" placeholder="name of school:">
-        <input type="text" placeholder="address:">
-        <input type="text" placeholder="city:">
-        <input type="text" placeholder="state:">
-        <input type="text" placeholder="zip:">
-        <input type="button" value="+ school">
+    <form>
+        <input type="text" placeholder="School Dean" id="schoolDean">
+        <input type="text" placeholder="name of school:" id="schoolName">
+        <input type="text" placeholder="address:" id="schoolAddress">
+        <input type="text" placeholder="city:" id="schoolCity">
+        <input type="text" placeholder="state:" id="schoolState">
+        <input type="text" placeholder="zip code:" id="schoolZipCode">
+        <input type="date" placeholder="Onsite Date:" id="schoolOnsiteDate">
+        <button onclick="createSchool(event)">create School</button>
+
 
     </form>
+
+    <ul id="AllSchools"></ul>
+
 
 </div>

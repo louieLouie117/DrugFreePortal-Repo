@@ -1,42 +1,27 @@
 <head>
     <script>
-        @* $(document).ready(() => {
-            fetch("/GetUsers")
-            .then(response => response.json())
-            .then(data => {
-            console.log("data from db", data);
-            RenderAllUsers(data);
+        @* DeletUser function using jquer ajax *@
+        const DeleteUserHandler = (userId) => {
+            const jsonData = {
+                userId: userId
+            };
+            console.log(jsonData);
+
+            $.ajax({
+                url: 'DeleteUser',
+                type: 'POST',
+                data: jsonData,
+                success: (result) => {
+                    console.log("user deleted successfully", result);
+                    alert('User deleted successfully');
+                    fetchAllUsers();
+                },
+                error: (error) => {
+                    console.log(error);
+                    alert('Error deleting user');
+                }
             });
-            });
-            const RenderAllUsers = (users) => {
-            users.forEach(user => {
-
-            if (user.accountType == 0) {
-            user.accountType = "Admin";
-            } else if (user.accountType == 1) {
-            user.accountType = "Dean";
-            } else if (user.accountType == 2) {
-            user.accountType = "Student";
-            } else if (user.accountType == 3) {
-            user.accountType = "Evaluator";
-            }
-
-            console.log("users here", user);
-            $('#usersList').append(`<tr>
-            <td>${user.userId}</td>
-            <td>${user.accountType}</td>
-            <td>${user.school}</td>
-            <td>${user.studentId}</td>
-            <td>${user.firstName}</td>
-            <td>${user.lastName}</td>
-            <td>${user.email}</td>
-            <td>${user.password}</td>
-            </tr>`);
-            });
-            } *@
-
-
-
+        };
 
     </script>
 </head>

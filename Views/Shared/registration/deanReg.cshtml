@@ -15,6 +15,7 @@
         console.log("RegDeanHandler called")
 
         let DeanSchool = document.getElementById("DeanSchool").value;
+        let SchoolIdForDean = document.getElementById("SchoolIdForDean").value;
 
         let DeanFirstName = document.getElementById("DeanFirstName").value;
         let DeanLastName = document.getElementById("DeanLastName").value;
@@ -25,6 +26,7 @@
 
         let jsonData = {
             school: DeanSchool,
+            schoolId: SchoolIdForDean,
             firstName: DeanFirstName,
             lastName: DeanLastName,
             email: DeanEmail,
@@ -96,18 +98,37 @@
         document.getElementById(LabelId).innerText = "";
     }
 
+    const DeanSchoolSelecterHandler = (e) => {
+        e.preventDefault();
+        console.log("DeanSchoolSelecterHandler called", e.target)
+        console.log("Shcool Name:", e.target.value)
+        console.log("SChool ID:", e.target.options[e.target.selectedIndex].id)
+        let SchoolName = document.getElementById("DeanSchool");
+        SchoolName.value = e.target.value;
+
+        let SchoolId = document.getElementById("SchoolIdForDean");
+        SchoolId.value = e.target.options[e.target.selectedIndex].id;
+
+    }
+
 
 </script>
 
-<div class="signReg-container">
+<div>
 
     <h3>Dean Registration </h3>
     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis hic ducimus saepe facere. Non architecto
         accusantium minus iste, vitae error nam quod inventore nisi cupiditate ab assumenda nihil quisquam unde.</p>
 
     <form action="">
+        <select id="DeanSchoolSelector" onchange="DeanSchoolSelecterHandler(event)">
+
+        </select>
         <label id="DeanSchoolLabel"></label>
-        <input id="DeanSchool" type="text" placeholder="School:" onClick="DeanInputHandler(event)">
+        <input id="DeanSchool" type="text" placeholder="School name update on select" onClick="DeanInputHandler(event)">
+
+        <input type="text" id="SchoolIdForDean" placeholder="School ID updated on select">
+
 
         <label id="DeanFirstNameLabel"></label>
         <input id="DeanFirstName" type="text" placeholder="First Name:" onClick="DeanInputHandler(event)">
