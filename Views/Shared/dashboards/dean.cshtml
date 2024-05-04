@@ -13,13 +13,40 @@
         getRecords();
     });
 
+    const RenderUserWithRecords =(UserRecords) =>{
+        console.log("Render====================>>>>>User Records", UserRecords);
+        
+        // generarte a ul element and loop data to create li elements have a hader and a main elemtn inside the li element
+        let ul = document.createElement('ul');
+        UserRecords.forEach(userRecord => {
+            console.log("User Record", userRecord);
+            console.log("---------User Record");
+            let li = document.createElement('li');
+            let header = document.createElement('h3');
+            header.innerText = userRecord.user.firstName + " " + userRecord.user.lastName;
+
+            let main = document.createElement('main');
+            userRecord.records.forEach(record => {
+                console.log(record.complianceType);
+                main.innerText = record.complianceType + " " + record.complianceStatus;
+            });
+            li.appendChild(main);
+            li.appendChild(header);
+            li.appendChild(main);
+            ul.appendChild(li);
+            document.getElementById('UserWithRecords').appendChild(ul);
+        });
+
+    }
+
     // get all records
     const getRecords = () => {
         // get all records
         fetch('GetRecords')
             .then(response => response.json())
             .then(data => {
-                console.log(data);
+                console.log("Users With Records", data.userWithRecordsData);
+                RenderUserWithRecords(data.userWithRecordsData);    
             })
             .catch(error => {
                 console.error('There was an error!', error);
@@ -33,6 +60,7 @@
 
     <p>Dean Profesionals will review all documents and pass or fail students compliacys</p>
 
+    <div id="UserWithRecords"></div>
 
 </div>
 
