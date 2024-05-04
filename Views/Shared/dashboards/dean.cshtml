@@ -7,6 +7,26 @@
     <title>Dean Profesianl</title>
 </head>
 
+<script>
+    // on document done loading get the records
+    document.addEventListener("DOMContentLoaded", function () {
+        getRecords();
+    });
+
+    // get all records
+    const getRecords = () => {
+        // get all records
+        fetch('GetRecords')
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+            })
+            .catch(error => {
+                console.error('There was an error!', error);
+            });
+    }
+</script>
+
 <div class="dashboard-container">
 
     <h1>Dean Dashboard</h1>
