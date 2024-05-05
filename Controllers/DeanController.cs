@@ -26,12 +26,18 @@ namespace DrugFreePortal.Models
 
             //get SchoolIdInSession from session
             int? SchoolIdInSession = HttpContext.Session.GetInt32("SchoolIdInSession");
-
             //get all users
-            List<User> allUsers = _context.Users?.Where(u => u.AccountType == AccountType.Student && u.SchoolId == SchoolIdInSession).ToList() ?? new List<User>();
+            List<User> allUsers = _context.Users?
+            .Where(u => u.AccountType == AccountType.Student && u.SchoolId == SchoolIdInSession)
+            .ToList() ?? new List<User>();
 
+            // get semester that is = "Current Semester"
+            Semester CurrentSemester = _context.Semesters
+                ?.FirstOrDefault(s => s.Tracker == "Current Semester") ?? new Semester { Title = "Default Title", Tracker = "Default Tracker" };
             //get all records
-            List<Record> allRecords = _context.Records?.ToList() ?? new List<Record>();
+            List<Record> allRecords = _context.Records?
+                .Where(r => r.SemesterId == CurrentSemester.SemesterId)
+                .ToList() ?? new List<Record>();
 
             //combine users and records
             var usersWithRecords = allUsers.Select(user => new
@@ -40,15 +46,14 @@ namespace DrugFreePortal.Models
                 Records = allRecords.Where(record => record.UserId == user.UserId).ToList()
             }).ToList();
 
-            // get semester that is = "Current Semester"
-            Semester CurrentSemester = _context.Semesters
-                ?.FirstOrDefault(s => s.Tracker == "Current Semester") ?? new Semester { Title = "Default Title", Tracker = "Default Tracker" };
-
-            // get all record from database
-
-
-
-            return Ok(new { UserWithRecordsData = usersWithRecords, UsersData = allUsers, SemesterData = CurrentSemester, AllRecordsDB = allRecords, message = "You reached backend for GetRecords" });
+            return Ok(new
+            {
+                UserWithRecordsData = usersWithRecords,
+                // UsersData = allUsers,
+                // SemesterData = CurrentSemester,
+                // AllRecordsDB = allRecords,
+                message = "You reached backend for GetRecords"
+            });
         }
 
 
