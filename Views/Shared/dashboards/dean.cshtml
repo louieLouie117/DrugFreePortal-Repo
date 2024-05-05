@@ -38,12 +38,20 @@
             let nestedUl = document.createElement('ul');
 
             userRecord.records.forEach(record => {
-                console.log(record.complianceType);
                 let nestedLi = document.createElement('li');
-                nestedLi.innerText = `${record.complianceType} ${record.complianceStatus}`;
-                nestedUl.appendChild(nestedLi);
                 main.appendChild(nestedUl);
 
+                let labelComplianceType = document.createElement('label');
+                labelComplianceType.innerText = record.complianceType;
+                nestedLi.appendChild(labelComplianceType);
+
+                let labelComplianceStatus = document.createElement('label');
+                labelComplianceStatus.innerText = record.complianceStatus;
+                labelComplianceStatus.style.color = "white";
+                labelComplianceStatus.style.backgroundColor = "#" + record.statusColor;
+                nestedLi.appendChild(labelComplianceStatus);
+
+                nestedUl.appendChild(nestedLi);
             });
 
 
