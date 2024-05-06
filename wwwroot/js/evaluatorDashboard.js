@@ -6,6 +6,28 @@ document.addEventListener('DOMContentLoaded', function () {
     
 });
 
+
+const ShowSchoolCompliance = async () => {
+    const ComplianceList = document.getElementById("ComplianceList");
+                ComplianceList.style.display = "grid";
+
+                const ContollerLabel = document.getElementById("ContollerLabel");
+                ContollerLabel.innerHTML = "Select Compliance";
+
+                const ComplianceSelectedLabelRecord = document.getElementById("ComplianceSelectedLabelRecord");
+                if (ComplianceSelectedLabelRecord) {
+                    ComplianceSelectedLabelRecord.parentNode.removeChild(ComplianceSelectedLabelRecord);
+                }
+
+
+                document.getElementById("UserSelectedComplianceDiv").remove();
+                const EvaluatorWindow = document.getElementById("EvaluatorWindow");
+                EvaluatorWindow.style.gridTemplateColumns = "1fr 2fr";
+
+                const UserUploadDiv = document.getElementById("UserUploadDiv");
+                UserUploadDiv.remove();
+}
+
 // arrow function to fetch current semesters from the database
 const fetchCurrentSemesters = async () => {
     console.log("***fetchCurrentSemesters");
@@ -41,6 +63,7 @@ const DeleteRecordHandler = async (RecordId) => {
         console.log("data from db", data.afterDeleteData);
         // render student records
         RenderStudentRecords(data.afterDeleteData);
+        
     } catch (error) {
         console.error("Error deleting record:", error);
     }

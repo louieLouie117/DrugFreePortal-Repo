@@ -265,6 +265,7 @@
                 // Handle success response
                 console.log("<<<======Render After Submitting Records=======>>:", response.recordsData);
                 RenderStudentRecords(response.recordsData);
+                ShowSchoolCompliance();
             },
             error: function (error) {
                 // Handle error response
