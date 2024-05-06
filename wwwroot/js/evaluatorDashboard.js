@@ -30,27 +30,48 @@ const fetchCurrentSemesters = async () => {
     }
 };
 
+const DeleteRecordHandler = async (RecordId) => {
+    console.log("DeleteRecordHandler called", RecordId);
+    // fetch api to delete record
+    try {
+        const response = await fetch(`/DeleteRecord/${RecordId}`, {
+            method: "DELETE"
+        });
+        const data = await response.json();
+        console.log("data from db", data.afterDeleteData);
+        // render student records
+        RenderStudentRecords(data.afterDeleteData);
+    } catch (error) {
+        console.error("Error deleting record:", error);
+    }
+    
+
+}
+
+
 const RenderStudentRecords = async (RenderStudentRecords) => {
-    console.log("***RenderStudentRecords was called", RenderStudentRecords);
+    console.log("****************RenderStudentRecords was called", RenderStudentRecords);
     // clear ul element id RecordList
     document.getElementById('RecordList').innerHTML = '';
     // loop data and render to ul element id RecordList
-    RenderStudentRecords.forEach((student) => {
+    RenderStudentRecords.forEach((studentRecord) => {
+        console.log("*********====>>studentRecord", studentRecord);
         let li = document.createElement('li');
 
         let button = document.createElement('button');
         button.innerHTML = "";
         button.className = "QueueDeleteBTN";
+        button.addEventListener("click", () => DeleteRecordHandler(studentRecord.recordId));
         li.appendChild(button);
         
         
         let labelType = document.createElement('label');
-        labelType.innerHTML = `${student.complianceType}`;
+        labelType.innerHTML = `${studentRecord.complianceType}`;
         li.appendChild(labelType);
         
         let labelStatus = document.createElement('label');
-        labelStatus.innerHTML = `${student.complianceStatus}`;
-        labelStatus.style.background = "#"+`${student.statusColor}`;
+        labelStatus.innerHTML = `${studentRecord.complianceStatus}`;
+        labelStatus.style.background = "#"+`${studentRecord.statusColor}`;
         labelStatus.style.color = "white";
         labelStatus.style.padding = "5px";
         labelStatus.style.width = "100%";
