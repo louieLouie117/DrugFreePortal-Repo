@@ -20,6 +20,8 @@
 
 
         UserRecords.forEach(userRecord => {
+
+
             let li = document.createElement('li');
             ul.appendChild(li);
 
@@ -40,6 +42,16 @@
             let nestedUl = document.createElement('ul');
 
             userRecord.records.forEach(record => {
+                //if no records found show message label "No Records Found"
+                console.log(">>>>>>>>---======Record", record);
+
+                if (userRecord.records.length === 0) {
+                    console.log(">>>>>>>>---======No Records Found");
+                    let labelNoRecords = document.createElement('label');
+                    labelNoRecords.innerText = "No Records Found";
+                    nestedUl.appendChild(labelNoRecords);
+                    return
+                }
                 let nestedLi = document.createElement('li');
                 main.appendChild(nestedUl);
 
@@ -52,6 +64,9 @@
                 labelComplianceStatus.style.color = "white";
                 labelComplianceStatus.style.backgroundColor = "#" + record.statusColor;
                 nestedLi.appendChild(labelComplianceStatus);
+
+
+
 
                 nestedUl.appendChild(nestedLi);
             });
