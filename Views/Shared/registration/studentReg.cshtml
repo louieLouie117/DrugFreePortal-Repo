@@ -27,7 +27,7 @@
         e.preventDefault();
         console.log("RegStudentHandler called")
 
-
+        let StripeCustomerId = document.getElementById("StripeCustomerId").value;
         let StudentSchool = document.getElementById("StudentSchool").value;
         let SchoolIdForStudentReg = document.getElementById("SchoolIdForStudentReg").value;
         let StudentId = document.getElementById("StudentId").value;
@@ -45,6 +45,7 @@
         console.log("------------terms", StudentAccpetTerms)
 
         let jsonData = {
+            stripeCustomerId: StripeCustomerId,
             school: StudentSchool,
             schoolId: SchoolIdForStudentReg,
             studentId: StudentId,
@@ -143,6 +144,10 @@
 
 
     <form action="">
+        @* label and input for Stripe customer id *@
+        <label id="StripeCustomerIdLabel"></label>
+        <input onclick="StudentInputHandler(event)" id="StripeCustomerId" type="text" placeholder="Stripe Customer Id:"
+            value="@stripeCustomerId" disabled>
         @* lable for student school id studentSchoolLable *@
         <label id="StudentSchoolLabel"></label>
         <select name="" id="StudentSchoolSelector"></select>
@@ -156,8 +161,7 @@
         <input onclick="StudentInputHandler(event)" id="StudentId" type="text" placeholder="Student Id:">
 
         <label id="StudentFirstNameLabel"></label>
-        <input onclick="StudentInputHandler(event)" value="@stripeCustomerId" id="StudentFirstName" type="text"
-            placeholder="First Name:">
+        <input onclick="StudentInputHandler(event)" id="StudentFirstName" type="text" placeholder="First Name:">
 
         <label id="StudentLastNameLabel"></label>
         <input onclick="StudentInputHandler(event)" id="StudentLastName" type="text" placeholder="Last Name:">

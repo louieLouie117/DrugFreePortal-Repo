@@ -80,7 +80,6 @@ namespace DrugFreePortal.Models
             System.Console.WriteLine($"phone number: {dataFromUser.PhoneNumber}");
 
             // stripe customer id none
-            dataFromUser.StripeCustomerId = "none";
             System.Console.WriteLine($"stripe customer id: {dataFromUser.StripeCustomerId}");
             System.Console.WriteLine($"subscription status: {dataFromUser.SubscriptionStatus}");
 
