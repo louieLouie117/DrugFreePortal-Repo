@@ -208,5 +208,30 @@ namespace DrugFreePortal.Models
 
             return Ok(new { RecordsDataFilter = Records, message = "You have reached the backend of SetSemesterSession" });
         }
+
+        [HttpDelete("DeleteRecord/{recordId}")]
+        public IActionResult DeleteRecordMethod(int recordId)
+        {
+            System.Console.WriteLine("Reached backend of delete record");
+
+            // get user id and semester id from the session
+            int? UserId = HttpContext.Session.GetInt32("UserIdInProgress");
+
+            Record? record = _context.Records?.FirstOrDefault(r => r.RecordId == recordId);
+
+            if (record != null)
+            {
+                _context.Records?.Remove(record);
+                _context.SaveChanges();
+
+                // Get records filter by user id and semester id
+                List<Record> AfterDeleteRecords = _context.Records?.Where(r => r.UserId == UserId && r.SemesterId == record.SemesterId).ToList() ?? new List<Record>();
+                return Ok(new { AfterDeleteData = AfterDeleteRecords, message = "You have reached the backend of DeleteRecord" });
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
     }
 }

@@ -477,3 +477,58 @@ input, select{
         border: solid black 1px;
 
     }
+
+
+    /* Dean Dashbord----------------------------- */
+
+    .Deandashboard-ContainerTest{
+        display: grid;
+        align-content: flex-start;
+        background-color: whitesmoke;
+        height: 100vh;
+    }
+    .userRecord-Container{
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        column-gap: 20px;
+        margin: 20px;
+
+    }
+
+    .userRecord-Container>li{
+        display: grid;
+        grid-template-rows: 50px 1fr;
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0px 0px 3px 3px #f0f0f0;
+    }
+
+    .userRecord-Container>li header{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        background-color: #245684;
+        padding: 10px;
+        border-radius: 10px 10px 0 0;
+        color: white;
+        height: 30px;
+        justify-items: center;
+    }
+
+    .userRecord-Container>li header label{
+        font: 1.7em sans-serif;
+    }
+
+    .userRecord-Container>li>main>ul{
+        display: grid;
+        align-content: flex-start;
+        row-gap: 5px;
+        padding: 20px;
+    }
+
+    .userRecord-Container>li>main>ul li{
+        display: grid;
+        grid-template-columns: 1fr 70px;
+        height: 20px;
+        align-items: center;
+    
+    }

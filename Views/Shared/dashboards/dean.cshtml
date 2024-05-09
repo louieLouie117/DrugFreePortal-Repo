@@ -7,12 +7,101 @@
     <title>Dean Profesianl</title>
 </head>
 
-<div class="dashboard-container">
+<script>
+    // on document done loading get the records
+    document.addEventListener("DOMContentLoaded", function () {
+        getRecords();
+    });
+
+    const RenderUserWithRecords = (UserRecords) => {
+        console.log("Render====================>>>>>User Records", UserRecords);
+        let ul = document.createElement('ul');
+        ul.className = "userRecord-Container";
+
+
+        UserRecords.forEach(userRecord => {
+
+
+            let li = document.createElement('li');
+            ul.appendChild(li);
+
+            let header = document.createElement('header');
+            li.appendChild(header);
+
+            let labelName = document.createElement('label');
+            labelName.innerText = `${userRecord.user.firstName} ${userRecord.user.lastName}`;
+            header.appendChild(labelName);
+
+            let labelStudentId = document.createElement('label');
+            labelStudentId.innerText = userRecord.user.studentId;
+            header.appendChild(labelStudentId);
+
+            let main = document.createElement('main');
+            li.appendChild(main);
+
+            let nestedUl = document.createElement('ul');
+
+            userRecord.records.forEach(record => {
+                //if no records found show message label "No Records Found"
+                console.log(">>>>>>>>---======Record", record);
+
+                if (userRecord.records.length === 0) {
+                    console.log(">>>>>>>>---======No Records Found");
+                    let labelNoRecords = document.createElement('label');
+                    labelNoRecords.innerText = "No Records Found";
+                    nestedUl.appendChild(labelNoRecords);
+                    return
+                }
+                let nestedLi = document.createElement('li');
+                main.appendChild(nestedUl);
+
+                let labelComplianceType = document.createElement('label');
+                labelComplianceType.innerText = record.complianceType;
+                nestedLi.appendChild(labelComplianceType);
+
+                let labelComplianceStatus = document.createElement('label');
+                labelComplianceStatus.innerText = record.complianceStatus;
+                labelComplianceStatus.style.color = "white";
+                labelComplianceStatus.style.backgroundColor = "#" + record.statusColor;
+                nestedLi.appendChild(labelComplianceStatus);
+
+
+
+
+                nestedUl.appendChild(nestedLi);
+            });
+
+
+        });
+
+        document.getElementById('UserWithRecords').appendChild(ul);
+    }
+
+    // get all records
+    const getRecords = () => {
+        // get all records
+        fetch('GetRecords')
+            .then(response => response.json())
+            .then(data => {
+                console.log("Users With Records", data.userWithRecordsData);
+                RenderUserWithRecords(data.userWithRecordsData);
+            })
+            .catch(error => {
+                console.error('There was an error!', error);
+            });
+    }
+</script>
+
+
+
+
+<div class="Deandashboard-ContainerTest">
 
     <h1>Dean Dashboard</h1>
 
     <p>Dean Profesionals will review all documents and pass or fail students compliacys</p>
 
+    <div id="UserWithRecords"></div>
 
 </div>
 
