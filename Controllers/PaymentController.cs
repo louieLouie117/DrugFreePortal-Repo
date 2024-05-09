@@ -23,11 +23,6 @@ namespace DrugFreePortal.Models
         }
 
 
-        [HttpGet("/re")] // This is the route for the index page
-        public IActionResult index()
-        {
-            return View("index");
-        }
         [HttpPost("create-checkout-session")]
         public ActionResult Create()
         {

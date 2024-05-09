@@ -1,3 +1,5 @@
+@using Microsoft.AspNetCore.Http;
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,7 +16,11 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-
+@{
+    var customerEmail = Context.Session.GetString("StripeCustomerEmail");
+    var customerName = Context.Session.GetString("StripeCustomerName");
+    var stripeCustomerId = Context.Session.GetString("StripeCustomerId");
+}
 <script>
 
     const RegStudentHandler = (e) => {
@@ -150,7 +156,8 @@
         <input onclick="StudentInputHandler(event)" id="StudentId" type="text" placeholder="Student Id:">
 
         <label id="StudentFirstNameLabel"></label>
-        <input onclick="StudentInputHandler(event)" id="StudentFirstName" type="text" placeholder="First Name:">
+        <input onclick="StudentInputHandler(event)" value="@stripeCustomerId" id="StudentFirstName" type="text"
+            placeholder="First Name:">
 
         <label id="StudentLastNameLabel"></label>
         <input onclick="StudentInputHandler(event)" id="StudentLastName" type="text" placeholder="Last Name:">
@@ -160,7 +167,8 @@
             placeholder="Phone Number:" value="000-000-0000" disabled>
 
         <label id="StudentEmailLabel"></label>
-        <input onclick="StudentInputHandler(event)" id="StudentEmail" type="text" placeholder="Email:">
+        <input onclick="StudentInputHandler(event)" id="StudentEmail" value="@customerEmail" type="text"
+            placeholder="Email:">
 
         <label id="StudentPasswordLabel"></label>
         <input onclick="StudentInputHandler(event)" id="StudentPassword" type="password" placeholder="Password:">
