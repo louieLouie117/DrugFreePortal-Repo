@@ -27,6 +27,12 @@ namespace DrugFreePortal.Models
             return View("index");
         }
 
+        [HttpGet("register")]
+        public IActionResult register()
+        {
+            System.Console.WriteLine("navigate to admin reg");
+            return View("registration/studentReg");
+        }
 
 
         [HttpGet("/dashboard")] // This is the route for the index page
@@ -195,41 +201,6 @@ namespace DrugFreePortal.Models
 
         }
 
-
-        [HttpPost("create-checkout-session")]
-        public ActionResult Create()
-        {
-
-            System.Console.WriteLine("Reach the backend of stripe session");
-            // var domain = "https://journalpocketapp.com/";
-            var domain = "http://localhost:5000";
-
-
-            var options = new SessionCreateOptions
-            {
-                LineItems = new List<SessionLineItemOptions>
-                {
-                  new SessionLineItemOptions
-                  {
-
-                    Price = "price_1Ow7aSKJxcOxvTTBxSNOnvyG", // this is the price for client server
-                    Quantity = 1,
-                  },
-                },
-                Mode = "subscription",
-
-                SuccessUrl = "http://localhost:5000/order/success?session_id={CHECKOUT_SESSION_ID}",
-                // SuccessUrl = "https://journalpocketapp.com/order/success?session_id={CHECKOUT_SESSION_ID}",
-
-                CancelUrl = domain,
-            };
-            var service = new SessionService();
-            Session session = service.Create(options);
-
-            System.Console.WriteLine($"Customer Phone number {session.Customer}");
-            Response.Headers.Add("Location", session.Url);
-            return new StatusCodeResult(303);
-        }
 
 
 
