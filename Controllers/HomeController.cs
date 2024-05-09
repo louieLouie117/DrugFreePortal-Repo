@@ -1,12 +1,9 @@
 
-using System;
 using Microsoft.AspNetCore.Mvc;
-using System.Linq;
-using System.Collections.Generic;
-using System.IO;
-using System.Threading.Tasks;
 using IFormFile = Microsoft.AspNetCore.Http.IFormFile;
-using Microsoft.AspNetCore.Hosting;
+
+using Stripe;
+using Stripe.Checkout;
 
 
 
@@ -196,6 +193,42 @@ namespace DrugFreePortal.Models
             return Ok(new { Status = "Success", Message = "Checked in successfully" });
 
 
+        }
+
+
+        [HttpPost("create-checkout-session")]
+        public ActionResult Create()
+        {
+
+            System.Console.WriteLine("Reach the backend of stripe session");
+            // var domain = "https://journalpocketapp.com/";
+            var domain = "http://localhost:5000";
+
+
+            var options = new SessionCreateOptions
+            {
+                LineItems = new List<SessionLineItemOptions>
+                {
+                  new SessionLineItemOptions
+                  {
+
+                    Price = "price_1Ow7aSKJxcOxvTTBxSNOnvyG", // this is the price for client server
+                    Quantity = 1,
+                  },
+                },
+                Mode = "subscription",
+
+                SuccessUrl = "http://localhost:5000/order/success?session_id={CHECKOUT_SESSION_ID}",
+                // SuccessUrl = "https://journalpocketapp.com/order/success?session_id={CHECKOUT_SESSION_ID}",
+
+                CancelUrl = domain,
+            };
+            var service = new SessionService();
+            Session session = service.Create(options);
+
+            System.Console.WriteLine($"Customer Phone number {session.Customer}");
+            Response.Headers.Add("Location", session.Url);
+            return new StatusCodeResult(303);
         }
 
 
