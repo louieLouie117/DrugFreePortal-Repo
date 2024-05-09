@@ -1,5 +1,9 @@
 console.log('reg.js is loaded');
 
+window.onload = function () {
+    getSchoolsForStudentReg();
+};
+
 
 const getWorkingURL = () => {
     const runningUrl = window.location.href;
@@ -83,10 +87,6 @@ const signInHandlerFetch = async (e) => {
 
 
 
-
-window.onload = function () {
-    getSchoolsForStudentReg();
-};
 
 
 const getSchoolsForStudentReg = () => {

@@ -442,6 +442,15 @@ namespace DrugFreePortal.Models
 
             User? userInDB = _context.Users?.FirstOrDefault(u => u.Email == loginData.Email);
 
+            // get schoold id from user
+            int? SchoolId = userInDB?.SchoolId;
+            System.Console.WriteLine($"SchoolId: {SchoolId}");
+
+            //set school id into session
+
+            HttpContext.Session.SetInt32("SchoolIdInSession", SchoolId ?? 0);
+
+
             if (userInDB == null)
             {
                 Console.WriteLine($"email error");
