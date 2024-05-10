@@ -28,7 +28,13 @@
         console.log("RegStudentHandler called")
 
         let StripeCustomerId = document.getElementById("StripeCustomerId").value;
-        let StudentSchool = document.getElementById("StudentSchool").value;
+    @* if (StripeCustomerId === "") {
+            document.getElementById("StripeCustomerIdLabel").style.color = "red";
+            document.getElementById("StripeCustomerIdLabel").innerText = "No Payment Information Found. Please contact support.";
+            return;
+            } *@
+
+            let StudentSchool = document.getElementById("StudentSchool").value;
         let SchoolIdForStudentReg = document.getElementById("SchoolIdForStudentReg").value;
         let StudentId = document.getElementById("StudentId").value;
 
@@ -140,21 +146,22 @@
 
 <div class="studentReg-container">
 
-    <h1>Student Registration</h1>
+    <h1>Student Register</h1>
 
 
     <form action="">
         @* label and input for Stripe customer id *@
         <label id="StripeCustomerIdLabel"></label>
-        <input onclick="StudentInputHandler(event)" id="StripeCustomerId" type="text" placeholder="Stripe Customer Id:"
-            value="@stripeCustomerId" disabled>
+        <input class="hidden" onclick="StudentInputHandler(event)" id="StripeCustomerId" type="text"
+            placeholder="Stripe Customer Id:" value="@stripeCustomerId" disabled>
         @* lable for student school id studentSchoolLable *@
         <label id="StudentSchoolLabel"></label>
         <select name="" id="StudentSchoolSelector"></select>
-        <input onclick="StudentInputHandler(event)" id="StudentSchool" type="text" placeholder="School:" disabled>
+        <input class="hidden" onclick="StudentInputHandler(event)" id="StudentSchool" type="text" placeholder="School:"
+            disabled>
 
         @* school id did is not in the user data base *@
-        <input type="text" id="SchoolIdForStudentReg" placeholder="schoolId:" disabled>
+        <input class="hidden" type="text" id="SchoolIdForStudentReg" placeholder="schoolId:" disabled>
 
 
         <label id="StudentIdLabel"></label>
@@ -185,9 +192,16 @@
 
         </div>
 
-        <button id="StudentRegBTN" onclick="RegStudentHandler(event)">Register</button>
+        <footer>
+            <button>Back</button>
+            <button id="StudentRegBTN" onclick="RegStudentHandler(event)">Next</button>
+        </footer>
+
 
     </form>
+
+
+
 
 
 </div>

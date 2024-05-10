@@ -96,6 +96,20 @@ input, select{
     border: solid black 1.3px;
 }
 
+.studentReg-container{
+    display: grid;
+    row-gap: 20px;
+    background: linear-gradient(to top, #245684 90%, #014686);
+    padding: 20px;
+    height: 100vh;
+    align-content: flex-start;
+    justify-items: center;
+}
+
+.studentReg-container>h1{
+    font: 2em sans-serif;
+    color: white;
+}
 
 .studentReg-container>form{
     background-color: white;
@@ -479,7 +493,7 @@ input, select{
     }
 
 
-    /* Dean Dashbord----------------------------- */
+    /* Dean Dashboard----------------------------- */
 
     .DeanDashboard-ContainerTest{
         display: grid;
