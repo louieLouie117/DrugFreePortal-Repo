@@ -1,10 +1,12 @@
 body{
-    background-color: #f0f0f0;
+    display: grid;
+    background-color: whitesmoke;
     font-family: Arial, sans-serif;
-    margin: 0;
+    margin: 0 auto;
     padding: 0;
     display: grid;
     row-gap: 50px;
+    
 }
 
 
@@ -20,10 +22,7 @@ h1{
     background-color: white;
 }
 
-.signReg-container{
-    background-color: white;
-    padding: 20px;
-}
+
 main{
     display: grid;
  
@@ -63,8 +62,26 @@ img{
 }
 
 button{
-    width: 130px;
+    font: 1.3em sans-serif;
+    width: auto;
+    height: 40px;
+    padding: 5px;
+    border-radius: 20px;
+    border: solid #245684 1.3px;
+    background-color: white;
+    color: #245684;
+    cursor: pointer;
 }
+
+input, select{
+    font: 1.2em sans-serif;
+    padding: 10px;
+    border-radius: 7px;
+    border: solid black 1.3px;
+}
+
+
+
 
 
 .Compliance-Container{
@@ -89,12 +106,85 @@ th{
     display: none;
 }
 
-input, select{
-    font: 1em sans-serif;
-    padding: 5px;
-    border-radius: 5px;
-    border: solid black 1.3px;
+.mainBTN{
+    background-color: #245684;
+    color: white;
 }
+
+
+
+/* landing page---------------------- */
+
+.LandingPage-Container{
+    display: grid;
+    grid-template-rows: 100px 1fr 100px;
+    align-items: flex-start;
+    justify-self: center;
+
+    background-color: white;
+    height: 100vh;
+    max-width: 35em;
+    box-shadow: 0px 0px 3px 3px #f0f0f0;
+
+}
+
+.LandingPage-Container>header{
+    display: grid;
+    background-color: #245684;
+    justify-content: center;
+    height: 70px;
+}
+.LandingPage-Container>header>h1{
+    color: white;
+    font: 1.8em sans-serif;
+    padding: 20px;
+
+}
+
+.LandingPage-Container>main{
+    display: grid;
+    row-gap: 20px;
+    padding: 20px;
+    justify-items: center;
+    justify-content: center;
+
+}
+.LandingPage-Container>main>h2{
+    font: 1.7em sans-serif;
+}
+
+.LandingPage-Container>main button{
+    width: 100%;
+}
+
+.LandingPage-Container>footer{
+    display: grid;
+    padding: 20px;
+
+}
+
+
+.signReg-container{
+    display: none;
+    background-color: white;
+    padding: 20px;
+    width: 300px;
+    border-radius: 7px;
+}
+
+.signReg-container>h1{
+    font: 1.3em sans-serif;
+    color: black;
+}
+
+.Subscription-Container>form>button{
+    width: 300px;
+
+}
+
+
+
+/* student reg------------------------------ */
 
 .studentReg-container{
     display: grid;
@@ -126,21 +216,21 @@ input, select{
     row-gap: 5px;
 
 }
-.studentReg-container>form>Section>select{
+/* .studentReg-container>form>Section>select{
     font: 1.3em sans-serif;
     padding: 7px;
     border-radius: 5px;
     border: solid black 1.3px;
 
-}
+} */
 
-.studentReg-container>form>section>input{
+/* .studentReg-container>form>section>input{
     font: 1.3em sans-serif;
     padding: 7px;
     border-radius: 5px;
     border: solid black 1.3px;
 
-}
+} */
 
 /* student Profile------------------------------------- */
 

@@ -16,20 +16,27 @@
 </head>
 
 <body>
+    <div class="LandingPage-Container">
 
-    <h1>Hello, Drug Free Portal</h1>
-    <p>Server is runing R1.19</p>
-    @* <partial name="components/fileUploaderAxios"> *@
-    @* <partial name="components/fileUploaderProcess"> *@
-    @* <partial name="components/fileUploader"> *@
-    <partial name="components/stripeSub">
+    <header>
+        <h1>Drug Free Portal</h1>
+    </header>
+
+
+    <main>
+        <h2>Welcome Student!</h2>
+
+        <button onClick="SignInContainerHandler(event)" > Existing User</button>
         <partial name="registration/signIn">
-            @* <partial name="registration/studentReg"> *@
-                @* <partial name="registration/adminReg"> *@
+        <partial name="components/stripeSub">
+    </main>
 
+    <footer>
+        <p>For school admins and to register you school please contact email or phone.</p>
+        <p> R1.19</p>
 
-
-
+    </footer>
+    </div>
 
 </body>
 
