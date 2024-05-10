@@ -1,3 +1,5 @@
+@using Microsoft.AspNetCore.Http;
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,15 +8,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registration</title>
 
+    <link rel="stylesheet" href="~/css/styles.css?version=1.19">
+    <script src="~/js/reg.js?version=1.19" async=""></script>
+    <script src="~/js/app.js?version=1.19"></script>
+
 </head>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+@{
+    var customerEmail = Context.Session.GetString("StripeCustomerEmail");
+    var customerName = Context.Session.GetString("StripeCustomerName");
+    var stripeCustomerId = Context.Session.GetString("StripeCustomerId");
+}
 <script>
 
     const RegStudentHandler = (e) => {
         e.preventDefault();
         console.log("RegStudentHandler called")
 
-
+        let StripeCustomerId = document.getElementById("StripeCustomerId").value;
         let StudentSchool = document.getElementById("StudentSchool").value;
         let SchoolIdForStudentReg = document.getElementById("SchoolIdForStudentReg").value;
         let StudentId = document.getElementById("StudentId").value;
@@ -32,6 +45,7 @@
         console.log("------------terms", StudentAccpetTerms)
 
         let jsonData = {
+            stripeCustomerId: StripeCustomerId,
             school: StudentSchool,
             schoolId: SchoolIdForStudentReg,
             studentId: StudentId,
@@ -126,11 +140,14 @@
 
 <div class="studentReg-container">
 
-    <h1>Student Registration Partial</h1>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis hic ducimus saepe facere. Non architecto
-        accusantium minus iste, vitae error nam quod inventore nisi cupiditate ab assumenda nihil quisquam unde.</p>
+    <h1>Student Registration</h1>
+
 
     <form action="">
+        @* label and input for Stripe customer id *@
+        <label id="StripeCustomerIdLabel"></label>
+        <input onclick="StudentInputHandler(event)" id="StripeCustomerId" type="text" placeholder="Stripe Customer Id:"
+            value="@stripeCustomerId" disabled>
         @* lable for student school id studentSchoolLable *@
         <label id="StudentSchoolLabel"></label>
         <select name="" id="StudentSchoolSelector"></select>
@@ -154,7 +171,8 @@
             placeholder="Phone Number:" value="000-000-0000" disabled>
 
         <label id="StudentEmailLabel"></label>
-        <input onclick="StudentInputHandler(event)" id="StudentEmail" type="text" placeholder="Email:">
+        <input onclick="StudentInputHandler(event)" id="StudentEmail" value="@customerEmail" type="text"
+            placeholder="Email:">
 
         <label id="StudentPasswordLabel"></label>
         <input onclick="StudentInputHandler(event)" id="StudentPassword" type="password" placeholder="Password:">

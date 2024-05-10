@@ -1,12 +1,9 @@
 
-using System;
 using Microsoft.AspNetCore.Mvc;
-using System.Linq;
-using System.Collections.Generic;
-using System.IO;
-using System.Threading.Tasks;
 using IFormFile = Microsoft.AspNetCore.Http.IFormFile;
-using Microsoft.AspNetCore.Hosting;
+
+using Stripe;
+using Stripe.Checkout;
 
 
 
@@ -30,6 +27,12 @@ namespace DrugFreePortal.Models
             return View("index");
         }
 
+        [HttpGet("register")]
+        public IActionResult register()
+        {
+            System.Console.WriteLine("navigate to admin reg");
+            return View("registration/studentReg");
+        }
 
 
         [HttpGet("/dashboard")] // This is the route for the index page
@@ -197,6 +200,7 @@ namespace DrugFreePortal.Models
 
 
         }
+
 
 
 

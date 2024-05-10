@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using DrugFreePortal.Models;
+using Stripe;
+
 
 namespace DrugFreePortal
 {
@@ -16,6 +18,8 @@ namespace DrugFreePortal
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            StripeConfiguration.ApiKey = Configuration["Stripe:SecretKey"];
+
             services.AddDbContext<MyContext>(options => options.UseMySql(Configuration["DBInfo:ConnectionString"], new MySqlServerVersion(new Version(8, 0, 26))));
             services.AddSession();
             services.AddMvc(options => options.EnableEndpointRouting = false);
