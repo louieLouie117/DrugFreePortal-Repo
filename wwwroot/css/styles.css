@@ -121,12 +121,36 @@ input, select{
 }
 
 
+.studentReg-container>form>section{
+    display: grid;
+    row-gap: 5px;
+
+}
+.studentReg-container>form>Section>select{
+    font: 1.3em sans-serif;
+    padding: 7px;
+    border-radius: 5px;
+    border: solid black 1.3px;
+
+}
+
+.studentReg-container>form>section>input{
+    font: 1.3em sans-serif;
+    padding: 7px;
+    border-radius: 5px;
+    border: solid black 1.3px;
+
+}
+
+/* student Profile------------------------------------- */
+
+
 .StudentProfile-Container{
     background-color: whitesmoke;
     padding: 5px;
 }
 
-.StudentProfile-Container form{
+.StudentProfile-Container>form{
     background-color: white;
     display: grid;
     /* grid-template-columns: 120px 1fr; */
@@ -135,7 +159,7 @@ input, select{
 
 }
 
-.StudentProfile-Container form label{
+.StudentProfile-Container>form label{
     border: none;
     font: 1.3em sans-serif;
 }

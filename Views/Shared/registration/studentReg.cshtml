@@ -150,39 +150,43 @@
 
 
     <form action="">
-        @* label and input for Stripe customer id *@
-        <label id="StripeCustomerIdLabel"></label>
-        <input class="hidden" onclick="StudentInputHandler(event)" id="StripeCustomerId" type="text"
-            placeholder="Stripe Customer Id:" value="@stripeCustomerId" disabled>
-        @* lable for student school id studentSchoolLable *@
-        <label id="StudentSchoolLabel"></label>
-        <select name="" id="StudentSchoolSelector"></select>
-        <input class="hidden" onclick="StudentInputHandler(event)" id="StudentSchool" type="text" placeholder="School:"
-            disabled>
+        <section>
+            <label id="StripeCustomerIdLabel"></label>
+            <input class="hidden" onclick="StudentInputHandler(event)" id="StripeCustomerId" type="text"
+                placeholder="Stripe Customer Id:" value="@stripeCustomerId" disabled>
+            <label id="StudentSchoolLabel"></label>
+            <select name="" id="StudentSchoolSelector"></select>
+            <input class="hidden" onclick="StudentInputHandler(event)" id="StudentSchool" type="text"
+                placeholder="School:" disabled>
 
-        @* school id did is not in the user data base *@
-        <input class="hidden" type="text" id="SchoolIdForStudentReg" placeholder="schoolId:" disabled>
+            <input class="hidden" type="text" id="SchoolIdForStudentReg" placeholder="schoolId:" disabled>
 
 
-        <label id="StudentIdLabel"></label>
-        <input onclick="StudentInputHandler(event)" id="StudentId" type="text" placeholder="Student Id:">
+            <label id="StudentIdLabel"></label>
+            <input onclick="StudentInputHandler(event)" id="StudentId" type="text" placeholder="Student Id:">
 
-        <label id="StudentFirstNameLabel"></label>
-        <input onclick="StudentInputHandler(event)" id="StudentFirstName" type="text" placeholder="First Name:">
+        </section>
 
-        <label id="StudentLastNameLabel"></label>
-        <input onclick="StudentInputHandler(event)" id="StudentLastName" type="text" placeholder="Last Name:">
+        <section>
 
-        <label id="StudentPhoneNumberLabel"></label>
-        <input class="hidden" onclick="StudentInputHandler(event)" id="StudentPhoneNumber" type="text"
-            placeholder="Phone Number:" value="000-000-0000" disabled>
+            <label id="StudentFirstNameLabel"></label>
+            <input onclick="StudentInputHandler(event)" id="StudentFirstName" type="text" placeholder="First Name:">
 
-        <label id="StudentEmailLabel"></label>
-        <input onclick="StudentInputHandler(event)" id="StudentEmail" value="@customerEmail" type="text"
-            placeholder="Email:">
+            <label id="StudentLastNameLabel"></label>
+            <input onclick="StudentInputHandler(event)" id="StudentLastName" type="text" placeholder="Last Name:">
 
-        <label id="StudentPasswordLabel"></label>
-        <input onclick="StudentInputHandler(event)" id="StudentPassword" type="password" placeholder="Password:">
+        </section>
+
+
+        <section>
+            <label id="StudentEmailLabel"></label>
+            <input onclick="StudentInputHandler(event)" id="StudentEmail" value="@customerEmail" type="text"
+                placeholder="Email:">
+
+            <label id="StudentPasswordLabel"></label>
+            <input onclick="StudentInputHandler(event)" id="StudentPassword" type="password" placeholder="Password:">
+        </section>
+
         <div>
             <label id="StudentAccpetTermsLabel"></label>
 
@@ -191,6 +195,11 @@
             <p>By continuing, you agree to our Terms Of Service and Privacy Policy.</p>
 
         </div>
+
+
+        <label id="StudentPhoneNumberLabel"></label>
+        <input class="hidden" onclick="StudentInputHandler(event)" id="StudentPhoneNumber" type="text"
+            placeholder="Phone Number:" value="000-000-0000" disabled>
 
         <footer>
             <button>Back</button>
