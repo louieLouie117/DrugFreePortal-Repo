@@ -71,6 +71,7 @@ button{
     background-color: white;
     color: #245684;
     cursor: pointer;
+    min-width: 150px;
 }
 
 input, select{
@@ -78,6 +79,10 @@ input, select{
     padding: 10px;
     border-radius: 7px;
     border: solid black 1.3px;
+}
+
+a{
+    color: #245684;
 }
 
 
@@ -117,7 +122,7 @@ th{
 
 .LandingPage-Container{
     display: grid;
-    grid-template-rows: 100px 1fr 100px;
+    grid-template-rows: 100px 1fr  100px 100px;
     align-items: flex-start;
     justify-self: center;
 
@@ -157,9 +162,21 @@ th{
     width: 100%;
 }
 
-.LandingPage-Container>footer{
+.LandingPage-Container>aside{
     display: grid;
+    row-gap: 20px;
     padding: 20px;
+    justify-items: center;
+    justify-content: center;
+
+    
+}
+
+.LandingPage-Container>footer{
+    display: flex;
+    column-gap: 15px;
+    padding: 20px;
+    align-items: center;
 
 }
 
@@ -177,11 +194,22 @@ th{
     color: black;
 }
 
+.Subscription-Container{
+    display: grid;
+}
+
 .Subscription-Container>form>button{
     width: 300px;
 
 }
 
+.Subscription-Container>h4{
+    font: 1em sans-serif;
+    color: black;
+    justify-self: flex-end;
+    padding-right: 10px;
+
+}
 
 
 /* student reg------------------------------ */
