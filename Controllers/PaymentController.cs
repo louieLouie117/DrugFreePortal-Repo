@@ -27,8 +27,12 @@ namespace DrugFreePortal.Models
         public ActionResult Create()
         {
             System.Console.WriteLine("PaymentController: Reach the backend of stripe session");
+            //get website address
+            var websiteAddress = Request.Scheme + "://" + Request.Host.Value;
+            System.Console.WriteLine($"Website Address {websiteAddress}");
+
             // var domain = "https://journalpocketapp.com/";
-            var domain = "http://localhost:5043";
+            var domain = websiteAddress;
 
             var options = new SessionCreateOptions
             {
@@ -40,11 +44,13 @@ namespace DrugFreePortal.Models
                     Price = "price_1Ow7aSKJxcOxvTTBxSNOnvyG", // this is the price for client server
                     Quantity = 1,
                   },
+
                 },
+
 
                 Mode = "subscription",
 
-                SuccessUrl = "http://localhost:5043/order/success?session_id={CHECKOUT_SESSION_ID}",
+                SuccessUrl = $"{websiteAddress}" + "/order/success?session_id={CHECKOUT_SESSION_ID}",
                 // SuccessUrl = "https://journalpocketapp.com/order/success?session_id={CHECKOUT_SESSION_ID}",
 
                 CancelUrl = domain,
