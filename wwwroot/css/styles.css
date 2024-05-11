@@ -742,11 +742,13 @@ th{
         grid-template-rows: 50px;
         background-color: whitesmoke;
         /* height: 100vh; */
+        margin: 0 auto;
         font: 1em sans-serif;
         display: grid;
         row-gap: 20px;
         padding: 20px;
         align-content: flex-start;
+        max-width: 35em;
 
     }
     .dashboard-container>h1{
@@ -795,8 +797,13 @@ th{
     }
 
     .UploadFiles-Container>main{
+        display: grid;
         background-color: white;
         height: 85Vh;
         align-content: flex-end;
         padding-bottom: 30px;
+        width: 100%;
+        justify-items: center;
+        justify-content: center;
+        justify-self: center;
     }
