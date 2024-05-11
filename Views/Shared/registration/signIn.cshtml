@@ -31,15 +31,15 @@
 
     }
 </script>
-<div class="signReg-container">
+<div class="signReg-container" id="SignInContainer">
 
     <h1>Sign In</h1>
     <form action="">
         <label id="signInEmailLabel"></label>
-        <input type="text" id="signInemail" placeholder="email" required>
+        <input type="text" id="signInemail" placeholder="email:" required>
 
         <label id="signInPasswordLabel"></label>
-        <input id="signInPassword" placeholder="Password" type="password" required>
+        <input id="signInPassword" placeholder="Password:" type="password" required>
 
         <button id="SingInUser" onclick="signInHandlerFetch(event)">Sign In</button>
         @* <button id="SingInUser" onclick="signInHandlerAjax(event)">Sign In Ajax</button> *@

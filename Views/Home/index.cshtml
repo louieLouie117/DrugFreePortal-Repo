@@ -6,30 +6,50 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Drug Free Portal</title>
 
-    <link rel="stylesheet" href="~/css/styles.css?version=1.19">
+    <link rel="stylesheet" href="~/css/styles.css?version=1.20">
 
-    <script src="~/js/app.js?version=1.19"></script>
-    <script src="~/js/reg.js?version=1.19" async=""></script>
+    <script src="~/js/app.js?version=1.20"></script>
+    <script src="~/js/reg.js?version=1.20" async=""></script>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 </head>
 
 <body>
+    <div class="LandingPage-Container">
 
-    <h1>Hello, Drug Free Portal</h1>
-    <p>Server is runing R1.19</p>
-    @* <partial name="components/fileUploaderAxios"> *@
-    @* <partial name="components/fileUploaderProcess"> *@
-    @* <partial name="components/fileUploader"> *@
-    <partial name="components/stripeSub">
-        <partial name="registration/signIn">
-            @* <partial name="registration/studentReg"> *@
-                @* <partial name="registration/adminReg"> *@
+        <header>
+            <h1>Drug Free Portal</h1>
+        </header>
 
 
+        <main>
+            <h2>Welcome Student!</h2>
 
+            <button onClick="SignInContainerHandler(event)"> Existing User</button>
+            @* <button onClick="SignInContainerHandler(event)" > Existing Dean</button> *@
 
+            <partial name="registration/signIn">
+                <partial name="components/stripeSub">
+        </main>
+
+        <aside>
+            <p>To regester your school. Pleases contact us by email: school@drugfreeportal.com or phone: 623-233-0000.
+            </p>
+        </aside>
+
+        <footer>
+            <p> R1.20</p>
+            <a href="#">Terms of Service</a>
+            <a href="#">Privacy Policy</a>
+
+        </footer>
+    </div>
+    @* <partial name="registration/studentReg"> *@
+
+    <div>
+
+    </div>
 
 </body>
 

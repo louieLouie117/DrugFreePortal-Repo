@@ -18,3 +18,12 @@ const SignOutHandler = async () => {
         });
 };
 
+
+const SignInContainerHandler = async (e) => {
+    // change the container to sign in to display grid id SignInContainer
+    console.log("SignInContainerHandler called");
+    document.getElementById("SignInContainer").style.display = "grid";
+    e.target.style.display = "none";
+
+}
+

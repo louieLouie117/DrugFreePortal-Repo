@@ -90,10 +90,9 @@ namespace DrugFreePortal.Models
 
             System.Console.WriteLine($"Data After card {service}");
 
-            // return Content($"<html><body><h1>Thanks for your order, {customer.Id} {customer.Name} {customer.Email} {customer.Phone}!</h1></body></html>");
-
-            // return RedirectToAction("Index", "Register", viewModel);
             return Redirect("/register");
+            // return RedirectToAction("Index", "Home");// redirect to landing page after payment. Use this for version 2 to keep landing page a single page
+
 
 
         }
