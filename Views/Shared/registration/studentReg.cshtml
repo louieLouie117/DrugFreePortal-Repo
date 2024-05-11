@@ -91,6 +91,7 @@
         if (StripeCustomerId === "") {
             document.getElementById("StripeCustomerIdLabel").style.color = "red";
             document.getElementById("StripeCustomerIdLabel").innerText = "Payment Error: Please make payment first or contact support.";
+            return
         }
 
         let StudentSchool = document.getElementById("StudentSchool").value;
@@ -208,14 +209,14 @@
 
 
     <form action="">
+
         <header>
             <h2>Create Account</h2>
             <label id="CurrentStep">School Information</label>
         </header>
+
         <section id="SchoolInfo">
-            <label id="StripeCustomerIdLabel"></label>
-            <input class="hidden" onclick="StudentInputHandler(event)" id="StripeCustomerId" type="text"
-                placeholder="Stripe Customer Id:" value="@stripeCustomerId" disabled>
+
             <label id="StudentSchoolLabel"></label>
             <select name="" id="StudentSchoolSelector"></select>
             <input class="hidden" onclick="StudentInputHandler(event)" id="StudentSchool" type="text"
@@ -268,6 +269,13 @@
             <button id="StudentRegBackBTN" onclick="RegStudentHandler(event)">&lt;</button>
             <button id="StudentRegBTN" class="mainBTN" onclick="RegStudentHandler(event)">Next</button>
         </footer>
+
+        <label id="StripeCustomerIdLabel"></label>
+
+        <div class="hidden">
+            <input class="hidden" onclick="StudentInputHandler(event)" id="StripeCustomerId" type="text"
+                placeholder="Stripe Customer Id:" value="@stripeCustomerId" disabled>
+        </div>
 
 
     </form>

@@ -238,10 +238,19 @@ th{
 
 }
 
+.studentReg-container>form>header>h2{
+    font: 1.3em sans-serif;
+    font-weight: bold;
+    color: black;
+    margin-top: 0;
+}
+
 
 .studentReg-container>form>section{
     display: grid;
     row-gap: 5px;
+    /* height: 150px; */
+
 
 }
 
