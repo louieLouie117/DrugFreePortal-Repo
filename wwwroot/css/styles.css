@@ -66,7 +66,7 @@ button{
     width: auto;
     height: 40px;
     padding: 5px;
-    border-radius: 20px;
+    border-radius: 15px;
     border: solid #245684 1.3px;
     background-color: white;
     color: #245684;
@@ -114,6 +114,8 @@ th{
 .mainBTN{
     background-color: #245684;
     color: white;
+    padding-left: 15px;
+    padding-right: 15px;
 }
 
 
@@ -730,4 +732,71 @@ th{
         height: 20px;
         align-items: center;
     
+    }
+
+
+    /* Student Dashboard----------------------------- */
+
+    .dashboard-container{
+        display: grid;
+        grid-template-rows: 50px;
+        background-color: whitesmoke;
+        /* height: 100vh; */
+        font: 1em sans-serif;
+        display: grid;
+        row-gap: 20px;
+        padding: 20px;
+        align-content: flex-start;
+
+    }
+    .dashboard-container>h1{
+        font: 2em sans-serif;
+        margin: 0;
+        color: black;
+    }
+
+    .dashboard-container>section{
+        display: grid;
+        row-gap: 10px;
+        padding: 20px;
+        background-color: white;
+        border-radius: 20px;
+        border: #245684 solid 1px;
+    }
+
+
+
+    .dashboard-container>section>h2{
+        font: 1.2em sans-serif;
+        margin: 0;
+        color: #245684;
+    }
+
+    #StudentProfileContainer{
+        display: none;
+    }
+
+    .UploadFiles-Container{
+        display: grid;
+        height: 100vh;
+        width: 100vw;
+        background-color: rgba(0, 0, 0, 0.552);
+        position: fixed;
+        bottom: -100%;
+        left: 0;
+        align-content: flex-end;
+    }
+
+    .UploadFiles-Container>button{
+        background: none;
+        border: none;
+        height: 100px;
+        color: white;
+    }
+
+    .UploadFiles-Container>main{
+        background-color: white;
+        height: 85Vh;
+        align-content: flex-end;
+        padding-bottom: 30px;
     }

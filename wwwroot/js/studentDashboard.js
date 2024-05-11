@@ -31,3 +31,17 @@ const RenderStudentFiles = (files) => {
         ul.appendChild(li);
     });
 };
+
+
+const UploadFileViewHandler = async (e) => { 
+    let UploadViewer = document.getElementById("UploadFilesContainer");
+
+    if(e.target.innerHTML === "Upload Documents") {
+        UploadViewer.style.transition = "bottom 1s";
+        UploadViewer.style.bottom = "0";
+    } else {
+        UploadViewer.style.transition = "bottom 1s";
+        UploadViewer.style.bottom = "-100%";
+    }
+   
+}
