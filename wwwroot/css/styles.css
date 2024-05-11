@@ -71,7 +71,7 @@ button{
     background-color: white;
     color: #245684;
     cursor: pointer;
-    min-width: 150px;
+    /* min-width: 150px; */
 }
 
 input, select{
@@ -221,7 +221,7 @@ th{
     padding: 20px;
     height: 100vh;
     align-content: flex-start;
-    justify-items: center;
+    /* justify-items: center; */
 }
 
 .studentReg-container>h1{
@@ -230,10 +230,10 @@ th{
 }
 
 .studentReg-container>form{
+    display: grid;
+    row-gap: 20px;
     background-color: white;
     padding: 20px;
-    display: grid;
-    row-gap: 5px;
     border-radius: 7px;
 
 }
@@ -243,6 +243,19 @@ th{
     display: grid;
     row-gap: 5px;
 
+}
+
+.studentReg-container>form>footer{
+    display: flex;
+    row-gap: 5px;
+}
+
+.studentReg-container>form>footer>button:first-child {
+    width: 70px;
+}
+
+.studentReg-container>form>footer>button{
+    width: 100%;
 }
 /* .studentReg-container>form>Section>select{
     font: 1.3em sans-serif;
@@ -259,6 +272,11 @@ th{
     border: solid black 1.3px;
 
 } */
+
+
+#StudentInfo, #SignInInfo, #AcceptTermsInfo, #StudentRegBackBTN{
+    display: none;
+}
 
 /* student Profile------------------------------------- */
 
