@@ -87,6 +87,12 @@
 
     const RegisterStudent = async (data) => {
         let StripeCustomerId = document.getElementById("StripeCustomerId").value;
+
+        if (StripeCustomerId === "") {
+            document.getElementById("StripeCustomerIdLabel").style.color = "red";
+            document.getElementById("StripeCustomerIdLabel").innerText = "Payment Error: Please make payment first or contact support.";
+        }
+
         let StudentSchool = document.getElementById("StudentSchool").value;
         let SchoolIdForStudentReg = document.getElementById("SchoolIdForStudentReg").value;
         let StudentId = document.getElementById("StudentId").value;
