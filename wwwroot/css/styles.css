@@ -784,7 +784,7 @@ th{
         width: 100vw;
         background-color: rgba(0, 0, 0, 0.552);
         position: fixed;
-        bottom: -100%;
+        bottom: -300%;
         left: 0;
         align-content: flex-end;
     }
