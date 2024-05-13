@@ -13,15 +13,16 @@
         getRecords();
     });
 
+    const GetDeanStudentUploads = (StudentId) => {
+        console.log("GetDeanStudentUploads", StudentId);
+    }
+
     const RenderUserWithRecords = (UserRecords) => {
         console.log("Render====================>>>>>User Records", UserRecords);
         let ul = document.createElement('ul');
         ul.className = "userRecord-Container";
 
-
         UserRecords.forEach(userRecord => {
-
-
             let li = document.createElement('li');
             ul.appendChild(li);
 
@@ -50,7 +51,7 @@
                     let labelNoRecords = document.createElement('label');
                     labelNoRecords.innerText = "No Records Found";
                     nestedUl.appendChild(labelNoRecords);
-                    return
+                    return;
                 }
                 let nestedLi = document.createElement('li');
                 main.appendChild(nestedUl);
@@ -65,14 +66,18 @@
                 labelComplianceStatus.style.backgroundColor = "#" + record.statusColor;
                 nestedLi.appendChild(labelComplianceStatus);
 
-
-
-
                 nestedUl.appendChild(nestedLi);
+
             });
+            let viewStudentCompliance = document.createElement('button');
+            viewStudentCompliance.innerText = "View Student Compliance";
+            viewStudentCompliance.addEventListener('click', () => GetDeanStudentUploads(userRecord.user.userId));
+            nestedUl.appendChild(viewStudentCompliance);
 
 
         });
+
+
 
         document.getElementById('UserWithRecords').appendChild(ul);
     }
