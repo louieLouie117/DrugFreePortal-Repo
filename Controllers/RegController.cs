@@ -117,6 +117,7 @@ namespace DrugFreePortal.Models
 
             // add user id to session
             HttpContext.Session.SetInt32("UserId", dataFromUser.UserId);
+            HttpContext.Session.SetInt32("SchoolIdInSession", dataFromUser.SchoolId);
 
 
             return Json(new { Status = "Registered", Fields = emptyFields });

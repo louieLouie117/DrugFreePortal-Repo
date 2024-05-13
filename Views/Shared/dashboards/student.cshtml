@@ -7,15 +7,52 @@
     <title>Dashboard</title>
 </head>
 
+
+
 <div class="dashboard-container">
     <h1>Student Dashboard</h1>
+    <div class="UploadFiles-Container" id="UploadFilesContainer">
+        <button onclick="UploadFileViewHandler(event)">X</button>
+        <main>
+            <div>
+                <h2>School Requirements</h2>
+                <p>Please uploaded all school requirements</p>
+                <ul id="SchoolComplianceForStudent"></ul>
+            </div>
+            <partial name="components/fileUploaderAjax">
+        </main>
+    </div>
 
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat velit repudiandae recusandae ea officiis
-        nesciunt. Illo qui at dolorum obcaecati rerum pariatur, praesentium voluptas aut eum ipsa! Blanditiis, omnis
-        ipsum.</p>
-    <partial name="components/fileUploaderAjax">
-        <partial name="components/renderStudentFiles">
-            <partial name="components/studentProfile">
+    <section>
+        <h2>Step 1: Add all school requirements! </h2>
+        <button class="mainBTN" onclick="UploadFileViewHandler(event)">Upload Documents</button>
+
+    </section>
+
+    <section>
+        <h2>Step 2: Be sure to check in for your oniste: date here</h2>
+
+        <div>
+            <partial name="registration/checkIn">
+        </div>
+
+    </section>
+
+
+    <section>
+
+        <h2>Step 3: View your uploaded compliance</h2>
+
+        <div>
+            <partial name="components/renderStudentFiles">
+        </div>
+    </section>
+
+    <div id="StudentProfileContainer">
+        <partial name="components/studentProfile">
+    </div>
+
+
 
 
 
