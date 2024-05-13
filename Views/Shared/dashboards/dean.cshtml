@@ -13,8 +13,31 @@
         getRecords();
     });
 
-    const GetDeanStudentUploads = (StudentId) => {
-        console.log("GetDeanStudentUploads", StudentId);
+    const GetDeanStudentUploads = (UserId) => {
+        console.log("GetDeanStudentUploads", UserId);
+        // files upload from student
+
+        const jsonData = {
+            UserId: UserId
+        }
+        console.log("jsonData", jsonData);
+
+
+        $.ajax({
+            url: '/GetDeanStudentUploads',
+            type: 'POST',
+            data: jsonData,
+            success: function (response) {
+                // Handle success response
+                console.log("Backend Student Uploads:", response);
+                // RenderStudentUploads(response);
+            },
+            error: function (error) {
+                // Handle error response
+                console.log(error);
+            }
+        });
+
     }
 
     const RenderUserWithRecords = (UserRecords) => {
