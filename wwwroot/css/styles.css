@@ -691,11 +691,11 @@ th{
         box-shadow: 0px 0px 3px 3px #f0f0f0;
     }
 
-    .userRecord-Container>li header{
+    .userRecord-Container>li>header{
         display: grid;
         grid-template-columns: 2fr 1fr;
         background-color: #245684;
-        padding: 10px;
+        padding: 10px 25px;
         border-radius: 10px 10px 0 0;
         color: white;
         height: 30px;
@@ -703,30 +703,33 @@ th{
         align-items: center;
     }
 
-    .userRecord-Container>li header label{
+    .userRecord-Container>li>header label{
         font: 1.1em sans-serif;
     }
 
-    .userRecord-Container>li header label:first-of-type{
+    .userRecord-Container>li>header label:first-of-type{
         justify-self: flex-start;
     }
 
-    .userRecord-Container>li header label:last-of-type{
+    .userRecord-Container>li>header label:last-of-type{
         justify-self: flex-end;
+    }
+
+    .userRecord-Container>li>main{
+        display: grid;
+        padding: 25px;
     }
 
     .userRecord-Container>li>main>ul{
         display: grid;
-        align-content: flex-start;
         row-gap: 5px;
-        padding: 20px;
         height: 243px;
         overflow-y: scroll;
-       
-
+        align-content: flex-start;
     }
 
-    .userRecord-Container>li>main>ul li{
+   
+    .userRecord-Container>li>main>ul>li{
         display: grid;
         grid-template-columns: 1fr 70px;
         height: 20px;
