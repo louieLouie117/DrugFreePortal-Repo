@@ -58,8 +58,7 @@ const RenderStudentCompliance = (complianceList) => {
 
         const li = document.createElement('li');
         li.innerHTML = `
-            <span>${compliance.name}</span>
-            <span>${compliance.status}</span>
+            <label>${compliance.name}</;>
         `;
 
         // Append the list item to the ul
