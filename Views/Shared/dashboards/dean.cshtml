@@ -33,8 +33,21 @@
             let img = document.createElement('img');
             img.src = `img/uploads/${uploadFile.fileName}`;
             li.appendChild(img);
+
+            // button element with link to open the file
+            let button = document.createElement('button');
+            button.innerHTML = "View";
+            button.addEventListener('click', () => {
+                window.open(`img/uploads/${uploadFile.fileName}`);
+            });
+            li.appendChild(button);
+
             ul.appendChild(li);
         });
+
+        // Add an empty li
+        let emptyLi = document.createElement('li');
+        ul.appendChild(emptyLi);
 
 
 
