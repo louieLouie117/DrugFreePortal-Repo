@@ -42,7 +42,7 @@ const UploadFileViewHandler = async (e) => {
         GetStudentSchoolComplianceHandler();
     } else {
         UploadViewer.style.transition = "bottom 0.5s ease-in-out";
-        UploadViewer.style.bottom = "-100%";
+        UploadViewer.style.bottom = "-300%";
     }
    
 }
