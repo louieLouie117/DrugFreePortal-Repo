@@ -34,6 +34,13 @@ namespace DrugFreePortal.Models
             return View("registration/studentReg");
         }
 
+        [HttpGet("/forgot-Password")] // This is the route for the index page
+        public IActionResult ForGotPassword()
+        {
+            System.Console.WriteLine("navigate to admin reg");
+            return View("registration/forgotPassword");
+        }
+
 
         [HttpGet("/dashboard")] // This is the route for the index page
         public IActionResult dashboard()
