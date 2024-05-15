@@ -209,11 +209,6 @@ th{
     font: 1.1em sans-serif;
 }
 
-.Subscription-Container>form>a{
-    color: #014686;
-    text-decoration: underline;
-    cursor: pointer;
-}
 
 .Subscription-Container>h4{
     font: 1em sans-serif;
@@ -359,6 +354,11 @@ th{
     background-color: white;
  }
 
+ #userNameDivRecord{
+    display: flex;
+    column-gap: 10px;
+ }
+
 
  .Queue-Container{
     background-color: #245684;
@@ -472,7 +472,7 @@ th{
     
     .SubmitRecords-Container>header>div{
         display: grid;
-        grid-template-columns: 100px 2fr 1fr;
+        grid-template-columns: 3fr 1fr;
         background-color: #245684;
         padding: 20px;
         width: 800px;

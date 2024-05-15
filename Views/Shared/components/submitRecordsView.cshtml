@@ -48,6 +48,7 @@
         const labelUserId = document.createElement("label");
         labelUserId.innerHTML = userData.userId;
         labelUserId.id = "labelUserIdRecord"; // Add unique id
+        labelUserId.className = "hidden";
         divElement.appendChild(labelUserId);
 
         const userNameDiv = document.createElement("div");
@@ -73,11 +74,14 @@
         const labelSchool = document.createElement("label");
         labelSchool.innerHTML = userData.school;
         labelSchool.id = "labelSchoolRecord"; // Add unique id
+        labelSchool.className = "hidden";
         divElement.appendChild(labelSchool);
 
         const labelSchoolId = document.createElement("label");
         labelSchoolId.innerHTML = userData.schoolId;
         labelSchoolId.id = "labelSchoolIdRecord"; // Add unique id
+        labelSchoolId.className = "hidden";
+
         divElement.appendChild(labelSchoolId);
 
 
