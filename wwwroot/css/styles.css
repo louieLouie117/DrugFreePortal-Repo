@@ -87,8 +87,6 @@ a{
 
 
 
-
-
 .Compliance-Container{
     display: grid;
     grid-template-columns: 1fr 2fr;
@@ -116,6 +114,14 @@ th{
     color: white;
     padding-left: 15px;
     padding-right: 15px;
+}
+
+.AtagBTN{
+    color: #245684;
+    border: none;
+    text-decoration: underline;
+    cursor: pointer;
+    font: 1.1em sans-serif;
 }
 
 
@@ -150,7 +156,6 @@ th{
 
 .LandingPage-Container>main{
     display: grid;
-    row-gap: 20px;
     padding: 20px;
     justify-items: center;
     justify-content: center;
@@ -160,9 +165,6 @@ th{
     font: 1.7em sans-serif;
 }
 
-.LandingPage-Container>main button{
-    width: 100%;
-}
 
 .LandingPage-Container>aside{
     display: grid;
@@ -184,10 +186,10 @@ th{
 
 
 .signReg-container{
-    display: none;
+    display: grid;
     background-color: white;
-    padding: 20px;
-    width: 300px;
+    /* padding: 20px; */
+    width: 350px;
     border-radius: 7px;
 }
 
@@ -200,9 +202,17 @@ th{
     display: grid;
 }
 
-.Subscription-Container>form>button{
-    width: 300px;
+.Subscription-Container>form{
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+    font: 1.1em sans-serif;
+}
 
+.Subscription-Container>form>a{
+    color: #014686;
+    text-decoration: underline;
+    cursor: pointer;
 }
 
 .Subscription-Container>h4{
