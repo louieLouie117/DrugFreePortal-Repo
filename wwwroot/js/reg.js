@@ -63,19 +63,18 @@ const signInHandlerFetch = async (e) => {
                     data.fields.forEach((field) => {
                         if (field === "Email") {
                             document.getElementById("signInEmailLabel").style.color = "red";
-                            document.getElementById("signInEmailLabel").innerText = "can not be empty";
+                            document.getElementById("signInEmailLabel").innerText = "Please enter you email.";
                         }
                         if (field === "Password") {
                             document.getElementById("signInPasswordLabel").style.color = "red";
-                            document.getElementById("signInPasswordLabel").innerText = "can not be empty";
+                            document.getElementById("signInPasswordLabel").innerText = "Please enter you password.";
                         }
                     })
                 }
         
                 if (data.status === "Login Fetch Successfule") {
-                    console.log("Login Fetch Successfule");
+                    console.log("Login Fetch Successful");
                     console.log("naviate to:", workingURL + "/dashboard");
-                    alert("naviate to dashboard");
                     window.location.href = `${workingURL}/dashboard`;
                 }
             })

@@ -87,8 +87,6 @@ a{
 
 
 
-
-
 .Compliance-Container{
     display: grid;
     grid-template-columns: 1fr 2fr;
@@ -116,6 +114,14 @@ th{
     color: white;
     padding-left: 15px;
     padding-right: 15px;
+}
+
+.AtagBTN{
+    color: #245684;
+    border: none;
+    text-decoration: underline;
+    cursor: pointer;
+    font: 1.1em sans-serif;
 }
 
 
@@ -150,7 +156,6 @@ th{
 
 .LandingPage-Container>main{
     display: grid;
-    row-gap: 20px;
     padding: 20px;
     justify-items: center;
     justify-content: center;
@@ -160,9 +165,6 @@ th{
     font: 1.7em sans-serif;
 }
 
-.LandingPage-Container>main button{
-    width: 100%;
-}
 
 .LandingPage-Container>aside{
     display: grid;
@@ -184,10 +186,10 @@ th{
 
 
 .signReg-container{
-    display: none;
+    display: grid;
     background-color: white;
-    padding: 20px;
-    width: 300px;
+    /* padding: 20px; */
+    width: 350px;
     border-radius: 7px;
 }
 
@@ -200,10 +202,13 @@ th{
     display: grid;
 }
 
-.Subscription-Container>form>button{
-    width: 300px;
-
+.Subscription-Container>form{
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+    font: 1.1em sans-serif;
 }
+
 
 .Subscription-Container>h4{
     font: 1em sans-serif;
@@ -349,6 +354,11 @@ th{
     background-color: white;
  }
 
+ #userNameDivRecord{
+    display: flex;
+    column-gap: 10px;
+ }
+
 
  .Queue-Container{
     background-color: #245684;
@@ -462,7 +472,7 @@ th{
     
     .SubmitRecords-Container>header>div{
         display: grid;
-        grid-template-columns: 100px 2fr 1fr;
+        grid-template-columns: 3fr 1fr;
         background-color: #245684;
         padding: 20px;
         width: 800px;
@@ -806,19 +816,19 @@ th{
 
     .UploadFiles-Container{
         display: grid;
+        grid-template-rows: 200px;
         height: 100vh;
         width: 100vw;
         background-color: rgba(0, 0, 0, 0.552);
         position: fixed;
         bottom: -300%;
         left: 0;
-        align-content: flex-end;
     }
 
     .UploadFiles-Container>button{
         background: none;
         border: none;
-        height: 100px;
+        height: 100%;
         color: white;
     }
 
@@ -826,7 +836,6 @@ th{
         display: grid;
         grid-template-rows: 1fr 200px;
         background-color: white;
-        height: 85Vh;
         /* align-content: flex-end; */
         padding-bottom: 30px;
         width: 100%;
@@ -841,7 +850,7 @@ th{
     }
 
     .UploadFiles-Container>main>div>ul>li>label{
-        font: 1.5em sans-serif;
+        font: 1.3em sans-serif;
     }
 
    
