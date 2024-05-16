@@ -6,17 +6,17 @@ namespace DrugFreePortal.Models
     {
         [Required]
         [EmailAddress]
-        public string Email { get; set; }
+        public required string Email { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
-        public string NewPassword { get; set; }
+        public required string NewPassword { get; set; }
 
         [DataType(DataType.Password)]
         [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
-        public string ConfirmPassword { get; set; }
+        public required string ConfirmPassword { get; set; }
 
-        public string Token { get; set; }
+        public required string Token { get; set; }
     }
 
 }

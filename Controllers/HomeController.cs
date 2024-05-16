@@ -241,12 +241,13 @@ namespace DrugFreePortal.Models
             var tokenEmail = emailClaim.Value;
             System.Console.WriteLine($"model tokenEmail: {tokenEmail}");
 
-
-            // Create a new instance of the ResetPasswordViewModel
+            // Create a new instance of the ResetPasswordViewModel and set the NewPassword and ConfirmPassword properties
             var model = new ResetPasswordViewModel
             {
                 Email = tokenEmail,
-                Token = token
+                Token = token,
+                NewPassword = "", // Set the NewPassword property
+                ConfirmPassword = "" // Set the ConfirmPassword property
             };
 
             System.Console.WriteLine($"model email: {email}");

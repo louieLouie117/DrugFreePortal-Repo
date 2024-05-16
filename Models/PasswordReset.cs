@@ -56,7 +56,7 @@ namespace DrugFreePortal.Controllers
         {
             System.Console.WriteLine("reach the backend of MailKit");
             // Check if the email exists in the database
-            User userEmail = _context.Users.FirstOrDefault(u => u.Email == FromForm.Email);
+            User? userEmail = _context.Users?.FirstOrDefault(u => u.Email == FromForm.Email);
             if (userEmail == null)
             {
                 // Email not found in the database
@@ -104,9 +104,13 @@ namespace DrugFreePortal.Controllers
 
             // Send email
             using var smtp = new MailKit.Net.Smtp.SmtpClient();
-            // smtp.Connect(_emailSettings.SmtpServer, _emailSettings.SmtpPort, SecureSocketOptions.StartTls);
-            // smtp.Authenticate(_emailSettings.Email, _emailSettings.Password);
-            smtp.Connect(_config["EmailSettings:SmtpServer"], int.Parse(_config["EmailSettings:SmtpPort"]), SecureSocketOptions.StartTls);
+            var smtpPort = _config["EmailSettings:SmtpPort"];
+            if (smtpPort == null)
+            {
+                throw new Exception("EmailSettings:SmtpPort is not set in the configuration.");
+            }
+
+            smtp.Connect(_config["EmailSettings:SmtpServer"], int.Parse(smtpPort), SecureSocketOptions.StartTls);
             smtp.Authenticate(_config["EmailSettings:Email"], _config["EmailSettings:Password"]);
             smtp.Send(email);
             smtp.Disconnect(true);
@@ -154,26 +158,28 @@ namespace DrugFreePortal.Controllers
         public JsonResult NewPasswordMethod(User FromForm)
         {
             // get user from db by email using FromForm.Email
-            User user = _context.Users.SingleOrDefault(u => u.Email == FromForm.Email);
+            User? user = _context.Users?.SingleOrDefault(u => u.Email == FromForm.Email);
 
             System.Console.WriteLine($"user new password: {FromForm.Password}");
 
 
-            System.Console.WriteLine($"user is {user.UserId}");
-            System.Console.WriteLine($"user is {user.Email}");
+            System.Console.WriteLine($"user is {user?.UserId}");
+            System.Console.WriteLine($"user is {user?.Email}");
 
+            if (user != null)
+            {
+                // update user db with new password using FromForm.NewPassword
+                // hash the password
+                PasswordHasher<User> Hasher = new PasswordHasher<User>();
 
-            // update user db with new password using FromForm.NewPassword
-            // hash the password
-            PasswordHasher<User> Hasher = new PasswordHasher<User>();
+                var newPasswordHashed = Hasher.HashPassword(FromForm, FromForm.Password);
+                user.Password = newPasswordHashed;
 
-            var newPasswordHashed = Hasher.HashPassword(FromForm, FromForm.Password);
-            user.Password = newPasswordHashed;
+                // // save changes to db
+                _context.SaveChanges();
 
-            // // save changes to db
-            _context.SaveChanges();
-
-            System.Console.WriteLine("New password was saved to db");
+                System.Console.WriteLine("New password was saved to db");
+            }
             return Json(new { StatusCode = "Password has been updated." });
         }
 

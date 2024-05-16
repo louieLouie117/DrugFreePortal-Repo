@@ -39,6 +39,12 @@ namespace DrugFreePortal
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                       .AddJwtBearer(options =>
                       {
+                          var secretKey = Configuration["Jwt:SecretKey"];
+                          if (secretKey == null)
+                          {
+                              throw new Exception("Jwt:SecretKey is not set in the configuration.");
+                          }
+
                           options.TokenValidationParameters = new TokenValidationParameters
                           {
                               ValidateIssuer = true,
@@ -47,9 +53,9 @@ namespace DrugFreePortal
                               ValidateIssuerSigningKey = true,
                               ValidIssuer = Configuration["Jwt:Issuer"],
                               ValidAudience = Configuration["Jwt:Audience"],
-                              IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:SecretKey"]))
-
+                              IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey))
                           };
+
                       });
 
             services.Configure<JwtSettings>(Configuration.GetSection("JwtSettings"));
