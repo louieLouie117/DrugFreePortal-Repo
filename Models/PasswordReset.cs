@@ -148,6 +148,7 @@ namespace DrugFreePortal.Controllers
 
 
 
+
         [HttpPost("NewPasswordMethod")]
         // create a method with jsons IActionResult
         public JsonResult NewPasswordMethod(User FromForm)
