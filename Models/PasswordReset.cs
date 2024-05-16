@@ -87,7 +87,7 @@ namespace DrugFreePortal.Controllers
 
             // Generate the link to reset the password
             var callbackUrl = Url.Action(
-                "ResetPassword",
+                "GenerateURL",
                 "PasswordReset",
                 new { userEmail.Email, token = encodedToken },
                 protocol: HttpContext.Request.Scheme);
@@ -120,7 +120,7 @@ namespace DrugFreePortal.Controllers
 
 
         [HttpPost("ResetPassword")]
-        public async Task<IActionResult> ResetPasswordAsync(string email, string token, string newPassword)
+        public async Task<IActionResult> GenerateURLAsync(string email, string token, string newPassword)
         {
 
             System.Console.WriteLine("REset Password method was called!!!!!");
