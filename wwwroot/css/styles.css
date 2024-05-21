@@ -1,10 +1,12 @@
 body{
-    background-color: #f0f0f0;
+    display: grid;
+    background-color: whitesmoke;
     font-family: Arial, sans-serif;
-    margin: 0;
+    margin: 0 auto;
     padding: 0;
     display: grid;
     row-gap: 50px;
+    
 }
 
 
@@ -20,10 +22,7 @@ h1{
     background-color: white;
 }
 
-.signReg-container{
-    background-color: white;
-    padding: 20px;
-}
+
 main{
     display: grid;
  
@@ -63,8 +62,29 @@ img{
 }
 
 button{
-    width: 130px;
+    font: 1.3em sans-serif;
+    width: auto;
+    height: 40px;
+    padding: 5px;
+    border-radius: 15px;
+    border: solid #245684 1.3px;
+    background-color: white;
+    color: #245684;
+    cursor: pointer;
+    /* min-width: 150px; */
 }
+
+input, select{
+    font: 1.2em sans-serif;
+    padding: 10px;
+    border-radius: 7px;
+    border: solid black 1.3px;
+}
+
+a{
+    color: #245684;
+}
+
 
 
 .Compliance-Container{
@@ -89,22 +109,192 @@ th{
     display: none;
 }
 
-input, select{
-    font: 1em sans-serif;
-    padding: 5px;
-    border-radius: 5px;
-    border: solid black 1.3px;
+.mainBTN{
+    background-color: #245684;
+    color: white;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.AtagBTN{
+    color: #245684;
+    border: none;
+    text-decoration: underline;
+    cursor: pointer;
+    font: 1.1em sans-serif;
 }
 
 
+
+/* landing page---------------------- */
+
+.LandingPage-Container{
+    display: grid;
+    grid-template-rows: 100px 1fr  100px 100px;
+    align-items: flex-start;
+    justify-self: center;
+
+    background-color: white;
+    height: 100vh;
+    max-width: 35em;
+    box-shadow: 0px 0px 3px 3px #f0f0f0;
+
+}
+
+.LandingPage-Container>header{
+    display: grid;
+    background-color: #245684;
+    justify-content: center;
+    height: 70px;
+}
+.LandingPage-Container>header>h1{
+    color: white;
+    font: 1.8em sans-serif;
+    padding: 20px;
+
+}
+
+.LandingPage-Container>main{
+    display: grid;
+    padding: 20px;
+    justify-items: center;
+    justify-content: center;
+
+}
+.LandingPage-Container>main>h2{
+    font: 1.7em sans-serif;
+}
+
+
+.LandingPage-Container>aside{
+    display: grid;
+    row-gap: 20px;
+    padding: 20px;
+    justify-items: center;
+    justify-content: center;
+
+    
+}
+
+.LandingPage-Container>footer{
+    display: flex;
+    column-gap: 15px;
+    padding: 20px;
+    align-items: center;
+
+}
+
+
+.signReg-container{
+    display: grid;
+    background-color: white;
+    /* padding: 20px; */
+    width: 350px;
+    border-radius: 7px;
+}
+
+.signReg-container>h1{
+    font: 1.3em sans-serif;
+    color: black;
+}
+
+.Subscription-Container{
+    display: grid;
+}
+
+.Subscription-Container>form{
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+    font: 1.1em sans-serif;
+}
+
+
+.Subscription-Container>h4{
+    font: 1em sans-serif;
+    color: black;
+    justify-self: flex-end;
+    padding-right: 10px;
+
+}
+
+
+/* student reg------------------------------ */
+
+.studentReg-container{
+    display: grid;
+    row-gap: 20px;
+    background: linear-gradient(to top, #245684 90%, #014686);
+    padding: 20px;
+    height: 100vh;
+    align-content: flex-start;
+    /* justify-items: center; */
+}
+
+.studentReg-container>h1{
+    font: 2em sans-serif;
+    color: white;
+}
+
 .studentReg-container>form{
+    display: grid;
+    row-gap: 20px;
     background-color: white;
     padding: 20px;
-    display: grid;
-    row-gap: 5px;
     border-radius: 7px;
 
 }
+
+.studentReg-container>form>header>h2{
+    font: 1.3em sans-serif;
+    font-weight: bold;
+    color: black;
+    margin-top: 0;
+}
+
+
+.studentReg-container>form>section{
+    display: grid;
+    row-gap: 5px;
+    /* height: 150px; */
+
+
+}
+
+.studentReg-container>form>footer{
+    display: flex;
+    row-gap: 5px;
+}
+
+.studentReg-container>form>footer>button:first-child {
+    width: 70px;
+}
+
+.studentReg-container>form>footer>button{
+    width: 100%;
+}
+/* .studentReg-container>form>Section>select{
+    font: 1.3em sans-serif;
+    padding: 7px;
+    border-radius: 5px;
+    border: solid black 1.3px;
+
+} */
+
+/* .studentReg-container>form>section>input{
+    font: 1.3em sans-serif;
+    padding: 7px;
+    border-radius: 5px;
+    border: solid black 1.3px;
+
+} */
+
+
+#StudentInfo, #SignInInfo, #AcceptTermsInfo, #StudentRegBackBTN{
+    display: none;
+}
+
+/* student Profile------------------------------------- */
 
 
 .StudentProfile-Container{
@@ -112,7 +302,7 @@ input, select{
     padding: 5px;
 }
 
-.StudentProfile-Container form{
+.StudentProfile-Container>form{
     background-color: white;
     display: grid;
     /* grid-template-columns: 120px 1fr; */
@@ -121,7 +311,7 @@ input, select{
 
 }
 
-.StudentProfile-Container form label{
+.StudentProfile-Container>form label{
     border: none;
     font: 1.3em sans-serif;
 }
@@ -162,6 +352,11 @@ input, select{
 
  .SubmitRecords-MainContainer{
     background-color: white;
+ }
+
+ #userNameDivRecord{
+    display: flex;
+    column-gap: 10px;
  }
 
 
@@ -277,7 +472,7 @@ input, select{
     
     .SubmitRecords-Container>header>div{
         display: grid;
-        grid-template-columns: 100px 2fr 1fr;
+        grid-template-columns: 3fr 1fr;
         background-color: #245684;
         padding: 20px;
         width: 800px;
@@ -479,19 +674,22 @@ input, select{
     }
 
 
-    /* Dean Dashbord----------------------------- */
+    /* Dean Dashboard----------------------------- */
 
-    .Deandashboard-ContainerTest{
+    .DeanDashboard-ContainerTest{
         display: grid;
         align-content: flex-start;
         background-color: whitesmoke;
         height: 100vh;
+        
+
     }
     .userRecord-Container{
         display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
         column-gap: 20px;
-        margin: 20px;
+        margin: 40px;
+        row-gap: 20px;
 
     }
 
@@ -503,32 +701,156 @@ input, select{
         box-shadow: 0px 0px 3px 3px #f0f0f0;
     }
 
-    .userRecord-Container>li header{
+    .userRecord-Container>li>header{
         display: grid;
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 2fr 1fr;
         background-color: #245684;
-        padding: 10px;
+        padding: 10px 25px;
         border-radius: 10px 10px 0 0;
         color: white;
         height: 30px;
         justify-items: center;
+        align-items: center;
     }
 
-    .userRecord-Container>li header label{
-        font: 1.7em sans-serif;
+    .userRecord-Container>li>header label{
+        font: 1.1em sans-serif;
+    }
+
+    .userRecord-Container>li>header label:first-of-type{
+        justify-self: flex-start;
+    }
+
+    .userRecord-Container>li>header label:last-of-type{
+        justify-self: flex-end;
+    }
+
+    .userRecord-Container>li>main{
+        display: grid;
+        padding: 25px;
     }
 
     .userRecord-Container>li>main>ul{
         display: grid;
-        align-content: flex-start;
         row-gap: 5px;
-        padding: 20px;
+        height: 243px;
+        overflow-y: scroll;
+        align-content: flex-start;
     }
 
-    .userRecord-Container>li>main>ul li{
+   
+    .userRecord-Container>li>main>ul>li{
         display: grid;
         grid-template-columns: 1fr 70px;
         height: 20px;
         align-items: center;
     
     }
+
+    .StudentFileViewer-Container{
+        display: grid;
+        row-gap: 40px;
+        background-color: rgba(0, 0, 0, 0.709);
+        height: 100vh;
+        width: 100vw;
+        position: fixed;
+        top: 0;
+        left: 0;
+        overflow-x: scroll;
+        padding: 30px;
+        justify-content: center;
+    }
+
+    .StudentFileViewer-Container>li{
+        display: grid;
+        border-radius: 10px;
+    }
+
+    .StudentFileViewer-Container>li>img{
+        width: 500px;
+        height: auto;
+    }
+
+    /* Student Dashboard----------------------------- */
+
+    .dashboard-container{
+        display: grid;
+        grid-template-rows: 50px;
+        background-color: whitesmoke;
+        /* height: 100vh; */
+        margin: 0 auto;
+        font: 1em sans-serif;
+        display: grid;
+        row-gap: 20px;
+        padding: 20px;
+        align-content: flex-start;
+        max-width: 35em;
+
+    }
+    .dashboard-container>h1{
+        font: 2em sans-serif;
+        margin: 0;
+        color: black;
+    }
+
+    .dashboard-container>section{
+        display: grid;
+        row-gap: 10px;
+        padding: 20px;
+        background-color: white;
+        border-radius: 20px;
+        border: #245684 solid 1px;
+    }
+
+
+
+    .dashboard-container>section>h2{
+        font: 1.2em sans-serif;
+        margin: 0;
+        color: #245684;
+    }
+
+    #StudentProfileContainer{
+        display: none;
+    }
+
+    .UploadFiles-Container{
+        display: grid;
+        grid-template-rows: 200px;
+        height: 100vh;
+        width: 100vw;
+        background-color: rgba(0, 0, 0, 0.552);
+        position: fixed;
+        bottom: -300%;
+        left: 0;
+    }
+
+    .UploadFiles-Container>button{
+        background: none;
+        border: none;
+        height: 100%;
+        color: white;
+    }
+
+    .UploadFiles-Container>main{
+        display: grid;
+        grid-template-rows: 1fr 200px;
+        background-color: white;
+        /* align-content: flex-end; */
+        padding-bottom: 30px;
+        width: 100%;
+        /* justify-items: center; */
+        justify-content: center;
+        justify-self: center;
+    }
+    .UploadFiles-Container>main>div>ul{
+        display: grid;
+        row-gap: 10px;
+        padding: 10px;
+    }
+
+    .UploadFiles-Container>main>div>ul>li>label{
+        font: 1.3em sans-serif;
+    }
+
+   

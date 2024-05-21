@@ -1,12 +1,10 @@
 
-using System;
 using Microsoft.AspNetCore.Mvc;
-using System.Linq;
-using System.Collections.Generic;
-using System.IO;
-using System.Threading.Tasks;
 using IFormFile = Microsoft.AspNetCore.Http.IFormFile;
-using Microsoft.AspNetCore.Hosting;
+
+using Stripe;
+using Stripe.Checkout;
+using System.IdentityModel.Tokens.Jwt;
 
 
 
@@ -30,6 +28,19 @@ namespace DrugFreePortal.Models
             return View("index");
         }
 
+        [HttpGet("register")]
+        public IActionResult register()
+        {
+            System.Console.WriteLine("navigate to admin reg");
+            return View("registration/studentReg");
+        }
+
+        [HttpGet("/forgot-Password")] // This is the route for the index page
+        public IActionResult ForGotPassword()
+        {
+            System.Console.WriteLine("navigate to admin reg");
+            return View("registration/forgotPassword");
+        }
 
 
         [HttpGet("/dashboard")] // This is the route for the index page
@@ -197,6 +208,59 @@ namespace DrugFreePortal.Models
 
 
         }
+
+        [HttpGet("ResetPassword")]
+        public IActionResult ResetPassword(string email, string token)
+        {
+            System.Console.WriteLine("you have reach the backend of reset password");
+            System.Console.WriteLine($"model token: {token}");
+
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var jwtToken = tokenHandler.ReadJwtToken(token);
+            System.Console.WriteLine($"model jwtToken: {jwtToken}");
+
+            // Check if the token has expired
+            if (jwtToken.ValidTo < DateTime.UtcNow)
+            {
+                return BadRequest("Token has expired");
+            }
+
+            // Get the email from the token
+            var emailClaim = jwtToken.Claims.FirstOrDefault(c => c.Type == "email");
+            System.Console.WriteLine($"model emailClaim: {emailClaim}");
+            if (emailClaim != null)
+            {
+                System.Console.WriteLine($"Email claim: {emailClaim.Value}");
+            }
+            else
+            {
+                System.Console.WriteLine("Token does not contain an email claim");
+                return BadRequest("Token does not contain an email claim");
+
+            }
+            var tokenEmail = emailClaim.Value;
+            System.Console.WriteLine($"model tokenEmail: {tokenEmail}");
+
+            // Create a new instance of the ResetPasswordViewModel and set the NewPassword and ConfirmPassword properties
+            var model = new ResetPasswordViewModel
+            {
+                Email = tokenEmail,
+                Token = token,
+                NewPassword = "", // Set the NewPassword property
+                ConfirmPassword = "" // Set the ConfirmPassword property
+            };
+
+            System.Console.WriteLine($"model email: {email}");
+
+            // Pass the email to session
+            HttpContext.Session.SetString("decodedToken", token);
+
+            // Pass the model to the view
+            // return View(model);
+            return View("registration/newPassword", model);
+        }
+
+
 
 
 

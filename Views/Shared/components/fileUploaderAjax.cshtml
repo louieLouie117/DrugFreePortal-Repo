@@ -4,41 +4,41 @@
     <h2>File uploader</h2>
     <form id="uploadForm">
         <input type="file" id="fileInput" name="file" />
-        <button type="submit">Upload</button>
+        <button class="mainBTN" type="submit">Upload</button>
     </form>
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
-    $(document).ready(function () {
+    @* $(document).ready(function () {
         GetUserFilesHandler();
-    });
-    $("#uploadForm").on("submit", function (event) {
-        event.preventDefault();
+        }); *@
+        $("#uploadForm").on("submit", function (event) {
+            event.preventDefault();
 
-        var formData = new FormData();
-        var file = $("#fileInput").get(0).files[0];
+            var formData = new FormData();
+            var file = $("#fileInput").get(0).files[0];
 
-        if (file) {
-            formData.append("file", file);
-            console.log(file);
+            if (file) {
+                formData.append("file", file);
+                console.log(file);
 
-            $.ajax({
-                url: '/UploadSingleFile',
-                type: 'POST',
-                data: formData,
-                processData: false,
-                contentType: false,
-                success: function (data) {
-                    alert("File uploaded successfully!");
-                    GetUserFilesHandler();
-                },
-                error: function () {
-                    alert("An error occurred.");
-                }
-            });
-        } else {
-            alert("No file selected");
-        }
-    });
+                $.ajax({
+                    url: '/UploadSingleFile',
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function (data) {
+                        alert("File uploaded successfully!");
+                        GetUserFilesHandler();
+                    },
+                    error: function () {
+                        alert("An error occurred.");
+                    }
+                });
+            } else {
+                alert("No file selected");
+            }
+        });
 </script>

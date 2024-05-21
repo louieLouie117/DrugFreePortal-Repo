@@ -1,3 +1,5 @@
+@using Microsoft.AspNetCore.Http;
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,14 +8,91 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registration</title>
 
+    <link rel="stylesheet" href="~/css/styles.css?version=1.26">
+    <script src="~/js/reg.js?version=1.26" async=""></script>
+    <script src="~/js/app.js?version=1.26"></script>
+
 </head>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+@{
+    var customerEmail = Context.Session.GetString("StripeCustomerEmail");
+    var customerName = Context.Session.GetString("StripeCustomerName");
+    var stripeCustomerId = Context.Session.GetString("StripeCustomerId");
+}
 <script>
 
     const RegStudentHandler = (e) => {
         e.preventDefault();
         console.log("RegStudentHandler called")
 
+        if (e.target.innerText === "Register") {
+            RegisterStudent();
+            return;
+        }
+
+
+        let BackBTN = document.getElementById("StudentRegBackBTN");
+        let CurrentStep = document.getElementById("CurrentStep").innerText;
+        let SchoolInfo = document.getElementById("SchoolInfo");
+        let StudentInfo = document.getElementById("StudentInfo");
+        let SignInInfo = document.getElementById("SignInInfo");
+        let AcceptTermsInfo = document.getElementById("AcceptTermsInfo");
+
+        if (e.target.innerText === "<" && CurrentStep === "Student Information") {
+            SchoolInfo.style.display = "grid";
+            StudentInfo.style.display = "none";
+            SignInInfo.style.display = "none";
+            BackBTN.style.display = "none";
+            document.getElementById("CurrentStep").innerText = "School Information";
+            return;
+        } else if (e.target.innerText === "<" && CurrentStep === "Sign In Information") {
+            SchoolInfo.style.display = "none";
+            StudentInfo.style.display = "grid";
+            SignInInfo.style.display = "none";
+            document.getElementById("CurrentStep").innerText = "Student Information";
+            return;
+        }
+
+
+
+        if (CurrentStep === "School Information") {
+            BackBTN.style.display = "block";
+            document.getElementById("CurrentStep").innerText = "Student Information";
+            SchoolInfo.style.display = "none";
+            StudentInfo.style.display = "grid";
+            SignInInfo.style.display = "none";
+            return;
+        } else if (CurrentStep === "Student Information") {
+            document.getElementById("CurrentStep").innerText = "Sign In Information";
+            StudentInfo.style.display = "none";
+            SignInInfo.style.display = "none";
+            SignInInfo.style.display = "grid";
+            return;
+        } else if (CurrentStep === "Sign In Information") {
+            document.getElementById("CurrentStep").innerText = "Review Information";
+            SchoolInfo.style.display = "grid";
+            StudentInfo.style.display = "grid";
+            SignInInfo.style.display = "grid";
+            AcceptTermsInfo.style.display = "block";
+            e.target.innerText = "Register";
+            BackBTN.style.display = "none";
+            return;
+        }
+
+
+
+    }
+
+    const RegisterStudent = async (data) => {
+        let StripeCustomerId = document.getElementById("StripeCustomerId").value;
+
+        if (StripeCustomerId === "") {
+            document.getElementById("StripeCustomerIdLabel").style.color = "red";
+            document.getElementById("StripeCustomerIdLabel").innerText = "Payment Error: Please make payment first or contact support.";
+            return
+        }
 
         let StudentSchool = document.getElementById("StudentSchool").value;
         let SchoolIdForStudentReg = document.getElementById("SchoolIdForStudentReg").value;
@@ -32,6 +111,7 @@
         console.log("------------terms", StudentAccpetTerms)
 
         let jsonData = {
+            stripeCustomerId: StripeCustomerId,
             school: StudentSchool,
             schoolId: SchoolIdForStudentReg,
             studentId: StudentId,
@@ -52,7 +132,6 @@
             success: studentRegSuccess,
 
         });
-
     }
 
     const studentRegSuccess = (data) => {
@@ -126,39 +205,52 @@
 
 <div class="studentReg-container">
 
-    <h1>Student Registration Partial</h1>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis hic ducimus saepe facere. Non architecto
-        accusantium minus iste, vitae error nam quod inventore nisi cupiditate ab assumenda nihil quisquam unde.</p>
+    <h1>Student Register</h1>
+
 
     <form action="">
-        @* lable for student school id studentSchoolLable *@
-        <label id="StudentSchoolLabel"></label>
-        <select name="" id="StudentSchoolSelector"></select>
-        <input onclick="StudentInputHandler(event)" id="StudentSchool" type="text" placeholder="School:" disabled>
 
-        @* school id did is not in the user data base *@
-        <input type="text" id="SchoolIdForStudentReg" placeholder="schoolId:" disabled>
+        <header>
+            <h2>Create Account</h2>
+            <label id="CurrentStep">School Information</label>
+        </header>
+
+        <section id="SchoolInfo">
+
+            <label id="StudentSchoolLabel"></label>
+            <select name="" id="StudentSchoolSelector"></select>
+            <input class="hidden" onclick="StudentInputHandler(event)" id="StudentSchool" type="text"
+                placeholder="School:" disabled>
+
+            <input class="hidden" type="text" id="SchoolIdForStudentReg" placeholder="schoolId:" disabled>
 
 
-        <label id="StudentIdLabel"></label>
-        <input onclick="StudentInputHandler(event)" id="StudentId" type="text" placeholder="Student Id:">
+            <label id="StudentIdLabel"></label>
+            <input onclick="StudentInputHandler(event)" id="StudentId" type="text" placeholder="Student Id:">
 
-        <label id="StudentFirstNameLabel"></label>
-        <input onclick="StudentInputHandler(event)" id="StudentFirstName" type="text" placeholder="First Name:">
+        </section>
 
-        <label id="StudentLastNameLabel"></label>
-        <input onclick="StudentInputHandler(event)" id="StudentLastName" type="text" placeholder="Last Name:">
+        <section id="StudentInfo">
 
-        <label id="StudentPhoneNumberLabel"></label>
-        <input class="hidden" onclick="StudentInputHandler(event)" id="StudentPhoneNumber" type="text"
-            placeholder="Phone Number:" value="000-000-0000" disabled>
+            <label id="StudentFirstNameLabel"></label>
+            <input onclick="StudentInputHandler(event)" id="StudentFirstName" type="text" placeholder="First Name:">
 
-        <label id="StudentEmailLabel"></label>
-        <input onclick="StudentInputHandler(event)" id="StudentEmail" type="text" placeholder="Email:">
+            <label id="StudentLastNameLabel"></label>
+            <input onclick="StudentInputHandler(event)" id="StudentLastName" type="text" placeholder="Last Name:">
 
-        <label id="StudentPasswordLabel"></label>
-        <input onclick="StudentInputHandler(event)" id="StudentPassword" type="password" placeholder="Password:">
-        <div>
+        </section>
+
+
+        <section id="SignInInfo">
+            <label id="StudentEmailLabel"></label>
+            <input onclick="StudentInputHandler(event)" id="StudentEmail" value="@customerEmail" type="text"
+                placeholder="Email:">
+
+            <label id="StudentPasswordLabel"></label>
+            <input onclick="StudentInputHandler(event)" id="StudentPassword" type="password" placeholder="Password:">
+        </section>
+
+        <div id="AcceptTermsInfo">
             <label id="StudentAccpetTermsLabel"></label>
 
             <input id="StudentAccpetTerms" onclick="TermsHandler(event)" type="checkbox" name="Accept Terms">
@@ -167,9 +259,29 @@
 
         </div>
 
-        <button id="StudentRegBTN" onclick="RegStudentHandler(event)">Register</button>
+        <div class="hidden">
+            <label id="StudentPhoneNumberLabel"></label>
+            <input onclick="StudentInputHandler(event)" id="StudentPhoneNumber" type="text" placeholder="Phone Number:"
+                value="000-000-0000" disabled>
+        </div>
+
+        <footer>
+            <button id="StudentRegBackBTN" onclick="RegStudentHandler(event)">&lt;</button>
+            <button id="StudentRegBTN" class="mainBTN" onclick="RegStudentHandler(event)">Next</button>
+        </footer>
+
+        <label id="StripeCustomerIdLabel"></label>
+
+        <div class="hidden">
+            <input class="hidden" onclick="StudentInputHandler(event)" id="StripeCustomerId" type="text"
+                placeholder="Stripe Customer Id:" value="@stripeCustomerId" disabled>
+        </div>
+
 
     </form>
+
+
+
 
 
 </div>

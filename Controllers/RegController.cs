@@ -80,7 +80,6 @@ namespace DrugFreePortal.Models
             System.Console.WriteLine($"phone number: {dataFromUser.PhoneNumber}");
 
             // stripe customer id none
-            dataFromUser.StripeCustomerId = "none";
             System.Console.WriteLine($"stripe customer id: {dataFromUser.StripeCustomerId}");
             System.Console.WriteLine($"subscription status: {dataFromUser.SubscriptionStatus}");
 
@@ -118,6 +117,7 @@ namespace DrugFreePortal.Models
 
             // add user id to session
             HttpContext.Session.SetInt32("UserId", dataFromUser.UserId);
+            HttpContext.Session.SetInt32("SchoolIdInSession", dataFromUser.SchoolId);
 
 
             return Json(new { Status = "Registered", Fields = emptyFields });
@@ -491,8 +491,6 @@ namespace DrugFreePortal.Models
             // return RedirectToAction("Index", "HomeController");
             return Ok(new { Status = "Sign Out Successfule" });
         }
-
-
 
 
     }

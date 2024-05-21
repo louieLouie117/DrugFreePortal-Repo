@@ -56,6 +56,23 @@ namespace DrugFreePortal.Models
             });
         }
 
+        [HttpPost("GetDeanStudentUploads")]
+        public IActionResult GetDeanStudentUploads(UploadFile uploadFile)
+        {
+            System.Console.WriteLine($"You reached backend for GetDeanStudentUploads {uploadFile.UserId}");
+            // get all upload files filter by the user Id
+            List<UploadFile> allUploadFiles = _context.UploadFiles?
+                .Where(u => u.UserId == uploadFile.UserId)
+                .ToList() ?? new List<UploadFile>();
+
+
+            return Ok(new
+            {
+                UploadFilesData = allUploadFiles,
+                message = "You reached backend for GetRecords"
+            });
+        }
+
 
     }
 }

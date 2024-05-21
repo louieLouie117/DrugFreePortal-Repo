@@ -13,15 +13,78 @@
         getRecords();
     });
 
+    const RenderStudentUploads = (uploadFilesData) => {
+        console.log("RenderStudentUploads", uploadFilesData);
+        // clear the list
+        document.getElementById('UserUploadedFilesList').innerHTML = "";
+        let ul = document.createElement('ul');
+        // Add close button
+        let closeButton = document.createElement('button');
+        closeButton.innerText = "Close";
+        closeButton.addEventListener('click', () => {
+            ul.style.display = "none";
+        });
+        ul.appendChild(closeButton);
+        ul.className = "StudentFileViewer-Container";
+
+        uploadFilesData.forEach(uploadFile => {
+            let li = document.createElement('li');
+            // image element appended to li with src as uploadFile fileName
+            let img = document.createElement('img');
+            img.src = `img/uploads/${uploadFile.fileName}`;
+            li.appendChild(img);
+
+            // button element with link to open the file
+            let button = document.createElement('button');
+            button.innerHTML = "View";
+            button.addEventListener('click', () => {
+                window.open(`img/uploads/${uploadFile.fileName}`);
+            });
+            li.appendChild(button);
+
+            ul.appendChild(li);
+        });
+
+        // Add an empty li
+        let emptyLi = document.createElement('li');
+        ul.appendChild(emptyLi);
+
+
+
+        document.getElementById('UserUploadedFilesList').appendChild(ul);
+    }
+
+    const GetDeanStudentUploads = (UserId) => {
+        console.log("GetDeanStudentUploads", UserId);
+        // files upload from student
+        const jsonData = {
+            UserId: UserId
+        }
+        console.log("jsonData", jsonData);
+
+        $.ajax({
+            url: '/GetDeanStudentUploads',
+            type: 'POST',
+            data: jsonData,
+            success: function (response) {
+                // Handle success response
+                console.log("Backend Student Uploads:", response.uploadFilesData);
+                RenderStudentUploads(response.uploadFilesData);
+            },
+            error: function (error) {
+                // Handle error response
+                console.log(error);
+            }
+        });
+
+    }
+
     const RenderUserWithRecords = (UserRecords) => {
         console.log("Render====================>>>>>User Records", UserRecords);
         let ul = document.createElement('ul');
         ul.className = "userRecord-Container";
 
-
         UserRecords.forEach(userRecord => {
-
-
             let li = document.createElement('li');
             ul.appendChild(li);
 
@@ -50,7 +113,7 @@
                     let labelNoRecords = document.createElement('label');
                     labelNoRecords.innerText = "No Records Found";
                     nestedUl.appendChild(labelNoRecords);
-                    return
+                    return;
                 }
                 let nestedLi = document.createElement('li');
                 main.appendChild(nestedUl);
@@ -65,14 +128,18 @@
                 labelComplianceStatus.style.backgroundColor = "#" + record.statusColor;
                 nestedLi.appendChild(labelComplianceStatus);
 
-
-
-
                 nestedUl.appendChild(nestedLi);
+
             });
+            let viewStudentCompliance = document.createElement('button');
+            viewStudentCompliance.innerText = "View Student Compliance";
+            viewStudentCompliance.addEventListener('click', () => GetDeanStudentUploads(userRecord.user.userId));
+            main.appendChild(viewStudentCompliance);
 
 
         });
+
+
 
         document.getElementById('UserWithRecords').appendChild(ul);
     }
@@ -95,12 +162,10 @@
 
 
 
-<div class="Deandashboard-ContainerTest">
+<div class="DeanDashboard-ContainerTest">
+    <ul id="UserUploadedFilesList"></ul>
 
     <h1>Dean Dashboard</h1>
-
-    <p>Dean Profesionals will review all documents and pass or fail students compliacys</p>
-
     <div id="UserWithRecords"></div>
 
 </div>
