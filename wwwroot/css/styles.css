@@ -853,4 +853,26 @@ th{
         font: 1.3em sans-serif;
     }
 
+
+    /* password reset styles */
+
+    .ForgotPassword-Container{
+        display: grid;
+        row-gap: 20px;
+        background: linear-gradient(to top, #245684 90%, #014686);
+        height: 97vh;
+        padding: 20px;
+    }
+
+    .ForgotPassword-Container>form{
+        background-color: white;
+        height: 300px;
+        padding: 30px;
+        border-radius: 10px;
+    }
+
+    .ForgotPassword-Container>form>input{
+        height: 40px;
+    }
+
    
