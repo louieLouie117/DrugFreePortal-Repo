@@ -5,7 +5,8 @@ body{
     margin: 0 auto;
     padding: 0;
     display: grid;
-    row-gap: 50px;
+    /* row-gap: 50px; */
+    /* max-width: 35em; this will brake dean dashboard */
     
 }
 
@@ -141,13 +142,13 @@ th{
 
 }
 
-.LandingPage-Container>header{
+.mainHeader{
     display: grid;
     background-color: #245684;
     justify-content: center;
     height: 70px;
 }
-.LandingPage-Container>header>h1{
+.mainHeader>h1{
     color: white;
     font: 1.8em sans-serif;
     padding: 20px;
@@ -156,6 +157,7 @@ th{
 
 .LandingPage-Container>main{
     display: grid;
+    row-gap: 30px;
     padding: 20px;
     justify-items: center;
     justify-content: center;
@@ -205,7 +207,6 @@ th{
 .Subscription-Container>form{
     display: flex;
     align-items: center;
-    column-gap: 10px;
     font: 1.1em sans-serif;
 }
 
@@ -859,9 +860,8 @@ th{
     .ForgotPassword-Container{
         display: grid;
         row-gap: 20px;
-        background: linear-gradient(to top, #245684 90%, #014686);
+        background-color: white;
         height: 97vh;
-        padding: 20px;
     }
 
     .ForgotPassword-Container>form{
