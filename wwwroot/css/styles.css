@@ -33,6 +33,7 @@ form{
     display: grid;
     row-gap: 5px;
     max-width: 25em;
+    min-width: 25em;
 }
 
 table{
@@ -159,8 +160,7 @@ th{
     display: grid;
     row-gap: 30px;
     padding: 20px;
-    justify-items: center;
-    justify-content: center;
+   justify-self: center
 
 }
 .LandingPage-Container>main>h2{
@@ -774,7 +774,7 @@ th{
 
     /* Student Dashboard----------------------------- */
 
-    .dashboard-container{
+    .StudentDashboard-container{
         display: grid;
         grid-template-rows: 50px;
         background-color: whitesmoke;
@@ -788,13 +788,13 @@ th{
         max-width: 35em;
 
     }
-    .dashboard-container>h1{
+    .StudentDashboard-container>h1{
         font: 2em sans-serif;
         margin: 0;
         color: black;
     }
 
-    .dashboard-container>section{
+    .StudentDashboard-container>section{
         display: grid;
         row-gap: 10px;
         padding: 20px;
@@ -805,7 +805,7 @@ th{
 
 
 
-    .dashboard-container>section>h2{
+    .StudentDashboard-container>section>h2{
         font: 1.2em sans-serif;
         margin: 0;
         color: #245684;
