@@ -116,6 +116,12 @@ th{
     color: white;
     padding-left: 15px;
     padding-right: 15px;
+    transition: border-radius 0.5s ease, background-color 0.5s ease; /* Added transition effect */
+}
+
+.mainBTN:active{
+    border-radius: 20px; /* Changed border to border-radius */
+    background-color: #014686; /* Changed background color to #014686 */
 }
 
 .AtagBTN{
@@ -428,7 +434,6 @@ th{
         cursor: pointer;
         font: 1.3em sans-serif;
         height: 40px;
-        transition: border-radius 0.5s ease; /* Changed border to border-radius */
         width: 140px;
     }
 
