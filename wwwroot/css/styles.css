@@ -120,8 +120,9 @@ th{
 }
 
 .mainBTN:active{
-    border-radius: 20px; /* Changed border to border-radius */
-    background-color: #014686; /* Changed background color to #014686 */
+    border-radius: 40px; /* Changed border to border-radius */
+    background-color: #ffffff; /* Changed background color to #014686 */
+    color: #245684;
 }
 
 .AtagBTN{

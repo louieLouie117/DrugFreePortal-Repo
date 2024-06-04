@@ -67,7 +67,7 @@ const signInHandlerFetch = async (e) => {
                 console.log("results from",data);
                 if (data.status === "password error") {
                     document.getElementById("signInEmailLabel").style.color = "red";
-                    document.getElementById("signInEmailLabel").innerText = "password word error";
+                    document.getElementById("signInEmailLabel").innerText = "Password error.";
                     return
                 }
 
