@@ -19,9 +19,6 @@ h1{
 }
 
 
-.dashboard-container{
-    background-color: white;
-}
 
 
 main{
@@ -32,8 +29,8 @@ main{
 form{
     display: grid;
     row-gap: 5px;
-    max-width: 25em;
-    min-width: 25em;
+    /* max-width: 25em;
+    min-width: 25em; */
 }
 
 table{
@@ -681,6 +678,20 @@ th{
     }
 
 
+/* admin dashboard */
+    .AdminDashboard-container{
+        background-color: whitesmoke;
+        padding: 40px;
+    }
+    
+    .AdminDashboard-container form{
+        max-width: 25em;
+        min-width: 25em;
+    }
+    
+
+
+
     /* Dean Dashboard----------------------------- */
 
     .DeanDashboard-ContainerTest{
@@ -688,8 +699,6 @@ th{
         align-content: flex-start;
         background-color: whitesmoke;
         height: 100vh;
-        
-
     }
     .userRecord-Container{
         display: grid;
