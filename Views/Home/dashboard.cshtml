@@ -9,18 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
 
-    <script src="~/js/app.js?version=1.27"></script>
-    <script src="~/js/adminDashboard.js?version=1.27"></script>
-    <script src="~/js/studentDashboard.js?version=1.27"></script>
-    <script src="~/js/evaluatorDashboard.js?version=1.27"></script>
-
-    <link rel="stylesheet" href="~/css/styles.css?version=1.27">
-
-
-
-    @* keep until all registrations have been udpated to vanilla javascript *@
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
+    @await Html.PartialAsync("components/resources")
 
 </head>
 

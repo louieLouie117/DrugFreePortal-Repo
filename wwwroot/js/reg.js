@@ -58,12 +58,7 @@ const signInHandlerFetch = async (e) => {
             .then(data => {
                 // Handle the response data
                 
-                if (data.status === "Login Fetch Successful") {
-                    console.log("Login Fetch Successful");
-                    console.log("navigate to:", workingURL + "/dashboard");
-                    window.location.href = `${workingURL}/dashboard`;
-                    return
-                }
+              
                 console.log("results from",data);
                 if (data.status === "password error") {
                     document.getElementById("signInEmailLabel").style.color = "red";
@@ -90,6 +85,12 @@ const signInHandlerFetch = async (e) => {
                             document.getElementById("signInEmailLabel").innerText = "Please enter your password.";
                         }
                     })
+                }
+
+                if (data.status === "Login Fetch Successfule") {
+                    console.log("Login Fetch Successful");
+                    console.log("naviate to:", workingURL + "/dashboard");
+                    window.location.href = `${workingURL}/dashboard`;
                 }
 
                 
