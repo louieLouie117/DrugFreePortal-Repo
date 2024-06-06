@@ -5,13 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Drug Free Portal</title>
-
-    <link rel="stylesheet" href="~/css/styles.css?version=1.27">
-
-    <script src="~/js/app.js?version=1.27"></script>
-    <script src="~/js/reg.js?version=1.27" async=""></script>
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    @await Html.PartialAsync("components/resources")
 
 </head>
 
@@ -28,13 +22,11 @@
         </main>
 
         <aside>
-            <p>To regester your school. Pleases contact us by email: josh.smith@drugfreeschools.net or phone:
-                623-233-0000.
-            </p>
+            <p>To regester your school. Pleases contact us by email: josh.smith@drugfreeschools.net</p>
         </aside>
 
         <footer>
-            <p> R1.27</p>
+            <p> R1.28</p>
             <a href="#">Terms of Service</a>
             <a href="#">Privacy Policy</a>
 
