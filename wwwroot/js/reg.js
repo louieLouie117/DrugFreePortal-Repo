@@ -57,26 +57,42 @@ const signInHandlerFetch = async (e) => {
             .then(response => response.json())
             .then(data => {
                 // Handle the response data
+                
+                if (data.status === "Login Fetch Successful") {
+                    console.log("Login Fetch Successful");
+                    console.log("navigate to:", workingURL + "/dashboard");
+                    window.location.href = `${workingURL}/dashboard`;
+                    return
+                }
                 console.log("results from",data);
+                if (data.status === "password error") {
+                    document.getElementById("signInEmailLabel").style.color = "red";
+                    document.getElementById("signInEmailLabel").innerText = "Password error.";
+                    return
+                }
+
+                if(data.fields.length === 2) {
+                    document.getElementById("signInEmailLabel").style.color = "red";
+                    document.getElementById("signInEmailLabel").innerText = "Please enter your email and password.";
+                    return
+                }
+
                 if (data.fields.length > 0) {
                     console.log("data.fields", data.fields)
                     data.fields.forEach((field) => {
-                        if (field === "Email") {
+                        console.log("field", field);
+                        document.getElementById("signInEmailLabel").innerText = " ";
+                       if (field === "Email") {
                             document.getElementById("signInEmailLabel").style.color = "red";
-                            document.getElementById("signInEmailLabel").innerText = "Please enter you email.";
-                        }
-                        if (field === "Password") {
-                            document.getElementById("signInPasswordLabel").style.color = "red";
-                            document.getElementById("signInPasswordLabel").innerText = "Please enter you password.";
+                            document.getElementById("signInEmailLabel").innerText = "Please enter your email.";
+                        } else if (field === "Password") {
+                            document.getElementById("signInEmailLabel").style.color = "red";
+                            document.getElementById("signInEmailLabel").innerText = "Please enter your password.";
                         }
                     })
                 }
-        
-                if (data.status === "Login Fetch Successfule") {
-                    console.log("Login Fetch Successful");
-                    console.log("naviate to:", workingURL + "/dashboard");
-                    window.location.href = `${workingURL}/dashboard`;
-                }
+
+                
             })
             .catch(error => {
                 console.error('Error fetching data:', error);
