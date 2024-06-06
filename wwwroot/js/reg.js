@@ -86,7 +86,7 @@ const signInHandlerFetch = async (e) => {
                         }
                     })
                 }
-
+                // login in bug fixed 6/6/2024
                 if (data.status === "Login Fetch Successfule") {
                     console.log("Login Fetch Successful");
                     console.log("naviate to:", workingURL + "/dashboard");
