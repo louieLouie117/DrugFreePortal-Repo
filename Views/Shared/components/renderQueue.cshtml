@@ -125,6 +125,8 @@
         queueData.forEach((queue) => {
 
             const li = document.createElement('li');
+            //append a footer to the li
+
 
             const deleteButton = document.createElement('button');
             deleteButton.id = 'deleteButton' + queue.queueId;
@@ -151,12 +153,27 @@
                 status.disabled = true;
             }
 
-
             status.addEventListener('click', () => QueueStatusHandler(queue.queueId));
             li.appendChild(status);
 
+            const footer = document.createElement('footer');
+            footer.classList.add('QueueFooter');
+            li.appendChild(footer);
 
-    @* all hidden items *@
+
+            //button for deleting the student from the queue
+            const deleteStudent = document.createElement('button');
+            deleteStudent.textContent = 'Remove Student';
+            footer.appendChild(deleteStudent);
+
+            //button for changing the status of the student
+            const changeStatus = document.createElement('button');
+            changeStatus.textContent = 'Change Status';
+            footer.appendChild(changeStatus);
+
+
+
+            // hiddend items
             const shcoolId = document.createElement('label');
             shcoolId.textContent = queue.schoolId;
             shcoolId.classList.add('hidden');
@@ -187,7 +204,6 @@
             phone.id = 'phoneQueueLable' + queue.queueId;
             li.appendChild(phone);
 
-            ;
 
 
 
@@ -196,7 +212,7 @@
     }
 
     // function that calls GetQueue every 7 seconds
-    setInterval(GetQueue, 7000);
+    //setInterval(GetQueue, 7000);
 
 
 
