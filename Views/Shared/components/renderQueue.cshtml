@@ -115,6 +115,41 @@
         });
     }
 
+    const ChangeStatusHandler = (id) => {
+        console.log("ChangeStatusHandler called=====>")
+
+        const QueueId = id;
+        const QueueStatus = "Returned"
+        //must be changed to the student id
+        const StudentUserId = document.getElementById('studentUserIdQueueLable' + id).textContent;
+
+        console.log("************************QueueId to chanage status:", QueueId);
+        console.log("************************StudentUserId to add to session:", StudentUserId);
+
+        const jsonData = {
+            queueId: QueueId,
+            studentUserId: StudentUserId,
+            status: QueueStatus
+        }
+
+        console.log("Frontend Queue data=======:", jsonData)
+
+        $.ajax({
+            url: '/ChangeStatusToStart',
+            type: 'Post',
+            data: jsonData,
+            success: function (response) {
+                // Handle success response
+                console.log("Backend Queue:", response);
+                GetQueue();
+            },
+            error: function (error) {
+                // Handle error response
+                console.log(error);
+            }
+        });
+    }
+
 
 
     const RenderQueue = (queueData) => {
@@ -169,6 +204,8 @@
 
             //button for changing the status of the student
             const changeStatus = document.createElement('button');
+            changeStatus.id = queue.queueId;
+            changeStatus.addEventListener('click', () => ChangeStatusHandler(queue.queueId));
             changeStatus.textContent = 'Change Status';
             footer.appendChild(changeStatus);
 

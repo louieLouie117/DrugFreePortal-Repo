@@ -233,5 +233,21 @@ namespace DrugFreePortal.Models
                 return NotFound();
             }
         }
+
+        [HttpPost("ChangeStatusToStart")]
+        public IActionResult ChangeStatusToStartMethod(Queue DataFromUser)
+        {
+            System.Console.WriteLine("Reached backend of change queue status");
+
+            // Get the user from the database
+            Queue? UserInQueue = _context.Queues?.FirstOrDefault(u => u.QueueId == DataFromUser.QueueId);
+            //chagent status to start
+            if (UserInQueue != null)
+            {
+                UserInQueue.Status = "Start";
+                _context.SaveChanges();
+            }
+            return Ok(new { Status = "Success", Message = "Queue status updated successfully to start" });
+        }
     }
 }
