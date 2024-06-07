@@ -347,8 +347,9 @@ th{
  .dashboard-evaluator{
     background-color: #245684;
     display: grid;
-    grid-template-columns: 40em 1fr;
+    grid-template-columns: 35em 1fr;
     height: 97vh;
+    /* padding-left: 15px; */
  }
 
  .Queue-MainContainer{
@@ -356,7 +357,7 @@ th{
  }
 
  .SubmitRecords-MainContainer{
-    background-color: white;
+    background-color: whitesmoke;
  }
 
  #userNameDivRecord{
@@ -377,6 +378,9 @@ th{
 
  #StudentCardHeader{
     display: none;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 20px;
+    padding: 10px;
  }
 
  
@@ -490,7 +494,7 @@ th{
     
     .SubmitRecords-Container>header>div{
         display: grid;
-        grid-template-columns: 3fr 1fr;
+        grid-template-columns: 3fr 1fr 50px;
         background-color: #245684;
         padding: 20px;
         width: 800px;

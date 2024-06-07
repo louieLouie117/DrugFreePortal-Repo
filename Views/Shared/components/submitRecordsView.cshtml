@@ -71,6 +71,13 @@
         labelStudentId.id = "labelStudentIdRecord"; // Add unique id
         divElement.appendChild(labelStudentId);
 
+        const addRecordsButton = document.createElement("button");
+        addRecordsButton.innerHTML = "+";
+        addRecordsButton.addEventListener("click", RenderSchoolComplianceHandler)
+
+        divElement.appendChild(addRecordsButton);
+
+
         const labelSchool = document.createElement("label");
         labelSchool.innerHTML = userData.school;
         labelSchool.id = "labelSchoolRecord"; // Add unique id
@@ -503,11 +510,7 @@
 
 
 <div class="SubmitRecords-Container" id="SubmitRecordsView">
-    <header id="StudentCardHeader">
-        <button id="ReturnToQueueBTN" onclick="ReturnToQueueHandler(event)">Return to Queue</button>
-        <button onclick="RenderSchoolComplianceHandler(event)">+</button>
 
-    </header>
 
     <div class="Semester-Container" id="SemsterContainer">
         <label id="SemesterId">SemesterId</label>
@@ -527,7 +530,11 @@
     </main>
 
 
+    <header id="StudentCardHeader">
+        <button id="ReturnToQueueBTN" onclick="ReturnToQueueHandler(event)">Return to Queue</button>
+        <button class="mainBTN">Complete and Close</button>
 
+    </header>
 
 
 </div>
