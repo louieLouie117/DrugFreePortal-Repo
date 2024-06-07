@@ -41,7 +41,7 @@ namespace DrugFreePortal.Models
                   new SessionLineItemOptions
                   {
 
-                    Price = "price_1Ow7aSKJxcOxvTTBxSNOnvyG", // this is the price for client server
+                    Price = "price_1Ow7aSKJxcOxvTTBxSNOnvyG", // this is the price for test mode
                     Quantity = 1,
                   },
 

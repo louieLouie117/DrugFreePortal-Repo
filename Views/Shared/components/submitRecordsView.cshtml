@@ -180,6 +180,8 @@
         console.log("ReturnToQueueHandler called");
         document.getElementById('RecordList').innerHTML = '';
         document.getElementById('RecordList').style.display = 'none ';
+        document.getElementById('StudentCardHeader').style.display = 'none';
+
 
         // Add your code here
         $.ajax({
@@ -501,12 +503,17 @@
 
 
 <div class="SubmitRecords-Container" id="SubmitRecordsView">
-    <button id="ReturnToQueueBTN" onclick="ReturnToQueueHandler(event)">Return to Queue</button>
-    <button onclick="RenderSchoolComplianceHandler(event)">+</button>
+    <header id="StudentCardHeader">
+        <button id="ReturnToQueueBTN" onclick="ReturnToQueueHandler(event)">Return to Queue</button>
+        <button onclick="RenderSchoolComplianceHandler(event)">+</button>
+
+    </header>
+
     <div class="Semester-Container" id="SemsterContainer">
         <label id="SemesterId">SemesterId</label>
         <label id="SemesterTitle">SemesterTitle</label>
     </div>
+
 
     <header id="RecordsMainDiv"></header>
 
