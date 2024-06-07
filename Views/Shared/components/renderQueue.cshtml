@@ -11,8 +11,8 @@
 
     @* GetQueue(); // refresh the queue list after changing the status submiting or returning a student to the queue *@
 
-    const DeleteFromQueueHandler = (id) => {
-        console.log("DeleteFromQueueHandler called=====>")
+    const RemoveFromQueueHandler = (id) => {
+        console.log("RemoveFromQueueHandler called=====>")
 
         const QueueId = id;
         const StudentUserId = document.getElementById('studentUserIdQueueLable' + id).textContent;
@@ -132,7 +132,6 @@
             deleteButton.id = 'deleteButton' + queue.queueId;
             deleteButton.textContent = '';
             deleteButton.classList.add('QueueDeleteBTN');
-            deleteButton.addEventListener('click', () => DeleteFromQueueHandler(queue.queueId));
             li.appendChild(deleteButton);
 
             const name = document.createElement('label');
@@ -162,9 +161,11 @@
 
 
             //button for deleting the student from the queue
-            const deleteStudent = document.createElement('button');
-            deleteStudent.textContent = 'Remove Student';
-            footer.appendChild(deleteStudent);
+            const RemoveStudent = document.createElement('button');
+            RemoveStudent.textContent = 'Remove Student';
+            RemoveStudent.addEventListener('click', () => RemoveFromQueueHandler(queue.queueId));
+
+            footer.appendChild(RemoveStudent);
 
             //button for changing the status of the student
             const changeStatus = document.createElement('button');
