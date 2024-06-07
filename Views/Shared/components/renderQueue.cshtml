@@ -1,9 +1,9 @@
 <script>
 
 
-    window.onload = function () {
+    window.addEventListener('DOMContentLoaded', (event) => {
         GetQueue();
-    };
+    });
 
 
 
@@ -150,6 +150,17 @@
         });
     }
 
+    const QueueFooterHandler = (id) => {
+        console.log("QueueFooterHandler called=====>")
+
+        const footer = document.getElementById('QueueFooter' + id);
+        if (footer.style.display === 'none') {
+            footer.style.display = 'grid';
+        } else {
+            footer.style.display = 'none';
+        }
+    }
+
 
 
     const RenderQueue = (queueData) => {
@@ -163,11 +174,12 @@
             //append a footer to the li
 
 
-            const deleteButton = document.createElement('button');
-            deleteButton.id = 'deleteButton' + queue.queueId;
-            deleteButton.textContent = '';
-            deleteButton.classList.add('QueueDeleteBTN');
-            li.appendChild(deleteButton);
+            const QueueOptions = document.createElement('button');
+            QueueOptions.id = queue.queueId;
+            QueueOptions.textContent = '';
+            QueueOptions.classList.add('QueueDeleteBTN');
+            QueueOptions.addEventListener('click', () => QueueFooterHandler(queue.queueId));
+            li.appendChild(QueueOptions);
 
             const name = document.createElement('label');
             name.textContent = queue.firstName + " " + queue.lastName;
@@ -192,6 +204,7 @@
 
             const footer = document.createElement('footer');
             footer.classList.add('QueueFooter');
+            footer.id = 'QueueFooter' + queue.queueId;
             li.appendChild(footer);
 
 
