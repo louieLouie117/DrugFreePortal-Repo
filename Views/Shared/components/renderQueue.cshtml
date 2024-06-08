@@ -1,9 +1,9 @@
 <script>
 
 
-    window.onload = function () {
+    window.addEventListener('DOMContentLoaded', (event) => {
         GetQueue();
-    };
+    });
 
 
 
@@ -11,8 +11,8 @@
 
     @* GetQueue(); // refresh the queue list after changing the status submiting or returning a student to the queue *@
 
-    const DeleteFromQueueHandler = (id) => {
-        console.log("DeleteFromQueueHandler called=====>")
+    const RemoveFromQueueHandler = (id) => {
+        console.log("RemoveFromQueueHandler called=====>")
 
         const QueueId = id;
         const StudentUserId = document.getElementById('studentUserIdQueueLable' + id).textContent;
@@ -68,6 +68,8 @@
     const QueueStatusHandler = (id) => {
         console.log("QueueStatusHandler called=====>")
 
+        document.getElementById('StudentCardHeader').style.display = 'grid';
+
 
         const QueueId = id;
         const QueueStatus = "In Progress"
@@ -96,16 +98,19 @@
             success: function (response) {
                 // Handle success response
                 console.log("Backend Queue:", response);
-
+                //bug here when the response is in progress error
                 if (response.status === "In Progress Error") {
-                    alert("Message: " + response.message);
+                    alert("Response status: " + response.message);
+                    console.log("Message Alert: " + response.status);
                     const selectedUserInfo = document.getElementById("SlectedUserInfo");
                     selectedUserInfo.parentNode.removeChild(selectedUserInfo);
+                    document.getElementById('RecordList').style.display = 'none';
+                    return;
                 }
-                document.getElementById('RecordList').style.display = 'grid ';
-
+                document.getElementById('RecordList').style.display = 'grid';
                 GetStudentInProgress();
                 GetQueue();
+
 
             },
             error: function (error) {
@@ -113,6 +118,54 @@
                 console.log(error);
             }
         });
+
+
+    }
+
+    const ChangeStatusToStart = (id) => {
+        console.log("ChangeStatusToStart called=====>")
+
+        const QueueId = id;
+        const QueueStatus = "Returned"
+        //must be changed to the student id
+        const StudentUserId = document.getElementById('studentUserIdQueueLable' + id).textContent;
+
+        console.log("************************QueueId to chanage status:", QueueId);
+        console.log("************************StudentUserId to add to session:", StudentUserId);
+
+        const jsonData = {
+            queueId: QueueId,
+            studentUserId: StudentUserId,
+            status: QueueStatus
+        }
+
+        console.log("Frontend Queue data=======:", jsonData)
+
+        $.ajax({
+            url: '/ChangeStatusToStart',
+            type: 'Post',
+            data: jsonData,
+            success: function (response) {
+                // Handle success response
+                console.log("Backend Queue:", response);
+                GetQueue();
+            },
+            error: function (error) {
+                // Handle error response
+                console.log(error);
+            }
+        });
+    }
+
+    const QueueFooterHandler = (id) => {
+        console.log("QueueFooterHandler called=====>")
+
+        const footer = document.getElementById('QueueFooter' + id);
+        if (footer.style.display === 'none') {
+            footer.style.display = 'grid';
+        } else {
+            footer.style.display = 'none';
+        }
     }
 
 
@@ -125,13 +178,15 @@
         queueData.forEach((queue) => {
 
             const li = document.createElement('li');
+            //append a footer to the li
 
-            const deleteButton = document.createElement('button');
-            deleteButton.id = 'deleteButton' + queue.queueId;
-            deleteButton.textContent = '';
-            deleteButton.classList.add('QueueDeleteBTN');
-            deleteButton.addEventListener('click', () => DeleteFromQueueHandler(queue.queueId));
-            li.appendChild(deleteButton);
+
+            const QueueOptions = document.createElement('button');
+            QueueOptions.id = queue.queueId;
+            QueueOptions.textContent = '';
+            QueueOptions.classList.add('QueueDeleteBTN');
+            QueueOptions.addEventListener('click', () => QueueFooterHandler(queue.queueId));
+            li.appendChild(QueueOptions);
 
             const name = document.createElement('label');
             name.textContent = queue.firstName + " " + queue.lastName;
@@ -150,13 +205,32 @@
             if (queue.status === "In Progress") {
                 status.disabled = true;
             }
-
-
             status.addEventListener('click', () => QueueStatusHandler(queue.queueId));
             li.appendChild(status);
 
+            const footer = document.createElement('footer');
+            footer.classList.add('QueueFooter');
+            footer.id = 'QueueFooter' + queue.queueId;
+            li.appendChild(footer);
 
-    @* all hidden items *@
+
+            //button for deleting the student from the queue
+            const RemoveStudent = document.createElement('button');
+            RemoveStudent.textContent = 'Remove Student';
+            RemoveStudent.addEventListener('click', () => RemoveFromQueueHandler(queue.queueId));
+
+            footer.appendChild(RemoveStudent);
+
+            //button for changing the status of the student
+            const changeStatus = document.createElement('button');
+            changeStatus.id = queue.queueId;
+            changeStatus.addEventListener('click', () => ChangeStatusToStart(queue.queueId));
+            changeStatus.textContent = 'Change Status';
+            footer.appendChild(changeStatus);
+
+
+
+            // hiddend items
             const shcoolId = document.createElement('label');
             shcoolId.textContent = queue.schoolId;
             shcoolId.classList.add('hidden');
@@ -187,7 +261,6 @@
             phone.id = 'phoneQueueLable' + queue.queueId;
             li.appendChild(phone);
 
-            ;
 
 
 

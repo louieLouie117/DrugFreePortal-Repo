@@ -71,6 +71,13 @@
         labelStudentId.id = "labelStudentIdRecord"; // Add unique id
         divElement.appendChild(labelStudentId);
 
+        const addRecordsButton = document.createElement("button");
+        addRecordsButton.innerHTML = "+";
+        addRecordsButton.addEventListener("click", RenderSchoolComplianceHandler)
+
+        divElement.appendChild(addRecordsButton);
+
+
         const labelSchool = document.createElement("label");
         labelSchool.innerHTML = userData.school;
         labelSchool.id = "labelSchoolRecord"; // Add unique id
@@ -180,6 +187,8 @@
         console.log("ReturnToQueueHandler called");
         document.getElementById('RecordList').innerHTML = '';
         document.getElementById('RecordList').style.display = 'none ';
+        document.getElementById('StudentCardHeader').style.display = 'none';
+
 
         // Add your code here
         $.ajax({
@@ -493,6 +502,29 @@
         });
     }
 
+    const CompleteAndCloseHandlder = (event) => {
+        console.log("CompleteAndCloseHandlder called=====>")
+
+        $.ajax({
+            url: '/CompleteAndClose',
+            type: 'Post',
+            success: function (response) {
+                // Handle success response
+                console.log("CompleteAndClose:", response);
+                const selectedUserInfo = document.getElementById("SlectedUserInfo");
+                selectedUserInfo.parentNode.removeChild(selectedUserInfo);
+                document.getElementById('RecordList').style.display = 'none';
+                document.getElementById('StudentCardHeader').style.display = 'none';
+                GetQueue();
+
+            },
+            error: function (error) {
+                // Handle error response
+                console.log(error);
+            }
+        });
+    }
+
 
 
 
@@ -501,12 +533,13 @@
 
 
 <div class="SubmitRecords-Container" id="SubmitRecordsView">
-    <button id="ReturnToQueueBTN" onclick="ReturnToQueueHandler(event)">Return to Queue</button>
-    <button onclick="RenderSchoolComplianceHandler(event)">+</button>
+
+
     <div class="Semester-Container" id="SemsterContainer">
         <label id="SemesterId">SemesterId</label>
         <label id="SemesterTitle">SemesterTitle</label>
     </div>
+
 
     <header id="RecordsMainDiv"></header>
 
@@ -520,7 +553,11 @@
     </main>
 
 
+    <header id="StudentCardHeader">
+        <button id="ReturnToQueueBTN" onclick="ReturnToQueueHandler(event)">Return to Queue</button>
+        <button class="mainBTN" onclick="CompleteAndCloseHandlder(event)">Complete and Close</button>
 
+    </header>
 
 
 </div>
