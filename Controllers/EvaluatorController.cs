@@ -61,6 +61,8 @@ namespace DrugFreePortal.Models
                 {
                     UserInQueue.Status = DataFromUser.Status;
                     _context.SaveChanges();
+                    return Ok(new { Status = "Status Changed", Message = "Changed successfully" });
+
                 }
             }
             else

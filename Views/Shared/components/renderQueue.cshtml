@@ -98,16 +98,19 @@
             success: function (response) {
                 // Handle success response
                 console.log("Backend Queue:", response);
-
+                //bug here when the response is in progress error
                 if (response.status === "In Progress Error") {
-                    alert("Message: " + response.message);
+                    alert("Response status: " + response.message);
+                    console.log("Message Alert: " + response.status);
                     const selectedUserInfo = document.getElementById("SlectedUserInfo");
                     selectedUserInfo.parentNode.removeChild(selectedUserInfo);
+                    document.getElementById('RecordList').style.display = 'none';
+                    return;
                 }
-                document.getElementById('RecordList').style.display = 'grid ';
-
+                document.getElementById('RecordList').style.display = 'grid';
                 GetStudentInProgress();
                 GetQueue();
+
 
             },
             error: function (error) {
@@ -115,10 +118,12 @@
                 console.log(error);
             }
         });
+
+
     }
 
-    const ChangeStatusHandler = (id) => {
-        console.log("ChangeStatusHandler called=====>")
+    const ChangeStatusToStart = (id) => {
+        console.log("ChangeStatusToStart called=====>")
 
         const QueueId = id;
         const QueueStatus = "Returned"
@@ -200,7 +205,6 @@
             if (queue.status === "In Progress") {
                 status.disabled = true;
             }
-
             status.addEventListener('click', () => QueueStatusHandler(queue.queueId));
             li.appendChild(status);
 
@@ -220,7 +224,7 @@
             //button for changing the status of the student
             const changeStatus = document.createElement('button');
             changeStatus.id = queue.queueId;
-            changeStatus.addEventListener('click', () => ChangeStatusHandler(queue.queueId));
+            changeStatus.addEventListener('click', () => ChangeStatusToStart(queue.queueId));
             changeStatus.textContent = 'Change Status';
             footer.appendChild(changeStatus);
 
