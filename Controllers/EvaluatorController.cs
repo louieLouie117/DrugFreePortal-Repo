@@ -275,6 +275,11 @@ namespace DrugFreePortal.Models
                 _context.SaveChanges();
             }
 
+            // remove from the session
+            HttpContext.Session.Remove("QueueIdInProgress");
+            // remove user in progress from the session
+            HttpContext.Session.Remove("UserIdInProgress");
+
             return Ok(new { Status = "Success", Message = "Queue status updated successfully to complete" });
         }
     }

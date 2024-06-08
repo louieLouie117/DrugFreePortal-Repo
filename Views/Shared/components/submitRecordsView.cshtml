@@ -511,6 +511,10 @@
             success: function (response) {
                 // Handle success response
                 console.log("CompleteAndClose:", response);
+                const selectedUserInfo = document.getElementById("SlectedUserInfo");
+                selectedUserInfo.parentNode.removeChild(selectedUserInfo);
+                document.getElementById('RecordList').style.display = 'none';
+                document.getElementById('StudentCardHeader').style.display = 'none';
                 GetQueue();
 
             },
