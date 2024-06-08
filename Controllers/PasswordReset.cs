@@ -98,7 +98,7 @@ namespace DrugFreePortal.Controllers
             email.From.Add(MailboxAddress.Parse(_config["EmailSettings:Email"]));
             email.To.Add(MailboxAddress.Parse(FromForm.Email));
             email.Subject = "Reset your password.";
-            email.Body = new TextPart(TextFormat.Html) { Text = $"<div style='background-Color: whites'> <h1 style=' color: black'>Reset Password</h1> <p>We have received a request to reset your password. If you did not make this request, please contact us.</p> <p>To reset your password, please click on the following <a href = '{callbackUrl}'>link.</a> </p><p>Please note that this link will expire in 15 minutes. If you need more time, please request another password reset.</p> <p>If you have any questions or concerns, please contact our support team</p> <p>Thank you.</p> <p>Journal Pocket</p></div>" };
+            email.Body = new TextPart(TextFormat.Html) { Text = $"<div style='background-Color: whites'> <h1 style=' color: black'>Reset Password</h1> <p>We have received a request to reset your password. If you did not make this request, please contact us.</p> <p>To reset your password, please click on the following <a href = '{callbackUrl}'>link.</a> </p><p>Please note that this link will expire in 15 minutes. If you need more time, please request another password reset.</p> <p>If you have any questions or concerns, please contact our support team</p> <p>Thank you.</p> <p>Drug Free Portal</p></div>" };
 
             System.Console.WriteLine($"email is {email}");
 

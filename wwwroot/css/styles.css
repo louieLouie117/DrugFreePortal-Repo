@@ -5,7 +5,8 @@ body{
     margin: 0 auto;
     padding: 0;
     display: grid;
-    row-gap: 50px;
+    /* row-gap: 50px; */
+    /* max-width: 35em; this will brake dean dashboard */
     
 }
 
@@ -18,9 +19,6 @@ h1{
 }
 
 
-.dashboard-container{
-    background-color: white;
-}
 
 
 main{
@@ -31,7 +29,8 @@ main{
 form{
     display: grid;
     row-gap: 5px;
-    max-width: 25em;
+    /* max-width: 25em;
+    min-width: 25em; */
 }
 
 table{
@@ -114,6 +113,13 @@ th{
     color: white;
     padding-left: 15px;
     padding-right: 15px;
+    transition: border-radius 0.5s ease, background-color 0.5s ease; /* Added transition effect */
+}
+
+.mainBTN:active{
+    border-radius: 40px; /* Changed border to border-radius */
+    background-color: #ffffff; /* Changed background color to #014686 */
+    color: #245684;
 }
 
 .AtagBTN{
@@ -141,13 +147,13 @@ th{
 
 }
 
-.LandingPage-Container>header{
+.mainHeader{
     display: grid;
     background-color: #245684;
     justify-content: center;
     height: 70px;
 }
-.LandingPage-Container>header>h1{
+.mainHeader>h1{
     color: white;
     font: 1.8em sans-serif;
     padding: 20px;
@@ -156,9 +162,9 @@ th{
 
 .LandingPage-Container>main{
     display: grid;
+    row-gap: 30px;
     padding: 20px;
-    justify-items: center;
-    justify-content: center;
+   justify-self: center
 
 }
 .LandingPage-Container>main>h2{
@@ -205,7 +211,6 @@ th{
 .Subscription-Container>form{
     display: flex;
     align-items: center;
-    column-gap: 10px;
     font: 1.1em sans-serif;
 }
 
@@ -342,8 +347,9 @@ th{
  .dashboard-evaluator{
     background-color: #245684;
     display: grid;
-    grid-template-columns: 40em 1fr;
+    grid-template-columns: 35em 1fr;
     height: 97vh;
+    /* padding-left: 15px; */
  }
 
  .Queue-MainContainer{
@@ -351,7 +357,7 @@ th{
  }
 
  .SubmitRecords-MainContainer{
-    background-color: white;
+    background-color: whitesmoke;
  }
 
  #userNameDivRecord{
@@ -367,7 +373,16 @@ th{
 
  .Queue-Container h1{
     color: white;
+    padding: 10px;
+    font: 2em sans-serif;
 
+ }
+
+ #StudentCardHeader{
+    display: none;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 20px;
+    padding: 10px;
  }
 
  
@@ -414,6 +429,16 @@ th{
 
     }
 
+    .QueueFooter{
+        grid-row: 2/3;
+        grid-column: 1/5;
+        width: 100%;
+        display: none;
+        grid-template-columns: 1fr 1fr;
+        margin-top: 30px;
+        padding-bottom: 30px;
+    }
+
     .QueueBody li label{
         font: 1.3em sans-serif;
     }
@@ -427,7 +452,6 @@ th{
         cursor: pointer;
         font: 1.3em sans-serif;
         height: 40px;
-        transition: border-radius 0.5s ease; /* Changed border to border-radius */
         width: 140px;
     }
 
@@ -472,7 +496,7 @@ th{
     
     .SubmitRecords-Container>header>div{
         display: grid;
-        grid-template-columns: 3fr 1fr;
+        grid-template-columns: 3fr 1fr 50px;
         background-color: #245684;
         padding: 20px;
         width: 800px;
@@ -674,6 +698,20 @@ th{
     }
 
 
+/* admin dashboard */
+    .AdminDashboard-container{
+        background-color: whitesmoke;
+        padding: 40px;
+    }
+    
+    .AdminDashboard-container form{
+        max-width: 25em;
+        min-width: 25em;
+    }
+    
+
+
+
     /* Dean Dashboard----------------------------- */
 
     .DeanDashboard-ContainerTest{
@@ -681,12 +719,10 @@ th{
         align-content: flex-start;
         background-color: whitesmoke;
         height: 100vh;
-        
-
     }
     .userRecord-Container{
         display: grid;
-        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+        grid-template-columns: repeat(4, 1fr);
         column-gap: 20px;
         margin: 40px;
         row-gap: 20px;
@@ -773,7 +809,7 @@ th{
 
     /* Student Dashboard----------------------------- */
 
-    .dashboard-container{
+    .StudentDashboard-container{
         display: grid;
         grid-template-rows: 50px;
         background-color: whitesmoke;
@@ -787,13 +823,13 @@ th{
         max-width: 35em;
 
     }
-    .dashboard-container>h1{
+    .StudentDashboard-container>h1{
         font: 2em sans-serif;
         margin: 0;
         color: black;
     }
 
-    .dashboard-container>section{
+    .StudentDashboard-container>section{
         display: grid;
         row-gap: 10px;
         padding: 20px;
@@ -804,7 +840,7 @@ th{
 
 
 
-    .dashboard-container>section>h2{
+    .StudentDashboard-container>section>h2{
         font: 1.2em sans-serif;
         margin: 0;
         color: #245684;
@@ -851,6 +887,28 @@ th{
 
     .UploadFiles-Container>main>div>ul>li>label{
         font: 1.3em sans-serif;
+    }
+
+
+    /* password reset styles */
+
+    .ForgotPassword-Container{
+        display: grid;
+        row-gap: 20px;
+        background-color: white;
+        height: 97vh;
+    }
+
+    .ForgotPassword-Container>form{
+        background-color: white;
+        height: 300px;
+        padding: 30px;
+        border-radius: 10px;
+        justify-self: center
+    }
+
+    .ForgotPassword-Container>form>input{
+        height: 40px;
     }
 
    
