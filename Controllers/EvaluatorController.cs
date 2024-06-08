@@ -49,6 +49,9 @@ namespace DrugFreePortal.Models
             // Get the user from the database
             Queue? UserInQueue = _context.Queues?.FirstOrDefault(u => u.QueueId == DataFromUser.QueueId);
 
+            // add queue id to session
+            HttpContext.Session.SetInt32("QueueIdInProgress", DataFromUser.QueueId);
+
 
             var UserIdInProgress = HttpContext.Session.GetInt32("UserIdInProgress");
             System.Console.WriteLine($"----------------UserIdInProgress => {UserIdInProgress}");
@@ -250,6 +253,29 @@ namespace DrugFreePortal.Models
                 _context.SaveChanges();
             }
             return Ok(new { Status = "Success", Message = "Queue status updated successfully to start" });
+        }
+
+
+        [HttpPost("CompleteAndClose")]
+        public IActionResult CompleteAndCloseMethod(Queue DataFromUser)
+        {
+            System.Console.WriteLine("Reached backend of change queue status");
+
+            //get the queue id from the session
+            int? QueueIdInProgress = HttpContext.Session.GetInt32("QueueIdInProgress");
+
+
+
+            // Get the user from the database
+            Queue? UserInQueue = _context.Queues?.FirstOrDefault(u => u.QueueId == QueueIdInProgress);
+            // remove from the queue database
+            if (UserInQueue != null)
+            {
+                _context.Queues?.Remove(UserInQueue);
+                _context.SaveChanges();
+            }
+
+            return Ok(new { Status = "Success", Message = "Queue status updated successfully to complete" });
         }
     }
 }

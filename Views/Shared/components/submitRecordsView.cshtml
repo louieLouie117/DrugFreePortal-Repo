@@ -502,6 +502,25 @@
         });
     }
 
+    const CompleteAndCloseHandlder = (event) => {
+        console.log("CompleteAndCloseHandlder called=====>")
+
+        $.ajax({
+            url: '/CompleteAndClose',
+            type: 'Post',
+            success: function (response) {
+                // Handle success response
+                console.log("CompleteAndClose:", response);
+                GetQueue();
+
+            },
+            error: function (error) {
+                // Handle error response
+                console.log(error);
+            }
+        });
+    }
+
 
 
 
@@ -532,7 +551,7 @@
 
     <header id="StudentCardHeader">
         <button id="ReturnToQueueBTN" onclick="ReturnToQueueHandler(event)">Return to Queue</button>
-        <button class="mainBTN">Complete and Close</button>
+        <button class="mainBTN" onclick="CompleteAndCloseHandlder(event)">Complete and Close</button>
 
     </header>
 
