@@ -82,3 +82,40 @@ const GetStudentSchoolComplianceHandler = async () => {
         // Handle the error here
     });
 }
+
+
+const RenderSudentResults = (data) => {
+    console.log('RenderSudentResults was called');
+    const StudentResults = document.getElementById('StudentResults');
+    StudentResults.innerHTML = '';
+    data.forEach((item) => {
+        console.log('item', item);
+        const listItem = document.createElement('li');
+
+        const complianceType = document.createElement('label');
+        complianceType.innerHTML = item.complianceType;
+        listItem.appendChild(complianceType);
+
+        const complianceStatus = document.createElement('label');
+        complianceStatus.innerHTML = item.complianceStatus;
+        complianceStatus.style.backgroundColor = "#" + item.statusColor;
+        complianceStatus.style.color = 'white';
+        listItem.appendChild(complianceStatus);
+
+
+        StudentResults.appendChild(listItem);
+    });
+};
+const GetStudentResults = (event) => {
+    console.log('GetStudentResults was called');
+    fetch('/studentResults')
+        .then(response => response.json())
+        .then(data => {
+            console.log("Data is here", data.message, data, data.data);
+            // RenderSudentResults(data.data);
+        })
+
+        .catch(error => {
+            console.error('Error:', error);
+        });
+};
