@@ -1,5 +1,7 @@
 const GetUserFilesHandler = async () => {
     console.log("GetUserFilesHandler called");
+    // clear this element with id StudentResults
+    document.getElementById('StudentResults').innerHTML = "";
     fetch("/getStudentFiles")
     .then(response => response.json())
     .then(data => {
@@ -114,6 +116,8 @@ const RenderStudentResults = (data) => {
 };
 const GetStudentResults = (event) => {
     console.log('GetStudentResults was called');
+    // clear this element with id StudentFiles
+    document.getElementById('StudentFiles').innerHTML = "";
     fetch('/studentResults')
         .then(response => response.json())
         .then(data => {
