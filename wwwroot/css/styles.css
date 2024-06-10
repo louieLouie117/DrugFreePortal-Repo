@@ -84,6 +84,13 @@ a{
     color: #245684;
 }
 
+.menuDashbarod{
+    display: grid;
+    justify-content: flex-end;
+    padding: 5px;
+    
+}
+
 
 
 .Compliance-Container{
@@ -198,7 +205,10 @@ th{
     width: 350px;
     border-radius: 7px;
 }
-
+.signReg-container>form{
+    display: grid;
+    row-gap: 15px;
+}
 .signReg-container>h1{
     font: 1.3em sans-serif;
     color: black;
