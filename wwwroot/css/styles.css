@@ -226,6 +226,22 @@ th{
 
 /* student reg------------------------------ */
 
+.StudentResults-Container>li{
+    background-color: white;
+    margin-top: 20px;
+    box-shadow: 0px 0px 3px 3px #f0f0f0;
+    display: grid;
+    row-gap: 20px;
+    padding: 10px;
+}
+
+.StudentResults-Container>li>label{
+    background-color: #014686;
+    color: white;
+    font: 1.3em sans-serif;
+    padding: 5px;
+}
+
 .studentReg-container{
     display: grid;
     row-gap: 20px;

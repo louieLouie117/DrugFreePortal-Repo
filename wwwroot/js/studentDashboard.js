@@ -84,35 +84,40 @@ const GetStudentSchoolComplianceHandler = async () => {
 }
 
 
-const RenderSudentResults = (data) => {
-    console.log('RenderSudentResults was called');
-    const StudentResults = document.getElementById('StudentResults');
-    StudentResults.innerHTML = '';
-    data.forEach((item) => {
-        console.log('item', item);
-        const listItem = document.createElement('li');
+const RenderStudentResults = (data) => {
+    console.log('Render Student Results was called', data);
+    const ul = document.getElementById('StudentResults'); // Assuming you have a ul with id 'StudentResults'
+   // foreach loop to iterate through the data and create a label with for each semester
+       ul.innerHTML = "";
+        data.forEach(result => {
+            console.log("result", result);
+            const li = document.createElement('li');
+            li.innerHTML = `
+                <label>${result.semester.title}</label>
+            `;
 
-        const complianceType = document.createElement('label');
-        complianceType.innerHTML = item.complianceType;
-        listItem.appendChild(complianceType);
-
-        const complianceStatus = document.createElement('label');
-        complianceStatus.innerHTML = item.complianceStatus;
-        complianceStatus.style.backgroundColor = "#" + item.statusColor;
-        complianceStatus.style.color = 'white';
-        listItem.appendChild(complianceStatus);
-
-
-        StudentResults.appendChild(listItem);
-    });
+            const nestUl = document.createElement('ul');
+            // loop through the results for each records and create a label for each
+            result.records.forEach(record => {
+                const li = document.createElement('li');
+                li.innerHTML = `
+                    <label>${record.complianceType}</label>
+                `;
+                nestUl.appendChild(li);
+            });
+            ul.appendChild(li);
+            li.appendChild(nestUl);
+        });    
+    
+    
 };
 const GetStudentResults = (event) => {
     console.log('GetStudentResults was called');
     fetch('/studentResults')
         .then(response => response.json())
         .then(data => {
-            console.log("Data is here", data.message, data, data.data);
-            // RenderSudentResults(data.data);
+            console.log("Data is here", data.data);
+            RenderStudentResults(data.data);
         })
 
         .catch(error => {
