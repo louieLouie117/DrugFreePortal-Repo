@@ -102,6 +102,7 @@ const RenderStudentResults = (data) => {
                 const li = document.createElement('li');
                 li.innerHTML = `
                     <label>${record.complianceType}</label>
+                    <label style="background-color:#${record.statusColor}; color: white;">${record.complianceStatus}</label>
                 `;
                 nestUl.appendChild(li);
             });
