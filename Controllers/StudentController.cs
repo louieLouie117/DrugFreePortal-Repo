@@ -41,5 +41,25 @@ namespace DrugFreePortal.Models
 
             return Ok(new { ComplianceListData = ComplianceList, Message = "Reached backend of compliance" });
         }
+
+        [HttpGet("studentResults")]
+        public IActionResult studentResults()
+        {
+
+            // get user from session
+            int? UserIdInSession = HttpContext.Session.GetInt32("UserId");
+            System.Console.WriteLine($"----------------UserId in session StudentController:GetUsers => {UserIdInSession}");
+
+            // get records filter by user in session
+            var recordsList = _context?.Records?
+                .Where(u => u.UserId == UserIdInSession)
+                .ToList();
+
+
+            System.Console.WriteLine("Reached backend of studentResults");
+            return Ok(new { Data = recordsList, Message = "Reached backend of studentResults" });
+
+
+        }
     }
 }
