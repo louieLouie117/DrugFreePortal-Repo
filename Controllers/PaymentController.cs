@@ -41,8 +41,8 @@ namespace DrugFreePortal.Models
                   new SessionLineItemOptions
                   {
 
-                    Price = "price_1Ow7aSKJxcOxvTTBxSNOnvyG", // this is the price for test mode
-                    // Price = "price_1PP74HKJxcOxvTTBuoPrCcbI", // this is the price for live mode
+                    // Price = "price_1Ow7aSKJxcOxvTTBxSNOnvyG", // this is the price for test mode
+                    Price = "price_1PP74HKJxcOxvTTBuoPrCcbI", // this is the price for live mode
                     Quantity = 1,
                   },
 
