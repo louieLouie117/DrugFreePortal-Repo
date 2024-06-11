@@ -83,8 +83,14 @@
 
         if (data.status === "Dean Registered") {
             console.log("Dean Registered")
-    @* location.reload(); *@
-                fetchAllUsers();
+            fetchAllUsers();
+            // clear from
+            //document.getElementById("DeanSchool").value = "";// this gets cleared when school is selected
+            //document.getElementById("SchoolIdForDean").value = "";// this gets cleared when school is selected
+            document.getElementById("DeanFirstName").value = "";
+            document.getElementById("DeanLastName").value = "";
+            document.getElementById("DeanEmail").value = "";
+            document.getElementById("DeanPassword").value = "";
         }
     }
 
