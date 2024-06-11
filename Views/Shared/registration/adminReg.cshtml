@@ -74,8 +74,14 @@
 
         if (data.status === "Admin Registered") {
             console.log("Admin Registered")
-    @* location.reload(); *@
-                fetchAllUsers();
+
+            fetchAllUsers();
+            //Clear Form
+            document.getElementById("AdminFirstName").value = "";
+            document.getElementById("AdminLastName").value = "";
+            document.getElementById("AdminEmail").value = "";
+            document.getElementById("AdminPassword").value = "";
+
 
         }
     }
@@ -97,7 +103,6 @@
 
     <h3>Admin Registration </h3>
 
-
     <form action="">
         <label id="AdminFirstNameLabel"></label>
         <input id="AdminFirstName" type="text" placeholder="First Name:" onClick="AdminInputHandler(event)">
@@ -112,7 +117,7 @@
         <input id="AdminPassword" type="password" placeholder="Password:" onClick="AdminInputHandler(event)">
 
 
-        <button onclick="RegAdminHandler(event)">Register</button>
+        <button class="mainBTN" onclick="RegAdminHandler(event)">Create Admin Account</button>
 
     </form>
 

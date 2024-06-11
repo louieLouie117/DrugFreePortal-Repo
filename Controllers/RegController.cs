@@ -207,7 +207,7 @@ namespace DrugFreePortal.Models
                 _context.SaveChanges();
             }
 
-            HttpContext.Session.SetInt32("UserId", dataFromUser.UserId);
+            // HttpContext.Session.SetInt32("UserId", dataFromUser.UserId);// removed so that admin dose not get logged in as evaluator
 
 
 
@@ -298,7 +298,7 @@ namespace DrugFreePortal.Models
                 _context.SaveChanges();
             }
 
-            HttpContext.Session.SetInt32("UserId", dataFromUser.UserId);
+            // HttpContext.Session.SetInt32("UserId", dataFromUser.UserId); // removed so that admin dose not get logged in as dean
 
 
 

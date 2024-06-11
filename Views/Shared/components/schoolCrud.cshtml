@@ -47,20 +47,20 @@
 
 
 
-<div>
-    <h3>School</h3>
-
-    <p>Allow admin to create, render, updated, and delete.</p>
+<div class="Admin-Container">
 
     <form>
-        <input type="text" placeholder="School Dean" id="schoolDean">
-        <input type="text" placeholder="name of school:" id="schoolName">
-        <input type="text" placeholder="address:" id="schoolAddress">
-        <input type="text" placeholder="city:" id="schoolCity">
-        <input type="text" placeholder="state:" id="schoolState">
-        <input type="text" placeholder="zip code:" id="schoolZipCode">
+        <h3>Add a new school.</h3>
+
+        <input type="text" placeholder="School Dean Name: Tom Cruise" id="schoolDean">
+        <input type="text" placeholder="Name of School: " id="schoolName">
+        <input type="text" placeholder="Address:" id="schoolAddress">
+        <input type="text" placeholder="City:" id="schoolCity">
+        <input type="text" placeholder="State:" id="schoolState">
+        <input type="text" placeholder="Zip Code:" id="schoolZipCode">
+        <label>Select Onsite Date</label>
         <input type="date" placeholder="Onsite Date:" id="schoolOnsiteDate">
-        <button onclick="createSchool(event)">create School</button>
+        <button class="mainBTN" onclick="createSchool(event)">Create School</button>
 
 
     </form>

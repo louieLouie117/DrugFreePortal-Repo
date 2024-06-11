@@ -74,8 +74,12 @@
 
         if (data.status === "Evaluator Registered") {
             console.log("Evaluator Registered")
-    @* location.reload(); *@
-                fetchAllUsers();
+            fetchAllUsers();
+            //clear form
+            document.getElementById("EvaluatorFirstName").value = "";
+            document.getElementById("EvaluatorLastName").value = "";
+            document.getElementById("EvaluatorEmail").value = "";
+            document.getElementById("EvaluatorPassword").value = "";
 
         }
     }
@@ -96,8 +100,6 @@
 <div>
 
     <h3>Evaluator Registration </h3>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis hic ducimus saepe facere. Non architecto
-        accusantium minus iste, vitae error nam quod inventore nisi cupiditate ab assumenda nihil quisquam unde.</p>
 
     <form action="">
         <label id="EvaluatorFirstNameLabel"></label>
@@ -113,7 +115,7 @@
         <input id="EvaluatorPassword" type="password" placeholder="Password:" onClick="EvaluatorInputHandler(event)">
 
 
-        <button onclick="RegEvaluatorHandler(event)">Register</button>
+        <button class="mainBTN" onclick="RegEvaluatorHandler(event)">Create Evaluator Account</button>
 
     </form>
 

@@ -83,8 +83,14 @@
 
         if (data.status === "Dean Registered") {
             console.log("Dean Registered")
-    @* location.reload(); *@
-                fetchAllUsers();
+            fetchAllUsers();
+            // clear from
+            //document.getElementById("DeanSchool").value = "";// this gets cleared when school is selected
+            //document.getElementById("SchoolIdForDean").value = "";// this gets cleared when school is selected
+            document.getElementById("DeanFirstName").value = "";
+            document.getElementById("DeanLastName").value = "";
+            document.getElementById("DeanEmail").value = "";
+            document.getElementById("DeanPassword").value = "";
         }
     }
 
@@ -117,17 +123,13 @@
 <div>
 
     <h3>Dean Registration </h3>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis hic ducimus saepe facere. Non architecto
-        accusantium minus iste, vitae error nam quod inventore nisi cupiditate ab assumenda nihil quisquam unde.</p>
-
     <form action="">
-        <select id="DeanSchoolSelector" onchange="DeanSchoolSelecterHandler(event)">
-
-        </select>
+        <select id="DeanSchoolSelector" onchange="DeanSchoolSelecterHandler(event)"></select>
         <label id="DeanSchoolLabel"></label>
-        <input id="DeanSchool" type="text" placeholder="School name update on select" onClick="DeanInputHandler(event)">
+        <input class="hidden" id="DeanSchool" type="text" placeholder="School name update on select"
+            onClick="DeanInputHandler(event)">
 
-        <input type="text" id="SchoolIdForDean" placeholder="School ID updated on select">
+        <input class="hidden" type="text" id="SchoolIdForDean" placeholder="School ID updated on select">
 
 
         <label id="DeanFirstNameLabel"></label>
@@ -143,7 +145,7 @@
         <input id="DeanPassword" type="password" placeholder="Password:" onClick="DeanInputHandler(event)">
 
 
-        <button onclick="RegDeanHandler(event)">Register</button>
+        <button class="mainBTN" onclick="RegDeanHandler(event)">Create Dean Account</button>
 
     </form>
 

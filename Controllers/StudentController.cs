@@ -63,19 +63,15 @@ namespace DrugFreePortal.Models
             var semestersList = _context?.Semesters?
                 .ToList();
 
-            // combine records and semesters
-            var recordsListWithSemesters = (
-                // for each semester in semestersList
-                from semester in semestersList
-                    // get records in semester
-                let recordsInSemester = recordsList?.Where(r => r.SemesterId == semester.SemesterId)?.ToList() ?? new List<Record>()
-                select new
+            var recordsListWithSemesters = (// Create a new list of objects
+                from semester in semestersList // Iterate through each semester in the semestersList
+                let recordsInSemester = recordsList?.Where(r => r.SemesterId == semester.SemesterId)?.ToList() ?? new List<Record>() // Filter the recordsList to get only the records that belong to the current semester
+                select new // Create a new anonymous object with the semester and the filtered records
                 {
-                    // select semester and records
-                    Semester = semester,
-                    // select records in semester
-                    Records = recordsInSemester.ToList()
-                }).ToList();
+                    Semester = semester, // Store the current semester
+                    Records = recordsInSemester.ToList() // Store the filtered records in a list
+                }).ToList(); // Convert the result into a list
+
 
             System.Console.WriteLine("Reached backend of studentResults");
             return Ok(new { Data = recordsListWithSemesters, Message = "Reached backend of studentResults" });

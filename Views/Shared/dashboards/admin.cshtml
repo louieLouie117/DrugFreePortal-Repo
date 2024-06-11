@@ -13,25 +13,18 @@
 <div class="AdminDashboard-container">
 
     <h1>Admin Dashboard</h1>
-    <p>Admin dashboard is the place where the
-        admin can manage the users, products, and orders. The admin can add, edit, and delete the users, products, and
-        orders. The admin can also view the list of users, products, and orders. The admin can also view the details of
-        the
-        users, products, and orders.</p>
+    <partial name="components/semesters">
+        <partial name="components/schoolCrud">
+            <partial name="components/compliaceTypes">
 
-
-    <partial name="components/schoolCrud">
-
-        <partial name="components/compliaceTypes">
-            <partial name="components/semesters">
-
-                <partial name="registration/adminReg">
-                    <partial name="registration/evaluatorReg">
-                        <partial name="registration/deanReg">
-
-
-
-                            <partial name="components/renderUsers">
+                <div class="Admin-Container">
+                    <div>
+                        <partial name="registration/adminReg">
+                            <partial name="registration/evaluatorReg">
+                                <partial name="registration/deanReg">
+                    </div>
+                    <partial name="components/renderUsers">
+                </div>
 
 
 
