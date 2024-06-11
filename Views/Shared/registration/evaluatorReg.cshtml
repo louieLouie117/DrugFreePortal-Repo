@@ -74,8 +74,12 @@
 
         if (data.status === "Evaluator Registered") {
             console.log("Evaluator Registered")
-    @* location.reload(); *@
-                fetchAllUsers();
+            fetchAllUsers();
+            //clear form
+            document.getElementById("EvaluatorFirstName").value = "";
+            document.getElementById("EvaluatorLastName").value = "";
+            document.getElementById("EvaluatorEmail").value = "";
+            document.getElementById("EvaluatorPassword").value = "";
 
         }
     }
