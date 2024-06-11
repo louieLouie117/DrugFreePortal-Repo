@@ -61,7 +61,7 @@ const table = document.getElementById('usersList'); // Assuming you have a table
             <td>${user.firstName}</td>
             <td>${user.lastName}</td>
             <td>${user.email}</td>
-            <td><button id="${user.userId}" onclick="DeleteUserHandler(${user.userId})">Delete</button></td>
+            <td><button class="hidden"id="${user.userId}" onclick="DeleteUserHandler(${user.userId})">Delete</button></td>
         `;
 
         // Append the row to the table
@@ -131,7 +131,7 @@ const CreateComplianceHandler = (event) => {
             if (response.ok) {
                 // Handle successful response
                 console.log('Compliance created successfully');
-                return response.json();
+                          return response.json();
             } else {
                 // Handle error response
                 console.error('Failed to create compliance');

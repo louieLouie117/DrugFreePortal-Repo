@@ -70,6 +70,8 @@
                 // Handle the success response here
                 console.log("Semester removed successfully");
                 console.log(response);
+                window.location.reload();
+
                 // You can perform additional actions based on the response
             },
             error: function (error) {
@@ -128,7 +130,7 @@
 
 <div class="Admin-Container">
     <form action="">
-        <h3>Add a New Semester</h3>
+        <h3>Add a new semester.</h3>
         <input id="SemesterTitle" type="text" name="term" placeholder="Term and Year: Fall 2024">
         <button class="mainBTN" onclick="CreateSemesterHandler(event)"> Create Semester</button>
     </form>
