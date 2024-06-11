@@ -8,16 +8,16 @@
 </head>
 
 
-<div class="Compliance-Container">
+<div class="Admin-Container ">
     <form action="">
-        <h3>Compliance</h3>
+        <h3>Add a New Compliance</h3>
         <select id="SchoolsSelector">
 
         </select>
-        <input type="text" id="IdFromSchool">
-        <input type="text" id="ComplianceName" placeholder="name of compliance">
-        <textarea name="" id="ComplianceDetails" cols="30" rows="10"></textarea>
-        <button onclick="CreateComplianceHandler(event)">Create</button>
+        <input class="hidden" type="text" id="IdFromSchool">
+        <input type="text" id="ComplianceName" placeholder="Name of Compliance: Hep-C">
+        <textarea name="" id="ComplianceDetails" cols="30" rows="10" placeholder="Notes:"></textarea>
+        <button class="mainBTN" onclick="CreateComplianceHandler(event)">Create Compliance</button>
     </form>
 
     <table>

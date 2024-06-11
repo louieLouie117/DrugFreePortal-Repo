@@ -755,8 +755,10 @@ th{
 
 /* admin dashboard */
     .AdminDashboard-container{
+        display: grid;
+        row-gap: 20px;
         background-color: whitesmoke;
-        padding: 40px;
+        padding: 20px;
     }
     
     .AdminDashboard-container form{
@@ -764,6 +766,29 @@ th{
         min-width: 25em;
     }
     
+    .Admin-Container{
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+        background-color: white;
+        padding: 60px;
+        border-radius: 20px;
+        box-shadow: 0px 0px 3px 3px #f0f0f0;
+    }
+    .Admin-Container>ul{
+        display: grid;
+        align-content: flex-start;
+        row-gap: 10px;
+    }
+
+    .Admin-Container>ul>li{
+        display: flex;
+        padding: 10px;
+        column-gap: 20px;
+        align-items: center;
+        background-color: whitesmoke;
+        font: 1em sans-serif;
+    }
+
 
 
 

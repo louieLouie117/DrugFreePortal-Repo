@@ -126,12 +126,11 @@
 
 </script>
 
-<div>
-    <h3>Semesters</h3>
-    <p>Allow admin to create, update, delete, and edit semesters</p>
+<div class="Admin-Container">
     <form action="">
-        <input id="SemesterTitle" type="text" name="term" placeholder="term and year">
-        <button onclick="CreateSemesterHandler(event)"> Create Semester</button>
+        <h3>Add a New Semester</h3>
+        <input id="SemesterTitle" type="text" name="term" placeholder="Term and Year: Fall 2024">
+        <button class="mainBTN" onclick="CreateSemesterHandler(event)"> Create Semester</button>
     </form>
     <ul id="SemestersList"></ul>
 
