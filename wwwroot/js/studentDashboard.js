@@ -1,5 +1,7 @@
 const GetUserFilesHandler = async () => {
     console.log("GetUserFilesHandler called");
+    // clear this element with id StudentResults
+    document.getElementById('StudentResults').innerHTML = "";
     fetch("/getStudentFiles")
     .then(response => response.json())
     .then(data => {
@@ -82,3 +84,48 @@ const GetStudentSchoolComplianceHandler = async () => {
         // Handle the error here
     });
 }
+
+
+const RenderStudentResults = (data) => {
+    console.log('Render Student Results was called', data);
+    const ul = document.getElementById('StudentResults'); // Assuming you have a ul with id 'StudentResults'
+   // foreach loop to iterate through the data and create a label with for each semester
+       ul.innerHTML = "";
+        data.forEach(result => {
+            console.log("result", result);
+            const li = document.createElement('li');
+            li.innerHTML = `
+                <label>${result.semester.title}</label>
+            `;
+
+            const nestUl = document.createElement('ul');
+            // loop through the results for each records and create a label for each
+            result.records.forEach(record => {
+                const li = document.createElement('li');
+                li.innerHTML = `
+                    <label>${record.complianceType}</label>
+                    <label style="background-color:#${record.statusColor}; color: white;">${record.complianceStatus}</label>
+                `;
+                nestUl.appendChild(li);
+            });
+            ul.appendChild(li);
+            li.appendChild(nestUl);
+        });    
+    
+    
+};
+const GetStudentResults = (event) => {
+    console.log('GetStudentResults was called');
+    // clear this element with id StudentFiles
+    document.getElementById('StudentFiles').innerHTML = "";
+    fetch('/studentResults')
+        .then(response => response.json())
+        .then(data => {
+            console.log("Data is here", data.data);
+            RenderStudentResults(data.data);
+        })
+
+        .catch(error => {
+            console.error('Error:', error);
+        });
+};

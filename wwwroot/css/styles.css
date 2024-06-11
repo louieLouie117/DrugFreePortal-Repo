@@ -84,6 +84,13 @@ a{
     color: #245684;
 }
 
+.menuDashbarod{
+    display: grid;
+    justify-content: flex-end;
+    padding: 5px;
+    
+}
+
 
 
 .Compliance-Container{
@@ -198,7 +205,10 @@ th{
     width: 350px;
     border-radius: 7px;
 }
-
+.signReg-container>form{
+    display: grid;
+    row-gap: 15px;
+}
 .signReg-container>h1{
     font: 1.3em sans-serif;
     color: black;
@@ -226,10 +236,55 @@ th{
 
 /* student reg------------------------------ */
 
+.Step3-Container{
+    display: grid;
+    row-gap: 10px;
+}
+
+.StudentResults-Container>li>label{
+    background-color: #245684;
+    color: white;
+    font: 1.3em sans-serif;
+    padding: 10px;
+    border: none;
+    border-radius: 13px 13px 0 0;
+}
+
+
+.StudentResults-Container>li{
+    background-color: white;
+    margin-top: 20px;
+    box-shadow: 0px 0px 3px 3px #f0f0f0;
+    display: grid;
+    border-radius: 13px;
+    /* row-gap: 20px; */
+    /* padding: 10px; */
+}
+
+.StudentResults-Container>li>ul{
+    display: grid;
+    row-gap: 10px;
+    padding: 20px;
+}
+
+.StudentResults-Container>li>ul>li{
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+}
+
+.StudentResults-Container>li>ul>li>label{
+    font: 1.3em sans-serif;
+    padding: 3px;
+}
+.StudentResults-Container>li>ul>li>label:last-of-type{
+    text-align: center;
+
+}
+
 .studentReg-container{
     display: grid;
     row-gap: 20px;
-    background: linear-gradient(to top, #245684 90%, #014686);
+    background: linear-gradient(to top, #245684 90%, #245684);
     padding: 20px;
     height: 100vh;
     align-content: flex-start;
