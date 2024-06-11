@@ -74,8 +74,14 @@
 
         if (data.status === "Admin Registered") {
             console.log("Admin Registered")
-    @* location.reload(); *@
-                fetchAllUsers();
+
+            fetchAllUsers();
+            //Clear Form
+            document.getElementById("AdminFirstName").value = "";
+            document.getElementById("AdminLastName").value = "";
+            document.getElementById("AdminEmail").value = "";
+            document.getElementById("AdminPassword").value = "";
+
 
         }
     }
