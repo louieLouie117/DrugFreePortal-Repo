@@ -181,6 +181,31 @@ const ComplianceTypeList = (data) => {
 
 
 
+/*
+const deleteSchool = (schoolId) => {
+    console.log('Deleting school with id:', schoolId);
+    fetch('/DeleteSchool', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ schoolId })
+    })
+        .then(response => response.json())
+        .then(data => {
+            // Handle success response
+            console.log('School deleted successfully', data);
+            getSchools();
+        })
+        .catch(error => {
+            // Handle error response
+            console.error('Failed to delete school', error);
+        });
+
+}
+**/
+
+
 const getSchools = () => {
     fetch('/GetAllSchools', {
         method: 'GET'
@@ -206,6 +231,16 @@ function RenderSchoolsAsUl(schools) {
     schools.forEach(school => {
         const li = document.createElement('li');
         li.textContent = school.name;
+        // generate delete button
+        const deleteButton = document.createElement('button');
+        deleteButton.textContent = 'Delete';
+        // add an event listener to the delete button
+        deleteButton.addEventListener('click', () => {
+            // call the delete school function
+            deleteSchool(school.schoolId);
+        });
+        // append the delete button to the li
+        li.appendChild(deleteButton);
         allSchools.appendChild(li);
     });
 }
