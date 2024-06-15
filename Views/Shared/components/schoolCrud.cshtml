@@ -1,4 +1,27 @@
 <script>
+
+    const deleteSchool = (schoolId) => {
+        console.log('Deleting school with id:', schoolId);
+
+        const data = {
+            SchoolId: schoolId
+        };
+        $.ajax({
+            url: '/DeleteSchool',
+            type: 'POST',
+            data: data,
+            success: (data) => {
+                // Handle success response
+                console.log('School deleted successfully', data);
+                getSchools();
+            },
+            error: (error) => {
+                // Handle error response
+                console.error('Failed to delete school', error);
+            }
+        });
+    }
+
     function createSchool(event) {
         event.preventDefault();
 

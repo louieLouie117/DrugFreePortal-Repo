@@ -171,6 +171,28 @@ namespace DrugFreePortal.Models
             return Ok(new { SemesterData = DataFromUser, message = "Successfully removed semester" });
         }
 
+        [HttpPost("DeleteSchool")]
+        public IActionResult DeleteSchoolMethod(NewSchool DataFromUser)
+        {
+            // Access the JSON DataFromUser from the request
+            System.Console.WriteLine("Reached backend of deleting school");
+            System.Console.WriteLine($"SchoolId-------------->: {DataFromUser.SchoolId}");
+
+            // get the school from the database
+            NewSchool? school = _context.NewSchools?.FirstOrDefault(s => s.SchoolId == DataFromUser.SchoolId);
+
+            // check if the school is null
+            if (school == null)
+            {
+                return NotFound(new { message = "School not found" });
+            }
+
+            // remove the school from the database
+            _context.NewSchools?.Remove(school);
+            _context.SaveChanges();
+
+            return Ok(new { SchoolData = DataFromUser, message = "Successfully removed school" });
+        }
 
 
 
