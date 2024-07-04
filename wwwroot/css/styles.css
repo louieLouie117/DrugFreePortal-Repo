@@ -84,6 +84,26 @@ a{
     color: #245684;
 }
 
+.inputWrapper{
+    display: grid;
+    grid-template-columns: 1fr 70px;
+    border: solid black 1.3px;
+    border-radius: 7px;
+}
+.inputWrapper>input{
+    border: none;
+    padding: 10px;
+    font: 1.2em sans-serif;
+}
+.inputWrapper>input:focus{
+    outline: none;
+}
+.inputWrapper>button{
+   font: 1em sans-serif;
+   border: none;
+   font-weight: bold;
+}
+
 .menuDashbarod{
     display: grid;
     justify-content: flex-end;

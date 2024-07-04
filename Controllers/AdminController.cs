@@ -116,6 +116,7 @@ namespace DrugFreePortal.Models
             System.Console.WriteLine("Id to delete user form Db", IdToDelete);
 
 
+
             // Perform delete operation using the userId
 
             return Ok(new { UserDeleted = IdToDelete, message = "Reached backend of deleting user" });

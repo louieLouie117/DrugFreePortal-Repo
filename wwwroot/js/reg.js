@@ -156,3 +156,16 @@ function addIdToInputStudentReg(event) {
     document.getElementById('StudentSchool').value = selectedSchoolValue;
     document.getElementById('SchoolIdForStudentReg').value = event.target.selectedOptions[0].id;
 }
+
+const ShowPassword = (e) => {
+    e.preventDefault();
+    const password = document.getElementById('signInPassword');
+    const showButton = document.getElementById('showPasswordButton');
+    if (password.type === 'password') {
+        password.type = 'text';
+        showButton.textContent = 'Hide';
+    } else {
+        password.type = 'password';
+        showButton.textContent = 'Show';
+    }
+}
