@@ -62,7 +62,13 @@ const signInHandlerFetch = async (e) => {
                 console.log("results from",data);
                 if (data.status === "password error") {
                     document.getElementById("signInEmailLabel").style.color = "red";
-                    document.getElementById("signInEmailLabel").innerText = "Password error.";
+                    document.getElementById("signInEmailLabel").innerText = "Some of your info isn't correct please try again..";
+                    return
+                }
+
+                if (data.status === "email error no user found") {    
+                    document.getElementById("signInEmailLabel").style.color = "red";
+                    document.getElementById("signInEmailLabel").innerText = "Some of your info isn't correct please try again.";
                     return
                 }
 
@@ -163,9 +169,9 @@ const ShowPassword = (e) => {
     const showButton = document.getElementById('showPasswordButton');
     if (password.type === 'password') {
         password.type = 'text';
-        showButton.textContent = 'Hide';
+        showButton.value = 'Hide';
     } else {
         password.type = 'password';
-        showButton.textContent = 'Show';
+        showButton.value = 'Show';
     }
 }

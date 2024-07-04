@@ -98,10 +98,12 @@ a{
 .inputWrapper>input:focus{
     outline: none;
 }
-.inputWrapper>button{
+.inputWrapper> input:last-child{
    font: 1em sans-serif;
    border: none;
    font-weight: bold;
+   background-color: white;
+   color: #245684;
 }
 
 .menuDashbarod{
