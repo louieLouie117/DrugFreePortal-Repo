@@ -84,6 +84,7 @@
         let ul = document.createElement('ul');
         ul.className = "userRecord-Container";
 
+
         UserRecords.forEach(userRecord => {
             let li = document.createElement('li');
             ul.appendChild(li);
@@ -140,6 +141,16 @@
         });
 
 
+        // if no records found show message label "No Records Found"
+        if (UserRecords.length === 0) {
+            console.log(">>>>>>>>---======No Records Found");
+            let labelNoRecords = document.createElement('label');
+            labelNoRecords.innerText = "No records available. Records will be available soon.";
+            ul.appendChild(labelNoRecords);
+            document.getElementById('UserWithRecords').appendChild(ul);
+
+            return;
+        }
 
         document.getElementById('UserWithRecords').appendChild(ul);
     }

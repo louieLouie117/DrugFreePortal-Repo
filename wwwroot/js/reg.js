@@ -62,7 +62,13 @@ const signInHandlerFetch = async (e) => {
                 console.log("results from",data);
                 if (data.status === "password error") {
                     document.getElementById("signInEmailLabel").style.color = "red";
-                    document.getElementById("signInEmailLabel").innerText = "Password error.";
+                    document.getElementById("signInEmailLabel").innerText = "Some of your info isn't correct please try again..";
+                    return
+                }
+
+                if (data.status === "email error no user found") {    
+                    document.getElementById("signInEmailLabel").style.color = "red";
+                    document.getElementById("signInEmailLabel").innerText = "Some of your info isn't correct please try again.";
                     return
                 }
 
@@ -155,4 +161,17 @@ function addIdToInputStudentReg(event) {
    
     document.getElementById('StudentSchool').value = selectedSchoolValue;
     document.getElementById('SchoolIdForStudentReg').value = event.target.selectedOptions[0].id;
+}
+
+const ShowPassword = (e) => {
+    e.preventDefault();
+    const password = document.getElementById('signInPassword');
+    const showButton = document.getElementById('showPasswordButton');
+    if (password.type === 'password') {
+        password.type = 'text';
+        showButton.value = 'Hide';
+    } else {
+        password.type = 'password';
+        showButton.value = 'Show';
+    }
 }

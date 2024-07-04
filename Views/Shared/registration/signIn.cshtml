@@ -30,6 +30,10 @@
         });
 
     }
+
+
+
+
 </script>
 <div class="signReg-container" id="SignInContainer">
 
@@ -38,9 +42,12 @@
         <label id="signInEmailLabel"></label>
         <label id="signInPasswordLabel"></label>
 
-        <input type="text" id="signInemail" placeholder="Email address:" required>
+        <input type="text" id="signInemail" placeholder="Email Address:" required>
 
-        <input id="signInPassword" placeholder="Password:" type="password" required>
+        <div class="inputWrapper">
+            <input id="signInPassword" placeholder="Password:" type="password" required>
+            <input type="button" id="showPasswordButton" onclick="ShowPassword(event)" value="show">
+        </div>
 
         <button class="mainBTN" id="SingInUser" onclick="signInHandlerFetch(event)">Sign In</button>
         @* <button id="SingInUser" onclick="signInHandlerAjax(event)">Sign In Ajax</button> *@
