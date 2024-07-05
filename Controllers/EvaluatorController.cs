@@ -34,14 +34,11 @@ namespace DrugFreePortal.Models
             // get SchoolIdInSession from session
             int? SchoolIdInSession = HttpContext.Session.GetInt32("SchoolIdInSession");
             System.Console.WriteLine($"----------------SchoolIdInSession => {SchoolIdInSession}");
-            // lambda expression to get all data from queue with null or empty check net8.0 new feature
+
             // if school id is = 0, get all data from queue else get data from queue with school id
             List<Queue> Queue = SchoolIdInSession == 0 ? _context.Queues?.Select(q => q).ToList() ?? new List<Queue>() : _context.Queues?.Where(q => q.SchoolId == SchoolIdInSession).ToList() ?? new List<Queue>();
 
             // List<Queue> Queue = _context.Queues?.Select(q => q).ToList() ?? new List<Queue>();
-
-
-            // Check if any data has been changed since the last call
 
             return Ok(new { Status = "Success", QueueData = Queue });
         }
