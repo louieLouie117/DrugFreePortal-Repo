@@ -946,18 +946,41 @@ th{
         font: .8em sans-serif;
         color: white;
         align-content: flex-start;
-        cursor: pointer;
-        /* add padding top and bottom 10px and left and right 20px*/
+        cursor: pointer;       
+        /* background-color: #39C32B; */
         padding: 10px 20px;
         margin-left: 4px;
-        /* background-color: white; */
         border-radius: 20px 0 0 20px;
     }
 
-    
+
+       .DeanNav-Container>nav>ul>li>svg{
+        margin: 0px;
+        grid-column: 1/2;
+        grid-row: 1/2;
+    }
 
     .DeanNav-Container>nav>ul>li>p{
         margin: 0px;
+        grid-column: 1/2;
+        grid-row: 2/3;
+    }
+    
+    .DeanNav-Container>nav>ul>li>div{
+        margin: 0px;
+        grid-column: 1/2;
+        grid-row: 1/3;
+        height: 100%;
+        width: 100%;
+        background: none;
+        border-radius: 0px;
+        background-color: none;
+        padding: 10px 20px;
+        margin-left: 4px;
+        border-radius: 20px 0 0 20px;
+        margin-top: -10px;
+        margin-left: -2px;
+
     }
 
     /* @ media and screen size less than 820 change .userRecord-Container grid-template-columns: repeat(2, 1fr);
