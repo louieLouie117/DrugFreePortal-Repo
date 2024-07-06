@@ -982,6 +982,12 @@ th{
         margin-left: -2px;
 
     }
+    .DeanCreateEvaluator-Container{
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+        column-gap: 20px;
+        padding: 40px;
+    }
 
     /* @ media and screen size less than 820 change .userRecord-Container grid-template-columns: repeat(2, 1fr);
 */

@@ -133,6 +133,9 @@ namespace DrugFreePortal.Models
         public IActionResult RegisterEvaluatorMethod(User dataFromUser)
         {
 
+            //get school id from session
+            int? SchoolId = HttpContext.Session.GetInt32("SchoolIdInSession");
+
             // check if any fields are empty with a list
             List<string> emptyFields = new List<string>();
 
@@ -171,7 +174,7 @@ namespace DrugFreePortal.Models
             dataFromUser.AccountType = AccountType.Evaluator;
             dataFromUser.AcceptedTerms = true;
             dataFromUser.ReleaseVersion = "R1.0";
-            dataFromUser.SchoolId = 0;
+            dataFromUser.SchoolId = SchoolId ?? 0;
 
             System.Console.WriteLine("Reached backend of register evaluator");
 
