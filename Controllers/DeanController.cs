@@ -73,6 +73,25 @@ namespace DrugFreePortal.Models
             });
         }
 
+        [HttpGet("GetSchoolEvaluators")]
+        public IActionResult GetSchoolEvaluators()
+        {
+            System.Console.WriteLine("You reached backend for GetSchoolEvaluators");
+
+            //get SchoolIdInSession from session
+            int? SchoolIdInSession = HttpContext.Session.GetInt32("SchoolIdInSession");
+            //get all users
+            List<User> allUsers = _context.Users?
+            .Where(u => u.AccountType == AccountType.Evaluator && u.SchoolId == SchoolIdInSession)
+            .ToList() ?? new List<User>();
+
+            return Ok(new
+            {
+                SchoolEvaluatorsData = allUsers,
+                message = "You reached backend for GetSchoolEvaluators"
+            });
+        }
+
 
     }
 }

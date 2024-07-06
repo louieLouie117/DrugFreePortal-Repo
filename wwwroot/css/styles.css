@@ -988,7 +988,24 @@ th{
         column-gap: 20px;
         padding: 40px;
     }
+    .SchoolsEvaluatorsList{
+        display: grid;
+        row-gap: 20px;
+    }
+    .SchoolsEvaluatorsList>li{
+        display: grid;
+        grid-template-columns: 1fr 100px;
+        padding: 30px;
+        border-radius: 10px;
+        background-color: white;
+        align-items: center;
+    }
 
+    .SchoolsEvaluatorsList>li>header{
+        display: grid;
+        row-gap: 5px;
+        font: 1.3em sans-serif;
+    }
     /* @ media and screen size less than 820 change .userRecord-Container grid-template-columns: repeat(2, 1fr);
 */
 @media screen and (max-width: 1450px) {

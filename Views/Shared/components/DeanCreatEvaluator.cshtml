@@ -1,7 +1,56 @@
+<script>
+
+    const RenderDeanEvaluator = (user) => {
+        console.log("Render Evaluator List and Append to ul ", user);
+        // loop data and render to the ul with id EvaluatorList
+        user.forEach(evaluator => {
+            let li = document.createElement('li');
+            let header = document.createElement('header');
+            let labelName = document.createElement('label');
+            let labelEmail = document.createElement('label');
+
+            labelName.innerText = `${evaluator.firstName} ${evaluator.lastName}`;
+            labelEmail.innerText = `${evaluator.email}`;
+
+            header.appendChild(labelName);
+            header.appendChild(labelEmail);
+
+            //delete button 
+            let deleteButton = document.createElement('button');
+            deleteButton.innerText = "Delete";
+            deleteButton.onclick = () => {
+                console.log("Delete Evaluator", evaluator.id);
+                // deleteEvaluator(evaluator.id);
+            }
+            li.appendChild(header);
+            li.appendChild(deleteButton);
+
+            EvaluatorList.appendChild(li);
+        });
+
+    }
+
+    // js fetch all fetchSchoolEvaluators
+    const fetchSchoolEvaluators = () => {
+        fetch('GetSchoolEvaluators')
+            .then(response => response.json())
+            .then(data => {
+                console.log("All School Evaluator", data.schoolEvaluatorsData);
+                EvaluatorList.innerHTML = "";
+                RenderDeanEvaluator(data.schoolEvaluatorsData);
+            })
+            .catch(error => {
+                console.error('There was an error!', error);
+            });
+    }
+
+</script>
+
 <div class="DeanCreateEvaluator-Container">
     <partial name="registration/evaluatorReg">
         <div>
             <p>list of all evaluaotr from the school by id</p>
+            <ul class="SchoolsEvaluatorsList" id="EvaluatorList"></ul>
         </div>
 
 
