@@ -18,6 +18,7 @@
             case "EvaluatorIcon":
                 evaluatorRecords.style.display = "grid";
                 fetchSchoolEvaluators();
+                console.log("Evaluator Icon Clicked");
                 break;
             case "SearchIcon":
                 searchRecords.style.display = "grid";
@@ -44,7 +45,7 @@
                 <p>All Records</p>
                 <div id="AllRecordsIcon" onclick="DeanNavHandler(event)"></div>
             </li>
-            <li onclick="DeanNavHandler(event)">
+            <li>
                 <svg xmlns="http://www.w3.org/2000/svg" width="50" height="40"
                     viewBox="0 0 80 50">
                     <g id="Icon_ionic-ios-people" data-name="Icon ionic-ios-people"

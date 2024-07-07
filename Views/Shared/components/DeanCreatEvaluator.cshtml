@@ -1,9 +1,13 @@
 <script>
 
     const RenderDeanEvaluator = (user) => {
+        //clear the list
+        document.getElementById('EvaluatorList').innerHTML = "";
+
         console.log("Render Evaluator List and Append to ul ", user);
         // loop data and render to the ul with id EvaluatorList
         user.forEach(evaluator => {
+            console.log(evaluator.userId)
             let li = document.createElement('li');
             let header = document.createElement('header');
             let labelName = document.createElement('label');
@@ -19,13 +23,13 @@
             let deleteButton = document.createElement('button');
             deleteButton.innerText = "Delete";
             deleteButton.onclick = () => {
-                console.log("Delete Evaluator", evaluator.id);
-                // deleteEvaluator(evaluator.id);
+                console.log("Delete Evaluator", evaluator.userId);
+                // deleteEvaluator(evaluator.userId);
             }
             li.appendChild(header);
             li.appendChild(deleteButton);
 
-            EvaluatorList.appendChild(li);
+            document.getElementById('EvaluatorList').appendChild(li);
         });
 
     }
@@ -36,7 +40,6 @@
             .then(response => response.json())
             .then(data => {
                 console.log("All School Evaluator", data.schoolEvaluatorsData);
-                EvaluatorList.innerHTML = "";
                 RenderDeanEvaluator(data.schoolEvaluatorsData);
             })
             .catch(error => {
@@ -49,7 +52,7 @@
 <div class="DeanCreateEvaluator-Container">
     <partial name="registration/evaluatorReg">
         <div>
-            <h2>Active Evaluators</h2>
+            <h3>Active Evaluators</h3>
             <ul class="SchoolsEvaluatorsList" id="EvaluatorList"></ul>
         </div>
 
