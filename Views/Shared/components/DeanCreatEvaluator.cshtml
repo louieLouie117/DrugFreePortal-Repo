@@ -1,5 +1,26 @@
 <script>
 
+    const deleteEvaluator = (userId) => {
+        console.log("deleteEvaluator", userId);
+        const jsonData = {
+            userId: userId
+        }
+        console.log("jsonData", jsonData);
+
+        $.ajax({
+            url: 'DeleteEvaluator',
+            type: 'POST',
+            data: jsonData,
+            success: function (data) {
+                console.log('Success:', data);
+                fetchSchoolEvaluators();
+            },
+            error: function (error) {
+                console.error('Error:', error);
+            }
+        });
+    }
+
     const RenderDeanEvaluator = (user) => {
         //clear the list
         document.getElementById('EvaluatorList').innerHTML = "";
@@ -23,8 +44,19 @@
             let deleteButton = document.createElement('button');
             deleteButton.innerText = "Delete";
             deleteButton.onclick = () => {
-                console.log("Delete Evaluator", evaluator.userId);
-                // deleteEvaluator(evaluator.userId);
+                // added an alter with options yes or no and a massage are you sure you want to delete
+                if (confirm('Select ok to delete or cancel to cancel the action')) {
+                    // User clicked "OK" (Yes) - handle the action
+                    console.log("Delete Evaluator", evaluator.userId);
+                    deleteEvaluator(evaluator.userId);
+                } else {
+                    // User clicked "Cancel" (No) - no action taken
+                    console.log('Action canceled.');
+                    // Handle the case where the user cancels the action
+                }
+
+
+
             }
             li.appendChild(header);
             li.appendChild(deleteButton);

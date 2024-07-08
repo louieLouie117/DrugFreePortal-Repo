@@ -92,6 +92,37 @@ namespace DrugFreePortal.Models
             });
         }
 
+        [HttpPost("DeleteEvaluator")]
+        public IActionResult DeleteEvaluatorMethod(User IdToDelete)
+        {
+            System.Console.WriteLine("Reached backend of deleting user", IdToDelete);
+            // check if the data is null
+            if (IdToDelete == null)
+            {
+                System.Console.WriteLine("User ID is null");
+                return BadRequest(new { message = "User ID is null" });
+            }
+
+            // check if the data is empty
+            if (IdToDelete.UserId == 0)
+            {
+                System.Console.WriteLine("User ID is empty");
+                return BadRequest(new { message = "User ID is empty" });
+            }
+
+            // remove the user from the database
+            _context.Users?.Remove(IdToDelete);
+            _context.SaveChanges();
+            System.Console.WriteLine("Id to delete user form Db", IdToDelete);
+
+
+
+            // Perform delete operation using the userId
+
+            return Ok(new { UserDeleted = IdToDelete, message = "Reached backend of deleting user" });
+
+        }
+
 
     }
 }
