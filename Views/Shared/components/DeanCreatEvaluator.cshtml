@@ -1,0 +1,92 @@
+<script>
+
+    const deleteEvaluator = (userId) => {
+        console.log("deleteEvaluator", userId);
+        const jsonData = {
+            userId: userId
+        }
+        console.log("jsonData", jsonData);
+
+        $.ajax({
+            url: 'DeleteEvaluator',
+            type: 'POST',
+            data: jsonData,
+            success: function (data) {
+                console.log('Success:', data);
+                fetchSchoolEvaluators();
+            },
+            error: function (error) {
+                console.error('Error:', error);
+            }
+        });
+    }
+
+    const RenderDeanEvaluator = (user) => {
+        //clear the list
+        document.getElementById('EvaluatorList').innerHTML = "";
+
+        console.log("Render Evaluator List and Append to ul ", user);
+        // loop data and render to the ul with id EvaluatorList
+        user.forEach(evaluator => {
+            console.log(evaluator.userId)
+            let li = document.createElement('li');
+            let header = document.createElement('header');
+            let labelName = document.createElement('label');
+            let labelEmail = document.createElement('label');
+
+            labelName.innerText = `${evaluator.firstName} ${evaluator.lastName}`;
+            labelEmail.innerText = `${evaluator.email}`;
+
+            header.appendChild(labelName);
+            header.appendChild(labelEmail);
+
+            //delete button 
+            let deleteButton = document.createElement('button');
+            deleteButton.innerText = "Delete";
+            deleteButton.onclick = () => {
+                // added an alter with options yes or no and a massage are you sure you want to delete
+                if (confirm('Select ok to delete or cancel to cancel the action')) {
+                    // User clicked "OK" (Yes) - handle the action
+                    console.log("Delete Evaluator", evaluator.userId);
+                    deleteEvaluator(evaluator.userId);
+                } else {
+                    // User clicked "Cancel" (No) - no action taken
+                    console.log('Action canceled.');
+                    // Handle the case where the user cancels the action
+                }
+
+
+
+            }
+            li.appendChild(header);
+            li.appendChild(deleteButton);
+
+            document.getElementById('EvaluatorList').appendChild(li);
+        });
+
+    }
+
+    // js fetch all fetchSchoolEvaluators
+    const fetchSchoolEvaluators = () => {
+        fetch('GetSchoolEvaluators')
+            .then(response => response.json())
+            .then(data => {
+                console.log("All School Evaluator", data.schoolEvaluatorsData);
+                RenderDeanEvaluator(data.schoolEvaluatorsData);
+            })
+            .catch(error => {
+                console.error('There was an error!', error);
+            });
+    }
+
+</script>
+
+<div class="DeanCreateEvaluator-Container">
+    <partial name="registration/evaluatorReg">
+        <div>
+            <h3>Active Evaluators</h3>
+            <ul class="SchoolsEvaluatorsList" id="EvaluatorList"></ul>
+        </div>
+
+
+</div>

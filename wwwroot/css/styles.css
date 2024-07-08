@@ -61,7 +61,7 @@ img{
 }
 
 button{
-    font: 1.3em sans-serif;
+    font: 1em sans-serif;
     width: auto;
     height: 40px;
     padding: 5px;
@@ -110,6 +110,9 @@ a{
     display: grid;
     justify-content: flex-end;
     padding: 5px;
+    position: fixed;
+    top: 0;
+    right: 0;
     
 }
 
@@ -817,18 +820,26 @@ th{
 
     /* Dean Dashboard----------------------------- */
 
-    .DeanDashboard-ContainerTest{
+    .DeanDashboard-Container{
         display: grid;
+        grid-template-columns: 110px 1fr;
         align-content: flex-start;
         background-color: whitesmoke;
-        height: 100vh;
+        /* height: 100vh; */
     }
     .userRecord-Container{
         display: grid;
         grid-template-columns: repeat(4, 1fr);
         column-gap: 20px;
-        margin: 40px;
+        margin: 30px;
+        margin-top: 40px;
         row-gap: 20px;
+        background: whitesmoke;
+        padding: 10px;
+        overflow: scroll;
+        height: 90vh;
+        /* box-shadow: 19px 0px 90px black;
+        padding: 20px; */
 
     }
 
@@ -909,6 +920,110 @@ th{
         width: 500px;
         height: auto;
     }
+
+
+    .DeanNav-Container{
+        display: grid;
+        justify-items: center;
+        background-color: #245684;
+        /* padding: 15px; */
+        border: none;
+        align-content: center;
+        height: 99.7vh;
+        
+    }
+
+    .DeanNav-Container>nav>ul{
+        display: grid;
+        height: 90%;
+        row-gap: 140px;
+    }
+
+    .DeanNav-Container>nav>ul>li{
+        display: grid;
+        justify-items: center;
+        row-gap: 5px;
+        font: .8em sans-serif;
+        color: white;
+        align-content: flex-start;
+        cursor: pointer;       
+        /* background-color: #39C32B; */
+        padding: 10px 20px;
+        margin-left: 4px;
+        border-radius: 20px 0 0 20px;
+    }
+
+
+       .DeanNav-Container>nav>ul>li>svg{
+        margin: 0px;
+        grid-column: 1/2;
+        grid-row: 1/2;
+    }
+
+    .DeanNav-Container>nav>ul>li>p{
+        margin: 0px;
+        grid-column: 1/2;
+        grid-row: 2/3;
+    }
+    
+    .DeanNav-Container>nav>ul>li>div{
+        margin: 0px;
+        grid-column: 1/2;
+        grid-row: 1/3;
+        height: 100%;
+        width: 100%;
+        background: none;
+        border-radius: 0px;
+        background-color: none;
+        padding: 10px 20px;
+        margin-left: 4px;
+        border-radius: 20px 0 0 20px;
+        margin-top: -10px;
+        margin-left: -2px;
+
+    }
+    .DeanCreateEvaluator-Container{
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+        column-gap: 20px;
+        padding: 40px;
+    }
+    .SchoolsEvaluatorsList{
+        display: grid;
+        row-gap: 20px;
+    }
+    .SchoolsEvaluatorsList>li{
+        display: grid;
+        grid-template-columns: 1fr 100px;
+        padding: 30px;
+        border-radius: 10px;
+        background-color: white;
+        align-items: center;
+    }
+
+    .SchoolsEvaluatorsList>li>header{
+        display: grid;
+        row-gap: 5px;
+        font: 1.3em sans-serif;
+    }
+    /* @ media and screen size less than 820 change .userRecord-Container grid-template-columns: repeat(2, 1fr);
+*/
+@media screen and (max-width: 1450px) {
+    .userRecord-Container {
+        grid-template-columns: repeat(2, 1fr);
+        margin:10px;
+        height: 95vh;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .userRecord-Container {
+        grid-template-columns:  1fr;
+        margin:10px;
+        height: 95vh;
+    }
+}
+
 
     /* Student Dashboard----------------------------- */
 

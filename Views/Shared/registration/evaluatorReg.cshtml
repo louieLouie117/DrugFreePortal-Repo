@@ -44,6 +44,7 @@
     const evaluatorRegSuccess = (data) => {
         console.log("evaluatorRegSuccess called")
         console.log(data)
+        fetchSchoolEvaluators();
 
 
     @* check to see if files in arry data.files send alter can not be empty *@
@@ -116,9 +117,10 @@
 
 
         <button class="mainBTN" onclick="RegEvaluatorHandler(event)">Create Evaluator Account</button>
+        <a href="/" style="padding: 10px;">Sign In Evaluator</a>
+
 
     </form>
-
 
 </div>
 
