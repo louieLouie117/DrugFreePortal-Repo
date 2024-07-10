@@ -1,0 +1,29 @@
+<script>
+
+    const CheckInHandler = (e) => {
+        console.log("CheckIn StudnetHandler called")
+
+        $.ajax({
+            url: '/CheckInStudent',
+            type: 'POST',
+            success: function (response) {
+                // Handle success response
+                console.log(response);
+                console.log("Status:", response.status);
+                console.log("Message:", response.message);
+                document.getElementById("QueueStatusLabelStudent").innerText = response.message;
+
+            },
+            error: function (error) {
+                // Handle error response
+                console.log(error);
+            }
+        });
+
+    }
+
+</script>
+<div>
+    <label id="QueueStatusLabelStudent"></label>
+    <button class="mainBTN" onclick="CheckInHandler(event)">Check-In</button>
+</div>

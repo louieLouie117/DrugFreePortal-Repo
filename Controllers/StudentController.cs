@@ -78,5 +78,60 @@ namespace DrugFreePortal.Models
 
 
         }
+
+        [HttpPost("CheckInStudent")]
+        public IActionResult CheckInStudent(User user, Queue queue)
+        {
+            System.Console.WriteLine($"You reached backend for CheckInStudent");
+            // get all records filter by the user Id
+            //get user id from session
+            int? UserIdInSession = HttpContext.Session.GetInt32("UserId");
+
+            // check if userIdInSession is in queue if in queue return message "You are already check in"
+            var checkQueue = _context.Queues?
+                .FirstOrDefault(u => u.StudentUserId == UserIdInSession);
+
+            if (checkQueue != null)
+            {
+                return Ok(new { message = "You are already check in." });
+            }
+            System.Console.WriteLine($"----------------UserId in session Home:GetUsers => {UserIdInSession}");
+
+            // if user is not logged in
+            if (UserIdInSession == null)
+            {
+                System.Console.WriteLine("User not logged in");
+            }
+            // get user from session with lambda expression
+            var UserFound = _context.Users?
+                .FirstOrDefault(u => u.UserId == UserIdInSession);
+
+            // use the user data to add to the queue; SchoolId, UserId, StudentName, StudentUserId, first name, last name, email, phone number and status = "Start"
+            Queue newQueue = new Queue
+            {
+                SchoolId = UserFound.SchoolId,
+                SchoolName = UserFound.School,
+                StudentId = 0, // Set the value of the 'StudentId' property
+                StudentUserId = UserFound.UserId, // Set the value of the 'StudentUserId' property
+                FirstName = UserFound.FirstName,
+                LastName = UserFound.LastName,
+                Email = UserFound.Email,
+                PhoneNumber = UserFound.PhoneNumber,
+                Status = "Start"
+            };
+
+            // add the new queue to the database
+            _context.Queues.Add(newQueue);
+            _context.SaveChanges();
+
+
+
+            return Ok(new
+            {
+                UserInSession = UserFound,
+                QueueData = newQueue,
+                message = "You have been checked in. Please wait for your turn."
+            });
+        }
     }
 }
