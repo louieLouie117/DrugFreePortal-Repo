@@ -72,7 +72,8 @@
         divElement.appendChild(labelStudentId);
 
         const addRecordsButton = document.createElement("button");
-        addRecordsButton.innerHTML = "+";
+        addRecordsButton.innerHTML = "+ Create Record";
+        addRecordsButton.className = "BlueBTN";
         addRecordsButton.addEventListener("click", RenderSchoolComplianceHandler)
 
         divElement.appendChild(addRecordsButton);
@@ -538,7 +539,11 @@
         <label id="SemesterId">SemesterId</label>
         <label id="SemesterTitle">SemesterTitle</label>
     </div>
+<header id="StudentCardHeader">
+        <button id="ReturnToQueueBTN" onclick="ReturnToQueueHandler(event)">Return to Queue</button>
+        <button  onclick="CompleteAndCloseHandlder(event)">Complete and Close</button>
 
+    </header>
 
     <header id="RecordsMainDiv"></header>
 
@@ -552,11 +557,7 @@
     </main>
 
 
-    <header id="StudentCardHeader">
-        <button id="ReturnToQueueBTN" onclick="ReturnToQueueHandler(event)">Return to Queue</button>
-        <button class="mainBTN" onclick="CompleteAndCloseHandlder(event)">Complete and Close</button>
-
-    </header>
+    
 
 
 </div>
