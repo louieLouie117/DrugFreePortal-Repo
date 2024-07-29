@@ -84,6 +84,16 @@ a{
     color: #245684;
 }
 
+.MainBTN{
+    background-color: white;
+    color: #245684;
+    padding: 10px;
+    text-decoration: none;
+    border-radius: 15px;
+    text-align: center;
+    border: solid #245684 1.3px;
+}
+
 .inputWrapper{
     display: grid;
     grid-template-columns: 1fr 70px;
@@ -914,6 +924,9 @@ th{
     .StudentFileViewer-Container>li{
         display: grid;
         border-radius: 10px;
+        background-color: white;
+        padding: 20px;
+        row-gap: 10px;
     }
 
     .StudentFileViewer-Container>li>img{
