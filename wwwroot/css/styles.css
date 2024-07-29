@@ -77,11 +77,25 @@ input, select{
     font: 1.2em sans-serif;
     padding: 10px;
     border-radius: 7px;
-    border: solid black 1.3px;
+    /* border: solid black 1.3px; */
 }
 
 a{
     color: #245684;
+}
+
+.FileUploadContainer{
+    display: grid;
+    align-items: center;
+    border: solid black 1.3px;
+    padding: 10px;
+}
+
+.FileUploadContainer>footer{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 10px;
 }
 
 .MainBTN{
@@ -1125,6 +1139,7 @@ th{
         position: fixed;
         bottom: -300%;
         left: 0;
+        overflow-y: scroll;
     }
 
     .UploadFiles-Container>button{

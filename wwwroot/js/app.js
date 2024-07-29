@@ -20,3 +20,33 @@ const SignOutHandler = async () => {
 
 
 
+
+const AddToCookies = (cookieName, item) =>{
+    console.log("cookieName and item", cookieName, item);
+    document.cookie = `${cookieName}= ${item}`;
+}
+
+const  getCookie = (cookieName) => {
+        console.log("get cookies function");
+        let cookieNeeded = cookieName + "=";
+        let decodedCookie = decodeURIComponent(document.cookie);
+        let ca = decodedCookie.split(';');
+
+        let cookieItemFound  = "test";
+        for (let i = 0; i < ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(cookieNeeded) == 0) {
+                console.log("cookie found in loop----", c.substring(cookieNeeded.length, c.length));
+                cookieItemFound = c.substring(cookieNeeded.length, c.length)
+                // return c.substring(cookieNeeded.length, c.length);
+
+            }
+        }
+
+        console.log("****cookies found for use***", cookieItemFound)
+
+        return cookieItemFound;
+}

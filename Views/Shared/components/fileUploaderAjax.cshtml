@@ -1,6 +1,8 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-<div>
+@await Html.PartialAsync("components/resources")
+
+<div class="hidden">
     <h2>File uploader</h2>
     <form id="uploadForm">
         <input type="file" id="fileInput" name="file" />
@@ -8,11 +10,11 @@
     </form>
 </div>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
     @* $(document).ready(function () {
         GetUserFilesHandler();
         }); *@
+        //working beloow
         $("#uploadForm").on("submit", function (event) {
             event.preventDefault();
 
@@ -31,7 +33,7 @@
                     contentType: false,
                     success: function (data) {
                         alert("File uploaded successfully!");
-                        GetUserFilesHandler();
+                        // Call any other necessary functions here
                     },
                     error: function () {
                         alert("An error occurred.");
@@ -41,4 +43,51 @@
                 alert("No file selected");
             }
         });
+
+
+
+
+
+
+
+
+    @* $("#uploadButton").on("click", function () {
+
+        let complianceName = getCookie("ComplianceName");
+        console.log("------complianceName for jquery----", complianceName);
+
+        $("#fileInput_" + complianceName).on("change", function () {
+        var file = $(this).get(0).files[0];
+        if (file) {
+        $("#uploadButton").prop("disabled", false); // Enable the upload button when a file is selected
+        } else {
+        $("#uploadButton").prop("disabled", true); // Disable the upload button if no file is selected
+        }
+        });
+        var formData = new FormData();
+        var file = $("#fileInput_" + complianceName).get(0).files[0];
+
+        if (file) {
+        formData.append("file", file);
+        console.log(file);
+
+        $.ajax({
+        url: '/UploadSingleFile',
+        type: 'POST',
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function (data) {
+        alert("File uploaded successfully!");
+        GetUserFilesHandler();
+        },
+        error: function () {
+        alert("An error occurred.");
+        }
+        });
+        } else {
+        alert("No file selected");
+        }
+        }); *@
+
 </script>

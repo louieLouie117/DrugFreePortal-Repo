@@ -49,6 +49,43 @@ const UploadFileViewHandler = async (e) => {
    
 }
 
+
+
+
+const uploadFile = (name) => {
+    document.getElementById("uploadForm_"+ name).addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        var formData = new FormData();
+        var fileInput = document.getElementById("fileInput_" + name);
+        var file = fileInput.files[0];
+
+        if (file) {
+            formData.append("file", file);
+            console.log(file);
+
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "/UploadSingleFile", true);
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    alert("File uploaded successfully!");
+                    // Call any other necessary functions here
+                } else {
+                    alert("An error occurred.");
+                }
+            };
+            xhr.onerror = function () {
+                alert("An error occurred.");
+            };
+            xhr.send(formData);
+        } else {
+            alert("No file selected");
+        }
+    });
+};
+
+
+
 const RenderStudentCompliance = (complianceList) => {
     const ul = document.getElementById('SchoolComplianceForStudent'); // Assuming you have a ul with id 'SchoolComplianceForStudent'
     // Clear the SchoolComplianceForStudent id ul
@@ -60,7 +97,19 @@ const RenderStudentCompliance = (complianceList) => {
 
         const li = document.createElement('li');
         li.innerHTML = `
-            <label>${compliance.name}</;>
+
+            <form class="FileUploadContainer" id="uploadForm_${compliance.name}">
+
+
+            <input type="file" id="fileInput_${compliance.name}" name="file" />
+              <footer>
+                <label>${compliance.name}</label>
+
+               <button id="uploadButton_${compliance.name}" class="mainBTN" onclick="uploadFile('${compliance.name}')">Upload</button>
+               </footer>
+        
+            </form>
+             
         `;
 
         // Append the list item to the ul
