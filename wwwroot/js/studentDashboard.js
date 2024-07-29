@@ -25,8 +25,8 @@ const RenderStudentFiles = (files) => {
 
         const li = document.createElement('li');
         li.innerHTML = `
-            <img src="/img/uploads/${file.fileName}" alt="${file.fileName}">
-            <button onclick="window.open('/img/uploads/${file.fileName}', '_blank')">View</button>
+            <img src="${file.filePath}" alt="${file.filePath}">
+            <a href="${file.filePath}" target="_blank">${file.fileName}</a>
         `;
     
         // Append the list item to the ul

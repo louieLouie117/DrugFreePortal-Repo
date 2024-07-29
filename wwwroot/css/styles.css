@@ -775,6 +775,14 @@ th{
 
     }
 
+    .UserItem-Container{
+        display: grid;
+    }
+    .UserUpload-Image{
+        height: 700px;
+        width: auto;
+    }
+
     .UserUpload-Container>label{
         font: 2em sans-serif;
         background-color: white;
@@ -920,6 +928,7 @@ th{
         padding: 30px;
         justify-content: center;
     }
+
 
     .StudentFileViewer-Container>li{
         display: grid;

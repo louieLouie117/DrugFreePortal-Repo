@@ -31,7 +31,7 @@
             let li = document.createElement('li');
             // image element appended to li with src as uploadFile fileName
             let img = document.createElement('img');
-            img.src = `img/uploads/${uploadFile.fileName}`;
+            img.src = `${uploadFile.filePath}`;
             li.appendChild(img);
 
             // button element with link to open the file
