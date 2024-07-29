@@ -20,6 +20,7 @@
 
             var formData = new FormData();
             var file = $("#fileInput").get(0).files[0];
+            console.log("------file----", file);
 
             if (file) {
                 formData.append("file", file);

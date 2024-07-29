@@ -60,10 +60,12 @@ const uploadFile = (name) => {
         var formData = new FormData();
         var fileInput = document.getElementById("fileInput_" + name);
         var file = fileInput.files[0];
+        console.log("------------file", file);
 
         if (file) {
-            formData.append("file", file);
-            console.log(file);
+            // Change the file name to "file" if you want to use the same name
+            formData.append("file", file, name);
+            console.log("here",file);
 
             var xhr = new XMLHttpRequest();
             xhr.open("POST", "/UploadSingleFile", true);
@@ -104,9 +106,8 @@ const RenderStudentCompliance = (complianceList) => {
 
             <input type="file" id="fileInput_${compliance.name}" name="file" />
               <footer>
-                <label>${compliance.name}</label>
 
-               <button id="uploadButton_${compliance.name}" class="mainBTN" onclick="uploadFile('${compliance.name}')">Upload</button>
+               <button id="uploadButton_${compliance.name}" class="mainBTN" onclick="uploadFile('${compliance.name}')">Upload: ${compliance.name} </button>
                </footer>
         
             </form>

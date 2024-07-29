@@ -99,6 +99,7 @@ namespace DrugFreePortal.Models
         public async Task<IActionResult> UploadSingleFileMethod(IFormFile file, UploadFile fromUser)
         {
             System.Console.WriteLine("Reached backend of UploadSingleFileMethod-----");
+            System.Console.WriteLine($"File Name: {file.FileName}");
 
             if (file.Length > 5 * 1024 * 1024) // 5MB
             {
@@ -116,9 +117,9 @@ namespace DrugFreePortal.Models
             string fileName = $"{timeStamp}_{encodedFileName}";
 
             // Combine the current directory path with the destination path for the uploaded file
-            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "img", "uploads", fileName);
+            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "img", "uploads", fileName + ".png");
             // file name for databse to render on the frontend
-            var shortFilePath = Path.Combine("img", "uploads", fileName);
+            var shortFilePath = Path.Combine("img", "uploads", fileName + ".png");
 
 
             // Create a new file stream and open the file in create mode
@@ -134,7 +135,7 @@ namespace DrugFreePortal.Models
 
             // get and set defult file infomation
             fromUser.UserId = UserIdInSession ?? 0;
-            fromUser.FileName = fileName;
+            fromUser.FileName = file.FileName;
             fromUser.FilePath = shortFilePath;
             fromUser.FileType = file.ContentType;
             fromUser.FileSize = file.Length;
