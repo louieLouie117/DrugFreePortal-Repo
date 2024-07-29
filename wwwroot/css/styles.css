@@ -782,6 +782,7 @@ th{
 
     .UserUpload-Container{
         display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
         row-gap: 20px;
         background-color: none;
         height: 94vh;
@@ -791,15 +792,20 @@ th{
         padding: 20px;
         border-radius: 50px 0 0 50px;
         overflow-y: scroll;
-
+        column-gap: 10px;
 
     }
 
     .UserItem-Container{
         display: grid;
+        background: white;
+        justify-items: center;
+        padding: 20px;
+        row-gap: 20px;
+        border-radius: 20px;
     }
     .UserUpload-Image{
-        height: 700px;
+        /* height: 700px; */
         width: auto;
     }
 

@@ -124,6 +124,12 @@
             const liElement = document.createElement("li");
             liElement.className = "UserItem-Container";
 
+            // create a label element and set the innerHTML to the file name
+            const labelElement = document.createElement("label");
+            labelElement.innerHTML = FileName;  
+            liElement.appendChild(labelElement);
+            
+
             // create an img element and set the src to the file name
             const imgElement = document.createElement("img");
             imgElement.src = item.filePath;
