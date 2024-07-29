@@ -69,6 +69,7 @@
         const labelStudentId = document.createElement("label");
         labelStudentId.innerHTML = userData.studentId;
         labelStudentId.id = "labelStudentIdRecord"; // Add unique id
+        labelStudentId.className = "hidden";
         divElement.appendChild(labelStudentId);
 
         const addRecordsButton = document.createElement("button");

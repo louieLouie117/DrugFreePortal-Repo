@@ -606,7 +606,7 @@ th{
     
     .SubmitRecords-Container>header>div{
         display: grid;
-        grid-template-columns: 3fr 1fr 160px;
+        grid-template-columns: 1fr 160px;
         background-color: #245684;
         padding: 20px;
         width: 800px;
