@@ -304,6 +304,14 @@ th{
     row-gap: 10px;
 }
 
+.Step3-Container>ul{
+    display: grid;
+    row-gap: 20px;
+    font: 1em sans-serif;
+}
+
+
+
 .StudentResults-Container>li>label{
     background-color: #245684;
     color: white;

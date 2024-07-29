@@ -24,8 +24,9 @@ const RenderStudentFiles = (files) => {
        
 
         const li = document.createElement('li');
+        // add to the bottom if needed <img src="${file.filePath}" alt="${file.filePath}">
+
         li.innerHTML = `
-            <img src="${file.filePath}" alt="${file.filePath}">
             <a href="${file.filePath}" target="_blank">${file.fileName}</a>
         `;
     
