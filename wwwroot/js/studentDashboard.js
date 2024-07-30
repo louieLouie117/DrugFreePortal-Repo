@@ -53,12 +53,17 @@ const UploadFileViewHandler = async (e) => {
 
 
 
-const uploadFile = (name) => {
-    document.getElementById("uploadForm_"+ name).addEventListener("submit", function (event) {
+const uploadFile = (id, name) => {
+    let button = document.getElementById("uploadButton_" + id);
+ 
+    document.getElementById("uploadForm_"+ id).addEventListener("submit", function (event) {
         event.preventDefault();
+        console.log(id, name);
+
+      
 
         var formData = new FormData();
-        var fileInput = document.getElementById("fileInput_" + name);
+        var fileInput = document.getElementById("fileInput_" + id);
         var file = fileInput.files[0];
         console.log("------------file", file);
 
@@ -73,6 +78,9 @@ const uploadFile = (name) => {
                 if (xhr.status === 200) {
                     alert("File uploaded successfully!");
                     // Call any other necessary functions here
+                    button.style.backgroundColor = "gray";
+                    button.disabled = true;
+                    button.innerHTML = "Uploaded Successfully";
                 } else {
                     alert("An error occurred.");
                 }
@@ -83,6 +91,7 @@ const uploadFile = (name) => {
             xhr.send(formData);
         } else {
             alert("No file selected");
+
         }
     });
 };
@@ -96,22 +105,16 @@ const RenderStudentCompliance = (complianceList) => {
 
     complianceList.forEach(compliance => {
         // Create a new list item
-        console.log("compliance", compliance.name);
+        console.log("compliance", compliance.complianceTypeId);
 
         const li = document.createElement('li');
         li.innerHTML = `
-
-            <form class="FileUploadContainer" id="uploadForm_${compliance.name}">
-
-
-            <input type="file" id="fileInput_${compliance.name}" name="file" />
-              <footer>
-
-               <button id="uploadButton_${compliance.name}" class="mainBTN" onclick="uploadFile('${compliance.name}')">Upload: ${compliance.name} </button>
-               </footer>
-        
+            <form class="FileUploadContainer" id="uploadForm_${compliance.complianceTypeId}">
+            <input type="file" id="fileInput_${compliance.complianceTypeId}" name="file" />
+            <footer>
+                <button id="uploadButton_${compliance.complianceTypeId}" class="mainBTN" onclick="uploadFile('${compliance.complianceTypeId}', '${compliance.name}')">Upload: ${compliance.name}</button>
+            </footer>
             </form>
-             
         `;
 
         // Append the list item to the ul
