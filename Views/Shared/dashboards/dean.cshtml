@@ -31,16 +31,26 @@
             let li = document.createElement('li');
             // image element appended to li with src as uploadFile fileName
             let img = document.createElement('img');
-            img.src = `img/uploads/${uploadFile.fileName}`;
+            img.src = `${uploadFile.filePath}`;
             li.appendChild(img);
 
             // button element with link to open the file
-            let button = document.createElement('button');
-            button.innerHTML = "View";
-            button.addEventListener('click', () => {
+            let buttonView = document.createElement('button');
+            buttonView.innerHTML = "View File";
+            buttonView.addEventListener('click', () => {
                 window.open(`img/uploads/${uploadFile.fileName}`);
             });
-            li.appendChild(button);
+            li.appendChild(buttonView);
+
+            // a tag element with link to download the file
+            let downloadFile = document.createElement('a');
+            downloadFile.href = `img/uploads/${uploadFile.fileName}`;
+            downloadFile.download = uploadFile.fileName;
+            downloadFile.innerText = "Download File";
+            downloadFile.className = "MainBTN";
+            li.appendChild(downloadFile);
+
+
 
             ul.appendChild(li);
         });

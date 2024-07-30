@@ -24,9 +24,10 @@ const RenderStudentFiles = (files) => {
        
 
         const li = document.createElement('li');
+        // add to the bottom if needed <img src="${file.filePath}" alt="${file.filePath}">
+
         li.innerHTML = `
-            <img src="/img/uploads/${file.fileName}" alt="${file.fileName}">
-            <button onclick="window.open('/img/uploads/${file.fileName}', '_blank')">View</button>
+            <a href="${file.filePath}" target="_blank">${file.fileName}</a>
         `;
     
         // Append the list item to the ul
@@ -49,6 +50,54 @@ const UploadFileViewHandler = async (e) => {
    
 }
 
+
+
+
+const uploadFile = (id, name) => {
+    let button = document.getElementById("uploadButton_" + id);
+ 
+    document.getElementById("uploadForm_"+ id).addEventListener("submit", function (event) {
+        event.preventDefault();
+        console.log(id, name);
+
+      
+
+        var formData = new FormData();
+        var fileInput = document.getElementById("fileInput_" + id);
+        var file = fileInput.files[0];
+        console.log("------------file", file);
+
+        if (file) {
+            // Change the file name to "file" if you want to use the same name
+            formData.append("file", file, name);
+            console.log("here",file);
+
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "/UploadSingleFile", true);
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    alert("File uploaded successfully!");
+                    // Call any other necessary functions here
+                    button.style.backgroundColor = "gray";
+                    button.disabled = true;
+                    button.innerHTML = "Uploaded Successfully";
+                } else {
+                    alert("An error occurred.");
+                }
+            };
+            xhr.onerror = function () {
+                alert("An error occurred.");
+            };
+            xhr.send(formData);
+        } else {
+            alert("No file selected");
+
+        }
+    });
+};
+
+
+
 const RenderStudentCompliance = (complianceList) => {
     const ul = document.getElementById('SchoolComplianceForStudent'); // Assuming you have a ul with id 'SchoolComplianceForStudent'
     // Clear the SchoolComplianceForStudent id ul
@@ -56,11 +105,16 @@ const RenderStudentCompliance = (complianceList) => {
 
     complianceList.forEach(compliance => {
         // Create a new list item
-        console.log("compliance", compliance.name);
+        console.log("compliance", compliance.complianceTypeId);
 
         const li = document.createElement('li');
         li.innerHTML = `
-            <label>${compliance.name}</;>
+            <form class="FileUploadContainer" id="uploadForm_${compliance.complianceTypeId}">
+            <input type="file" id="fileInput_${compliance.complianceTypeId}" name="file" />
+            <footer>
+                <button id="uploadButton_${compliance.complianceTypeId}" class="mainBTN" onclick="uploadFile('${compliance.complianceTypeId}', '${compliance.name}')">Upload: ${compliance.name}</button>
+            </footer>
+            </form>
         `;
 
         // Append the list item to the ul

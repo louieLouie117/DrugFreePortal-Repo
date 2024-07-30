@@ -77,12 +77,50 @@ input, select{
     font: 1.2em sans-serif;
     padding: 10px;
     border-radius: 7px;
-    border: solid black 1.3px;
+    /* border: solid black 1.3px; */
 }
 
 a{
     color: #245684;
 }
+
+.FileUploadContainer{
+    display: grid;
+    align-items: center;
+    border: solid black 1.3px;
+    padding: 10px;
+}
+
+.FileUploadContainer>footer{
+    display: grid;
+    /* grid-template-columns: 1fr 1fr; */
+    align-items: center;
+    padding: 10px;
+}
+
+.MainBTN{
+    background-color: white;
+    color: #245684;
+    padding: 10px;
+    text-decoration: none;
+    border-radius: 15px;
+    text-align: center;
+    border: solid #245684 1px;
+}
+
+.BlueBTN{
+    font: 1em sans-serif;
+    /* background-color: #245684; */
+    background-color: #4e78a0;
+    color: white;
+    padding: 10px;
+    height: 50px;
+    text-decoration: none;
+    border-radius: 15px;
+    text-align: center;
+    /* border: solid white 1px; */
+}
+
 
 .inputWrapper{
     display: grid;
@@ -265,6 +303,14 @@ th{
     display: grid;
     row-gap: 10px;
 }
+
+.Step3-Container>ul{
+    display: grid;
+    row-gap: 20px;
+    font: 1em sans-serif;
+}
+
+
 
 .StudentResults-Container>li>label{
     background-color: #245684;
@@ -460,10 +506,15 @@ th{
 
  #StudentCardHeader{
     display: none;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 2fr;
     column-gap: 20px;
     padding: 10px;
- }
+    row-gap: 20px;
+    max-width: 50em;
+    /* justify-content: center; */
+    justify-self: center;
+    margin: 0 auto;
+}
 
  
 
@@ -570,17 +621,18 @@ th{
 
     .SubmitRecords-Container>header{
         display: grid;
+        margin-top: 30px;
     }
 
 
     
     .SubmitRecords-Container>header>div{
         display: grid;
-        grid-template-columns: 3fr 1fr 50px;
+        grid-template-columns: 1fr 160px;
         background-color: #245684;
         padding: 20px;
         width: 800px;
-        height: 50px;
+        height: 80px;
         justify-self: center;
         align-items: center;
         border-radius: 10px 10px 0 0;
@@ -611,7 +663,7 @@ th{
 
     .RecordList-Container>li{
         display: grid;
-        grid-template-columns: 10px 1fr 100px;
+        grid-template-columns: 10px 1fr 130px;
         column-gap: 20px;
         background-color: white;
         align-items: center;
@@ -752,6 +804,7 @@ th{
 
     .UserUpload-Container{
         display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
         row-gap: 20px;
         background-color: none;
         height: 94vh;
@@ -761,8 +814,21 @@ th{
         padding: 20px;
         border-radius: 50px 0 0 50px;
         overflow-y: scroll;
+        column-gap: 10px;
 
+    }
 
+    .UserItem-Container{
+        display: grid;
+        background: white;
+        justify-items: center;
+        padding: 20px;
+        row-gap: 20px;
+        border-radius: 20px;
+    }
+    .UserUpload-Image{
+        /* height: 700px; */
+        width: auto;
     }
 
     .UserUpload-Container>label{
@@ -911,9 +977,13 @@ th{
         justify-content: center;
     }
 
+
     .StudentFileViewer-Container>li{
         display: grid;
         border-radius: 10px;
+        background-color: white;
+        padding: 20px;
+        row-gap: 10px;
     }
 
     .StudentFileViewer-Container>li>img{
@@ -1077,6 +1147,7 @@ th{
         position: fixed;
         bottom: -300%;
         left: 0;
+        overflow-y: scroll;
     }
 
     .UploadFiles-Container>button{

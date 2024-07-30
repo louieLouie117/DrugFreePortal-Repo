@@ -69,10 +69,12 @@
         const labelStudentId = document.createElement("label");
         labelStudentId.innerHTML = userData.studentId;
         labelStudentId.id = "labelStudentIdRecord"; // Add unique id
+        labelStudentId.className = "hidden";
         divElement.appendChild(labelStudentId);
 
         const addRecordsButton = document.createElement("button");
-        addRecordsButton.innerHTML = "+";
+        addRecordsButton.innerHTML = "+ Create Record";
+        addRecordsButton.className = "BlueBTN";
         addRecordsButton.addEventListener("click", RenderSchoolComplianceHandler)
 
         divElement.appendChild(addRecordsButton);
@@ -115,31 +117,36 @@
         }
 
 
-
         uploadData.forEach((item) => {
             const FileName = item.fileName;
             console.log("FileName:", FileName);
 
-            //create a img element and set the src to the file name
+            // create a li element
+            const liElement = document.createElement("li");
+            liElement.className = "UserItem-Container";
+
+            // create a label element and set the innerHTML to the file name
+            const labelElement = document.createElement("label");
+            labelElement.innerHTML = FileName;  
+            liElement.appendChild(labelElement);
+            
+
+            // create an img element and set the src to the file name
             const imgElement = document.createElement("img");
-            imgElement.src = "/img/uploads/" + FileName;
+            imgElement.src = item.filePath;
             imgElement.className = "UserUpload-Image";
-            UserUploadDiv.appendChild(imgElement);
+            liElement.appendChild(imgElement);
 
-            //button for the evaluator to view the file
-            const ViewButton = document.createElement("button");
-            ViewButton.innerHTML = "View";
-            ViewButton.addEventListener("click", function () {
-                window.open("/img/uploads/" + FileName);
-            });
+            // create an a tag element to open the file in a new tab
+            const ViewButton = document.createElement("a");
+            ViewButton.innerHTML = "View File";
+            ViewButton.href = item.filePath;
+            ViewButton.target = "_blank";
+            ViewButton.className = "MainBTN";
+            liElement.appendChild(ViewButton);
 
-            UserUploadDiv.appendChild(ViewButton);
-
-            UserUploadDiv.appendChild(ViewButton);
-
-
-
-
+            // append the li element to the ul element
+            UserUploadDiv.appendChild(liElement);
         });
 
     };
@@ -149,7 +156,7 @@
 
         console.log("GetUserUploads called");
         console.log("UserId:", UserId);
-        const userUploadDiv = document.createElement("div");
+        const userUploadDiv = document.createElement("ul");
         userUploadDiv.id = "UserUploadDiv";
         userUploadDiv.className = "UserUpload-Container";
         document.getElementById("EvaluatorWindow").appendChild(userUploadDiv);
@@ -539,7 +546,11 @@
         <label id="SemesterId">SemesterId</label>
         <label id="SemesterTitle">SemesterTitle</label>
     </div>
+<header id="StudentCardHeader">
+        <button id="ReturnToQueueBTN" onclick="ReturnToQueueHandler(event)">Return to Queue</button>
+        <button  onclick="CompleteAndCloseHandlder(event)">Complete and Close</button>
 
+    </header>
 
     <header id="RecordsMainDiv"></header>
 
@@ -553,11 +564,7 @@
     </main>
 
 
-    <header id="StudentCardHeader">
-        <button id="ReturnToQueueBTN" onclick="ReturnToQueueHandler(event)">Return to Queue</button>
-        <button class="mainBTN" onclick="CompleteAndCloseHandlder(event)">Complete and Close</button>
-
-    </header>
+    
 
 
 </div>
