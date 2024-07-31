@@ -923,13 +923,13 @@ th{
 
     .userRecord-Container>li>header{
         display: grid;
-        grid-template-columns: 2fr 1fr;
+        /* grid-template-columns: 2fr 1fr; */
         background-color: #245684;
         padding: 10px 25px;
         border-radius: 10px 10px 0 0;
         color: white;
         height: 30px;
-        justify-items: center;
+        justify-content: center;
         align-items: center;
     }
 
@@ -977,7 +977,7 @@ th{
         top: 0;
         left: 0;
         overflow-x: scroll;
-        padding: 30px;
+        /* padding: 30px; */
         justify-content: center;
     }
 
@@ -988,10 +988,12 @@ th{
         background-color: white;
         padding: 20px;
         row-gap: 10px;
+        width: 17em;
+        justify-content: center;
     }
 
     .StudentFileViewer-Container>li>img{
-        width: 500px;
+        width: 256px;
         height: auto;
     }
 
