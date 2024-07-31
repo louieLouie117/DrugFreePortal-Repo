@@ -632,11 +632,11 @@ th{
     
     .SubmitRecords-Container>header>div{
         display: grid;
-        grid-template-columns: 1fr 160px;
+        grid-template-columns: 2fr 1fr 160px;
         background-color: #245684;
         padding: 20px;
         width: 800px;
-        height: 80px;
+        height: 50px;
         justify-self: center;
         align-items: center;
         border-radius: 10px 10px 0 0;
