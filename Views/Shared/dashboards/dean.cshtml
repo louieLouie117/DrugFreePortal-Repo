@@ -29,10 +29,15 @@
 
         uploadFilesData.forEach(uploadFile => {
             let li = document.createElement('li');
-            // image element appended to li with src as uploadFile fileName
+
+            let name = document.createElement('label');
+            name.innerText = uploadFile.fileName;
+            li.appendChild(name);
+
             let img = document.createElement('img');
             img.src = `${uploadFile.filePath}`;
             li.appendChild(img);
+
 
             // button element with link to open the file
             let buttonView = document.createElement('button');
@@ -44,7 +49,7 @@
 
             // a tag element with link to download the file
             let downloadFile = document.createElement('a');
-            downloadFile.href = `img/uploads/${uploadFile.fileName}`;
+            downloadFile.href = `${uploadFile.filePath}`;
             downloadFile.download = uploadFile.fileName;
             downloadFile.innerText = "Download File";
             downloadFile.className = "MainBTN";
@@ -110,6 +115,7 @@
 
             let labelStudentId = document.createElement('label');
             labelStudentId.innerText = userRecord.user.studentId;
+            labelStudentId.className = "hidden";
             header.appendChild(labelStudentId);
 
             let main = document.createElement('main');

@@ -87,8 +87,12 @@ a{
 .FileUploadContainer{
     display: grid;
     align-items: center;
-    border: solid black 1.3px;
-    padding: 10px;
+    /* border: solid black 1.3px; */
+    /* padding: 10px; */
+}
+
+.FileUploadContainer>input{
+    width: 250px;
 }
 
 .FileUploadContainer>footer{
@@ -895,7 +899,7 @@ th{
     }
     .userRecord-Container{
         display: grid;
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(5, 1fr);
         column-gap: 20px;
         margin: 30px;
         margin-top: 40px;
@@ -911,7 +915,7 @@ th{
 
     .userRecord-Container>li{
         display: grid;
-        grid-template-rows: 50px 1fr;
+        grid-template-rows: 50px 300px;
         background-color: white;
         border-radius: 10px;
         box-shadow: 0px 0px 3px 3px #f0f0f0;
@@ -919,13 +923,13 @@ th{
 
     .userRecord-Container>li>header{
         display: grid;
-        grid-template-columns: 2fr 1fr;
+        /* grid-template-columns: 2fr 1fr; */
         background-color: #245684;
         padding: 10px 25px;
         border-radius: 10px 10px 0 0;
         color: white;
         height: 30px;
-        justify-items: center;
+        justify-content: center;
         align-items: center;
     }
 
@@ -949,7 +953,7 @@ th{
     .userRecord-Container>li>main>ul{
         display: grid;
         row-gap: 5px;
-        height: 243px;
+        height: 200px;
         overflow-y: scroll;
         align-content: flex-start;
     }
@@ -973,7 +977,7 @@ th{
         top: 0;
         left: 0;
         overflow-x: scroll;
-        padding: 30px;
+        /* padding: 30px; */
         justify-content: center;
     }
 
@@ -984,10 +988,12 @@ th{
         background-color: white;
         padding: 20px;
         row-gap: 10px;
+        width: 17em;
+        justify-content: center;
     }
 
     .StudentFileViewer-Container>li>img{
-        width: 500px;
+        width: 256px;
         height: auto;
     }
 
@@ -1092,6 +1098,7 @@ th{
         margin:10px;
         height: 95vh;
     }
+   
 }
 
 
@@ -1140,10 +1147,10 @@ th{
 
     .UploadFiles-Container{
         display: grid;
-        grid-template-rows: 50px;
+        grid-template-rows: 100px;
         height: 100vh;
         width: 100vw;
-        background-color: rgba(0, 0, 0, 0.552);
+        background-color: rgba(0, 0, 0, 0.75);
         position: fixed;
         bottom: -300%;
         left: 0;
@@ -1162,17 +1169,26 @@ th{
         grid-template-rows: 1fr 200px;
         background-color: white;
         border-radius: 20px 20px 0 0;
-        /* align-content: flex-end; */
-        padding-bottom: 30px;
-        width: 100%;
-        /* justify-items: center; */
+        /* padding-bottom: 30px; */
         justify-content: center;
-        justify-self: center;
+        /* justify-self: center; */
+        padding: 20px;
     }
     .UploadFiles-Container>main>div>ul{
         display: grid;
-        row-gap: 10px;
+        row-gap: 40px;
+    }
+
+    .UploadFiles-Container>main>div>ul>li{
+        display: grid;
+        max-width: 350px;
+        box-shadow: 0px 13px 10px 0px #00000037;
+        border-radius: 10px;
         padding: 10px;
+        border: solid rgb(193, 193, 193) 1px;
+      /* background-color: #39C32B; */
+      /* justify-self: center; */
+
     }
 
     .UploadFiles-Container>main>div>ul>li>label{
