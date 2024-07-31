@@ -923,7 +923,7 @@ th{
 
     .userRecord-Container>li>header{
         display: grid;
-        /* grid-template-columns: 2fr 1fr; */
+        grid-template-columns: 2fr 1fr;
         background-color: #245684;
         padding: 10px 25px;
         border-radius: 10px 10px 0 0;

@@ -95,15 +95,21 @@
     }
 
     const RenderUserWithRecords = (UserRecords) => {
-        console.log("Render====================>>>>>User Records", UserRecords);
-        let ul = document.createElement('ul');
+    @* console.log("Render====================>>>>>UserObjectData", UserRecords); *@
+
+
+
+            let ul = document.createElement('ul');
         // clear the list
         document.getElementById('UserWithRecords').innerHTML = "";
         ul.className = "userRecord-Container";
 
 
         UserRecords.forEach(userRecord => {
-            let li = document.createElement('li');
+    @* console.log(">>>>>>>>---======User Data", userRecord.user); *@
+    @* console.log(">>>>>>>>---======User Records", userRecord.records); *@
+
+                let li = document.createElement('li');
             ul.appendChild(li);
 
             let header = document.createElement('header');
@@ -115,7 +121,6 @@
 
             let labelStudentId = document.createElement('label');
             labelStudentId.innerText = userRecord.user.studentId;
-            labelStudentId.className = "hidden";
             header.appendChild(labelStudentId);
 
             let main = document.createElement('main');
