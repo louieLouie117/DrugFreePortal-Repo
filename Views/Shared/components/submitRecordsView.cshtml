@@ -40,6 +40,8 @@
     const RenderSelectedUser = (userData) => {
 
         console.log("userData====:", userData);
+        console.log("Student ID====:", userData.studentId, typeof userData.studentId);
+
         const divElement = document.createElement("div");
         divElement.id = "SlectedUserInfo";
 
@@ -69,7 +71,7 @@
         const labelStudentId = document.createElement("label");
         labelStudentId.innerHTML = userData.studentId;
         labelStudentId.id = "labelStudentIdRecord"; // Add unique id
-        labelStudentId.className = "hidden";
+        @* labelStudentId.className = "hidden"; *@
         divElement.appendChild(labelStudentId);
 
         const addRecordsButton = document.createElement("button");
