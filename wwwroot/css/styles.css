@@ -899,7 +899,7 @@ th{
     }
     .userRecord-Container{
         display: grid;
-        grid-template-columns: repeat(5, 1fr);
+        grid-template-columns: repeat(4, 1fr);
         column-gap: 20px;
         margin: 30px;
         margin-top: 40px;
@@ -1082,24 +1082,7 @@ th{
         row-gap: 5px;
         font: 1.3em sans-serif;
     }
-    /* @ media and screen size less than 820 change .userRecord-Container grid-template-columns: repeat(2, 1fr);
-*/
-@media screen and (max-width: 1450px) {
-    .userRecord-Container {
-        grid-template-columns: repeat(2, 1fr);
-        margin:10px;
-        height: 95vh;
-    }
-}
 
-@media screen and (max-width: 800px) {
-    .userRecord-Container {
-        grid-template-columns:  1fr;
-        margin:10px;
-        height: 95vh;
-    }
-   
-}
 
 
     /* Student Dashboard----------------------------- */
@@ -1217,4 +1200,56 @@ th{
         height: 40px;
     }
 
+
+        /* @ media and screen size less than 820 change .userRecord-Container grid-template-columns: repeat(2, 1fr);
+*/
+@media screen and (max-width: 1000px) {
+    .userRecord-Container {
+        grid-template-columns: repeat(2, 1fr);
+        margin:10px;
+        height: 95vh;
+    }
+
+ 
+ 
+}
+
+@media screen and (max-width: 800px) {
+    .userRecord-Container {
+        grid-template-columns:  1fr;
+        margin:10px;
+        height: 95vh;
+    }
+   
+}
+
+
+
+@media screen and (min-width: 1001px) {
+    .StudentFileViewer-Container{
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .userRecord-Container {
+        grid-template-columns: repeat(3, 1fr);
+        margin:10px;
+        height: 95vh;
+    }
+ 
+}
+@media screen and (min-width: 1800px) {
+
+    .StudentFileViewer-Container{
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .userRecord-Container {
+        grid-template-columns: repeat(4, 1fr);
+        margin:10px;
+        height: 95vh;
+    }
+
+ 
+ 
+}
    
