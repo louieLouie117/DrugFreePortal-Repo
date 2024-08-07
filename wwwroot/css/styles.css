@@ -908,19 +908,19 @@ th{
         padding: 10px;
         overflow: scroll;
         height: 90vh;
-        /* box-shadow: 19px 0px 90px black;
-        padding: 20px; */
-
     }
+    
 
     .userRecord-Container>li{
         display: grid;
-        grid-template-rows: 50px 300px;
+        grid-template-rows: 50px 1fr;
         background-color: white;
         border-radius: 10px;
         box-shadow: 0px 0px 3px 3px #f0f0f0;
     }
-
+    
+    
+    
     .userRecord-Container>li>header{
         display: grid;
         grid-template-columns: 2fr 1fr;
@@ -953,7 +953,7 @@ th{
     .userRecord-Container>li>main>ul{
         display: grid;
         row-gap: 5px;
-        height: 200px;
+        height: 273px;
         overflow-y: scroll;
         align-content: flex-start;
     }
@@ -1206,8 +1206,6 @@ th{
 @media screen and (max-width: 1000px) {
     .userRecord-Container {
         grid-template-columns: repeat(2, 1fr);
-        margin:10px;
-        height: 95vh;
     }
 
  
@@ -1217,8 +1215,6 @@ th{
 @media screen and (max-width: 800px) {
     .userRecord-Container {
         grid-template-columns:  1fr;
-        margin:10px;
-        height: 95vh;
     }
    
 }
@@ -1232,8 +1228,6 @@ th{
 
     .userRecord-Container {
         grid-template-columns: repeat(3, 1fr);
-        margin:10px;
-        height: 95vh;
     }
  
 }
@@ -1245,8 +1239,6 @@ th{
 
     .userRecord-Container {
         grid-template-columns: repeat(4, 1fr);
-        margin:10px;
-        height: 95vh;
     }
 
  
