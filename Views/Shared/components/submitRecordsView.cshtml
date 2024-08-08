@@ -71,8 +71,8 @@
         const labelStudentId = document.createElement("label");
         labelStudentId.innerHTML = userData.studentId;
         labelStudentId.id = "labelStudentIdRecord"; // Add unique id
-        @* labelStudentId.className = "hidden"; *@
-        divElement.appendChild(labelStudentId);
+    @* labelStudentId.className = "hidden"; *@
+            divElement.appendChild(labelStudentId);
 
         const addRecordsButton = document.createElement("button");
         addRecordsButton.innerHTML = "+ Create Record";
@@ -129,9 +129,9 @@
 
             // create a label element and set the innerHTML to the file name
             const labelElement = document.createElement("label");
-            labelElement.innerHTML = FileName;  
+            labelElement.innerHTML = FileName;
             liElement.appendChild(labelElement);
-            
+
 
             // create an img element and set the src to the file name
             const imgElement = document.createElement("img");
@@ -251,7 +251,7 @@
             Notes = "No notes added.";
         }
 
-        if (ComplianceStatus === "Passed") {
+        if (ComplianceStatus === "Approved") {
             StatusColor = "39C32B";
         } else if (ComplianceStatus === "Failed") {
             StatusColor = "CF1616";
@@ -355,7 +355,7 @@
             document.getElementById("UserSelectedComplianceDiv").appendChild(LargeButton);
         } else {
             const PassedButton = document.createElement("button");
-            PassedButton.innerHTML = "Passed";
+            PassedButton.innerHTML = "Approved";
             PassedButton.className = "PassedButton";
             PassedButton.addEventListener("click", SubmitRecordsHandler);
             document.getElementById("UserSelectedComplianceDiv").appendChild(PassedButton);
@@ -548,9 +548,9 @@
         <label id="SemesterId">SemesterId</label>
         <label id="SemesterTitle">SemesterTitle</label>
     </div>
-<header id="StudentCardHeader">
+    <header id="StudentCardHeader">
         <button id="ReturnToQueueBTN" onclick="ReturnToQueueHandler(event)">Return to Queue</button>
-        <button  onclick="CompleteAndCloseHandlder(event)">Complete and Close</button>
+        <button onclick="CompleteAndCloseHandlder(event)">Complete and Close</button>
 
     </header>
 
@@ -566,7 +566,7 @@
     </main>
 
 
-    
+
 
 
 </div>
