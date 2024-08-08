@@ -21,6 +21,7 @@
         if (Model.User.AccountType == AccountType.Admin)
         {
             <partial name="dashboards/admin" />
+
         }
         else if (Model.User.AccountType == AccountType.Student)
         {
@@ -29,6 +30,8 @@
         else if (Model.User.AccountType == AccountType.Dean)
         {
             <partial name="dashboards/dean" />
+            @* <partial name="dashboards/evaluator" /> *@
+
         }
         else if (Model.User.AccountType == AccountType.Evaluator)
         {
