@@ -992,12 +992,14 @@ th{
         padding: 20px;
         row-gap: 10px;
         width: 17em;
+        height: 400px;
         justify-content: center;
     }
 
     .StudentFileViewer-Container>li>img{
         width: 256px;
-        height: auto;
+        height: 250px;
+        justify-self: center;
     }
 
 
