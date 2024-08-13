@@ -40,12 +40,12 @@
 
 
             // button element with link to open the file
-            let buttonView = document.createElement('button');
-            buttonView.innerHTML = "View File";
-            buttonView.addEventListener('click', () => {
-                window.open(`img/uploads/${uploadFile.fileName}`);
-            });
-            li.appendChild(buttonView);
+            let aHerfViewImage = document.createElement('a');
+            aHerfViewImage.href = `${uploadFile.filePath}`;
+            aHerfViewImage.target = "_blank";
+            aHerfViewImage.className = "MainBTN";
+            aHerfViewImage.innerHTML = "View File";
+            li.appendChild(aHerfViewImage);
 
             // a tag element with link to download the file
             let downloadFile = document.createElement('a');
