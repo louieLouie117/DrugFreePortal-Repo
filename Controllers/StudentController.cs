@@ -93,7 +93,7 @@ namespace DrugFreePortal.Models
 
             if (checkQueue != null)
             {
-                return Ok(new { message = "You are already check in." });
+                return Ok(new { message = "Your uploads have already been sent." });
             }
             System.Console.WriteLine($"----------------UserId in session Home:GetUsers => {UserIdInSession}");
 
@@ -130,7 +130,7 @@ namespace DrugFreePortal.Models
             {
                 UserInSession = UserFound,
                 QueueData = newQueue,
-                message = "You have been checked in. Please wait for your turn."
+                message = "Your uploads have been successfully sent."
             });
         }
     }
