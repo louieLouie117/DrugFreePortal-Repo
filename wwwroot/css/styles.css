@@ -711,6 +711,8 @@ th{
     .Evaluator-Controller>ul{
         display: grid;
         row-gap: 20px;
+        overflow: scroll;
+
        
     }
 
