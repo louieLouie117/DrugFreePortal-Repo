@@ -1,6 +1,9 @@
 
+using MailKit.Security;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using MimeKit;
+using MimeKit.Text;
 
 
 namespace DrugFreePortal.Models
@@ -544,6 +547,23 @@ namespace DrugFreePortal.Models
                 return Json(new { Status = "cannot be empty", Fields = emptyFields });
 
             }
+
+            // Create the email
+            var email = new MimeMessage();
+            email.From.Add(MailboxAddress.Parse("cicero.howe@ethereal.email"));
+            email.To.Add(MailboxAddress.Parse(dataFromUser.Email));
+            email.Subject = "Your journal life starts here!";
+            email.Body = new TextPart(TextFormat.Html) { Text = $"<div style='background-Color: white'> <h5 style=' font-weight: normal, color: #00828B'>Hello, {dataFromUser.FirstName}</h5> <p>Welcome to our journaling community! We’re thrilled to have you on board. Journaling is a powerful tool—it can help you gain mental clarity, reduce stress, and enhance creativity. Whether you have a few minutes or more, jotting down your thoughts and emotions can make a big difference.</p> <p>To get started, consider these prompts:</p><ul style='list-style-type: none; padding: 0; margin: 0'><li>1. What are you grateful for today?</li><li>2. What are your top priorities for the day/week/month?</li><li>3. What are some things that you can do to take care of yourself today?</li><li>4. What are some things that you are looking forward to in the future?</li><li>5. What are some things that you have accomplished recently that you are proud of?</li></ul> <p>Remember, journaling is a personal practice, and there is no right or wrong way to do it. We hope that you find it to be a rewarding and fulfilling experience.</p><footer><p>Best regards</p><p>Luis Cardona</p><p>Journal Pocket Founder</p></footer>" };
+
+            // Send email
+            using var smtp = new MailKit.Net.Smtp.SmtpClient();
+            smtp.Connect("smtp.ethereal.email", int.Parse("587"), SecureSocketOptions.StartTls);
+            smtp.Authenticate("cicero.howe@ethereal.email", "c9AdpF6dpbeyJb4zwz");
+            smtp.Send(email);
+            smtp.Disconnect(true);
+
+            Console.WriteLine($"email was sent!!");
+
             return Json(new { Status = "Admin Register Student Successfully" });
 
 
