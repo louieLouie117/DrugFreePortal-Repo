@@ -495,6 +495,58 @@ namespace DrugFreePortal.Models
             return Ok(new { Status = "Sign Out Successfule" });
         }
 
+        // method as AdminRegisterStudentMethod for console wirte line
+        [HttpPost("AdminRegisterStudentMethod")]
+        public IActionResult AdminRegisterStudentMethod(User dataFromUser)
+        {
+            System.Console.WriteLine("Reached backend of admin register student Successfully");
+            List<string> emptyFields = new List<string>();
+            if (string.IsNullOrEmpty(dataFromUser.School))
+            {
+                emptyFields.Add("School");
+            }
+            if (string.IsNullOrEmpty(dataFromUser.StudentId))
+            {
+                emptyFields.Add("StudentId");
+            }
 
+            if (string.IsNullOrEmpty(dataFromUser.FirstName))
+            {
+                emptyFields.Add("FirstName");
+            }
+
+            if (string.IsNullOrEmpty(dataFromUser.LastName))
+            {
+                emptyFields.Add("LastName");
+            }
+
+            if (string.IsNullOrEmpty(dataFromUser.Email))
+            {
+                emptyFields.Add("Email");
+            }
+
+            if (string.IsNullOrEmpty(dataFromUser.Password))
+            {
+                emptyFields.Add("Password");
+            }
+
+            if (string.IsNullOrEmpty(dataFromUser.PhoneNumber))
+            {
+                emptyFields.Add("PhoneNumber");
+            }
+            if (dataFromUser.AcceptedTerms == false)
+            {
+                emptyFields.Add("Need to accept terms");
+            }
+
+            if (emptyFields.Any())
+            {
+                return Json(new { Status = "cannot be empty", Fields = emptyFields });
+
+            }
+            return Json(new { Status = "Admin Register Student Successfully" });
+
+
+        }
     }
 }
