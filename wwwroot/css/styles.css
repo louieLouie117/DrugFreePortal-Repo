@@ -814,11 +814,11 @@ th{
 
     .UserUpload-Container{
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
+        /* grid-template-columns: repeat(3, 1fr); */
         row-gap: 20px;
         background-color: none;
         height: 94vh;
-        width: 100%;
+        width: 85%;
         align-content: flex-start;
         justify-content: center;
         padding: 20px;
@@ -837,7 +837,7 @@ th{
         border-radius: 20px;
     }
     .UserUpload-Image{
-        /* height: 700px; */
+        height: 700px;
         width: auto;
     }
 
