@@ -118,15 +118,11 @@ namespace DrugFreePortal.Models
 
 
             var fileExtension = ".png";
-            System.Console.WriteLine($"----------------File Type: {file.ContentType}");
             // check file time if file type is  = application/pdf set file extension to pdf
             if (file.ContentType == "application/pdf")
             {
                 fileExtension = ".pdf";
             }
-
-            System.Console.WriteLine($"----------------File Extension: {fileExtension}");
-
 
 
             // Combine the current directory path with the destination path for the uploaded file
