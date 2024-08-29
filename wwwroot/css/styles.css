@@ -687,7 +687,7 @@ th{
 
     .Evaluator-Container{
         display: grid;
-        grid-template-columns: 1fr 2fr;
+        grid-template-columns: 1fr 2.5fr;
        
         background-color: rgba(0, 0, 0, 0.36);
         position: fixed;
@@ -814,7 +814,7 @@ th{
 
     .UserUpload-Container{
         display: grid;
-        grid-template-columns: 1fr 1fr 1fr 1fr;
+        grid-template-columns: repeat(3, 1fr);
         row-gap: 20px;
         background-color: none;
         height: 94vh;
