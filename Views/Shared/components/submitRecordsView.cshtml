@@ -109,7 +109,6 @@
         console.log("uploadData:", uploadData);
         const UserUploadDiv = document.getElementById("UserUploadDiv");
 
-
         //IF length of uploadData is 0 than render message to the user that no files uploaded by the student
         if (uploadData.length === 0) {
             const NoFilesUploadedLabel = document.createElement("label");
@@ -118,26 +117,41 @@
             return;
         }
 
-
         uploadData.forEach((item) => {
-            const FileName = item.fileName;
-            console.log("FileName:", FileName);
+            console.log("-----------file type:", item.fileType);
 
-            // create a li element
             const liElement = document.createElement("li");
             liElement.className = "UserItem-Container";
 
-            // create a label element and set the innerHTML to the file name
-            const labelElement = document.createElement("label");
-            labelElement.innerHTML = FileName;
-            liElement.appendChild(labelElement);
+            if (item.fileType === "application/pdf") {
+                console.log("=======>file type", item.fileType);
+                let object = document.createElement('object');
+                object.data = `${item.filePath}`;
+                object.type = "application/pdf";
+                object.width = "100%";
+                object.height = "250px";
+
+                object.appendChild(document.createTextNode("This browser does not support PDFs. Please download the PDF to view it: Download PDF"));
+                liElement.appendChild(object);
+            }
+
+            if (item.fileType === "image/jpeg" || item.fileType === "image/png") {
+                const FileName = item.fileName;
+                console.log("FileName:", FileName);
+
+                // create a label element and set the innerHTML to the file name
+                const labelElement = document.createElement("label");
+                labelElement.innerHTML = FileName;
+                liElement.appendChild(labelElement);
+
+                // create an img element and set the src to the file name
+                const imgElement = document.createElement("img");
+                imgElement.src = item.filePath;
+                imgElement.className = "UserUpload-Image";
+                liElement.appendChild(imgElement);
 
 
-            // create an img element and set the src to the file name
-            const imgElement = document.createElement("img");
-            imgElement.src = item.filePath;
-            imgElement.className = "UserUpload-Image";
-            liElement.appendChild(imgElement);
+            }
 
             // create an a tag element to open the file in a new tab
             const ViewButton = document.createElement("a");
@@ -146,11 +160,9 @@
             ViewButton.target = "_blank";
             ViewButton.className = "MainBTN";
             liElement.appendChild(ViewButton);
-
             // append the li element to the ul element
             UserUploadDiv.appendChild(liElement);
         });
-
     };
 
     const GetUserUploads = (UserId) => {

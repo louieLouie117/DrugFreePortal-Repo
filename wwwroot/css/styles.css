@@ -553,6 +553,7 @@ th{
     padding-top: 40px;
     overflow: scroll;
     height: 75vh;
+    align-items: flex-start;
  }
 
     .QueueBody li{
