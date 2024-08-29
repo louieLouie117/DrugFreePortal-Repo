@@ -116,10 +116,23 @@ namespace DrugFreePortal.Models
             // combine the timestamp with the file name
             string fileName = $"{timeStamp}_{encodedFileName}";
 
+
+            var fileExtension = ".png";
+            System.Console.WriteLine($"----------------File Type: {file.ContentType}");
+            // check file time if file type is  = application/pdf set file extension to pdf
+            if (file.ContentType == "application/pdf")
+            {
+                fileExtension = ".pdf";
+            }
+
+            System.Console.WriteLine($"----------------File Extension: {fileExtension}");
+
+
+
             // Combine the current directory path with the destination path for the uploaded file
-            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "img", "uploads", fileName + ".png");
+            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "img", "uploads", fileName + fileExtension);
             // file name for databse to render on the frontend
-            var shortFilePath = Path.Combine("img", "uploads", fileName + ".png");
+            var shortFilePath = Path.Combine("img", "uploads", fileName + fileExtension);
 
 
             // Create a new file stream and open the file in create mode

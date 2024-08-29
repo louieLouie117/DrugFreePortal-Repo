@@ -551,6 +551,8 @@ th{
     padding: 10px;
     background-color: whitesmoke;
     padding-top: 40px;
+    overflow: scroll;
+    height: 75vh;
  }
 
     .QueueBody li{
@@ -952,12 +954,12 @@ th{
 
     .userRecord-Container>li>main{
         display: grid;
-        padding: 25px;
+        padding: 15px;
     }
 
     .userRecord-Container>li>main>ul{
         display: grid;
-        row-gap: 5px;
+        row-gap: 15px;
         height: 273px;
         overflow-y: scroll;
         align-content: flex-start;
@@ -1245,7 +1247,7 @@ th{
     }
 
     .userRecord-Container {
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(3, 1fr);
     }
 
  
