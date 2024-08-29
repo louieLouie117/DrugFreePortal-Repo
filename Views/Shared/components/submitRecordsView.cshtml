@@ -168,6 +168,11 @@
     const GetUserUploads = (UserId) => {
         console.log("==================>UserId to get upload from the student:", UserId);
 
+        //let button target innerHTML
+        let buttonText = event.target.innerHTML;
+        console.log("button innerHTML", buttonText);
+
+
         console.log("GetUserUploads called");
         console.log("UserId:", UserId);
         const userUploadDiv = document.createElement("ul");
@@ -179,7 +184,8 @@
         EvaluatorWindow.style.gridTemplateColumns = "1fr 2.5fr";
 
         jsonData = {
-            UserId: UserId
+            UserId: UserId,
+            FileName: buttonText
         };
 
         console.log("jsonData:", jsonData);
@@ -384,11 +390,6 @@
             PendingButton.addEventListener("click", SubmitRecordsHandler);
             document.getElementById("UserSelectedComplianceDiv").appendChild(PendingButton);
         }
-
-
-
-
-
 
 
     };
