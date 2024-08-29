@@ -28,16 +28,36 @@
         ul.className = "StudentFileViewer-Container";
 
         uploadFilesData.forEach(uploadFile => {
+            console.log("=======>file type", uploadFile.fileType);
+
             let li = document.createElement('li');
 
-            let name = document.createElement('label');
-            name.innerText = uploadFile.fileName;
-            li.appendChild(name);
+            if (uploadFile.fileType === "application/pdf") {
+                console.log("=======>file type", uploadFile.fileType);
+                let object = document.createElement('object');
+                object.data = `${uploadFile.filePath}`;
+                object.type = "application/pdf";
+                object.width = "100%";
+                object.height = "250px";
 
-            let img = document.createElement('img');
-            img.src = `${uploadFile.filePath}`;
-            li.appendChild(img);
+                object.appendChild(document.createTextNode("This browser does not support PDFs. Please download the PDF to view it: Download PDF"));
+                li.appendChild(object);
 
+            }
+
+            if (uploadFile.fileType === "image/png" || uploadFile.fileType === "image/jpeg") {
+
+                let name = document.createElement('label');
+                name.innerText = uploadFile.fileName;
+                li.appendChild(name);
+
+                let img = document.createElement('img');
+                img.src = `${uploadFile.filePath}`;
+                li.appendChild(img);
+
+
+
+            }
 
             // button element with link to open the file
             let aHerfViewImage = document.createElement('a');
@@ -54,17 +74,12 @@
             downloadFile.innerText = "Download File";
             downloadFile.className = "MainBTN";
             li.appendChild(downloadFile);
-
-
-
             ul.appendChild(li);
         });
 
         // Add an empty li
         let emptyLi = document.createElement('li');
         ul.appendChild(emptyLi);
-
-
 
         document.getElementById('UserUploadedFilesList').appendChild(ul);
     }
