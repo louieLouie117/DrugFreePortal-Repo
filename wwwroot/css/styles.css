@@ -687,7 +687,7 @@ th{
 
     .Evaluator-Container{
         display: grid;
-        grid-template-columns: 1fr 2.5fr;
+        grid-template-columns: 1fr 2fr;
        
         background-color: rgba(0, 0, 0, 0.36);
         position: fixed;
@@ -818,7 +818,7 @@ th{
         row-gap: 20px;
         background-color: none;
         height: 94vh;
-        width: 85%;
+        width: 93%;
         align-content: flex-start;
         justify-content: center;
         padding: 20px;
@@ -830,11 +830,19 @@ th{
 
     .UserItem-Container{
         display: grid;
+        width: 53em;
         background: white;
         justify-items: center;
         padding: 20px;
         row-gap: 20px;
         border-radius: 20px;
+        overflow-y: hidden;
+        height: 808px;
+    }
+
+    .UserItem-Container>label{
+        font: 2em sans-serif;
+        color: black;
     }
     .UserUpload-Image{
         height: 700px;

@@ -122,9 +122,15 @@
 
             const liElement = document.createElement("li");
             liElement.className = "UserItem-Container";
+            const FileName = item.fileName;
+
 
             if (item.fileType === "application/pdf") {
                 console.log("=======>file type", item.fileType);
+                // create a label element and set the innerHTML to the file name
+                const labelElement = document.createElement("label");
+                labelElement.innerHTML = FileName;
+                liElement.appendChild(labelElement);
                 let object = document.createElement('object');
                 object.data = `${item.filePath}`;
                 object.type = "application/pdf";
@@ -136,7 +142,6 @@
             }
 
             if (item.fileType === "image/jpeg" || item.fileType === "image/png") {
-                const FileName = item.fileName;
                 console.log("FileName:", FileName);
 
                 // create a label element and set the innerHTML to the file name
@@ -181,7 +186,7 @@
         document.getElementById("EvaluatorWindow").appendChild(userUploadDiv);
 
         const EvaluatorWindow = document.getElementById("EvaluatorWindow");
-        EvaluatorWindow.style.gridTemplateColumns = "1fr 2.5fr";
+        EvaluatorWindow.style.gridTemplateColumns = "1fr 2fr";
 
         jsonData = {
             UserId: UserId,
@@ -415,7 +420,7 @@
 
         document.getElementById("UserSelectedComplianceDiv").remove();
         const EvaluatorWindow = document.getElementById("EvaluatorWindow");
-        EvaluatorWindow.style.gridTemplateColumns = "1fr 2.5fr";
+        EvaluatorWindow.style.gridTemplateColumns = "1fr 2fr";
 
         const UserUploadDiv = document.getElementById("UserUploadDiv");
         UserUploadDiv.remove();
