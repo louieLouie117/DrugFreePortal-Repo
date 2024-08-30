@@ -51,26 +51,29 @@ const UploadFileViewHandler = async (e) => {
 }
 
 
-
-
 const uploadFile = (id, name) => {
     let button = document.getElementById("uploadButton_" + id);
- 
-    document.getElementById("uploadForm_"+ id).addEventListener("submit", function (event) {
-        event.preventDefault();
-        console.log(id, name);
+    let form = document.getElementById("uploadForm_" + id);
 
-      
+    // Check if the event listener has already been added
+    if (!form.dataset.listenerAdded) {
+        form.addEventListener("submit", function (event) {
+            event.preventDefault();
+            console.log(id, name);
 
-        var formData = new FormData();
-        var fileInput = document.getElementById("fileInput_" + id);
-        var file = fileInput.files[0];
-        console.log("------------file", file);
+            var formData = new FormData();
+            var fileInput = document.getElementById("fileInput_" + id);
+            var file = fileInput.files[0];
+            console.log("------------file", file);
 
-        if (file) {
+            if (!file) {
+                alert("No file selected");
+                return;
+            }
+
             // Change the file name to "file" if you want to use the same name
             formData.append("file", file, name);
-            console.log("here",file);
+            console.log("here", file);
 
             var xhr = new XMLHttpRequest();
             xhr.open("POST", "/UploadSingleFile", true);
@@ -90,16 +93,12 @@ const uploadFile = (id, name) => {
                 return;
             };
             xhr.send(formData);
-        } else {
-            alert("No file selected");
-            // reset the form and child elements
-            document.getElementById("uploadForm_"+ id).reset();
-            return;
-        }
-    });
+        });
+
+        // Mark that the event listener has been added
+        form.dataset.listenerAdded = "true";
+    }
 };
-
-
 
 const RenderStudentCompliance = (complianceList) => {
     const ul = document.getElementById('SchoolComplianceForStudent'); // Assuming you have a ul with id 'SchoolComplianceForStudent'
@@ -115,16 +114,18 @@ const RenderStudentCompliance = (complianceList) => {
             <form class="FileUploadContainer" id="uploadForm_${compliance.complianceTypeId}">
             <input type="file" id="fileInput_${compliance.complianceTypeId}" name="file" />
             <footer>
-                <button id="uploadButton_${compliance.complianceTypeId}" class="mainBTN" onclick="uploadFile('${compliance.complianceTypeId}', '${compliance.name}')">Upload: ${compliance.name}</button>
+                <button id="uploadButton_${compliance.complianceTypeId}" class="mainBTN" type="submit">Upload: ${compliance.name}</button>
             </footer>
             </form>
         `;
 
         // Append the list item to the ul
         ul.appendChild(li);
+
+        // Call uploadFile to set up the event listener
+        uploadFile(compliance.complianceTypeId, compliance.name);
     });
 };
-
 
 const GetStudentSchoolComplianceHandler = async () => {
     console.log("GetStudentSchoolComplianceHandler called");
