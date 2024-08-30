@@ -1,0 +1,292 @@
+@using Microsoft.AspNetCore.Http;
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration</title>
+
+    <link rel="stylesheet" href="~/css/styles.css?version=1.43">
+    <script src="~/js/reg.js?version=1.43" async=""></script>
+    <script src="~/js/app.js?version=1.43"></script>
+
+</head>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+@{
+    var customerEmail = Context.Session.GetString("StripeCustomerEmail");
+    var customerName = Context.Session.GetString("StripeCustomerName");
+    var stripeCustomerId = Context.Session.GetString("StripeCustomerId");
+}
+<script>
+
+    const RegStudentHandler = (e) => {
+        e.preventDefault();
+        console.log("RegStudentHandler called")
+
+        if (e.target.innerText === "Register") {
+            RegisterStudent();
+            return;
+        }
+
+
+        let BackBTN = document.getElementById("AdminStudentRegBackBTN");
+        let CurrentStep = document.getElementById("AdminCurrentStep").innerText;
+        let SchoolInfo = document.getElementById("AdminSchoolInfo");
+        let StudentInfo = document.getElementById("AdminStudentInfo");
+        let SignInInfo = document.getElementById("AdminSignInInfo");
+        let AcceptTermsInfo = document.getElementById("AdminAcceptTermsInfo");
+
+        if (e.target.innerText === "<" && CurrentStep === "Student Information") {
+            SchoolInfo.style.display = "grid";
+            StudentInfo.style.display = "none";
+            SignInInfo.style.display = "none";
+            BackBTN.style.display = "none";
+            document.getElementById("AdminCurrentStep").innerText = "School Information";
+            return;
+        } else if (e.target.innerText === "<" && CurrentStep === "Sign In Information") {
+            SchoolInfo.style.display = "none";
+            StudentInfo.style.display = "grid";
+            SignInInfo.style.display = "none";
+            document.getElementById("AdminCurrentStep").innerText = "Student Information";
+            return;
+        }
+
+
+
+        if (CurrentStep === "School Information") {
+            BackBTN.style.display = "block";
+            document.getElementById("AdminCurrentStep").innerText = "Student Information";
+            SchoolInfo.style.display = "none";
+            StudentInfo.style.display = "grid";
+            SignInInfo.style.display = "none";
+            return;
+        } else if (CurrentStep === "Student Information") {
+            document.getElementById("AdminCurrentStep").innerText = "Sign In Information";
+            StudentInfo.style.display = "none";
+            SignInInfo.style.display = "none";
+            SignInInfo.style.display = "grid";
+            return;
+        } else if (CurrentStep === "Sign In Information") {
+            document.getElementById("AdminCurrentStep").innerText = "Review Information";
+            SchoolInfo.style.display = "grid";
+            StudentInfo.style.display = "grid";
+            SignInInfo.style.display = "grid";
+            AcceptTermsInfo.style.display = "block";
+            e.target.innerText = "Register";
+            BackBTN.style.display = "none";
+            return;
+        }
+
+
+
+    }
+
+    const RegisterStudent = async (data) => {
+        let StripeCustomerId = document.getElementById("AdminStripeCustomerId").value;
+
+        if (StripeCustomerId === "") {
+            document.getElementById("AdminStripeCustomerIdLabel").style.color = "red";
+            document.getElementById("AdminStripeCustomerIdLabel").innerText = "Payment Error: Please make payment first or contact support.";
+            return
+        }
+
+        let StudentSchool = document.getElementById("StudentSchool").value;
+        let SchoolIdForStudentReg = document.getElementById("SchoolIdForStudentReg").value;
+        let StudentId = document.getElementById("StudentId").value;
+
+        let StudentFirstName = document.getElementById("AdminStudentFirstName").value;
+        let StudentLastName = document.getElementById("AdminStudentLastName").value;
+        let StudentPhoneNumber = document.getElementById("AdminStudentPhoneNumber").value;
+
+        let StudentEmail = document.getElementById("AdminStudentEmail").value;
+        let StudentPassword = document.getElementById("AdminStudentPassword").value;
+        let StudentAccpetTerms = document.getElementById("AdminStudentAccpetTerms").checked;
+
+
+
+        console.log("------------terms", StudentAccpetTerms)
+
+        let jsonData = {
+            stripeCustomerId: StripeCustomerId,
+            school: StudentSchool,
+            schoolId: SchoolIdForStudentReg,
+            studentId: StudentId,
+            firstName: StudentFirstName,
+            lastName: StudentLastName,
+            phoneNumber: StudentPhoneNumber,
+            email: StudentEmail,
+            password: StudentPassword,
+            acceptedTerms: StudentAccpetTerms
+        }
+
+        console.log(jsonData)
+
+        $.ajax({
+            url: '@Url.Action("AdminRegisterStudentMethod", "Reg")',
+            type: "POST",
+            data: jsonData,
+            success: studentRegSuccess,
+
+        });
+    }
+
+    const studentRegSuccess = (data) => {
+        console.log("studentRegSuccess called")
+        console.log("data from backend", data)
+
+        console.log(data.status)
+
+
+    @* check to see if files in arry data.files send alter can not be empty *@
+        if (data.fields.length > 0) {
+            console.log("data.fields", data.fields)
+            data.fields.forEach((field) => {
+                if (field === "School") {
+                    document.getElementById("StudentSchoolLabel").style.color = "red";
+                    document.getElementById("StudentSchoolLabel").innerText = "Please select a school";
+                }
+                if (field === "StudentId") {
+                    document.getElementById("StudentIdLabel").style.color = "red";
+                    document.getElementById("StudentIdLabel").innerText = "Student Id can not be empty";
+                }
+                if (field === "FirstName") {
+                    document.getElementById("AdminStudentFirstNameLabel").style.color = "red";
+                    document.getElementById("AdminStudentFirstNameLabel").innerText = "First Name can not be empty";
+                }
+                if (field === "LastName") {
+                    document.getElementById("AdminStudentLastNameLabel").style.color = "red";
+                    document.getElementById("AdminStudentLastNameLabel").innerText = "Last Name can not be empty";
+                }
+                if (field === "PhoneNumber") {
+                    document.getElementById("AdminStudentPhoneNumberLabel").style.color = "red";
+                    document.getElementById("AdminStudentPhoneNumberLabel").innerText = "can not be empty";
+                }
+                if (field === "Email") {
+                    document.getElementById("AdminStudentEmailLabel").style.color = "red";
+                    document.getElementById("AdminStudentEmailLabel").innerText = "Email can not be empty";
+                }
+                if (field === "Password") {
+                    document.getElementById("AdminStudentPasswordLabel").style.color = "red";
+                    document.getElementById("AdminStudentPasswordLabel").innerText = "Password can not be empty";
+                }
+                if (field === "Need to accept terms") {
+                    document.getElementById("AdminStudentAccpetTermsLabel").style.color = "red";
+                    document.getElementById("AdminStudentAccpetTermsLabel").innerText = "Please accept terms";
+                }
+            })
+        }
+
+
+        if (data.status === "Registered") {
+            window.location.href = '@Url.Action("Dashboard", "Home")';
+        }
+    }
+
+    const StudentInputHandler = (e) => {
+        e.preventDefault();
+        console.log("StudentInputHandler called")
+        let id = e.target.id;
+        console.log("id", id)
+        let LabelId = id + "Label";
+        console.log("LabelId", LabelId)
+        document.getElementById(LabelId).innerText = "";
+    }
+
+    const TermsHandler = (e) => {
+        document.getElementById("AdminStudentAccpetTermsLabel").innerText = "";
+
+    }
+
+</script>
+
+<div class="studentReg-container">
+
+    <h1>Student Register</h1>
+
+
+    <form action="">
+
+        <header>
+            <h2>Create Account</h2>
+            <label id="AdminCurrentStep">School Information</label>
+        </header>
+        <div>
+            <input onclick="StudentInputHandler(event)" id="AdminStripeCustomerId" type="text"
+                placeholder="Stripe Customer Id:" value="Free">
+        </div>
+
+        <section id="AdminSchoolInfo">
+
+            <label id="StudentSchoolLabel"></label>
+            <select name="" id="StudentSchoolSelector"></select>
+            <input onclick="StudentInputHandler(event)" id="StudentSchool" type="text" placeholder="School:" disabled>
+
+            <input type="text" id="SchoolIdForStudentReg" placeholder="schoolId:" disabled>
+
+
+            <label id="StudentIdLabel"></label>
+            <input onclick="StudentInputHandler(event)" id="StudentId" type="text" placeholder="Student ID:">
+
+        </section>
+
+        <section id="AdminStudentInfo">
+
+            <label id="AdminStudentFirstNameLabel"></label>
+            <input onclick="StudentInputHandler(event)" id="AdminStudentFirstName" type="text"
+                placeholder="First Name:">
+
+            <label id="AdminStudentLastNameLabel"></label>
+            <input onclick="StudentInputHandler(event)" id="AdminStudentLastName" type="text" placeholder="Last Name:">
+
+        </section>
+
+
+        <section id="AdminSignInInfo">
+            <label id="AdminStudentEmailLabel"></label>
+            <input onclick="StudentInputHandler(event)" id="AdminStudentEmail" value="@customerEmail" type="text"
+                placeholder="Email Address:">
+
+            <label id="AdminStudentPasswordLabel"></label>
+            <input onclick="StudentInputHandler(event)" id="AdminStudentPassword" type="password"
+                placeholder="Password:">
+        </section>
+
+        <div id="AdminAcceptTermsInfo">
+            <label id="AdminStudentAccpetTermsLabel"></label>
+
+            <input id="AdminStudentAccpetTerms" onclick="TermsHandler(event)" type="checkbox" name="Accept Terms"
+                checked="checked">
+            <label for="">Accept Terms</label>
+            <p>By continuing, you agree to our Terms Of Service and Privacy Policy.</p>
+
+        </div>
+
+        <div class="hidden">
+            <label id="AdminStudentPhoneNumberLabel"></label>
+            <input onclick="StudentInputHandler(event)" id="AdminStudentPhoneNumber" type="text"
+                placeholder="Phone Number:" value="000-000-0000" disabled>
+        </div>
+
+        <footer>
+            <div></div>
+            <button id="AdminStudentRegBTN" class="mainBTN" onclick="RegStudentHandler(event)">Register</button>
+        </footer>
+
+        <label id="AdminStripeCustomerIdLabel"></label>
+
+
+
+
+    </form>
+
+
+
+
+
+</div>
+
+</html>

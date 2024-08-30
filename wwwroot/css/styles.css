@@ -551,6 +551,9 @@ th{
     padding: 10px;
     background-color: whitesmoke;
     padding-top: 40px;
+    overflow: scroll;
+    height: 75vh;
+    align-items: flex-start;
  }
 
     .QueueBody li{
@@ -811,11 +814,11 @@ th{
 
     .UserUpload-Container{
         display: grid;
-        grid-template-columns: 1fr 1fr 1fr 1fr;
+        /* grid-template-columns: repeat(3, 1fr); */
         row-gap: 20px;
         background-color: none;
         height: 94vh;
-        width: 100%;
+        width: 93%;
         align-content: flex-start;
         justify-content: center;
         padding: 20px;
@@ -827,14 +830,22 @@ th{
 
     .UserItem-Container{
         display: grid;
+        width: 53em;
         background: white;
         justify-items: center;
         padding: 20px;
         row-gap: 20px;
         border-radius: 20px;
+        overflow-y: hidden;
+        height: 808px;
+    }
+
+    .UserItem-Container>label{
+        font: 2em sans-serif;
+        color: black;
     }
     .UserUpload-Image{
-        /* height: 700px; */
+        height: 700px;
         width: auto;
     }
 
@@ -952,12 +963,12 @@ th{
 
     .userRecord-Container>li>main{
         display: grid;
-        padding: 25px;
+        padding: 15px;
     }
 
     .userRecord-Container>li>main>ul{
         display: grid;
-        row-gap: 5px;
+        row-gap: 15px;
         height: 273px;
         overflow-y: scroll;
         align-content: flex-start;
@@ -1245,7 +1256,7 @@ th{
     }
 
     .userRecord-Container {
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(3, 1fr);
     }
 
  

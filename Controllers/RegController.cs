@@ -1,6 +1,9 @@
 
+using MailKit.Security;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using MimeKit;
+using MimeKit.Text;
 
 
 namespace DrugFreePortal.Models
@@ -495,6 +498,75 @@ namespace DrugFreePortal.Models
             return Ok(new { Status = "Sign Out Successfule" });
         }
 
+        // method as AdminRegisterStudentMethod for console wirte line
+        [HttpPost("AdminRegisterStudentMethod")]
+        public IActionResult AdminRegisterStudentMethod(User dataFromUser)
+        {
+            System.Console.WriteLine("Reached backend of admin register student Successfully");
+            List<string> emptyFields = new List<string>();
+            if (string.IsNullOrEmpty(dataFromUser.School))
+            {
+                emptyFields.Add("School");
+            }
+            if (string.IsNullOrEmpty(dataFromUser.StudentId))
+            {
+                emptyFields.Add("StudentId");
+            }
 
+            if (string.IsNullOrEmpty(dataFromUser.FirstName))
+            {
+                emptyFields.Add("FirstName");
+            }
+
+            if (string.IsNullOrEmpty(dataFromUser.LastName))
+            {
+                emptyFields.Add("LastName");
+            }
+
+            if (string.IsNullOrEmpty(dataFromUser.Email))
+            {
+                emptyFields.Add("Email");
+            }
+
+            if (string.IsNullOrEmpty(dataFromUser.Password))
+            {
+                emptyFields.Add("Password");
+            }
+
+            if (string.IsNullOrEmpty(dataFromUser.PhoneNumber))
+            {
+                emptyFields.Add("PhoneNumber");
+            }
+            if (dataFromUser.AcceptedTerms == false)
+            {
+                emptyFields.Add("Need to accept terms");
+            }
+
+            if (emptyFields.Any())
+            {
+                return Json(new { Status = "cannot be empty", Fields = emptyFields });
+
+            }
+
+            // Create the email
+            var email = new MimeMessage();
+            email.From.Add(MailboxAddress.Parse("cicero.howe@ethereal.email"));
+            email.To.Add(MailboxAddress.Parse(dataFromUser.Email));
+            email.Subject = "Account Registered!";
+            email.Body = new TextPart(TextFormat.Html) { Text = $"<div style='background-Color: white'> <h5 style=' font-weight: normal, color: #00828B'>Hello, {dataFromUser.FirstName}</h5> <p>Welcome to our Drug Free Portal</p>" };
+
+            // Send email
+            using var smtp = new MailKit.Net.Smtp.SmtpClient();
+            smtp.Connect("smtp.ethereal.email", int.Parse("587"), SecureSocketOptions.StartTls);
+            smtp.Authenticate("cicero.howe@ethereal.email", "c9AdpF6dpbeyJb4zwz");
+            smtp.Send(email);
+            smtp.Disconnect(true);
+
+            Console.WriteLine($"email was sent!!");
+
+            return Json(new { Status = "Admin Register Student Successfully" });
+
+
+        }
     }
 }
