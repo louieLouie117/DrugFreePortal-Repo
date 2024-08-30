@@ -83,7 +83,7 @@ const uploadFile = (id, name) => {
                     // Call any other necessary functions here
                     button.style.backgroundColor = "gray";
                     button.disabled = true;
-                    button.innerHTML = "Uploaded Successfully";
+                    button.innerHTML = "Uploading...";
 
                     // class to hide the form
                     const fileInput = document.getElementById("UploadCard_" + id);
@@ -92,16 +92,22 @@ const uploadFile = (id, name) => {
 
 
                // Set the initial height and transition properties
-                fileInput.style.transition = "height 2s";
+                fileInput.style.transition = "height 1s";
                 
                 // Set the height to 0 after a delay
                 setTimeout(() => {
-                    fileInput.style.height = "0";
+                    fileInput.style.height = "40px";
+                          // Get the label element
+                          const label = document.getElementById("cardLabel_" + id);
+                          // Change the label text
+                          label.innerHTML = name + " - Uploaded";
+                          // Change the label color
+                          label.style.color = "green";
 
                         // Listen for the end of the transition to hide the element
-                        fileInput.addEventListener('transitionend', () => {
-                            fileInput.style.display = "none";
-                        });
+                        // fileInput.addEventListener('transitionend', () => {
+                        //     fileInput.style.display = "none";
+                        // });
                 }, 1000);
                     
                 
@@ -133,7 +139,7 @@ const RenderStudentCompliance = (complianceList) => {
         const li = document.createElement('li');
         li.id = "UploadCard_" + compliance.complianceTypeId;
         li.innerHTML = `
-            <label>${compliance.name}</label>
+            <label id="cardLabel_${compliance.complianceTypeId}">${compliance.name}</label>
             <form class="FileUploadContainer" id="uploadForm_${compliance.complianceTypeId}">
             <input type="file" id="fileInput_${compliance.complianceTypeId}" name="file" />
             <footer>
