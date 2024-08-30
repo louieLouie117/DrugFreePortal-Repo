@@ -79,11 +79,32 @@ const uploadFile = (id, name) => {
             xhr.open("POST", "/UploadSingleFile", true);
             xhr.onload = function () {
                 if (xhr.status === 200) {
-                    alert("File uploaded successfully!");
+                    // alert("File uploaded successfully!");
                     // Call any other necessary functions here
                     button.style.backgroundColor = "gray";
                     button.disabled = true;
                     button.innerHTML = "Uploaded Successfully";
+
+                    // class to hide the form
+                    const fileInput = document.getElementById("UploadCard_" + id);
+                    // overflow hidden
+                    fileInput.style.overflow = "hidden";
+
+
+               // Set the initial height and transition properties
+                fileInput.style.transition = "height 2s";
+                
+                // Set the height to 0 after a delay
+                setTimeout(() => {
+                    fileInput.style.height = "0";
+
+                        // Listen for the end of the transition to hide the element
+                        fileInput.addEventListener('transitionend', () => {
+                            fileInput.style.display = "none";
+                        });
+                }, 1000);
+                    
+                
                 } else {
                     alert("An HTTP error occurred. Please try again.");
                 }
@@ -110,12 +131,13 @@ const RenderStudentCompliance = (complianceList) => {
         console.log("compliance", compliance.complianceTypeId);
 
         const li = document.createElement('li');
+        li.id = "UploadCard_" + compliance.complianceTypeId;
         li.innerHTML = `
             <label>${compliance.name}</label>
             <form class="FileUploadContainer" id="uploadForm_${compliance.complianceTypeId}">
             <input type="file" id="fileInput_${compliance.complianceTypeId}" name="file" />
             <footer>
-                <button id="uploadButton_${compliance.complianceTypeId}" class="mainBTN" type="submit">Upload</button>
+            <button id="uploadButton_${compliance.complianceTypeId}" class="mainBTN" type="submit">Upload</button>
             </footer>
             </form>
         `;
