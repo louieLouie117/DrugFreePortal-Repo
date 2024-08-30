@@ -85,11 +85,11 @@ const uploadFile = (id, name) => {
                     button.disabled = true;
                     button.innerHTML = "Uploaded Successfully";
                 } else {
-                    alert("An error occurred message 1.");
+                    alert("An HTTP error occurred. Please try again.");
                 }
             };
             xhr.onerror = function () {
-                alert("An error occurred message 2.");
+                alert("A network error occurred. Please try again.");
                 return;
             };
             xhr.send(formData);
@@ -111,10 +111,11 @@ const RenderStudentCompliance = (complianceList) => {
 
         const li = document.createElement('li');
         li.innerHTML = `
+            <label>${compliance.name}</label>
             <form class="FileUploadContainer" id="uploadForm_${compliance.complianceTypeId}">
             <input type="file" id="fileInput_${compliance.complianceTypeId}" name="file" />
             <footer>
-                <button id="uploadButton_${compliance.complianceTypeId}" class="mainBTN" type="submit">Upload: ${compliance.name}</button>
+                <button id="uploadButton_${compliance.complianceTypeId}" class="mainBTN" type="submit">Upload</button>
             </footer>
             </form>
         `;
