@@ -82,16 +82,19 @@ const uploadFile = (id, name) => {
                     button.disabled = true;
                     button.innerHTML = "Uploaded Successfully";
                 } else {
-                    alert("An error occurred.");
+                    alert("An error occurred message 1.");
                 }
             };
             xhr.onerror = function () {
-                alert("An error occurred.");
+                alert("An error occurred message 2.");
+                return;
             };
             xhr.send(formData);
         } else {
             alert("No file selected");
-
+            // reset the form and child elements
+            document.getElementById("uploadForm_"+ id).reset();
+            return;
         }
     });
 };
