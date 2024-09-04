@@ -124,6 +124,11 @@ namespace DrugFreePortal.Models
                 fileExtension = ".pdf";
             }
 
+            if (file.ContentType == "image/jpeg")
+            {
+                fileExtension = ".jpeg";
+            }
+
 
             // Combine the current directory path with the destination path for the uploaded file
             var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "img", "uploads", fileName + fileExtension);

@@ -1177,7 +1177,7 @@ th{
     }
     .UploadFiles-Container>main>div>ul{
         display: grid;
-        row-gap: 40px;
+        row-gap: 20px;
     }
 
     .UploadFiles-Container>main>div>ul>li{
