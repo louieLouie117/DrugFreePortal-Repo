@@ -81,35 +81,26 @@ const uploadFile = (id, name) => {
                 if (xhr.status === 200) {
                     // alert("File uploaded successfully!");
                     // Call any other necessary functions here
-                    button.style.backgroundColor = "gray";
-                    button.disabled = true;
-                    button.innerHTML = "Uploading...";
+                    button.disabled = false;
+                    button.innerHTML = "Upload";
 
-                    // class to hide the form
-                    const fileInput = document.getElementById("UploadCard_" + id);
-                    // overflow hidden
-                    fileInput.style.overflow = "hidden";
+                    const label = document.getElementById("cardLabel_" + id);
+                    // Change the label text with file name and uploaded
+                    label.innerHTML = "Uploaded Completed";
+                    // Change the label color
+                    label.style.color = "green";
+
+                    // clear form with id uploadForm_id
+
+                    // setime to change label back to original
+                    setTimeout(() => {
+                        label.innerHTML = "You can now upload other files for " + name + " compliance";
+                        label.style.color = "black";
+                        document.getElementById("uploadForm_" + id).reset();
+
+                    }, 1000);
 
 
-               // Set the initial height and transition properties
-                fileInput.style.transition = "height 1s";
-                
-                // Set the height to 0 after a delay
-                setTimeout(() => {
-                    fileInput.style.height = "40px";
-                          // Get the label element
-                          const label = document.getElementById("cardLabel_" + id);
-                          // Change the label text
-                          label.innerHTML = name + " - Uploaded";
-                          // Change the label color
-                          label.style.color = "green";
-
-                        // Listen for the end of the transition to hide the element
-                        // fileInput.addEventListener('transitionend', () => {
-                        //     fileInput.style.display = "none";
-                        // });
-                }, 1000);
-                    
                 
                 } else {
                     alert("An HTTP error occurred. Please try again.");

@@ -1187,15 +1187,16 @@ th{
         border-radius: 10px;
         padding: 10px;
         border: solid rgb(193, 193, 193) 1px;
-        height: 150px;
+        height: 190px;
       background-color: white;
       /* justify-self: center; */
 
     }
 
     .UploadFiles-Container>main>div>ul>li>label{
-        font: 1.3em sans-serif;
+        font: 1.1em sans-serif;
         padding: 10px;
+        max-width: 260px;
     }
 
 
