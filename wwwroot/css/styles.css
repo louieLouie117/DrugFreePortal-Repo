@@ -1222,6 +1222,8 @@ th{
     }
 
 
+
+
         /* @ media and screen size less than 820 change .userRecord-Container grid-template-columns: repeat(2, 1fr);
 */
 @media screen and (max-width: 1000px) {

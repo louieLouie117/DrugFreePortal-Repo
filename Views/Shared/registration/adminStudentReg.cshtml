@@ -182,7 +182,10 @@
 
 
         if (data.status === "Registered") {
-            window.location.href = '@Url.Action("Dashboard", "Home")';
+            alert("Student Registered successfully");
+            // call function fetchAllUsers
+            fetchAllUsers();
+    @* window.location.href = '@Url.Action("Dashboard", "Home")'; *@
         }
     }
 
@@ -216,16 +219,17 @@
         </header>
         <div>
             <input onclick="StudentInputHandler(event)" id="AdminStripeCustomerId" type="text"
-                placeholder="Stripe Customer Id:" value="Free">
+                placeholder="Stripe Customer Id:" value="Manual Registration">
         </div>
 
         <section id="AdminSchoolInfo">
 
             <label id="StudentSchoolLabel"></label>
             <select name="" id="StudentSchoolSelector"></select>
-            <input onclick="StudentInputHandler(event)" id="StudentSchool" type="text" placeholder="School:" disabled>
+            <input class="hidden" onclick="StudentInputHandler(event)" id="StudentSchool" type="text"
+                placeholder="School:" disabled>
 
-            <input type="text" id="SchoolIdForStudentReg" placeholder="schoolId:" disabled>
+            <input class="hidden" type="text" id="SchoolIdForStudentReg" placeholder="school Id:" disabled>
 
 
             <label id="StudentIdLabel"></label>
