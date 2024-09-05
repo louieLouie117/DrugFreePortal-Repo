@@ -50,6 +50,26 @@ const UploadFileViewHandler = async (e) => {
    
 }
 
+// Function to upload a file
+const GetComplianceFilesHandler = async (id) => {
+    console.log("GetComplianceFilesHandler called", id);
+
+    fetch('getComplianceFiles', {
+        method: "GET",
+
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log("data from db", data);
+        console.log("student file list", data.studentFiles);
+    })
+    .catch(error => {
+        console.error("Error fetching compliance files:", error);
+        // Handle the error here
+    });
+}
+
+
 
 const uploadFile = (id, name) => {
     let button = document.getElementById("uploadButton_" + id);
@@ -82,25 +102,22 @@ const uploadFile = (id, name) => {
                     // alert("File uploaded successfully!");
                     // Call any other necessary functions here
                     button.disabled = false;
-                    button.innerHTML = "Upload";
+                    button.innerHTML = "Uploading...";
+                    button.style.backgroundColor = "gray";
 
                     const label = document.getElementById("cardLabel_" + id);
-                    // Change the label text with file name and uploaded
-                    label.innerHTML = "Uploaded Completed";
-                    // Change the label color
-                    label.style.color = "green";
-
-                    // clear form with id uploadForm_id
-
-                    // setime to change label back to original
+           
                     setTimeout(() => {
-                        label.innerHTML = "You can now upload other files for " + name + " compliance";
-                        label.style.color = "black";
+                        label.innerHTML = "Uploaded complete. You can now upload other files for " + name + " compliance.";
+                        label.style.color = "green";
                         document.getElementById("uploadForm_" + id).reset();
+                        button.style.backgroundColor = "#245684";
+                        button.innerHTML = "Upload";
 
-                    }, 1000);
+                    }, 1500);
 
-
+                    // Call the function to get the updated list of files
+                    GetComplianceFilesHandler(id, name);
                 
                 } else {
                     alert("An HTTP error occurred. Please try again.");
@@ -137,7 +154,10 @@ const RenderStudentCompliance = (complianceList) => {
             <button id="uploadButton_${compliance.complianceTypeId}" class="mainBTN" type="submit">Upload</button>
             </footer>
             </form>
+            <ul id="FileUploadList_${compliance.complianceTypeId}"></ul>
         `;
+
+      
 
         // Append the list item to the ul
         ul.appendChild(li);

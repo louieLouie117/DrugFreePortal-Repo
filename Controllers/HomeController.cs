@@ -103,6 +103,9 @@ namespace DrugFreePortal.Models
             System.Console.WriteLine("Reached backend of UploadSingleFileMethod-----");
             System.Console.WriteLine($"File Name: {file.FileName}");
 
+            // set file name to session
+            HttpContext.Session.SetString("FileName", file.FileName);
+
             if (file.Length > 5 * 1024 * 1024) // 5MB
             {
                 return BadRequest("File is too large");
@@ -191,6 +194,26 @@ namespace DrugFreePortal.Models
             .ToList() ?? new List<UploadFile>();
 
             return Ok(new { Status = "Success", StudentFiles = StudentFiles });
+        }
+
+        [HttpGet("getComplianceFiles")]
+        public IActionResult GetComplianceFilesMethod()
+        {
+            System.Console.WriteLine($"Reached backend of compliance files");
+
+            // get user id from session
+            int? UserIdInSession = HttpContext.Session.GetInt32("UserId");
+
+            // get file name from session FileName
+            string FileName = HttpContext.Session.GetString("FileName") ?? string.Empty;
+
+            // get uploaded file by user id and file name
+            List<UploadFile> ComplianceFile = _context.UploadFiles?
+                .Where(f => f.UserId == UserIdInSession && f.FileName == FileName)
+                .ToList() ?? new List<UploadFile>();
+
+
+            return Ok(new { Status = "Success", ComplianceFile = ComplianceFile });
         }
 
         [HttpPost("CheckIn")]
