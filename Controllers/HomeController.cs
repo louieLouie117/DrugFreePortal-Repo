@@ -89,6 +89,8 @@ namespace DrugFreePortal.Models
 
             // lambda expression to get all users with null or empty check net8.0 new feature
             List<User> AllUsers = _context.Users?.Select(u => u).ToList() ?? new List<User>();
+            // descending order
+            AllUsers = AllUsers.OrderByDescending(u => u.CreatedAt).ToList();
 
             return Ok(new { Status = "Success", UsersList = AllUsers });
         }
@@ -122,6 +124,11 @@ namespace DrugFreePortal.Models
             if (file.ContentType == "application/pdf")
             {
                 fileExtension = ".pdf";
+            }
+
+            if (file.ContentType == "image/jpeg")
+            {
+                fileExtension = ".jpeg";
             }
 
 

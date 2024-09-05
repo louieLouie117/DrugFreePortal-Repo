@@ -51,52 +51,72 @@ const UploadFileViewHandler = async (e) => {
 }
 
 
-
-
 const uploadFile = (id, name) => {
     let button = document.getElementById("uploadButton_" + id);
- 
-    document.getElementById("uploadForm_"+ id).addEventListener("submit", function (event) {
-        event.preventDefault();
-        console.log(id, name);
+    let form = document.getElementById("uploadForm_" + id);
 
-      
+    // Check if the event listener has already been added
+    if (!form.dataset.listenerAdded) {
+        form.addEventListener("submit", function (event) {
+            event.preventDefault();
+            console.log(id, name);
 
-        var formData = new FormData();
-        var fileInput = document.getElementById("fileInput_" + id);
-        var file = fileInput.files[0];
-        console.log("------------file", file);
+            var formData = new FormData();
+            var fileInput = document.getElementById("fileInput_" + id);
+            var file = fileInput.files[0];
+            console.log("------------file", file);
 
-        if (file) {
+            if (!file) {
+                alert("No file selected");
+                return;
+            }
+
             // Change the file name to "file" if you want to use the same name
             formData.append("file", file, name);
-            console.log("here",file);
+            console.log("here", file);
 
             var xhr = new XMLHttpRequest();
             xhr.open("POST", "/UploadSingleFile", true);
             xhr.onload = function () {
                 if (xhr.status === 200) {
-                    alert("File uploaded successfully!");
+                    // alert("File uploaded successfully!");
                     // Call any other necessary functions here
-                    button.style.backgroundColor = "gray";
-                    button.disabled = true;
-                    button.innerHTML = "Uploaded Successfully";
+                    button.disabled = false;
+                    button.innerHTML = "Upload";
+
+                    const label = document.getElementById("cardLabel_" + id);
+                    // Change the label text with file name and uploaded
+                    label.innerHTML = "Uploaded Completed";
+                    // Change the label color
+                    label.style.color = "green";
+
+                    // clear form with id uploadForm_id
+
+                    // setime to change label back to original
+                    setTimeout(() => {
+                        label.innerHTML = "You can now upload other files for " + name + " compliance";
+                        label.style.color = "black";
+                        document.getElementById("uploadForm_" + id).reset();
+
+                    }, 1000);
+
+
+                
                 } else {
-                    alert("An error occurred.");
+                    alert("An HTTP error occurred. Please try again.");
                 }
             };
             xhr.onerror = function () {
-                alert("An error occurred.");
+                alert("A network error occurred. Please try again.");
+                return;
             };
             xhr.send(formData);
-        } else {
-            alert("No file selected");
+        });
 
-        }
-    });
+        // Mark that the event listener has been added
+        form.dataset.listenerAdded = "true";
+    }
 };
-
-
 
 const RenderStudentCompliance = (complianceList) => {
     const ul = document.getElementById('SchoolComplianceForStudent'); // Assuming you have a ul with id 'SchoolComplianceForStudent'
@@ -108,20 +128,24 @@ const RenderStudentCompliance = (complianceList) => {
         console.log("compliance", compliance.complianceTypeId);
 
         const li = document.createElement('li');
+        li.id = "UploadCard_" + compliance.complianceTypeId;
         li.innerHTML = `
+            <label id="cardLabel_${compliance.complianceTypeId}">${compliance.name}</label>
             <form class="FileUploadContainer" id="uploadForm_${compliance.complianceTypeId}">
             <input type="file" id="fileInput_${compliance.complianceTypeId}" name="file" />
             <footer>
-                <button id="uploadButton_${compliance.complianceTypeId}" class="mainBTN" onclick="uploadFile('${compliance.complianceTypeId}', '${compliance.name}')">Upload: ${compliance.name}</button>
+            <button id="uploadButton_${compliance.complianceTypeId}" class="mainBTN" type="submit">Upload</button>
             </footer>
             </form>
         `;
 
         // Append the list item to the ul
         ul.appendChild(li);
+
+        // Call uploadFile to set up the event listener
+        uploadFile(compliance.complianceTypeId, compliance.name);
     });
 };
-
 
 const GetStudentSchoolComplianceHandler = async () => {
     console.log("GetStudentSchoolComplianceHandler called");

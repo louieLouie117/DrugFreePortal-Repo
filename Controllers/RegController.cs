@@ -549,22 +549,55 @@ namespace DrugFreePortal.Models
             }
 
             // Create the email
-            var email = new MimeMessage();
-            email.From.Add(MailboxAddress.Parse("cicero.howe@ethereal.email"));
-            email.To.Add(MailboxAddress.Parse(dataFromUser.Email));
-            email.Subject = "Account Registered!";
-            email.Body = new TextPart(TextFormat.Html) { Text = $"<div style='background-Color: white'> <h5 style=' font-weight: normal, color: #00828B'>Hello, {dataFromUser.FirstName}</h5> <p>Welcome to our Drug Free Portal</p>" };
+            // var email = new MimeMessage();
+            // email.From.Add(MailboxAddress.Parse("cicero.howe@ethereal.email"));
+            // email.To.Add(MailboxAddress.Parse(dataFromUser.Email));
+            // email.Subject = "Account Registered!";
+            // email.Body = new TextPart(TextFormat.Html) { Text = $"<div style='background-Color: white'> <h5 style=' font-weight: normal, color: #00828B'>Hello, {dataFromUser.FirstName}</h5> <p>Welcome to our Drug Free Portal</p>" };
 
-            // Send email
-            using var smtp = new MailKit.Net.Smtp.SmtpClient();
-            smtp.Connect("smtp.ethereal.email", int.Parse("587"), SecureSocketOptions.StartTls);
-            smtp.Authenticate("cicero.howe@ethereal.email", "c9AdpF6dpbeyJb4zwz");
-            smtp.Send(email);
-            smtp.Disconnect(true);
+            // // Send email
+            // using var smtp = new MailKit.Net.Smtp.SmtpClient();
+            // smtp.Connect("smtp.ethereal.email", int.Parse("587"), SecureSocketOptions.StartTls);
+            // smtp.Authenticate("cicero.howe@ethereal.email", "c9AdpF6dpbeyJb4zwz");
+            // smtp.Send(email);
+            // smtp.Disconnect(true);
 
-            Console.WriteLine($"email was sent!!");
 
-            return Json(new { Status = "Admin Register Student Successfully" });
+            // set release version to R1.0
+            dataFromUser.ReleaseVersion = "R1.0";
+            System.Console.WriteLine($"release version: {dataFromUser.ReleaseVersion}");
+
+            dataFromUser.SubscriptionStatus = SubscriptionStatus.Active;
+
+
+
+            // check if user already exists
+            User? userExists = _context.Users?.FirstOrDefault(u => u.Email == dataFromUser.Email);
+            if (userExists != null)
+            {
+                return Json(new { Status = "User already exists" });
+            }
+            // account type student
+            dataFromUser.AccountType = AccountType.Student;
+
+            // hash password
+            PasswordHasher<User> Hasher = new PasswordHasher<User>();
+            dataFromUser.Password = Hasher.HashPassword(dataFromUser, dataFromUser.Password);
+
+
+            // save to database
+            if (_context.Users != null)
+            {
+                _context.Users.Add(dataFromUser);
+                _context.SaveChanges();
+            }
+
+            // add user id to session
+            // HttpContext.Session.SetInt32("UserId", dataFromUser.UserId);
+            // HttpContext.Session.SetInt32("SchoolIdInSession", dataFromUser.SchoolId);
+
+
+            return Json(new { Status = "Registered", Fields = emptyFields });
 
 
         }

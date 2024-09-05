@@ -16,11 +16,7 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-@{
-    var customerEmail = Context.Session.GetString("StripeCustomerEmail");
-    var customerName = Context.Session.GetString("StripeCustomerName");
-    var stripeCustomerId = Context.Session.GetString("StripeCustomerId");
-}
+
 <script>
 
     const RegStudentHandler = (e) => {
@@ -182,7 +178,10 @@
 
 
         if (data.status === "Registered") {
-            window.location.href = '@Url.Action("Dashboard", "Home")';
+            alert("Student Registered successfully");
+            // call function fetchAllUsers
+            fetchAllUsers();
+    @* window.location.href = '@Url.Action("Dashboard", "Home")'; *@
         }
     }
 
@@ -216,16 +215,17 @@
         </header>
         <div>
             <input onclick="StudentInputHandler(event)" id="AdminStripeCustomerId" type="text"
-                placeholder="Stripe Customer Id:" value="Free">
+                placeholder="Stripe Customer Id:" value="Manual Registration">
         </div>
 
         <section id="AdminSchoolInfo">
 
             <label id="StudentSchoolLabel"></label>
             <select name="" id="StudentSchoolSelector"></select>
-            <input onclick="StudentInputHandler(event)" id="StudentSchool" type="text" placeholder="School:" disabled>
+            <input class="hidden" onclick="StudentInputHandler(event)" id="StudentSchool" type="text"
+                placeholder="School:" disabled>
 
-            <input type="text" id="SchoolIdForStudentReg" placeholder="schoolId:" disabled>
+            <input class="hidden" type="text" id="SchoolIdForStudentReg" placeholder="school Id:" disabled>
 
 
             <label id="StudentIdLabel"></label>
@@ -247,8 +247,7 @@
 
         <section id="AdminSignInInfo">
             <label id="AdminStudentEmailLabel"></label>
-            <input onclick="StudentInputHandler(event)" id="AdminStudentEmail" value="@customerEmail" type="text"
-                placeholder="Email Address:">
+            <input onclick="StudentInputHandler(event)" id="AdminStudentEmail" type="text" placeholder="Email Address:">
 
             <label id="AdminStudentPasswordLabel"></label>
             <input onclick="StudentInputHandler(event)" id="AdminStudentPassword" type="password"

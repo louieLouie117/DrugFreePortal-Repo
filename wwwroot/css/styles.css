@@ -1177,7 +1177,7 @@ th{
     }
     .UploadFiles-Container>main>div>ul{
         display: grid;
-        row-gap: 40px;
+        row-gap: 20px;
     }
 
     .UploadFiles-Container>main>div>ul>li{
@@ -1187,13 +1187,16 @@ th{
         border-radius: 10px;
         padding: 10px;
         border: solid rgb(193, 193, 193) 1px;
-      /* background-color: #39C32B; */
+        height: 190px;
+      background-color: white;
       /* justify-self: center; */
 
     }
 
     .UploadFiles-Container>main>div>ul>li>label{
-        font: 1.3em sans-serif;
+        font: 1.1em sans-serif;
+        padding: 10px;
+        max-width: 260px;
     }
 
 
@@ -1217,6 +1220,8 @@ th{
     .ForgotPassword-Container>form>input{
         height: 40px;
     }
+
+
 
 
         /* @ media and screen size less than 820 change .userRecord-Container grid-template-columns: repeat(2, 1fr);
