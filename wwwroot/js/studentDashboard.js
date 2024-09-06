@@ -50,8 +50,31 @@ const UploadFileViewHandler = async (e) => {
    
 }
 
-const RenderUploadedFiles = (files, id) => {
-    const ul = document.getElementById('FileUploadList_' + id); // Assuming you have a ul with id 'FileUploadList_' + id
+const DeleteComplianceHandler = async (e , id) => {
+    console.log("DeleteComplianceHandler called",e.target.innerHTML, id);
+    let footer = document.getElementById("deleteFilOptions_" + id);
+
+    // if statment to check the button target name
+    if(e.target.innerHTML === "Delete") {
+        footer.style.display = "block";
+        return;
+    } 
+
+    if(e.target.innerHTML === "Yes") {
+        alert("Delete file function called");
+        return;
+        
+    }
+
+    if(e.target.innerHTML === "No") {
+        footer.style.display = "none";
+        return;
+    }
+}
+
+const RenderUploadedFiles = (files, containerId) => {
+    console.log("RenderUploadedFiles called", files, containerId);
+    const ul = document.getElementById('FileUploadList_' + containerId); // Assuming you have a ul with id 'FileUploadList_' + id
     // Clear the FileUploadList_ id ul
     ul.innerHTML = "";
 
@@ -71,7 +94,14 @@ const RenderUploadedFiles = (files, id) => {
                 <a href="${file.filePath}" target="_blank">${file.fileName}</a>
                 <label>${formattedDate}</label>
             </header>
-            <button class="deleteBTN" id="deleteFile_${file.id}" onclick="deleteFileHandler(${file.id}, ${id})">Delete</button>
+            <button class="deleteBTN" id="deleteFile_${file.uploadFileId}" onclick="DeleteComplianceHandler(event, ${file.uploadFileId})">Delete</button>
+              <footer class="hidden" id="deleteFilOptions_${file.uploadFileId}">
+                <label>Delete this file?</label>
+                <button class="deleteBTN" id="deleteFile_${file.uploadFileId}" onclick="DeleteComplianceHandler(event, ${file.uploadFileId})">Yes</button>
+                <button class="deleteBTN" onclick="DeleteComplianceHandler(event, ${file.uploadFileId})">No</button>
+            </footer>
+            
+
         `;
 
         // Append the list item to the ul
@@ -80,8 +110,11 @@ const RenderUploadedFiles = (files, id) => {
 }
 
 // Function to upload a file
-const GetComplianceFilesHandler = async (id) => {
-    console.log("GetComplianceFilesHandler called", id);
+const GetComplianceFilesHandler = async (containerId) => {
+    console.log("GetComplianceFilesHandler called", containerId);
+    let fileUploadList = document.getElementById("FileUploadList_" + containerId);
+    fileUploadList.style.display = "grid";
+
 
     fetch('getComplianceFiles', {
         method: "GET",
@@ -90,11 +123,9 @@ const GetComplianceFilesHandler = async (id) => {
     .then(response => response.json())
     .then(data => {
         console.log("data from db", data);
-        console.log("student file list", data.complianceFile);
-        // change FileUploadList_ to FileUploadList_ + id to display grid
-        let fileUploadList = document.getElementById("FileUploadList_" + id);
-        fileUploadList.style.display = "grid";
-        RenderUploadedFiles(data.complianceFile, id);
+
+        RenderUploadedFiles(data.complianceFile, containerId);
+       
     })
     .catch(error => {
         console.error("Error fetching compliance files:", error);
@@ -149,7 +180,7 @@ const uploadFile = (id, name) => {
                         document.getElementById("uploadForm_" + id).reset();
                         button.style.backgroundColor = "#245684";
                         button.disabled = false;
-                        GetComplianceFilesHandler(id, name);
+                        GetComplianceFilesHandler(id);
 
                     }, 1000);
 

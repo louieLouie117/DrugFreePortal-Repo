@@ -312,6 +312,9 @@ th{
     display: grid;
     row-gap: 20px;
     font: 1em sans-serif;
+    max-height: 400px;
+    overflow-y: scroll;
+    overflow-x: hidden;
 }
 
 
@@ -1214,6 +1217,7 @@ th{
         display: grid;
         grid-template-columns: 1fr 60px;
         align-items: center;
+        row-gap: 15px;
     }
 
     .UploadComplianceList>li>header{
@@ -1224,6 +1228,11 @@ th{
     .UploadComplianceList>li button{
         border-radius: 5px;
         cursor: pointer;
+    }
+
+    .UploadComplianceList>li footer{
+        grid-row: 2/3;
+        grid-column: 1/3;
     }
    
 
