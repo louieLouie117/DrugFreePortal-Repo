@@ -868,7 +868,7 @@ th{
 /* admin dashboard */
     .AdminDashboard-container{
         display: grid;
-        row-gap: 20px;
+        row-gap: 120px;
         background-color: whitesmoke;
         padding: 20px;
     }
@@ -900,6 +900,11 @@ th{
         align-items: center;
         background-color: whitesmoke;
         font: 1em sans-serif;
+    }
+
+    .ComplianceTable{
+        height: 80vh;
+        overflow-y: scroll;
     }
 
 

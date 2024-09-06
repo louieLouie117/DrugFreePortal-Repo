@@ -164,10 +164,12 @@ const ComplianceTypeList = (data) => {
         // Create table body
         let row = `
             <tr>
+                <td>${compliance.complianceTypeId}</td>
                 <td>${compliance.name}</td>
                 <td>${compliance.school}</td>
                 <td>${compliance.idFromSchool}</td>
                 <td>${compliance.details}</td>
+                <td><button id="${compliance.complianceTypeId}" onclick="EditComplianceHandler(${compliance.complianceTypeId})">Edit</button></td>
             </tr>
         `;
 

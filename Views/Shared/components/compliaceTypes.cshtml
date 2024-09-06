@@ -14,23 +14,27 @@
         <select id="SchoolsSelector">
 
         </select>
-        <input class="hidden" type="text" id="IdFromSchool">
+        <input type="text" id="IdFromSchool">
         <input type="text" id="ComplianceName" placeholder="Name of Compliance: Hep-C">
         <textarea name="" id="ComplianceDetails" cols="30" rows="10" placeholder="Details:"></textarea>
         <button class="mainBTN" onclick="CreateComplianceHandler(event)">Create Compliance</button>
     </form>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Compliance</th>
-                <th>School Name</th>
-                <th>School Id</th>
-                <th>Details</th>
-            </tr>
-        </thead>
-        <tbody id="ComplianceTypeList"></tbody>
-    </table>
+    <div class="ComplianceTable">
+        <table>
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Compliance</th>
+                    <th>School Name</th>
+                    <th>School Id</th>
+                    <th>Details</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="ComplianceTypeList"></tbody>
+        </table>
+    </div>
 
 </div>
 
