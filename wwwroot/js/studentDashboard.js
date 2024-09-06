@@ -54,20 +54,30 @@ const DeleteComplianceHandler = async (e , id) => {
     console.log("DeleteComplianceHandler called",e.target.innerHTML, id);
     let footer = document.getElementById("deleteFilOptions_" + id);
 
-    // if statment to check the button target name
+    //update FileUploadItem_ id to add border dashed
+    let file = document.getElementById("FileUploadItem_" + id);
+  
+
+
+
+    // if to check the button target name
     if(e.target.innerHTML === "Delete") {
         footer.style.display = "block";
+        file.style.border = "1px dashed black";
+        file.style.padding = "10px";
         return;
     } 
 
     if(e.target.innerHTML === "Yes") {
-        alert("Delete file function called");
+        alert("Sorry, this feature is not yet available");
         return;
         
     }
 
     if(e.target.innerHTML === "No") {
         footer.style.display = "none";
+        file.style.border = "none";
+        file.style.padding = "0px";
         return;
     }
 }
@@ -89,9 +99,11 @@ const RenderUploadedFiles = (files, containerId) => {
        
 
         const li = document.createElement('li');
+        // id for li
+        li.id = "FileUploadItem_" + file.uploadFileId;
         li.innerHTML = `
             <header>
-                <a href="${file.filePath}" target="_blank">${file.fileName}</a>
+                <a href="${file.filePath}" target="_blank">View File</a>
                 <label>${formattedDate}</label>
             </header>
             <button class="deleteBTN" id="deleteFile_${file.uploadFileId}" onclick="DeleteComplianceHandler(event, ${file.uploadFileId})">Delete</button>
