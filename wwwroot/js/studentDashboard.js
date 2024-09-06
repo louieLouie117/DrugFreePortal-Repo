@@ -50,6 +50,35 @@ const UploadFileViewHandler = async (e) => {
    
 }
 
+const RenderUploadedFiles = (files, id) => {
+    const ul = document.getElementById('FileUploadList_' + id); // Assuming you have a ul with id 'FileUploadList_' + id
+    // Clear the FileUploadList_ id ul
+    ul.innerHTML = "";
+
+    files.forEach(file => {
+        // Create a new list item
+        console.log("file", file.fileName);
+
+        //  data converter for file.createdOn
+        let date = new Date(file.updatedAt);
+        let formattedDate = date.toLocaleString();
+
+       
+
+        const li = document.createElement('li');
+        li.innerHTML = `
+            <header>
+                <a href="${file.filePath}" target="_blank">${file.fileName}</a>
+                <label>${formattedDate}</label>
+            </header>
+            <button class="deleteBTN" id="deleteFile_${file.id}" onclick="deleteFileHandler(${file.id}, ${id})">Delete</button>
+        `;
+
+        // Append the list item to the ul
+        ul.appendChild(li);
+    });
+}
+
 // Function to upload a file
 const GetComplianceFilesHandler = async (id) => {
     console.log("GetComplianceFilesHandler called", id);
@@ -61,7 +90,11 @@ const GetComplianceFilesHandler = async (id) => {
     .then(response => response.json())
     .then(data => {
         console.log("data from db", data);
-        console.log("student file list", data.studentFiles);
+        console.log("student file list", data.complianceFile);
+        // change FileUploadList_ to FileUploadList_ + id to display grid
+        let fileUploadList = document.getElementById("FileUploadList_" + id);
+        fileUploadList.style.display = "grid";
+        RenderUploadedFiles(data.complianceFile, id);
     })
     .catch(error => {
         console.error("Error fetching compliance files:", error);
@@ -102,22 +135,25 @@ const uploadFile = (id, name) => {
                     // alert("File uploaded successfully!");
                     // Call any other necessary functions here
                     button.disabled = false;
-                    button.innerHTML = "Uploading...";
                     button.style.backgroundColor = "gray";
+                    button.disabled = true;
 
+                    // UPDATE THE LABEL TO SHOW THAT THE FILE is being uploaded
                     const label = document.getElementById("cardLabel_" + id);
+                    label.innerHTML = "Uploading file...";
+                    label.style.color = "black";
            
                     setTimeout(() => {
                         label.innerHTML = "Uploaded complete. You can now upload other files for " + name + " compliance.";
                         label.style.color = "green";
                         document.getElementById("uploadForm_" + id).reset();
                         button.style.backgroundColor = "#245684";
-                        button.innerHTML = "Upload";
+                        button.disabled = false;
+                        GetComplianceFilesHandler(id, name);
 
-                    }, 1500);
+                    }, 1000);
 
                     // Call the function to get the updated list of files
-                    GetComplianceFilesHandler(id, name);
                 
                 } else {
                     alert("An HTTP error occurred. Please try again.");
@@ -149,16 +185,13 @@ const RenderStudentCompliance = (complianceList) => {
         li.innerHTML = `
             <label id="cardLabel_${compliance.complianceTypeId}">${compliance.name}</label>
             <form class="FileUploadContainer" id="uploadForm_${compliance.complianceTypeId}">
-            <input type="file" id="fileInput_${compliance.complianceTypeId}" name="file" />
-            <footer>
-            <button id="uploadButton_${compliance.complianceTypeId}" class="mainBTN" type="submit">Upload</button>
-            </footer>
+                <input type="file" id="fileInput_${compliance.complianceTypeId}" name="file" />
+                <footer>
+                <button id="uploadButton_${compliance.complianceTypeId}" class="mainBTN" type="submit">Upload</button>
+                </footer>
             </form>
-            <ul id="FileUploadList_${compliance.complianceTypeId}"></ul>
+            <ul class="UploadComplianceList" id="FileUploadList_${compliance.complianceTypeId}"></ul>
         `;
-
-      
-
         // Append the list item to the ul
         ul.appendChild(li);
 

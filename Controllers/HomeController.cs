@@ -196,6 +196,9 @@ namespace DrugFreePortal.Models
             return Ok(new { Status = "Success", StudentFiles = StudentFiles });
         }
 
+
+
+
         [HttpGet("getComplianceFiles")]
         public IActionResult GetComplianceFilesMethod()
         {
@@ -212,9 +215,14 @@ namespace DrugFreePortal.Models
                 .Where(f => f.UserId == UserIdInSession && f.FileName == FileName)
                 .ToList() ?? new List<UploadFile>();
 
+            //descending order
+            ComplianceFile = ComplianceFile.OrderByDescending(f => f.UpdatedAt).ToList();
+
 
             return Ok(new { Status = "Success", ComplianceFile = ComplianceFile });
         }
+
+
 
         [HttpPost("CheckIn")]
         public IActionResult CheckInMethod(Queue DataFromUser)
