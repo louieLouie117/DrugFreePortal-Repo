@@ -100,34 +100,34 @@ const CreateComplianceHandler = (event) => {
     event.preventDefault();
 
     const SchoolsSelector = document.getElementById("SchoolsSelector").value;
-    if (SchoolsSelector === "Select School") {
-        alert("Please select a school");
-        return;
-    }
+  
     const IdFromSchool = document.getElementById("IdFromSchool").value;
     const complianceName = document.getElementById("ComplianceName").value;
     const complianceDetails = document.getElementById("ComplianceDetails").value;
 
 
-    const data = {
-        school: SchoolsSelector,
-        idFromSchool: IdFromSchool,
-        name: complianceName,
-        details: complianceDetails
-    };
-    
-
-    
-    console.log(data);
+  
 
     //if button = Create Compliance
     if (event.target.innerText === "Create Compliance") {
+        const dataCreateCompliance = {
+            school: SchoolsSelector,
+            idFromSchool: IdFromSchool,
+            name: complianceName,
+            details: complianceDetails
+        };
+        
+        console.log(dataCreateCompliance);
+        if (SchoolsSelector === "Select School") {
+            alert("Please select a school");
+            return;
+        }
         fetch('/AddCompliance', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(data)
+            body: JSON.stringify(dataCreateCompliance)
         })
             .then(response => {
                 if (response.ok) {
@@ -151,30 +151,49 @@ const CreateComplianceHandler = (event) => {
                 console.error('Network error:', error);
             });
     }
+
+    //if button = Save Changes
+    if (event.target.innerText === "Save Changes") {
+        alert("Save Changes");
+        fetch('/EditCompliance', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+            .then(response => {
+                if (response.ok) {
+                    // Handle successful response
+                    console.log('Compliance edited successfully');
+                    return response.json();
+                } else {
+                    // Handle error response
+                    console.error('Failed to edit compliance');
+                    throw new Error('Failed to edit compliance');
+                }
+            })
+            .then(data => {
+                // Handle data from backend
+                console.log('Data from backend after editing:', data);
+                // Call a function to handle the data
+                ComplianceTypeList(data);
+            })
+            .catch(error => {
+                // Handle network error
+                console.error('Network error:', error);
+            });
+    }
 };
 
-const EditComplianceHandler = (complianceTypeId) => {
-    console.log('Editing compliance with id:', complianceTypeId);
+const EditComplianceHandler = (complianceTypeId, name, details) => {
+    console.log('Editing compliance with id:', complianceTypeId, name, details);
     let ComplianceSubmitBTN = document.getElementById("ComplianceSubmitBTN");
     ComplianceSubmitBTN.innerText = "Save Changes";
+    // place the name in the input field
+    document.getElementById("ComplianceName").value = name;
+    document.getElementById("ComplianceDetails").value = details;
 
-    // fetch('/EditCompliance', {
-    //     method: 'POST',
-    //     headers: {
-    //         'Content-Type': 'application/json'
-    //     },
-    //     body: JSON.stringify({ complianceTypeId })
-    // })
-    //     .then(response => response.json())
-    //     .then(data => {
-    //         // Handle success response
-    //         console.log('Compliance edited successfully', data);
-    //         // getSchools();
-    //     })
-    //     .catch(error => {
-    //         // Handle error response
-    //         console.error('Failed to edit compliance', error);
-    //     });
     return
 }
 
@@ -197,7 +216,7 @@ const ComplianceTypeList = (data) => {
                 <td>${compliance.school}</td>
                 <td>${compliance.idFromSchool}</td>
                 <td>${compliance.details}</td>
-                <td><button id="${compliance.complianceTypeId}" onclick="EditComplianceHandler(${compliance.complianceTypeId})">Edit</button></td>
+                <td><button id="${compliance.complianceTypeId}" onclick="EditComplianceHandler(${compliance.complianceTypeId}, '${compliance.name}', '${compliance.details}')">Edit</button></td>
             </tr>
         `;
 
