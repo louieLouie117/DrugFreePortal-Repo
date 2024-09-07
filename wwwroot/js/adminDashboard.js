@@ -153,6 +153,31 @@ const CreateComplianceHandler = (event) => {
     }
 };
 
+const EditComplianceHandler = (complianceTypeId) => {
+    console.log('Editing compliance with id:', complianceTypeId);
+    let ComplianceSubmitBTN = document.getElementById("ComplianceSubmitBTN");
+    ComplianceSubmitBTN.innerText = "Save Changes";
+
+    // fetch('/EditCompliance', {
+    //     method: 'POST',
+    //     headers: {
+    //         'Content-Type': 'application/json'
+    //     },
+    //     body: JSON.stringify({ complianceTypeId })
+    // })
+    //     .then(response => response.json())
+    //     .then(data => {
+    //         // Handle success response
+    //         console.log('Compliance edited successfully', data);
+    //         // getSchools();
+    //     })
+    //     .catch(error => {
+    //         // Handle error response
+    //         console.error('Failed to edit compliance', error);
+    //     });
+    return
+}
+
 
 
 
