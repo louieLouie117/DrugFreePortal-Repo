@@ -120,34 +120,37 @@ const CreateComplianceHandler = (event) => {
     
     console.log(data);
 
-    fetch('/AddCompliance', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-    })
-        .then(response => {
-            if (response.ok) {
-                // Handle successful response
-                console.log('Compliance created successfully');
-                          return response.json();
-            } else {
-                // Handle error response
-                console.error('Failed to create compliance');
-                throw new Error('Failed to create compliance');
-            }
+    //if button = Create Compliance
+    if (event.target.innerText === "Create Compliance") {
+        fetch('/AddCompliance', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
         })
-        .then(data => {
-            // Handle data from backend
-            console.log('Data from backend after submiting:', data);
-            // Call a function to handle the data
-            ComplianceTypeList(data);
-        })
-        .catch(error => {
-            // Handle network error
-            console.error('Network error:', error);
-        });
+            .then(response => {
+                if (response.ok) {
+                    // Handle successful response
+                    console.log('Compliance created successfully');
+                              return response.json();
+                } else {
+                    // Handle error response
+                    console.error('Failed to create compliance');
+                    throw new Error('Failed to create compliance');
+                }
+            })
+            .then(data => {
+                // Handle data from backend
+                console.log('Data from backend after submiting:', data);
+                // Call a function to handle the data
+                ComplianceTypeList(data);
+            })
+            .catch(error => {
+                // Handle network error
+                console.error('Network error:', error);
+            });
+    }
 };
 
 
