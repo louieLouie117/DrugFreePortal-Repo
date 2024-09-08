@@ -131,7 +131,7 @@ const CreateComplianceHandler = (event) => {
             return;
         }
         fetch('/AddCompliance', {
-            method: 'POST',
+            method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
             },

@@ -11,11 +11,12 @@
 <div class="Admin-Container ">
     <form action="">
         <h3>Add a new compliance to a school.</h3>
+        <input class="hidden" id="EditComplianceId" type="text" placeholder="ID to edit">
+
         <select id="SchoolsSelector">
 
         </select>
         <input type="text" id="IdFromSchool">
-        <input class="hidden" id="EditComplianceId" type="text" placeholder="ID to edit">
         <input type="text" id="ComplianceName" placeholder="Name of Compliance: Hep-C">
         <textarea name="" id="ComplianceDetails" cols="30" rows="10" placeholder="Details:"></textarea>
         <button id="ComplianceSubmitBTN" class="mainBTN" onclick="CreateComplianceHandler(event)">Create
