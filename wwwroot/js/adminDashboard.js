@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
   getSchools();
   getSchoolsForDeanReg();
   getSemesters();
+  loadComplianceTypes();
 });
 window.onload = function () {}; // loads after all the elements are loaded
 
@@ -72,7 +73,7 @@ const table = document.getElementById('usersList'); // Assuming you have a table
 
 
 
-window.addEventListener('load', () => {
+const loadComplianceTypes = () => {
     fetch('/GetComplianceTypes')
         .then(response => {
             if (response.ok) {
@@ -93,62 +94,8 @@ window.addEventListener('load', () => {
             // Handle network error
             console.error('Network error:', error);
         });
-});
-
-// 
-const CreateComplianceHandler = (event) => {
-    event.preventDefault();
-
-    const SchoolsSelector = document.getElementById("SchoolsSelector").value;
-    if (SchoolsSelector === "Select School") {
-        alert("Please select a school");
-        return;
-    }
-    const IdFromSchool = document.getElementById("IdFromSchool").value;
-    const complianceName = document.getElementById("ComplianceName").value;
-    const complianceDetails = document.getElementById("ComplianceDetails").value;
-
-
-    const data = {
-        school: SchoolsSelector,
-        idFromSchool: IdFromSchool,
-        name: complianceName,
-        details: complianceDetails
-    };
-    
-
-    
-    console.log(data);
-
-    fetch('/AddCompliance', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-    })
-        .then(response => {
-            if (response.ok) {
-                // Handle successful response
-                console.log('Compliance created successfully');
-                          return response.json();
-            } else {
-                // Handle error response
-                console.error('Failed to create compliance');
-                throw new Error('Failed to create compliance');
-            }
-        })
-        .then(data => {
-            // Handle data from backend
-            console.log('Data from backend after submiting:', data);
-            // Call a function to handle the data
-            ComplianceTypeList(data);
-        })
-        .catch(error => {
-            // Handle network error
-            console.error('Network error:', error);
-        });
 };
+
 
 
 
@@ -164,10 +111,12 @@ const ComplianceTypeList = (data) => {
         // Create table body
         let row = `
             <tr>
-                <td>${compliance.name}</td>
-                <td>${compliance.school}</td>
-                <td>${compliance.idFromSchool}</td>
-                <td>${compliance.details}</td>
+            <td>${compliance.complianceTypeId}</td>
+            <td>${compliance.name}</td>
+            <td>${compliance.school}</td>
+            <td>${compliance.idFromSchool}</td>
+            <td>${compliance.details}</td>
+            <td><button id="${compliance.complianceTypeId}" onclick="EditComplianceHandler('${compliance.school}', '${compliance.idFromSchool}', ${compliance.complianceTypeId}, '${compliance.name}', '${compliance.details}')">Edit</button></td>
             </tr>
         `;
 
@@ -175,6 +124,140 @@ const ComplianceTypeList = (data) => {
         complianceTypeList.innerHTML += row;
     });
 };
+
+
+
+
+// 
+const CreateComplianceHandler = (event) => {
+    event.preventDefault();
+
+    const SchoolsSelector = document.getElementById("SchoolsSelector").value;
+    const IdFromSchool = document.getElementById("IdFromSchool").value;
+    const complianceName = document.getElementById("ComplianceName").value;
+    const complianceDetails = document.getElementById("ComplianceDetails").value;
+    const EditComplianceId = document.getElementById("EditComplianceId").value;
+  
+    const dataCreateCompliance = {
+        school: SchoolsSelector,
+        idFromSchool: IdFromSchool,
+        name: complianceName,
+        details: complianceDetails
+    };
+
+    const dataToEdit = {
+        school: SchoolsSelector,
+        idFromSchool: IdFromSchool,
+        name: complianceName,
+        details: complianceDetails,
+        complianceTypeId: EditComplianceId,
+       
+    };
+
+    //if button = Create Compliance
+    if (event.target.innerText === "Create Compliance") {
+
+        
+        console.log(dataCreateCompliance);
+        if (SchoolsSelector === "Select School") {
+            alert("Please select a school");
+            return;
+        }
+        fetch('/AddCompliance', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(dataCreateCompliance)
+        })
+            .then(response => {
+                if (response.ok) {
+                    // Handle successful response
+                    console.log('Compliance created successfully');
+                    loadComplianceTypes()
+                    return;
+                } else {
+                    // Handle error response
+                    console.error('Failed to create compliance');
+                    throw new Error('Failed to create compliance');
+                }
+            })
+            .then(data => {
+                // Handle data from backend
+                console.log('Data from backend after submitting:', data);
+                // Call a function to handle the data
+
+            })
+            .catch(error => {
+                // Handle network error
+                console.error('Network error:', error);
+            });
+    }
+
+    //Edit Compliance
+    if (event.target.innerText === "Save Changes") {
+
+        console.log(dataToEdit);
+    
+        fetch('/EditCompliance', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(dataToEdit)
+        })
+            .then(response => {
+                if (response.ok) {
+                    // Handle successful response
+                    console.log('Compliance edited successfully');
+                    loadComplianceTypes()
+                return;
+                } else {
+                    // Handle error response
+                    console.error('Failed to create compliance');
+                    throw new Error('Failed to create compliance');
+                }
+            })
+            .then(data => {
+                // Handle data from backend
+                console.log('Data from backend after submitting:', data);
+                // Call a function to handle the data
+            })
+            .catch(error => {
+                // Handle network error
+                console.error('Network error:', error);
+            });
+    }
+
+};
+
+const EditComplianceHandler = (school, schoolId, complianceTypeId, name, details) => {
+    console.log('Editing compliance with id:', complianceTypeId, name, details);
+
+
+    let ComplianceSubmitBTN = document.getElementById("ComplianceSubmitBTN");
+    ComplianceSubmitBTN.innerText = "Save Changes";
+
+    let schoolSelector = document.getElementById("SchoolsSelector");
+    schoolSelector.value = school;
+
+    let idFromSchool = document.getElementById("IdFromSchool");
+    idFromSchool.value = schoolId;
+
+    // place the name in the input field
+    let complianceNameInput = document.getElementById("ComplianceName");
+    complianceNameInput.value = name;
+
+    let complianceDetailsInput = document.getElementById("ComplianceDetails"); // Move the declaration here
+    complianceDetailsInput.value = details; 
+
+    let editComplianceIdInput = document.getElementById("EditComplianceId");
+    editComplianceIdInput.value = complianceTypeId;
+    editComplianceIdInput.style.display = "block";
+    
+
+    return
+}
 
 
 // -------------------Schools-------------------

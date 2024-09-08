@@ -79,6 +79,9 @@ namespace DrugFreePortal.Models
 
         }
 
+
+
+
         [HttpPost("CheckInStudent")]
         public IActionResult CheckInStudent(User user, Queue queue)
         {

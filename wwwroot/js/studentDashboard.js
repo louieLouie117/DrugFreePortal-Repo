@@ -50,6 +50,102 @@ const UploadFileViewHandler = async (e) => {
    
 }
 
+const DeleteComplianceHandler = async (e , id) => {
+    console.log("DeleteComplianceHandler called",e.target.innerHTML, id);
+    let footer = document.getElementById("deleteFilOptions_" + id);
+
+    //update FileUploadItem_ id to add border dashed
+    let file = document.getElementById("FileUploadItem_" + id);
+  
+
+
+
+    // if to check the button target name
+    if(e.target.innerHTML === "Delete") {
+        footer.style.display = "block";
+        file.style.border = "1px dashed black";
+        file.style.padding = "10px";
+        return;
+    } 
+
+    if(e.target.innerHTML === "Yes") {
+        alert("Sorry, this feature is not yet available");
+        return;
+        
+    }
+
+    if(e.target.innerHTML === "No") {
+        footer.style.display = "none";
+        file.style.border = "none";
+        file.style.padding = "0px";
+        return;
+    }
+}
+
+const RenderUploadedFiles = (files, containerId) => {
+    console.log("RenderUploadedFiles called", files, containerId);
+    const ul = document.getElementById('FileUploadList_' + containerId); // Assuming you have a ul with id 'FileUploadList_' + id
+    // Clear the FileUploadList_ id ul
+    ul.innerHTML = "";
+
+    files.forEach(file => {
+        // Create a new list item
+        console.log("file", file.fileName);
+
+        //  data converter for file.createdOn
+        let date = new Date(file.updatedAt);
+        let formattedDate = date.toLocaleString();
+
+       
+
+        const li = document.createElement('li');
+        // id for li
+        li.id = "FileUploadItem_" + file.uploadFileId;
+        li.innerHTML = `
+            <header>
+                <a href="${file.filePath}" target="_blank">View File</a>
+                <label>${formattedDate}</label>
+            </header>
+            <button class="deleteBTN" id="deleteFile_${file.uploadFileId}" onclick="DeleteComplianceHandler(event, ${file.uploadFileId})">Delete</button>
+              <footer class="hidden" id="deleteFilOptions_${file.uploadFileId}">
+                <label>Delete this file?</label>
+                <button class="deleteBTN" id="deleteFile_${file.uploadFileId}" onclick="DeleteComplianceHandler(event, ${file.uploadFileId})">Yes</button>
+                <button class="deleteBTN" onclick="DeleteComplianceHandler(event, ${file.uploadFileId})">No</button>
+            </footer>
+            
+
+        `;
+
+        // Append the list item to the ul
+        ul.appendChild(li);
+    });
+}
+
+// Function to upload a file
+const GetComplianceFilesHandler = async (containerId) => {
+    console.log("GetComplianceFilesHandler called", containerId);
+    let fileUploadList = document.getElementById("FileUploadList_" + containerId);
+    fileUploadList.style.display = "grid";
+
+
+    fetch('getComplianceFiles', {
+        method: "GET",
+
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log("data from db", data);
+
+        RenderUploadedFiles(data.complianceFile, containerId);
+       
+    })
+    .catch(error => {
+        console.error("Error fetching compliance files:", error);
+        // Handle the error here
+    });
+}
+
+
 
 const uploadFile = (id, name) => {
     let button = document.getElementById("uploadButton_" + id);
@@ -82,25 +178,25 @@ const uploadFile = (id, name) => {
                     // alert("File uploaded successfully!");
                     // Call any other necessary functions here
                     button.disabled = false;
-                    button.innerHTML = "Upload";
+                    button.style.backgroundColor = "gray";
+                    button.disabled = true;
 
+                    // UPDATE THE LABEL TO SHOW THAT THE FILE is being uploaded
                     const label = document.getElementById("cardLabel_" + id);
-                    // Change the label text with file name and uploaded
-                    label.innerHTML = "Uploaded Completed";
-                    // Change the label color
-                    label.style.color = "green";
-
-                    // clear form with id uploadForm_id
-
-                    // setime to change label back to original
+                    label.innerHTML = "Uploading file...";
+                    label.style.color = "black";
+           
                     setTimeout(() => {
-                        label.innerHTML = "You can now upload other files for " + name + " compliance";
-                        label.style.color = "black";
+                        label.innerHTML = "Uploaded complete. You can now upload other files for " + name + " compliance.";
+                        label.style.color = "green";
                         document.getElementById("uploadForm_" + id).reset();
+                        button.style.backgroundColor = "#245684";
+                        button.disabled = false;
+                        GetComplianceFilesHandler(id);
 
                     }, 1000);
 
-
+                    // Call the function to get the updated list of files
                 
                 } else {
                     alert("An HTTP error occurred. Please try again.");
@@ -132,13 +228,13 @@ const RenderStudentCompliance = (complianceList) => {
         li.innerHTML = `
             <label id="cardLabel_${compliance.complianceTypeId}">${compliance.name}</label>
             <form class="FileUploadContainer" id="uploadForm_${compliance.complianceTypeId}">
-            <input type="file" id="fileInput_${compliance.complianceTypeId}" name="file" />
-            <footer>
-            <button id="uploadButton_${compliance.complianceTypeId}" class="mainBTN" type="submit">Upload</button>
-            </footer>
+                <input type="file" id="fileInput_${compliance.complianceTypeId}" name="file" />
+                <footer>
+                <button id="uploadButton_${compliance.complianceTypeId}" class="mainBTN" type="submit">Upload</button>
+                </footer>
             </form>
+            <ul class="UploadComplianceList" id="FileUploadList_${compliance.complianceTypeId}"></ul>
         `;
-
         // Append the list item to the ul
         ul.appendChild(li);
 
