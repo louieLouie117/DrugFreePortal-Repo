@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
   getSchools();
   getSchoolsForDeanReg();
   getSemesters();
+  loadComplianceTypes();
 });
 window.onload = function () {}; // loads after all the elements are loaded
 
@@ -72,7 +73,7 @@ const table = document.getElementById('usersList'); // Assuming you have a table
 
 
 
-window.addEventListener('load', () => {
+const loadComplianceTypes = () => {
     fetch('/GetComplianceTypes')
         .then(response => {
             if (response.ok) {
@@ -93,7 +94,39 @@ window.addEventListener('load', () => {
             // Handle network error
             console.error('Network error:', error);
         });
-});
+};
+
+
+
+
+
+const ComplianceTypeList = (data) => {
+    console.log("data to loop", data.data);
+    const complianceTypeList = document.getElementById("ComplianceTypeList");
+    complianceTypeList.innerHTML = "";
+    data.data.forEach(compliance => {
+        console.log("compliance", compliance);
+     
+       
+        // Create table body
+        let row = `
+            <tr>
+            <td>${compliance.complianceTypeId}</td>
+            <td>${compliance.name}</td>
+            <td>${compliance.school}</td>
+            <td>${compliance.idFromSchool}</td>
+            <td>${compliance.details}</td>
+            <td><button id="${compliance.complianceTypeId}" onclick="EditComplianceHandler('${compliance.school}', '${compliance.idFromSchool}', ${compliance.complianceTypeId}, '${compliance.name}', '${compliance.details}')">Edit</button></td>
+            </tr>
+        `;
+
+        // Append the table body to the complianceTypeList
+        complianceTypeList.innerHTML += row;
+    });
+};
+
+
+
 
 // 
 const CreateComplianceHandler = (event) => {
@@ -141,7 +174,8 @@ const CreateComplianceHandler = (event) => {
                 if (response.ok) {
                     // Handle successful response
                     console.log('Compliance created successfully');
-                              return response.json();
+                    loadComplianceTypes()
+                    return;
                 } else {
                     // Handle error response
                     console.error('Failed to create compliance');
@@ -150,9 +184,9 @@ const CreateComplianceHandler = (event) => {
             })
             .then(data => {
                 // Handle data from backend
-                console.log('Data from backend after submiting:', data);
+                console.log('Data from backend after submitting:', data);
                 // Call a function to handle the data
-                ComplianceTypeList(data);
+
             })
             .catch(error => {
                 // Handle network error
@@ -160,7 +194,7 @@ const CreateComplianceHandler = (event) => {
             });
     }
 
-    //if button = Save Changes
+    //Edit Compliance
     if (event.target.innerText === "Save Changes") {
 
         console.log(dataToEdit);
@@ -175,8 +209,9 @@ const CreateComplianceHandler = (event) => {
             .then(response => {
                 if (response.ok) {
                     // Handle successful response
-                    console.log('Compliance created successfully');
-                              return response.json();
+                    console.log('Compliance edited successfully');
+                    loadComplianceTypes()
+                return;
                 } else {
                     // Handle error response
                     console.error('Failed to create compliance');
@@ -185,15 +220,15 @@ const CreateComplianceHandler = (event) => {
             })
             .then(data => {
                 // Handle data from backend
-                console.log('Data from backend after submiting:', data);
+                console.log('Data from backend after submitting:', data);
                 // Call a function to handle the data
-                ComplianceTypeList(data);
             })
             .catch(error => {
                 // Handle network error
                 console.error('Network error:', error);
             });
     }
+
 };
 
 const EditComplianceHandler = (school, schoolId, complianceTypeId, name, details) => {
@@ -223,34 +258,6 @@ const EditComplianceHandler = (school, schoolId, complianceTypeId, name, details
 
     return
 }
-
-
-
-
-const ComplianceTypeList = (data) => {
-    console.log("data to loop", data.data);
-    const complianceTypeList = document.getElementById("ComplianceTypeList");
-    complianceTypeList.innerHTML = "";
-    data.data.forEach(compliance => {
-        console.log("compliance", compliance);
-     
-       
-        // Create table body
-        let row = `
-            <tr>
-            <td>${compliance.complianceTypeId}</td>
-            <td>${compliance.name}</td>
-            <td>${compliance.school}</td>
-            <td>${compliance.idFromSchool}</td>
-            <td>${compliance.details}</td>
-            <td><button id="${compliance.complianceTypeId}" onclick="EditComplianceHandler('${compliance.school}', '${compliance.idFromSchool}', ${compliance.complianceTypeId}, '${compliance.name}', '${compliance.details}')">Edit</button></td>
-            </tr>
-        `;
-
-        // Append the table body to the complianceTypeList
-        complianceTypeList.innerHTML += row;
-    });
-};
 
 
 // -------------------Schools-------------------
