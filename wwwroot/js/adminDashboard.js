@@ -105,15 +105,25 @@ const CreateComplianceHandler = (event) => {
     const complianceDetails = document.getElementById("ComplianceDetails").value;
     const EditComplianceId = document.getElementById("EditComplianceId").value;
   
+    const dataCreateCompliance = {
+        school: SchoolsSelector,
+        idFromSchool: IdFromSchool,
+        name: complianceName,
+        details: complianceDetails
+    };
+
+    const dataToEdit = {
+        school: SchoolsSelector,
+        idFromSchool: IdFromSchool,
+        name: complianceName,
+        details: complianceDetails,
+        complianceTypeId: EditComplianceId,
+       
+    };
 
     //if button = Create Compliance
     if (event.target.innerText === "Create Compliance") {
-        const dataCreateCompliance = {
-            school: SchoolsSelector,
-            idFromSchool: IdFromSchool,
-            name: complianceName,
-            details: complianceDetails
-        };
+
         
         console.log(dataCreateCompliance);
         if (SchoolsSelector === "Select School") {
@@ -153,16 +163,10 @@ const CreateComplianceHandler = (event) => {
     //if button = Save Changes
     if (event.target.innerText === "Save Changes") {
 
-        const dataToEdit = {
-            complianceTypeId: EditComplianceId,
-            name: complianceName,
-            details: complianceDetails
-        };
-
         console.log(dataToEdit);
-
+    
         fetch('/EditCompliance', {
-            method: 'POST',
+            method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -171,17 +175,17 @@ const CreateComplianceHandler = (event) => {
             .then(response => {
                 if (response.ok) {
                     // Handle successful response
-                    console.log('Compliance edited successfully');
-                    return response.json();
+                    console.log('Compliance created successfully');
+                              return response.json();
                 } else {
                     // Handle error response
-                    console.error('Failed to edit compliance');
-                    throw new Error('Failed to edit compliance');
+                    console.error('Failed to create compliance');
+                    throw new Error('Failed to create compliance');
                 }
             })
             .then(data => {
                 // Handle data from backend
-                console.log('Data from backend after editing:', data);
+                console.log('Data from backend after submiting:', data);
                 // Call a function to handle the data
                 ComplianceTypeList(data);
             })
@@ -192,14 +196,22 @@ const CreateComplianceHandler = (event) => {
     }
 };
 
-const EditComplianceHandler = (complianceTypeId, name, details) => {
+const EditComplianceHandler = (school, schoolId, complianceTypeId, name, details) => {
     console.log('Editing compliance with id:', complianceTypeId, name, details);
+
+
     let ComplianceSubmitBTN = document.getElementById("ComplianceSubmitBTN");
     ComplianceSubmitBTN.innerText = "Save Changes";
+
+    let schoolSelector = document.getElementById("SchoolsSelector");
+    schoolSelector.value = school;
+
+    let idFromSchool = document.getElementById("IdFromSchool");
+    idFromSchool.value = schoolId;
+
     // place the name in the input field
     let complianceNameInput = document.getElementById("ComplianceName");
     complianceNameInput.value = name;
-
 
     let complianceDetailsInput = document.getElementById("ComplianceDetails"); // Move the declaration here
     complianceDetailsInput.value = details; 
@@ -226,12 +238,12 @@ const ComplianceTypeList = (data) => {
         // Create table body
         let row = `
             <tr>
-                <td>${compliance.complianceTypeId}</td>
-                <td>${compliance.name}</td>
-                <td>${compliance.school}</td>
-                <td>${compliance.idFromSchool}</td>
-                <td>${compliance.details}</td>
-                <td><button id="${compliance.complianceTypeId}" onclick="EditComplianceHandler(${compliance.complianceTypeId}, '${compliance.name}', '${compliance.details}')">Edit</button></td>
+            <td>${compliance.complianceTypeId}</td>
+            <td>${compliance.name}</td>
+            <td>${compliance.school}</td>
+            <td>${compliance.idFromSchool}</td>
+            <td>${compliance.details}</td>
+            <td><button id="${compliance.complianceTypeId}" onclick="EditComplianceHandler('${compliance.school}', '${compliance.idFromSchool}', ${compliance.complianceTypeId}, '${compliance.name}', '${compliance.details}')">Edit</button></td>
             </tr>
         `;
 

@@ -33,6 +33,38 @@ namespace DrugFreePortal.Models
             return Ok(new { data = complianceTypes, message = "Reached backend of adding new compliance" });
         }
 
+
+        [HttpPut("EditCompliance")]
+        public IActionResult EditMethod([FromBody] ComplianceType DataFromUser)
+        {
+            if (DataFromUser == null)
+            {
+                // Handle the case where DataFromUser is null
+                return BadRequest("Data from user is null");
+            }
+
+            // Check for null properties if necessary
+            if (DataFromUser.ComplianceTypeId == null || DataFromUser.Name == null || DataFromUser.Details == null)
+            {
+                // Handle the case where required properties are null
+                return BadRequest("One or more required properties are null");
+            }
+
+            try
+            {
+                // Your existing logic to edit the compliance type
+            }
+            catch (Exception ex)
+            {
+                // Handle any other exceptions
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+
+            System.Console.WriteLine($"Compliance type edited successfully:{DataFromUser.ComplianceTypeId} {DataFromUser.Name}, {DataFromUser.Details}");
+
+            return Ok("Compliance type edited successfully");
+        }
+
         [HttpGet("GetComplianceTypes")]
         public IActionResult GetComplianceTypes()
         {
