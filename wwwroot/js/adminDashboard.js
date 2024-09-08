@@ -100,12 +100,10 @@ const CreateComplianceHandler = (event) => {
     event.preventDefault();
 
     const SchoolsSelector = document.getElementById("SchoolsSelector").value;
-  
     const IdFromSchool = document.getElementById("IdFromSchool").value;
     const complianceName = document.getElementById("ComplianceName").value;
     const complianceDetails = document.getElementById("ComplianceDetails").value;
-
-
+    const EditComplianceId = document.getElementById("EditComplianceId").value;
   
 
     //if button = Create Compliance
@@ -154,13 +152,21 @@ const CreateComplianceHandler = (event) => {
 
     //if button = Save Changes
     if (event.target.innerText === "Save Changes") {
-        alert("Save Changes");
+
+        const dataToEdit = {
+            complianceTypeId: EditComplianceId,
+            name: complianceName,
+            details: complianceDetails
+        };
+
+        console.log(dataToEdit);
+
         fetch('/EditCompliance', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(data)
+            body: JSON.stringify(dataToEdit)
         })
             .then(response => {
                 if (response.ok) {
@@ -191,8 +197,17 @@ const EditComplianceHandler = (complianceTypeId, name, details) => {
     let ComplianceSubmitBTN = document.getElementById("ComplianceSubmitBTN");
     ComplianceSubmitBTN.innerText = "Save Changes";
     // place the name in the input field
-    document.getElementById("ComplianceName").value = name;
-    document.getElementById("ComplianceDetails").value = details;
+    let complianceNameInput = document.getElementById("ComplianceName");
+    complianceNameInput.value = name;
+
+
+    let complianceDetailsInput = document.getElementById("ComplianceDetails"); // Move the declaration here
+    complianceDetailsInput.value = details; 
+
+    let editComplianceIdInput = document.getElementById("EditComplianceId");
+    editComplianceIdInput.value = complianceTypeId;
+    editComplianceIdInput.style.display = "block";
+    
 
     return
 }
