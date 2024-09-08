@@ -44,7 +44,7 @@ namespace DrugFreePortal.Models
             }
 
             // Check for null properties if necessary
-            if (DataFromUser.ComplianceTypeId == null || DataFromUser.Name == null || DataFromUser.Details == null)
+            if (DataFromUser.Name == null || DataFromUser.Details == null)
             {
                 // Handle the case where required properties are null
                 return BadRequest("One or more required properties are null");
@@ -61,6 +61,10 @@ namespace DrugFreePortal.Models
             }
 
             System.Console.WriteLine($"Compliance type edited successfully:{DataFromUser.ComplianceTypeId} {DataFromUser.Name}, {DataFromUser.Details}");
+            // save changes to the database
+            _context.ComplianceTypes?.Update(DataFromUser);
+            _context.SaveChanges();
+
 
             return Ok("Compliance type edited successfully");
         }
