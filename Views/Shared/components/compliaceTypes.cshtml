@@ -18,7 +18,8 @@
         </select>
         <input type="text" id="IdFromSchool">
         <input type="text" id="ComplianceName" placeholder="Name of Compliance: Hep-C">
-        <textarea name="" id="ComplianceDetails" cols="30" rows="10" placeholder="Details:"></textarea>
+        <textarea name="" id="ComplianceDetails" cols="30" rows="10" placeholder="Details:"
+            onkeydown="if(event.keyCode === 13) { event.preventDefault(); }"></textarea>
         <button id="ComplianceSubmitBTN" class="mainBTN" onclick="CreateComplianceHandler(event)">Create
             Compliance</button>
     </form>
