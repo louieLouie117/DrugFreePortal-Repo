@@ -41,26 +41,32 @@ namespace DrugFreePortal.Models
                 .ToList();
 
 
-            // get updated list of uploaded files and filtered by the compliance name
-            // var ComplianceListWithFiles = (// Create a new list of objects
-            //     from compliance in ComplianceList // Iterate through each compliance in the ComplianceList
-            //     let filesInCompliance = _context?.UploadFiles?.Where(f => f.FileName == compliance.Name)?.ToList() ?? new List<UploadFile>() // Update the type of 'filesInCompliance' to use the imported type 'UploadFile'
-            //     select new // Create a new anonymous object with the compliance and the filtered files
-            //     {
-            //         Compliance = compliance, // Store the current compliance
-            //         Files = filesInCompliance.ToList() // Store the filtered files in a list
-            //     }).ToList(); // Convert the result into a list
+            int? UserIdInSession = HttpContext.Session.GetInt32("UserId");
+
 
 
             // get updated list of uploaded files and filtered by the compliance name
             var ComplianceListWithFiles = (
                 from compliance in ComplianceList
-                join file in _context?.UploadFiles ?? Enumerable.Empty<UploadFile>() on compliance.Name equals file.FileName into filesInCompliance
+                let filesInCompliance = _context?.UploadFiles?.Where(f => f.FileName == compliance.Name && f.UserId == UserIdInSession)?.ToList() ?? new List<UploadFile>()
                 select new
                 {
                     Compliance = compliance,
                     Files = filesInCompliance.ToList()
                 }).ToList();
+
+
+            // get updated list of uploaded files and filtered by the compliance name
+
+            // // userid in session
+            // var ComplianceListWithFiles = (
+            //     from compliance in ComplianceList
+            //     join file in _context?.UploadFiles ?? Enumerable.Empty<UploadFile>() on compliance.Name equals file.FileName into filesInCompliance
+            //     select new
+            //     {
+            //         Compliance = compliance,
+            //         Files = filesInCompliance.ToList()
+            //     }).ToList();
 
 
 

@@ -222,7 +222,7 @@ const RenderStudentCompliance = (complianceList) => {
 
     complianceList.forEach(data => {
         // Create a new list item
-        console.log("Loop data compliance name", data.compliance.name);
+        console.log("Loop data compliance name", data.files);
 
         const li = document.createElement('li');
         li.id = "UploadCard_" +  data.compliance.complianceTypeId;
@@ -240,10 +240,8 @@ const RenderStudentCompliance = (complianceList) => {
         ul.appendChild(li);
 
 
-        // loop for data.files to get the files for each compliance
-        data.files.forEach(file => {
-            GetComplianceFilesHandler(data.compliance.complianceTypeId);
-        });
+        // pass file data and container id to RenderUploadedFiles
+        RenderUploadedFiles(data.files, data.compliance.complianceTypeId);
 
 
         // Call uploadFile to set up the event listener
