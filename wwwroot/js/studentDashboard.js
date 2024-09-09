@@ -215,31 +215,39 @@ const uploadFile = (id, name) => {
 };
 
 const RenderStudentCompliance = (complianceList) => {
+    console.log("RenderStudentCompliance called", complianceList);
     const ul = document.getElementById('SchoolComplianceForStudent'); // Assuming you have a ul with id 'SchoolComplianceForStudent'
     // Clear the SchoolComplianceForStudent id ul
     ul.innerHTML = "";
 
-    complianceList.forEach(compliance => {
+    complianceList.forEach(data => {
         // Create a new list item
-        console.log("compliance", compliance.complianceTypeId);
+        console.log("Loop data compliance name", data.compliance.name);
 
         const li = document.createElement('li');
-        li.id = "UploadCard_" + compliance.complianceTypeId;
+        li.id = "UploadCard_" +  data.compliance.complianceTypeId;
         li.innerHTML = `
-            <label id="cardLabel_${compliance.complianceTypeId}">${compliance.name}</label>
-            <form class="FileUploadContainer" id="uploadForm_${compliance.complianceTypeId}">
-                <input type="file" id="fileInput_${compliance.complianceTypeId}" name="file" />
+            <label id="cardLabel_${ data.compliance.complianceTypeId}">${ data.compliance.name}</label>
+            <form class="FileUploadContainer" id="uploadForm_${ data.compliance.complianceTypeId}">
+                <input type="file" id="fileInput_${ data.compliance.complianceTypeId}" name="file" />
                 <footer>
-                <button id="uploadButton_${compliance.complianceTypeId}" class="mainBTN" type="submit">Upload</button>
+                <button id="uploadButton_${ data.compliance.complianceTypeId}" class="mainBTN" type="submit">Upload</button>
                 </footer>
             </form>
-            <ul class="UploadComplianceList" id="FileUploadList_${compliance.complianceTypeId}"></ul>
+            <ul class="UploadComplianceList" id="FileUploadList_${ data.compliance.complianceTypeId}"></ul>
         `;
         // Append the list item to the ul
         ul.appendChild(li);
 
+
+        // loop for data.files to get the files for each compliance
+        data.files.forEach(file => {
+            GetComplianceFilesHandler(data.compliance.complianceTypeId);
+        });
+
+
         // Call uploadFile to set up the event listener
-        uploadFile(compliance.complianceTypeId, compliance.name);
+        uploadFile(data.compliance.complianceTypeId,  data.compliance.name);
     });
 };
 
@@ -250,8 +258,10 @@ const GetStudentSchoolComplianceHandler = async () => {
     .then(data => {
         console.log("data from db", data);
         console.log("student compliance", data.complianceListData);
+        console.log("**********Compliance With Files**********", data.complianceListWithFilesData);
 
-        RenderStudentCompliance(data.complianceListData);
+
+        RenderStudentCompliance(data.complianceListWithFilesData);
     })
     .catch(error => {
         console.error("Error fetching student compliance:", error);
