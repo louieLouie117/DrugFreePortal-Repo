@@ -1209,7 +1209,7 @@ th{
     }
 
     .UploadComplianceList{
-        display: none;
+        display: grid;
         align-items: flex-start;
         row-gap: 13px;
         max-height: 200px;
