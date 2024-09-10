@@ -28,7 +28,7 @@ namespace DrugFreePortal.Models
         {
             // get user id from session
             int? SchoolIdInSession = HttpContext.Session?.GetInt32("SchoolIdInSession");
-            System.Console.WriteLine($"----------------UserId in session Home:GetUsers => {SchoolIdInSession}");
+            int? UserIdInSession = HttpContext.Session?.GetInt32("UserId") ?? 0;
 
             // if user is not logged in 
             if (SchoolIdInSession == null)
@@ -41,10 +41,6 @@ namespace DrugFreePortal.Models
                 .ToList();
 
 
-            int? UserIdInSession = HttpContext.Session.GetInt32("UserId");
-
-
-
             // get updated list of uploaded files and filtered by the compliance name
             var ComplianceListWithFiles = (
                 from compliance in ComplianceList
@@ -54,24 +50,6 @@ namespace DrugFreePortal.Models
                     Compliance = compliance,
                     Files = filesInCompliance.ToList()
                 }).ToList();
-
-
-            // get updated list of uploaded files and filtered by the compliance name
-
-            // // userid in session
-            // var ComplianceListWithFiles = (
-            //     from compliance in ComplianceList
-            //     join file in _context?.UploadFiles ?? Enumerable.Empty<UploadFile>() on compliance.Name equals file.FileName into filesInCompliance
-            //     select new
-            //     {
-            //         Compliance = compliance,
-            //         Files = filesInCompliance.ToList()
-            //     }).ToList();
-
-
-
-
-
 
 
             return Ok(new { Message = "Reached backend of compliance", ComplianceListData = ComplianceList, ComplianceListWithFilesData = ComplianceListWithFiles });
