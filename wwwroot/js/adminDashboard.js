@@ -137,6 +137,13 @@ const CreateComplianceHandler = (event) => {
     const complianceName = document.getElementById("ComplianceName").value;
     const complianceDetails = document.getElementById("ComplianceDetails").value;
     const EditComplianceId = document.getElementById("EditComplianceId").value;
+
+
+    // check if complianceName has special characters
+    if (complianceName.match(/[^a-zA-Z0-9 _\-]/)) {
+        alert("Compliance name cannot contain special characters");
+        return;
+    }
   
     const dataCreateCompliance = {
         school: SchoolsSelector,
@@ -164,7 +171,7 @@ const CreateComplianceHandler = (event) => {
             return;
         }
         fetch('/AddCompliance', {
-            method: 'PUT',
+            method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
