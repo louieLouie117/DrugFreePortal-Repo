@@ -27,8 +27,7 @@ namespace DrugFreePortal.Models
             // add to database
             _context.ComplianceTypes?.Add(DataFromUser);
             _context.SaveChanges();
-
-            var complianceTypes = _context.ComplianceTypes?.ToList();
+            var complianceTypes = _context.ComplianceTypes?.OrderByDescending(c => c.Name).ToList();
 
             return Ok(new { data = complianceTypes, message = "Reached backend of adding new compliance" });
         }
@@ -214,6 +213,15 @@ namespace DrugFreePortal.Models
             // Access the JSON DataFromUser from the request
             System.Console.WriteLine("Reached backend of deleting school");
             System.Console.WriteLine($"SchoolId-------------->: {DataFromUser.SchoolId}");
+
+            //check if the data is  empty
+            if (DataFromUser.SchoolId == 0)
+            {
+                return BadRequest(new { message = "School ID is empty" });
+            }
+
+
+
 
             // get the school from the database
             NewSchool? school = _context.NewSchools?.FirstOrDefault(s => s.SchoolId == DataFromUser.SchoolId);
