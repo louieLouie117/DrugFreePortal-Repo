@@ -328,15 +328,39 @@ const deleteSchoolHandler = (e, schoolId) => {
             return;
         }
 
-        //check if password is correct
-        if (password.value !== "delete123") {
-            alert("Incorrect password");
-            return;
-        }
 
-        if (password.value === "delete123") {
-            deleteSchool(schoolId)
-        }
+            const data = {
+                SchoolId: schoolId,
+                dean: "schoolDean",
+                name: password.value,
+                address: "schoolAddress",
+                city: "schoolCity",
+                state: "schoolState",
+                zipCode: "schoolZipCode",
+                onSiteDate: "schoolOnsiteDate",
+                
+            };
+
+            fetch('/DeleteSchool', {
+                method: 'Delete',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+                .then(response => response.json())
+                .then(data => {
+                    // Handle success response
+                    console.log('School deleted successfully', data);
+                    getSchools();
+                })
+                .catch(error => {
+                    // Handle error response
+                    console.error('Failed to delete school', error);
+                });
+        // if (password.value === "delete123") {
+
+        // }
     }
 
 }
