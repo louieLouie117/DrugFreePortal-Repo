@@ -557,6 +557,7 @@ th{
     overflow: scroll;
     height: 75vh;
     align-items: flex-start;
+    align-content: flex-start;
  }
 
     .QueueBody li{
