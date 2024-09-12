@@ -352,6 +352,7 @@ const deleteSchoolHandler = (e, schoolId) => {
                 .then(data => {
                     // Handle success response
                     console.log('School deleted successfully', data);
+                    alert(data.message);
                     getSchools();
                 })
                 .catch(error => {
