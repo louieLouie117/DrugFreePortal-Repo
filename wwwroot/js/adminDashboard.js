@@ -12,14 +12,18 @@ window.onload = function () {}; // loads after all the elements are loaded
 
 // arrow function to fetch all users from the database
 const fetchAllUsers = async () => {
-    fetch("/GetUsers")
+    fetch("/GetAllStudents")
     .then(response => response.json())
     .then(data => {
         console.log("data from db", data);
-        console.log("users list", data.usersList);
+        console.log("student list", data.studentList);
+        console.log("admin list", data.adminList);
 
-        RenderAllUsers(data.usersList);
+
+        RenderAllUsers(data.studentList, data.adminList);
     });
+
+   
 };
 
 
@@ -27,46 +31,57 @@ const fetchAllUsers = async () => {
 
 
 
-const RenderAllUsers = (users) => {
-const table = document.getElementById('usersList'); // Assuming you have a table with id 'usersList'
-    // Clear the usersList id table
-    table.innerHTML = "";
+const RenderAllUsers = (Students, Admins) => {
+    const StudentTable = document.getElementById('StudentList'); // Assuming you have a StudentTable with id 'StudentList'
+    const AdminTable = document.getElementById('AdminList'); // Assuming you have an AdminTable with id 'AdminList'
+    
+    // Clear the tables
+    StudentTable.innerHTML = "";
+    AdminTable.innerHTML = "";
 
-    users.forEach(user => {
+    // Combine Students and Admins into a single array
+    const allUsers = [...Students, ...Admins];
+
+    allUsers.forEach(user => {
         // Map accountType values to descriptive strings
+        let accountTypeDescription;
         switch (user.accountType) {
             case 0:
-                user.accountType = 'Admin';
+                accountTypeDescription = 'Admin';
                 break;
             case 1:
-                user.accountType = 'Dean';
+                accountTypeDescription = 'Dean';
                 break;
             case 2:
-                user.accountType = 'Student';
+                accountTypeDescription = 'Student';
                 break;
             case 3:
-                user.accountType = 'Evaluator';
+                accountTypeDescription = 'Evaluator';
                 break;
             default:
-                user.accountType = 'Unknown';
+                accountTypeDescription = 'Unknown';
         }
 
         // Create a new table row
         const row = document.createElement('tr');
         row.innerHTML = `
             <td>${user.userId}</td>
-            <td>${user.accountType}</td>
+            <td>${accountTypeDescription}</td>
             <td>${user.schoolId}</td>
             <td>${user.school}</td>
             <td>${user.studentId}</td>
             <td>${user.firstName}</td>
             <td>${user.lastName}</td>
             <td>${user.email}</td>
-            <td><button class="hidden"id="${user.userId}" onclick="DeleteUserHandler(${user.userId})">Delete</button></td>
+            <td><button class="hidden" id="${user.userId}" onclick="DeleteUserHandler(${user.userId})">Delete</button></td>
         `;
 
-        // Append the row to the table
-        table.appendChild(row);
+        // Append the row to the appropriate table
+        if (user.accountType === 2) { // 2 corresponds to 'Student'
+            StudentTable.appendChild(row);
+        } else {
+            AdminTable.appendChild(row);
+        }
     });
 };
 

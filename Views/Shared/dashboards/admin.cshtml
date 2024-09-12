@@ -13,19 +13,43 @@
 <div class="AdminDashboard-container">
 
     <h1>Admin Dashboard</h1>
-    <partial name="components/semesters">
-        <partial name="components/schoolCrud">
-            <partial name="components/compliaceTypes">
+    <section class="AdminContainer">
+        <partial name="components/semesters">
+    </section>
 
-                <div class="Admin-Container">
+    <partial name="components/schoolCrud">
+        <partial name="components/compliaceTypes">
+
+            <section class="Reg-Container">
+                <partial name="registration/adminstudentReg">
                     <div>
-                        <partial name="registration/adminstudentReg">
-                            <partial name="registration/adminReg">
-                                <partial name="registration/evaluatorReg">
-                                    <partial name="registration/deanReg">
+                        <table id="StudentList"></table>
                     </div>
-                    <partial name="components/renderUsers">
-                </div>
+            </section>
+
+
+            <section class="Reg-Container">
+
+                <partial name="registration/adminReg">
+                    <div>
+                        <table id="AdminList"></table>
+                    </div>
+            </section>
+
+            <section class="Reg-Container">
+                <partial name="registration/evaluatorReg">
+                    <div>
+                        <table id="EvaluatorList"></table>
+                    </div>
+            </section>
+
+            <section class="Reg-Container">
+                <partial name="registration/deanReg">
+
+                    <div>
+                        <table id="TeacherList"></table>
+                    </div>
+            </section>
 
 
 

@@ -22,6 +22,30 @@ namespace DrugFreePortal.Models
             _config = configuration;
         }
 
+
+
+        [HttpGet("GetAllStudents")]
+        public IActionResult GetAllStudents()
+        {
+            System.Console.WriteLine("Reached backend of get users");
+
+            // lambda expression to get all student users with null or empty check net8.0 new feature
+            List<User> AllStudents = _context.Users?.Where(u => (int)u.AccountType == 2).ToList() ?? new List<User>();
+            // descending order
+            AllStudents = AllStudents.OrderByDescending(u => u.CreatedAt).ToList();
+
+
+            // lambda expression to get all student users with null or empty check net8.0 new feature
+            List<User> AllAdmins = _context.Users?.Where(u => (int)u.AccountType == 0).ToList() ?? new List<User>();
+            // descending order
+            AllAdmins = AllAdmins.OrderByDescending(u => u.CreatedAt).ToList();
+
+            return Ok(new { Status = "Success", StudentList = AllStudents, AdminList = AllAdmins });
+        }
+
+
+
+
         [HttpPost("AddCompliance")]
         public IActionResult ComplianceMethod([FromBody] ComplianceType DataFromUser)
         {
