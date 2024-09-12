@@ -24,8 +24,8 @@ namespace DrugFreePortal.Models
 
 
 
-        [HttpGet("GetAllStudents")]
-        public IActionResult GetAllStudents()
+        [HttpGet("GetAllUsers")]
+        public IActionResult GetAllUsers()
         {
             System.Console.WriteLine("Reached backend of get users");
 
@@ -40,7 +40,14 @@ namespace DrugFreePortal.Models
             // descending order
             AllAdmins = AllAdmins.OrderByDescending(u => u.CreatedAt).ToList();
 
-            return Ok(new { Status = "Success", StudentList = AllStudents, AdminList = AllAdmins });
+            // lambda expression to get all evaluators
+            List<User> AllEvaluators = _context.Users?.Where(u => (int)u.AccountType == 3).ToList() ?? new List<User>();
+
+            // lambda expression to get all deans 1
+            List<User> AllDeans = _context.Users?.Where(u => (int)u.AccountType == 1).ToList() ?? new List<User>();
+
+
+            return Ok(new { Status = "Success", StudentList = AllStudents, AdminList = AllAdmins, EvaluatorList = AllEvaluators, DeanList = AllDeans });
         }
 
 

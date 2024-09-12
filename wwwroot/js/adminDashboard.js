@@ -12,15 +12,15 @@ window.onload = function () {}; // loads after all the elements are loaded
 
 // arrow function to fetch all users from the database
 const fetchAllUsers = async () => {
-    fetch("/GetAllStudents")
+    fetch("/GetAllUsers")
     .then(response => response.json())
     .then(data => {
         console.log("data from db", data);
-        console.log("student list", data.studentList);
-        console.log("admin list", data.adminList);
+      
 
 
-        RenderAllUsers(data.studentList, data.adminList);
+
+        RenderAllUsers(data.studentList, data.adminList, data.evaluatorList, data.deanList);
     });
 
    
@@ -31,16 +31,25 @@ const fetchAllUsers = async () => {
 
 
 
-const RenderAllUsers = (Students, Admins) => {
+const RenderAllUsers = (Students, Admins, Evaluators, Deans) => {
+
+    console.log("student list", Students);
+    console.log("admin list", Admins);
+    console.log("evaluator list",Evaluators);
     const StudentTable = document.getElementById('StudentList'); // Assuming you have a StudentTable with id 'StudentList'
     const AdminTable = document.getElementById('AdminList'); // Assuming you have an AdminTable with id 'AdminList'
+
+    const EvaluatorTable = document.getElementById('EvaluatorListTest'); // Assuming you have an EvaluatorTable with id 'EvaluatorList'
+    const DeanTable = document.getElementById('DeanList'); // Assuming you have a DeanTable with id 'DeanList'
     
     // Clear the tables
     StudentTable.innerHTML = "";
     AdminTable.innerHTML = "";
+    EvaluatorTable.innerHTML = "";
+    DeanTable.innerHTML = "";
 
     // Combine Students and Admins into a single array
-    const allUsers = [...Students, ...Admins];
+    const allUsers = [...Students, ...Admins, ...Evaluators, ...Deans];
 
     allUsers.forEach(user => {
         // Map accountType values to descriptive strings
@@ -79,8 +88,18 @@ const RenderAllUsers = (Students, Admins) => {
         // Append the row to the appropriate table
         if (user.accountType === 2) { // 2 corresponds to 'Student'
             StudentTable.appendChild(row);
-        } else {
+        } 
+        
+        if(user.accountType === 3) { // 3 corresponds to 'Evaluator'
+            EvaluatorTable.appendChild(row);
+        } 
+        
+        if(user.accountType === 0 ) { // 0 corresponds to 'Admin' and 1 corresponds to 'Dean'
             AdminTable.appendChild(row);
+        }
+
+        if(user.accountType === 1) { // 1 corresponds to 'Dean'
+            DeanTable.appendChild(row);
         }
     });
 };
