@@ -1,65 +1,65 @@
 <script>
-
-    const deleteSchool = (schoolId) => {
+    @*
+        const deleteSchool = (schoolId) => {
         console.log('Deleting school with id:', schoolId);
 
         const data = {
-            SchoolId: schoolId
+        SchoolId: schoolId
         };
         $.ajax({
-            url: '/DeleteSchool',
-            type: 'POST',
-            data: data,
-            success: (data) => {
-                // Handle success response
-                console.log('School deleted successfully', data);
-                getSchools();
-            },
-            error: (error) => {
-                // Handle error response
-                console.error('Failed to delete school', error);
-            }
+        url: '/DeleteSchool',
+        type: 'POST',
+        data: data,
+        success: (data) => {
+        // Handle success response
+        console.log('School deleted successfully', data);
+        getSchools();
+        },
+        error: (error) => {
+        // Handle error response
+        console.error('Failed to delete school', error);
+        }
         });
-    }
+        } *@
 
-    function createSchool(event) {
-        event.preventDefault();
+        function createSchool(event) {
+            event.preventDefault();
 
-        const schoolDean = document.getElementById('schoolDean').value;
-        const schoolName = document.getElementById('schoolName').value;
-        const schoolAddress = document.getElementById('schoolAddress').value;
-        const schoolCity = document.getElementById('schoolCity').value;
-        const schoolState = document.getElementById('schoolState').value;
-        const schoolZipCode = document.getElementById('schoolZipCode').value;
-        const schoolOnsiteDate = document.getElementById('schoolOnsiteDate').value;
+            const schoolDean = document.getElementById('schoolDean').value;
+            const schoolName = document.getElementById('schoolName').value;
+            const schoolAddress = document.getElementById('schoolAddress').value;
+            const schoolCity = document.getElementById('schoolCity').value;
+            const schoolState = document.getElementById('schoolState').value;
+            const schoolZipCode = document.getElementById('schoolZipCode').value;
+            const schoolOnsiteDate = document.getElementById('schoolOnsiteDate').value;
 
-        const data = {
-            dean: schoolDean,
-            name: schoolName,
-            address: schoolAddress,
-            city: schoolCity,
-            state: schoolState,
-            zipCode: schoolZipCode,
-            onSiteDate: schoolOnsiteDate
-        };
+            const data = {
+                dean: schoolDean,
+                name: schoolName,
+                address: schoolAddress,
+                city: schoolCity,
+                state: schoolState,
+                zipCode: schoolZipCode,
+                onSiteDate: schoolOnsiteDate
+            };
 
 
-        console.log(data);
-        console.log(JSON.stringify(data));
+            console.log(data);
+            console.log(JSON.stringify(data));
 
-        $.ajax({
-            url: '/CreateSchool',
-            type: 'POST',
-            data: data,
+            $.ajax({
+                url: '/CreateSchool',
+                type: 'POST',
+                data: data,
     @* contentType: 'application/json', *@
-            success: function (response) {
-                // Handle success response
-                console.log(response);
-            },
-            error: function (error) {
-                // Handle error response
-                console.log(error);
-            }
+                success: function (response) {
+                    // Handle success response
+                    console.log(response);
+                },
+                error: function (error) {
+                    // Handle error response
+                    console.log(error);
+                }
         });
     }
 
