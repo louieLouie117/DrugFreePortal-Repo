@@ -137,6 +137,13 @@ const CreateComplianceHandler = (event) => {
     const complianceName = document.getElementById("ComplianceName").value;
     const complianceDetails = document.getElementById("ComplianceDetails").value;
     const EditComplianceId = document.getElementById("EditComplianceId").value;
+
+
+    // check if complianceName has special characters
+    if (complianceName.match(/[^a-zA-Z0-9 _\-]/)) {
+        alert("Compliance name cannot contain special characters");
+        return;
+    }
   
     const dataCreateCompliance = {
         school: SchoolsSelector,
@@ -164,7 +171,7 @@ const CreateComplianceHandler = (event) => {
             return;
         }
         fetch('/AddCompliance', {
-            method: 'PUT',
+            method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -288,6 +295,76 @@ const deleteSchool = (schoolId) => {
 }
 **/
 
+const deleteSchoolHandler = (e, schoolId) => {
+    let labelName = document.getElementById('schoolName' + schoolId);
+
+    if(e.target.innerHTML === "Delete"){
+    
+        let deleteSchoolDiv = document.getElementById('deleteSchoolDiv' + schoolId);
+        deleteSchoolDiv.style.display = 'block';
+        return;
+    }
+    if(e.target.innerHTML === "Yes"){
+        let password = document.getElementById('password' + schoolId);
+        password.style.display = 'block';        
+        e.target.innerHTML = "Confirm";
+        labelName.innerHTML = "Please write down the school id before deleting.";
+        return;
+
+    }
+
+    if(e.target.innerHTML === "No"){
+        let deleteSchoolDiv = document.getElementById('deleteSchoolDiv' + schoolId);
+        deleteSchoolDiv.style.display = 'none';
+        return;
+    }
+
+    if (e.target.innerHTML === "Confirm") {
+        let password = document.getElementById('password' + schoolId);
+    
+        //check if password is empty
+        if (password.value === "") {
+            alert("Please enter the delete password");
+            return;
+        }
+
+
+            const data = {
+                SchoolId: schoolId,
+                dean: "schoolDean",
+                name: password.value,
+                address: "schoolAddress",
+                city: "schoolCity",
+                state: "schoolState",
+                zipCode: "schoolZipCode",
+                onSiteDate: "schoolOnsiteDate",
+                
+            };
+
+            fetch('/DeleteSchool', {
+                method: 'Delete',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+                .then(response => response.json())
+                .then(data => {
+                    // Handle success response
+                    console.log('School deleted successfully', data);
+                    alert(data.message);
+                    getSchools();
+                })
+                .catch(error => {
+                    // Handle error response
+                    console.error('Failed to delete school', error);
+                });
+        // if (password.value === "delete123") {
+
+        // }
+    }
+
+}
 
 const getSchools = () => {
     fetch('/GetAllSchools', {
@@ -313,14 +390,64 @@ function RenderSchoolsAsUl(schools) {
 
     schools.forEach(school => {
         const li = document.createElement('li');
-        li.textContent = school.name;
+        const idLabel = document.createElement('label');
+        idLabel.textContent = "ID: " + school.schoolId;
+        li.appendChild(idLabel);
+
+
+        const label = document.createElement('label');
+        label.textContent =  school.name;
+        li.appendChild(label);
+        
+        // Create a div to hold the buttons
+        const buttonDiv = document.createElement('div');
+        buttonDiv.style.display = 'none';
+        buttonDiv.id = 'deleteSchoolDiv' + school.schoolId;
+
+        //create label permanently to delete school
+        const deleteLabel = document.createElement('label');
+        deleteLabel.textContent = 'Permanently Delete School? This action can not be undo all data will be lost.';
+        deleteLabel.style.color = 'red';
+        deleteLabel.id = "schoolName" + school.schoolId;
+
+        buttonDiv.appendChild(deleteLabel);
+        
+        // Create a hidden input element with placeholder password
+        const hiddenInput = document.createElement('input');
+        hiddenInput.type = 'password';
+        hiddenInput.placeholder = 'Enter delete password';
+        hiddenInput.style.display = 'none';
+        hiddenInput.id = 'password' + school.schoolId;
+        buttonDiv.appendChild(hiddenInput);
+        
+        // Create the 'Yes' button
+        const yesButton = document.createElement('button');
+        yesButton.textContent = 'Yes';
+        yesButton.addEventListener('click', (event) => {
+            // call the delete school function
+            deleteSchoolHandler(event, school.schoolId);
+        });
+        buttonDiv.appendChild(yesButton);
+        
+        // Create the 'No' button
+        const noButton = document.createElement('button');
+        noButton.textContent = 'No';
+        noButton.addEventListener('click', (event) => {
+            // call the delete school function
+            deleteSchoolHandler(event, school.schoolId);
+        });
+        buttonDiv.appendChild(noButton);
+        
+        // Append the button div to the li
+        li.appendChild(buttonDiv);
+        
         // generate delete button
         const deleteButton = document.createElement('button');
         deleteButton.textContent = 'Delete';
         // add an event listener to the delete button
-        deleteButton.addEventListener('click', () => {
+        deleteButton.addEventListener('click', (event) => {
             // call the delete school function
-            deleteSchool(school.schoolId);
+            deleteSchoolHandler(event, school.schoolId);
         });
         // append the delete button to the li
         li.appendChild(deleteButton);
