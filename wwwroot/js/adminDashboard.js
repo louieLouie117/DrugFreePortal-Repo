@@ -127,16 +127,20 @@ const RenderAllUsers = (Students, Admins, Evaluators, Deans) => {
         StudentRow.innerHTML = `
             <td>${user.userId}</td>
 
-            <td class="hidden">${accountTypeDescription}</td>
-            <td>${user.schoolId}</td>
-            <td>${user.school}</td>
-            <td>${user.studentId}</td>
-            <td>${user.firstName}</td>
-            <td>${user.lastName}</td>
-            <td>${user.email}</td>
-            <td><button id="${user.userId}" onclick="AdminCheckInStudentHandler(${user.userId})">Check In</button></td>
-            <td><button id="${user.userId}" onclick="AdminSignInStudentHandler(${user.userId}, ${user.schoolId})">Sign In</button></td>
+           
+            <td>${user.firstName} ${user.lastName}</td>
 
+            <td>${user.studentId}</td>
+
+             <td class="hidden">${user.schoolId}</td>
+            <td>${user.school}</td>
+
+            <td>${user.email}</td>
+
+             <td class="hidden">${accountTypeDescription}</td>
+              <td><button id="${user.userId}" onclick="AdminCheckInStudentHandler(${user.userId})">Check-In</button><button id="${user.userId}" onclick="AdminSignInStudentHandler(${user.userId}, ${user.schoolId})">Sign-In</button></td>
+
+          
             <td class="hidden"><button id="${user.userId}" onclick="DeleteUserHandler(${user.userId})">Delete</button></td>
         `;
 
