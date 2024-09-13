@@ -77,7 +77,7 @@ namespace DrugFreePortal.Models
             HttpContext.Session.SetInt32("SchoolIdInSession", schoolId);
 
             // return ok message "Session set"
-            return Ok(new { message = "You are now being signin to the students dashboard! Select Ok to continue." });
+            return Ok(new { message = "You are now being sign in to the students dashboard! Select Ok to continue." });
 
         }
 

@@ -126,7 +126,6 @@ const RenderAllUsers = (Students, Admins, Evaluators, Deans) => {
         const StudentRow = document.createElement('tr');
         StudentRow.innerHTML = `
             <td>${user.userId}</td>
-
            
             <td>${user.firstName} ${user.lastName}</td>
 
