@@ -16,19 +16,11 @@ const fetchAllUsers = async () => {
     .then(response => response.json())
     .then(data => {
         console.log("data from db", data);
-      
-
-
-
         RenderAllUsers(data.studentList, data.adminList, data.evaluatorList, data.deanList);
     });
 
    
 };
-
-
-
-
 
 
 const RenderAllUsers = (Students, Admins, Evaluators, Deans) => {
@@ -85,9 +77,25 @@ const RenderAllUsers = (Students, Admins, Evaluators, Deans) => {
             <td><button class="hidden" id="${user.userId}" onclick="DeleteUserHandler(${user.userId})">Delete</button></td>
         `;
 
+
+        const StudentRow = document.createElement('tr');
+        StudentRow.innerHTML = `
+            <td>${user.userId}</td>
+            <td><button id="${user.userId}" onclick="CheckInStudentHandler(${user.userId})">Check In</button></td>
+
+            <td>${accountTypeDescription}</td>
+            <td>${user.schoolId}</td>
+            <td class="hidden">${user.school}</td>
+            <td>${user.studentId}</td>
+            <td>${user.firstName}</td>
+            <td>${user.lastName}</td>
+            <td>${user.email}</td>
+            <td><button  id="${user.userId}" onclick="DeleteUserHandler(${user.userId})">Delete</button></td>
+        `;
+
         // Append the row to the appropriate table
         if (user.accountType === 2) { // 2 corresponds to 'Student'
-            StudentTable.appendChild(row);
+            StudentTable.appendChild(StudentRow);
         } 
         
         if(user.accountType === 3) { // 3 corresponds to 'Evaluator'
