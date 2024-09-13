@@ -23,6 +23,50 @@ namespace DrugFreePortal.Models
         }
 
 
+        [HttpGet("AdminCheckInStudent/{userId}")]
+        public IActionResult AdminCheckInStudent(int userId)
+        {  // Access the JSON UserToCheckIn from the request
+            var checkQueue = _context.Queues?
+                .FirstOrDefault(u => u.StudentUserId == userId);
+
+            if (checkQueue != null)
+            {
+                return Ok(new { message = "User has already been check in." });
+            }
+            System.Console.WriteLine($"----------------UserId in Admin:GetUsers => {userId}");
+
+            // get user from session with lambda expression
+            var UserFound = _context.Users?
+                .FirstOrDefault(u => u.UserId == userId);
+
+            // use the user data to add to the queue; SchoolId, UserId, StudentName, StudentUserId, first name, last name, email, phone number and status = "Start"
+            Queue newQueue = new Queue
+            {
+                SchoolId = UserFound.SchoolId,
+                SchoolName = UserFound.School,
+                StudentId = 0, // Set the value of the 'StudentId' property
+                StudentUserId = UserFound.UserId, // Set the value of the 'StudentUserId' property
+                FirstName = UserFound.FirstName,
+                LastName = UserFound.LastName,
+                Email = UserFound.Email,
+                PhoneNumber = UserFound.PhoneNumber,
+                Status = "Start"
+            };
+
+            // add the new queue to the database
+            _context.Queues.Add(newQueue);
+            _context.SaveChanges();
+
+            return Ok(new
+            {
+                UserInSession = UserFound,
+                QueueData = newQueue,
+                message = "Successfully check-in."
+            });
+        }  // Access the JSON UserToCheckIn from the request
+
+
+
 
         [HttpGet("GetAllUsers")]
         public IActionResult GetAllUsers()
@@ -49,6 +93,8 @@ namespace DrugFreePortal.Models
 
             return Ok(new { Status = "Success", StudentList = AllStudents, AdminList = AllAdmins, EvaluatorList = AllEvaluators, DeanList = AllDeans });
         }
+
+
 
 
 

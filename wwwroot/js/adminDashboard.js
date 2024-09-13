@@ -23,6 +23,26 @@ const fetchAllUsers = async () => {
 };
 
 
+const AdminCheckInStudentHandler = (userId) => {
+    console.log("Checking in student with userId:", userId);
+    fetch('/AdminCheckInStudent/' + userId, {
+        method: 'Get',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+    })
+        .then(response => response.json())
+        .then(data => {
+            // Handle success response
+            console.log('Student checked in successfully', data);
+            alert(data.message);
+        })
+        .catch(error => {
+            // Handle error response
+            console.error('Failed to check in student', error);
+        });
+}
+
 const RenderAllUsers = (Students, Admins, Evaluators, Deans) => {
 
     console.log("student list", Students);
@@ -81,16 +101,16 @@ const RenderAllUsers = (Students, Admins, Evaluators, Deans) => {
         const StudentRow = document.createElement('tr');
         StudentRow.innerHTML = `
             <td>${user.userId}</td>
-            <td><button id="${user.userId}" onclick="CheckInStudentHandler(${user.userId})">Check In</button></td>
 
-            <td>${accountTypeDescription}</td>
+            <td class="hidden">${accountTypeDescription}</td>
             <td>${user.schoolId}</td>
-            <td class="hidden">${user.school}</td>
+            <td>${user.school}</td>
             <td>${user.studentId}</td>
             <td>${user.firstName}</td>
             <td>${user.lastName}</td>
             <td>${user.email}</td>
-            <td><button  id="${user.userId}" onclick="DeleteUserHandler(${user.userId})">Delete</button></td>
+            <td><button id="${user.userId}" onclick="AdminCheckInStudentHandler(${user.userId})">Check In</button></td>
+            <td class="hidden"><button id="${user.userId}" onclick="DeleteUserHandler(${user.userId})">Delete</button></td>
         `;
 
         // Append the row to the appropriate table
