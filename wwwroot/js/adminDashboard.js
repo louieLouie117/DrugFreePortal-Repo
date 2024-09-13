@@ -43,6 +43,28 @@ const AdminCheckInStudentHandler = (userId) => {
         });
 }
 
+const AdminSignInStudentHandler = (userId, schoolId) => {
+    console.log("Signing in student with userId:", userId, "School Id:" , schoolId);
+
+    // fetch get api and pass the userId and schoolId
+    fetch('/AdminSignInStudent/' + userId + '/' + schoolId, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+    })
+        .then(response => response.json())
+        .then(data => {
+            // Handle success response
+            console.log('Student signed in successfully', data);
+            alert(data.message);
+        })
+        .catch(error => {
+            // Handle error response
+            console.error('Failed to sign in student', error);
+        });
+}
+
 const RenderAllUsers = (Students, Admins, Evaluators, Deans) => {
 
     console.log("student list", Students);
@@ -110,6 +132,8 @@ const RenderAllUsers = (Students, Admins, Evaluators, Deans) => {
             <td>${user.lastName}</td>
             <td>${user.email}</td>
             <td><button id="${user.userId}" onclick="AdminCheckInStudentHandler(${user.userId})">Check In</button></td>
+            <td><button id="${user.userId}" onclick="AdminSignInStudentHandler(${user.userId}, ${user.schoolId})">Sign In</button></td>
+
             <td class="hidden"><button id="${user.userId}" onclick="DeleteUserHandler(${user.userId})">Delete</button></td>
         `;
 
