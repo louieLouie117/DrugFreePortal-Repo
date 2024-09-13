@@ -48,25 +48,17 @@
             console.log("student schoolId", student.schoolId);
 
 
-            const schoolIdInput = document.createElement('input');
-            schoolIdInput.type = 'text';
-            schoolIdInput.value = student.schoolId;
-            schoolIdInput.disabled = true;
-            schoolIdInput.id = 'schoolIdStudentEdit';
-            schoolIdInput.classList.add('hidden');
-            form.appendChild(schoolIdInput);
+            const firstNameLabel = document.createElement('label');
+            firstNameLabel.textContent = 'Welcome:';
+            const firstNameInput = document.createElement('input');
+            firstNameInput.type = 'text';
+            firstNameInput.value = student.firstName + ' ' + student.lastName + ' ID: ' + student.studentId;
+            firstNameInput.disabled = true;
+            firstNameInput.id = 'firstNameStudentEdit';
+            form.appendChild(firstNameLabel);
+            form.appendChild(firstNameInput);
 
-            const schoolLabel = document.createElement('label');
-            schoolLabel.textContent = 'School:';
-            const schoolInput = document.createElement('input');
-            schoolInput.type = 'text';
-            schoolInput.value = student.school;
-            schoolInput.disabled = true;
-            schoolInput.id = 'schoolStudentEdit';
-            form.appendChild(schoolLabel);
-            form.appendChild(schoolInput);
-
-            const studentIdLabel = document.createElement('label');
+    @* const studentIdLabel = document.createElement('label');
             studentIdLabel.textContent = 'Student Id:';
             const studentIdInput = document.createElement('input');
             studentIdInput.type = 'text';
@@ -74,56 +66,64 @@
             studentIdInput.disabled = true;
             studentIdInput.id = 'studentIdStudentEdit';
             form.appendChild(studentIdLabel);
-            form.appendChild(studentIdInput);
+            form.appendChild(studentIdInput); *@
 
 
-            const firstNameLabel = document.createElement('label');
-            firstNameLabel.textContent = 'First Name:';
-            const firstNameInput = document.createElement('input');
-            firstNameInput.type = 'text';
-            firstNameInput.value = student.firstName;
-            firstNameInput.disabled = true;
-            firstNameInput.id = 'firstNameStudentEdit';
-            form.appendChild(firstNameLabel);
-            form.appendChild(firstNameInput);
+    @* const schoolIdInput = document.createElement('input');
+                schoolIdInput.type = 'text';
+                schoolIdInput.value = student.schoolId;
+                schoolIdInput.disabled = true;
+                schoolIdInput.id = 'schoolIdStudentEdit';
+                schoolIdInput.classList.add('hidden');
+                form.appendChild(schoolIdInput);
 
-            const lastNameLabel = document.createElement('label');
-            lastNameLabel.textContent = 'Last Name:';
-            const lastNameInput = document.createElement('input');
-            lastNameInput.type = 'text';
-            lastNameInput.value = student.lastName;
-            lastNameInput.disabled = true;
-            lastNameInput.id = 'lastNameStudentEdit';
-            form.appendChild(lastNameLabel);
-            form.appendChild(lastNameInput);
+                const schoolLabel = document.createElement('label');
+                schoolLabel.textContent = 'School:';
+                const schoolInput = document.createElement('input');
+                schoolInput.type = 'text';
+                schoolInput.value = student.school;
+                schoolInput.disabled = true;
+                schoolInput.id = 'schoolStudentEdit';
+                form.appendChild(schoolLabel);
+                form.appendChild(schoolInput); *@
 
-            const phoneNumberLabel = document.createElement('label');
-            phoneNumberLabel.textContent = 'Phone:';
-            const phoneNumberInput = document.createElement('input');
-            phoneNumberInput.type = 'text';
-            phoneNumberInput.value = student.phoneNumber;
-            phoneNumberInput.disabled = true;
-            phoneNumberInput.id = 'phoneNumberStudentEdit';
-            form.appendChild(phoneNumberLabel);
-            form.appendChild(phoneNumberInput);
+    @* const lastNameLabel = document.createElement('label');
+                lastNameLabel.textContent = 'Last Name:';
+                const lastNameInput = document.createElement('input');
+                lastNameInput.type = 'text';
+                lastNameInput.value = student.lastName;
+                lastNameInput.disabled = true;
+                lastNameInput.id = 'lastNameStudentEdit';
+                form.appendChild(lastNameLabel);
+                form.appendChild(lastNameInput);
 
-            const emailLabel = document.createElement('label');
-            emailLabel.textContent = 'Email:';
-            const emailInput = document.createElement('input');
-            emailInput.type = 'text';
-            emailInput.value = student.email;
-            emailInput.disabled = true;
-            emailInput.id = 'emailStudentEdit';
-            form.appendChild(emailLabel);
-            form.appendChild(emailInput);
+                const phoneNumberLabel = document.createElement('label');
+                phoneNumberLabel.textContent = 'Phone:';
+                const phoneNumberInput = document.createElement('input');
+                phoneNumberInput.type = 'text';
+                phoneNumberInput.value = student.phoneNumber;
+                phoneNumberInput.disabled = true;
+                phoneNumberInput.id = 'phoneNumberStudentEdit';
+                form.appendChild(phoneNumberLabel);
+                form.appendChild(phoneNumberInput);
+
+                const emailLabel = document.createElement('label');
+                emailLabel.textContent = 'Email:';
+                const emailInput = document.createElement('input');
+                emailInput.type = 'text';
+                emailInput.value = student.email;
+                emailInput.disabled = true;
+                emailInput.id = 'emailStudentEdit';
+                form.appendChild(emailLabel);
+                form.appendChild(emailInput); *@
         });
 
-        const button = document.createElement('button');
-        button.textContent = 'Edit Profile';
-        button.addEventListener('click', EditStudentProfile);
-        form.appendChild(button);
+    @* const button = document.createElement('button');
+            button.textContent = 'Edit Profile';
+            button.addEventListener('click', EditStudentProfile);
+            form.appendChild(button); *@
 
-        document.getElementById('StudentProfileContainer').appendChild(form);
+            document.getElementById('StudentProfileContainer').appendChild(form);
     };
 
 
@@ -131,5 +131,5 @@
 </script>
 
 <div id="StudentProfileContainer" class="StudentProfile-Container">
-    <h1>Student Profile</h1>
+    <h1 class="hidden">Student Profile</h1>
 </div>

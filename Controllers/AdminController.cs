@@ -73,10 +73,6 @@ namespace DrugFreePortal.Models
 
             // set userId to session 
             HttpContext.Session.SetInt32("UserId", userId);
-
-            //set adminId to session to 2 
-
-
             // set schoolId to session session
             HttpContext.Session.SetInt32("SchoolIdInSession", schoolId);
 
