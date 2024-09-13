@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
   getSchoolsForDeanReg();
   getSemesters();
   loadComplianceTypes();
+
 });
 window.onload = function () {}; // loads after all the elements are loaded
 
@@ -58,6 +59,8 @@ const AdminSignInStudentHandler = (userId, schoolId) => {
             // Handle success response
             console.log('Student signed in successfully', data);
             alert(data.message);
+            //refresh the page
+            location.reload();
         })
         .catch(error => {
             // Handle error response
