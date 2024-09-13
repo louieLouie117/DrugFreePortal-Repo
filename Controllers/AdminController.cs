@@ -22,6 +22,83 @@ namespace DrugFreePortal.Models
             _config = configuration;
         }
 
+
+        [HttpGet("AdminCheckInStudent/{userId}")]
+        public IActionResult AdminCheckInStudent(int userId)
+        {  // Access the JSON UserToCheckIn from the request
+            var checkQueue = _context.Queues?
+                .FirstOrDefault(u => u.StudentUserId == userId);
+
+            if (checkQueue != null)
+            {
+                return Ok(new { message = "User has already been check in." });
+            }
+            System.Console.WriteLine($"----------------UserId in Admin:GetUsers => {userId}");
+
+            // get user from session with lambda expression
+            var UserFound = _context.Users?
+                .FirstOrDefault(u => u.UserId == userId);
+
+            // use the user data to add to the queue; SchoolId, UserId, StudentName, StudentUserId, first name, last name, email, phone number and status = "Start"
+            Queue newQueue = new Queue
+            {
+                SchoolId = UserFound.SchoolId,
+                SchoolName = UserFound.School,
+                StudentId = 0, // Set the value of the 'StudentId' property
+                StudentUserId = UserFound.UserId, // Set the value of the 'StudentUserId' property
+                FirstName = UserFound.FirstName,
+                LastName = UserFound.LastName,
+                Email = UserFound.Email,
+                PhoneNumber = UserFound.PhoneNumber,
+                Status = "Start"
+            };
+
+            // add the new queue to the database
+            _context.Queues.Add(newQueue);
+            _context.SaveChanges();
+
+            return Ok(new
+            {
+                UserInSession = UserFound,
+                QueueData = newQueue,
+                message = "Successfully check-in."
+            });
+        }  // Access the JSON UserToCheckIn from the request
+
+
+
+
+        [HttpGet("GetAllUsers")]
+        public IActionResult GetAllUsers()
+        {
+            System.Console.WriteLine("Reached backend of get users");
+
+            // lambda expression to get all student users with null or empty check net8.0 new feature
+            List<User> AllStudents = _context.Users?.Where(u => (int)u.AccountType == 2).ToList() ?? new List<User>();
+            // descending order
+            AllStudents = AllStudents.OrderByDescending(u => u.CreatedAt).ToList();
+
+
+            // lambda expression to get all student users with null or empty check net8.0 new feature
+            List<User> AllAdmins = _context.Users?.Where(u => (int)u.AccountType == 0).ToList() ?? new List<User>();
+            // descending order
+            AllAdmins = AllAdmins.OrderByDescending(u => u.CreatedAt).ToList();
+
+            // lambda expression to get all evaluators
+            List<User> AllEvaluators = _context.Users?.Where(u => (int)u.AccountType == 3).ToList() ?? new List<User>();
+
+            // lambda expression to get all deans 1
+            List<User> AllDeans = _context.Users?.Where(u => (int)u.AccountType == 1).ToList() ?? new List<User>();
+
+
+            return Ok(new { Status = "Success", StudentList = AllStudents, AdminList = AllAdmins, EvaluatorList = AllEvaluators, DeanList = AllDeans });
+        }
+
+
+
+
+
+
         [HttpPost("AddCompliance")]
         public IActionResult ComplianceMethod([FromBody] ComplianceType DataFromUser)
         {

@@ -12,61 +12,123 @@ window.onload = function () {}; // loads after all the elements are loaded
 
 // arrow function to fetch all users from the database
 const fetchAllUsers = async () => {
-    fetch("/GetUsers")
+    fetch("/GetAllUsers")
     .then(response => response.json())
     .then(data => {
         console.log("data from db", data);
-        console.log("users list", data.usersList);
-
-        RenderAllUsers(data.usersList);
+        RenderAllUsers(data.studentList, data.adminList, data.evaluatorList, data.deanList);
     });
+
+   
 };
 
 
+const AdminCheckInStudentHandler = (userId) => {
+    console.log("Checking in student with userId:", userId);
+    fetch('/AdminCheckInStudent/' + userId, {
+        method: 'Get',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+    })
+        .then(response => response.json())
+        .then(data => {
+            // Handle success response
+            console.log('Student checked in successfully', data);
+            alert(data.message);
+        })
+        .catch(error => {
+            // Handle error response
+            console.error('Failed to check in student', error);
+        });
+}
 
+const RenderAllUsers = (Students, Admins, Evaluators, Deans) => {
 
+    console.log("student list", Students);
+    console.log("admin list", Admins);
+    console.log("evaluator list",Evaluators);
+    const StudentTable = document.getElementById('StudentList'); // Assuming you have a StudentTable with id 'StudentList'
+    const AdminTable = document.getElementById('AdminList'); // Assuming you have an AdminTable with id 'AdminList'
 
+    const EvaluatorTable = document.getElementById('EvaluatorListTest'); // Assuming you have an EvaluatorTable with id 'EvaluatorList'
+    const DeanTable = document.getElementById('DeanList'); // Assuming you have a DeanTable with id 'DeanList'
+    
+    // Clear the tables
+    StudentTable.innerHTML = "";
+    AdminTable.innerHTML = "";
+    EvaluatorTable.innerHTML = "";
+    DeanTable.innerHTML = "";
 
-const RenderAllUsers = (users) => {
-const table = document.getElementById('usersList'); // Assuming you have a table with id 'usersList'
-    // Clear the usersList id table
-    table.innerHTML = "";
+    // Combine Students and Admins into a single array
+    const allUsers = [...Students, ...Admins, ...Evaluators, ...Deans];
 
-    users.forEach(user => {
+    allUsers.forEach(user => {
         // Map accountType values to descriptive strings
+        let accountTypeDescription;
         switch (user.accountType) {
             case 0:
-                user.accountType = 'Admin';
+                accountTypeDescription = 'Admin';
                 break;
             case 1:
-                user.accountType = 'Dean';
+                accountTypeDescription = 'Dean';
                 break;
             case 2:
-                user.accountType = 'Student';
+                accountTypeDescription = 'Student';
                 break;
             case 3:
-                user.accountType = 'Evaluator';
+                accountTypeDescription = 'Evaluator';
                 break;
             default:
-                user.accountType = 'Unknown';
+                accountTypeDescription = 'Unknown';
         }
 
         // Create a new table row
         const row = document.createElement('tr');
         row.innerHTML = `
             <td>${user.userId}</td>
-            <td>${user.accountType}</td>
+            <td>${accountTypeDescription}</td>
             <td>${user.schoolId}</td>
             <td>${user.school}</td>
             <td>${user.studentId}</td>
             <td>${user.firstName}</td>
             <td>${user.lastName}</td>
             <td>${user.email}</td>
-            <td><button class="hidden"id="${user.userId}" onclick="DeleteUserHandler(${user.userId})">Delete</button></td>
+            <td><button class="hidden" id="${user.userId}" onclick="DeleteUserHandler(${user.userId})">Delete</button></td>
         `;
 
-        // Append the row to the table
-        table.appendChild(row);
+
+        const StudentRow = document.createElement('tr');
+        StudentRow.innerHTML = `
+            <td>${user.userId}</td>
+
+            <td class="hidden">${accountTypeDescription}</td>
+            <td>${user.schoolId}</td>
+            <td>${user.school}</td>
+            <td>${user.studentId}</td>
+            <td>${user.firstName}</td>
+            <td>${user.lastName}</td>
+            <td>${user.email}</td>
+            <td><button id="${user.userId}" onclick="AdminCheckInStudentHandler(${user.userId})">Check In</button></td>
+            <td class="hidden"><button id="${user.userId}" onclick="DeleteUserHandler(${user.userId})">Delete</button></td>
+        `;
+
+        // Append the row to the appropriate table
+        if (user.accountType === 2) { // 2 corresponds to 'Student'
+            StudentTable.appendChild(StudentRow);
+        } 
+        
+        if(user.accountType === 3) { // 3 corresponds to 'Evaluator'
+            EvaluatorTable.appendChild(row);
+        } 
+        
+        if(user.accountType === 0 ) { // 0 corresponds to 'Admin' and 1 corresponds to 'Dean'
+            AdminTable.appendChild(row);
+        }
+
+        if(user.accountType === 1) { // 1 corresponds to 'Dean'
+            DeanTable.appendChild(row);
+        }
     });
 };
 
