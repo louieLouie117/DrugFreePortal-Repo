@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
   getSchoolsForDeanReg();
   getSemesters();
   loadComplianceTypes();
+
 });
 window.onload = function () {}; // loads after all the elements are loaded
 
@@ -40,6 +41,30 @@ const AdminCheckInStudentHandler = (userId) => {
         .catch(error => {
             // Handle error response
             console.error('Failed to check in student', error);
+        });
+}
+
+const AdminSignInStudentHandler = (userId, schoolId) => {
+    console.log("Signing in student with userId:", userId, "School Id:" , schoolId);
+
+    // fetch get api and pass the userId and schoolId
+    fetch('/AdminSignInStudent/' + userId + '/' + schoolId, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+    })
+        .then(response => response.json())
+        .then(data => {
+            // Handle success response
+            console.log('Student signed in successfully', data);
+            alert(data.message);
+            //refresh the page
+            location.reload();
+        })
+        .catch(error => {
+            // Handle error response
+            console.error('Failed to sign in student', error);
         });
 }
 
@@ -101,15 +126,20 @@ const RenderAllUsers = (Students, Admins, Evaluators, Deans) => {
         const StudentRow = document.createElement('tr');
         StudentRow.innerHTML = `
             <td>${user.userId}</td>
+           
+            <td>${user.firstName} ${user.lastName}</td>
 
-            <td class="hidden">${accountTypeDescription}</td>
-            <td>${user.schoolId}</td>
-            <td>${user.school}</td>
             <td>${user.studentId}</td>
-            <td>${user.firstName}</td>
-            <td>${user.lastName}</td>
+
+             <td class="hidden">${user.schoolId}</td>
+            <td>${user.school}</td>
+
             <td>${user.email}</td>
-            <td><button id="${user.userId}" onclick="AdminCheckInStudentHandler(${user.userId})">Check In</button></td>
+
+             <td class="hidden">${accountTypeDescription}</td>
+              <td><button id="${user.userId}" onclick="AdminCheckInStudentHandler(${user.userId})">Check-In</button><button id="${user.userId}" onclick="AdminSignInStudentHandler(${user.userId}, ${user.schoolId})">Sign-In</button></td>
+
+          
             <td class="hidden"><button id="${user.userId}" onclick="DeleteUserHandler(${user.userId})">Delete</button></td>
         `;
 

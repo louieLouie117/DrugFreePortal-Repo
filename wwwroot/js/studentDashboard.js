@@ -1,3 +1,8 @@
+document.addEventListener('DOMContentLoaded', () => {
+    GetStudentInformation();
+  
+  });
+
 const GetUserFilesHandler = async () => {
     console.log("GetUserFilesHandler called");
     // clear this element with id StudentResults
@@ -310,4 +315,129 @@ const GetStudentResults = (event) => {
         .catch(error => {
             console.error('Error:', error);
         });
+};
+
+
+
+
+const GetStudentInformation = () => {
+    fetch('GetStudentInformation')
+        .then(response => response.json())
+        .then(data => {
+            // Process the user information here
+            console.log("Student Info---------", data.studentData);
+            RenderStudentInformation(data.studentData);
+        })
+        .catch(error => {
+            // Handle any errors that occur during the fetch request
+            console.error(error);
+        });
+};
+
+const EditStudentProfile = (e) => {
+    e.preventDefault();
+    if (e.target.textContent === 'Edit Profile') {
+        e.target.textContent = 'Save Profile';
+        document.getElementById('studentIdStudentEdit').disabled = false;
+        document.getElementById('studentIdStudentEdit').classList.add('withBorder');
+        document.getElementById('firstNameStudentEdit').disabled = false;
+        document.getElementById('firstNameStudentEdit').classList.add('withBorder');
+        document.getElementById('lastNameStudentEdit').disabled = false;
+        document.getElementById('lastNameStudentEdit').classList.add('withBorder');
+        document.getElementById('emailStudentEdit').disabled = false;
+        document.getElementById('emailStudentEdit').classList.add('withBorder');
+    } else {
+        e.target.textContent = 'Edit Profile';
+        document.getElementById('studentIdStudentEdit').disabled = true;
+        document.getElementById('firstNameStudentEdit').disabled = true;
+        document.getElementById('lastNameStudentEdit').disabled = true;
+        document.getElementById('emailStudentEdit').disabled = true;
+    }
+};
+
+const RenderStudentInformation = (studentData) => {
+    const form = document.createElement('form');
+    form.id = 'StudentInfoForm';
+
+
+    studentData.forEach((student) => {
+        console.log("student schoolId", student.schoolId);
+
+
+        const firstNameLabel = document.createElement('label');
+        firstNameLabel.textContent = 'Welcome:';
+        const firstNameInput = document.createElement('input');
+        firstNameInput.type = 'text';
+        firstNameInput.value = student.firstName + ' ' + student.lastName;
+        firstNameInput.disabled = true;
+        firstNameInput.id = 'firstNameStudentEdit';
+        form.appendChild(firstNameLabel);
+        form.appendChild(firstNameInput);
+
+// const studentIdLabel = document.createElement('label');
+//         studentIdLabel.textContent = 'Student Id:';
+//         const studentIdInput = document.createElement('input');
+//         studentIdInput.type = 'text';
+//         studentIdInput.value = student.studentId;
+//         studentIdInput.disabled = true;
+//         studentIdInput.id = 'studentIdStudentEdit';
+//         form.appendChild(studentIdLabel);
+//         form.appendChild(studentIdInput); 
+
+
+// const schoolIdInput = document.createElement('input');
+//             schoolIdInput.type = 'text';
+//             schoolIdInput.value = student.schoolId;
+//             schoolIdInput.disabled = true;
+//             schoolIdInput.id = 'schoolIdStudentEdit';
+//             schoolIdInput.classList.add('hidden');
+//             form.appendChild(schoolIdInput);
+
+//             const schoolLabel = document.createElement('label');
+//             schoolLabel.textContent = 'School:';
+//             const schoolInput = document.createElement('input');
+//             schoolInput.type = 'text';
+//             schoolInput.value = student.school;
+//             schoolInput.disabled = true;
+//             schoolInput.id = 'schoolStudentEdit';
+//             form.appendChild(schoolLabel);
+//             form.appendChild(schoolInput); 
+
+// const lastNameLabel = document.createElement('label');
+//             lastNameLabel.textContent = 'Last Name:';
+//             const lastNameInput = document.createElement('input');
+//             lastNameInput.type = 'text';
+//             lastNameInput.value = student.lastName;
+//             lastNameInput.disabled = true;
+//             lastNameInput.id = 'lastNameStudentEdit';
+//             form.appendChild(lastNameLabel);
+//             form.appendChild(lastNameInput);
+
+//             const phoneNumberLabel = document.createElement('label');
+//             phoneNumberLabel.textContent = 'Phone:';
+//             const phoneNumberInput = document.createElement('input');
+//             phoneNumberInput.type = 'text';
+//             phoneNumberInput.value = student.phoneNumber;
+//             phoneNumberInput.disabled = true;
+//             phoneNumberInput.id = 'phoneNumberStudentEdit';
+//             form.appendChild(phoneNumberLabel);
+//             form.appendChild(phoneNumberInput);
+
+//             const emailLabel = document.createElement('label');
+//             emailLabel.textContent = 'Email:';
+//             const emailInput = document.createElement('input');
+//             emailInput.type = 'text';
+//             emailInput.value = student.email;
+//             emailInput.disabled = true;
+//             emailInput.id = 'emailStudentEdit';
+//             form.appendChild(emailLabel);
+//             form.appendChild(emailInput); 
+    });
+
+// const button = document.createElement('button');
+//         button.textContent = 'Edit Profile';
+//         button.addEventListener('click', EditStudentProfile);
+//         form.appendChild(button); 
+
+        document.getElementById('StudentProfileContainer').appendChild(form);
 };

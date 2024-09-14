@@ -71,6 +71,23 @@ const DeleteRecordHandler = async (RecordId) => {
 
 }
 
+const ShowDeleteOptionsHandler = async (e, RecordId) => {
+    console.log("ShowDeleteOptionsHandler called", RecordId);
+
+    let RecordContainer = document.getElementById("RecordContainer" + RecordId);
+    let footer = document.getElementById("footer" + RecordId);
+    footer.style.display = "block";
+    RecordContainer.style.gridTemplateColumns = "10px 1fr 130px 1fr";
+    
+    if(e.target.innerHTML === "No"){
+        RecordContainer.style.gridTemplateColumns = "10px 1fr 130px";
+        footer.style.display = "none";
+    }
+    
+  
+    
+}
+
 
 const RenderStudentRecords = async (RenderStudentRecords) => {
     console.log("****************RenderStudentRecords was called", RenderStudentRecords);
@@ -80,11 +97,12 @@ const RenderStudentRecords = async (RenderStudentRecords) => {
     RenderStudentRecords.forEach((studentRecord) => {
         console.log("*********====>>studentRecord", studentRecord);
         let li = document.createElement('li');
+        li.id = "RecordContainer" + studentRecord.recordId;
 
         let button = document.createElement('button');
         button.innerHTML = "";
         button.className = "QueueDeleteBTN";
-        button.addEventListener("click", () => DeleteRecordHandler(studentRecord.recordId));
+        button.addEventListener("click", (e) => ShowDeleteOptionsHandler(e, studentRecord.recordId));
         li.appendChild(button);
         
         
@@ -100,6 +118,31 @@ const RenderStudentRecords = async (RenderStudentRecords) => {
         labelStatus.style.width = "100%";
         labelStatus.style.textAlign = "center";
         li.appendChild(labelStatus);
+
+        //footer with 
+        let footer = document.createElement('footer');
+        footer.className = "hidden";
+        footer.id = "footer" + studentRecord.recordId;
+        li.appendChild(footer);
+
+        let labelDelete = document.createElement('label');
+        labelDelete.innerHTML = "Delete Record?";
+        footer.appendChild(labelDelete);
+        // two buttons yes no and a label delete
+        let buttonYes = document.createElement('button');
+        buttonYes.innerHTML = "Yes";
+        buttonYes.addEventListener("click", (e) => DeleteRecordHandler(studentRecord.recordId));
+        footer.appendChild(buttonYes);
+
+     
+
+        let buttonNo = document.createElement('button');
+        buttonNo.innerHTML = "No";
+        buttonNo.addEventListener("click", (e) => ShowDeleteOptionsHandler(e, studentRecord.recordId));
+
+        footer.appendChild(buttonNo);
+
+
         
         document.getElementById('RecordList').appendChild(li);
     });

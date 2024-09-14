@@ -66,6 +66,22 @@ namespace DrugFreePortal.Models
         }  // Access the JSON UserToCheckIn from the request
 
 
+        [HttpGet("AdminSignInStudent/{userId}/{schoolId}")]
+        public IActionResult AdminSignInStudent(int userId, int schoolId)
+        {
+            System.Console.WriteLine($"----------------UserId in Admin:GetUsers => {userId}");
+
+            // set userId to session 
+            HttpContext.Session.SetInt32("UserId", userId);
+            // set schoolId to session session
+            HttpContext.Session.SetInt32("SchoolIdInSession", schoolId);
+
+            // return ok message "Session set"
+            return Ok(new { message = "You are now being sign in to the students dashboard! Select Ok to continue." });
+
+        }
+
+
 
 
         [HttpGet("GetAllUsers")]
